@@ -2061,6 +2061,38 @@ function renderGraphemes(L) {
   ${C.length ? `<h3 style="margin:10px 0 4px;font-size:14px">Consonants (${C.length})</h3><div>${C.map(item).join("")}</div>` : ""}${V.length ? `<h3 style="margin:14px 0 4px;font-size:14px">Vowels (${V.length})</h3><div>${V.map(item).join("")}</div>` : ""}
   <p>${dbl}${modTxt}</p>` + tail;
 }
+// What the non-letter characters of an alphabet are and how the measures treat them (shown on the About tab).
+const CHAR_GLOSS = {
+  "\u200c": ["ZWNJ", "zero-width non-joiner (Persian نیم‌فاصله, “half-space”): keeps the letters on either side from joining inside one word, as in می‌کنم. Counts as a character in length and trigrams; has no CV unit and no grapheme of its own."],
+  "\u200d": ["ZWJ", "zero-width joiner: forces the letters on either side to join. Counts in length and trigrams; no CV unit of its own."],
+  "ь": ["ь", "soft sign: marks the consonant before it as palatalised; no sound of its own. Counts in length and trigrams; no CV unit, joins the preceding grapheme."],
+  "ъ": ["ъ", "hard sign: separates a consonant from a following iotated vowel; no sound of its own. Counts in length and trigrams; no CV unit, joins the preceding grapheme."],
+  "·": ["·", "punt volat (l·l): separates two l’s so they read as /l·l/ rather than /ʎ/. Counts in length; no CV unit of its own."],
+  "'": ["'", "apostrophe: marks ejective consonants (ch’ k’ p’ q’ t’). Counts in length; no CV unit, joins the preceding consonant."],
+  "ئ": ["ئ", "hamza carrier: written before a vowel letter at the start of a syllable; no sound of its own. Counts in length; no CV unit of its own."],
+  "ް": ["ް", "sukun: marks a consonant with no vowel after it. Counts in length; no CV unit of its own."],
+  "ھ": ["ھ", "do-chashmi he: marks aspiration of the consonant before it (بھ کھ گھ …). Counted as a consonant letter in the orthographic CV; merged with that consonant at the grapheme level."],
+  "ں": ["ں", "nun ghunna: nasalises the vowel before it. Counted as a consonant letter in the orthographic CV."],
+};
+const INDIC_GLOSS = { H: "virama (halant): suppresses the inherent vowel of the consonant it follows", N: "nukta: dot that turns a consonant letter into another sound (क़ ज़ ड़ …)", A: "anusvara: nasalisation, or a nasal consonant at the end of the syllable", B: "visarga: a breath-like /h/ at the end of the syllable", Z: "anusvara: nasal consonant at the end of the syllable" };
+const INDIC_GLOSS_BY_CHAR = { "ँ": "candrabindu: nasalises the vowel", "ঁ": "candrabindu: nasalises the vowel", "ઁ": "candrabindu: nasalises the vowel", "ଁ": "candrabindu: nasalises the vowel", "ఁ": "candrabindu: nasalises the vowel",
+  "ਂ": "bindi: nasalises the vowel", "ੰ": "tippi: nasalises the vowel or marks a nasal consonant", "ੱ": "addak: doubles the consonant that follows" };
+function alphabetRows(L, m) {
+  const cls = m.letter_classes, chars = [...m.alphabet], mono = `class="mono" style="word-spacing:.35em;line-height:1.9"`;
+  const of = (...k) => chars.filter(c => k.includes(cls[c] || "C")).join("");
+  const cons = of("C", "X"), vow = of("V"), y = of("Y"), signs = of("D");
+  const other = chars.filter(c => !["C", "V", "Y", "D"].includes(cls[c] || "C"));
+  const rows = [];
+  rows.push(`<div>Consonant letters</div><div ${mono}>${esc(showChars(cons))}${y ? ` <span class="hint" style="display:inline">(${esc(y)}: consonant or vowel by position, see below)</span>` : ""}</div>`);
+  rows.push(`<div>Vowel letters</div><div ${mono}>${esc(showChars(vow))}</div>`);
+  if (signs) rows.push(`<div>Vowel signs</div><div ${mono}>${esc(showChars(signs))}</div>`);
+  if (other.length) {
+    const items = other.map(c => { const g = CHAR_GLOSS[c] || [showChars(c), (INDIC_GLOSS_BY_CHAR[c] || INDIC_GLOSS[cls[c]]) ? (INDIC_GLOSS_BY_CHAR[c] || INDIC_GLOSS[cls[c]]) + ". Part of the akshara it belongs to; no CV unit of its own." : "modifier character with no sound of its own; counts in length, no CV unit of its own."];
+      return `<div style="display:flex;gap:10px;align-items:baseline;padding:2px 0"><span class="mono" style="font-weight:700;min-width:4em;color:var(--accent)">${esc(g[0])}</span><span>${esc(g[1])}</span></div>`; }).join("");
+    rows.push(`<div>Other characters</div><div>${items}</div>`);
+  }
+  return rows.join("\n    ");
+}
 function renderAbout() {
   const L = S.L[S.code], m = L.manifest, c = m.counts, g = m.generation.results;
   const bands = m.bands_enabled === false ? `<li>No frequency bands: small corpus.</li>` : m.bands.map(b => `<li><b>${MODEL_LABEL[b.id]}</b>: ${(+c.band_sizes[b.id]).toLocaleString()} words</li>`).join("");
@@ -2072,9 +2104,7 @@ function renderAbout() {
     <div>Reference words (Zipf ≥ 2)</div><div>${c.reference_words.toLocaleString()}</div>
     <div>Rarer words (avoid list only)</div><div>${c.rare_words.toLocaleString()}</div>
     <div>Pseudowords in the bank</div><div>${L.bank.length.toLocaleString()}</div>
-    <div>Alphabet</div><div class="mono" style="word-spacing:.35em;line-height:1.9">${esc(showChars(m.alphabet))}</div>
-    <div>Vowel letters</div><div class="mono" style="word-spacing:.35em;line-height:1.9">${esc(showChars(Object.keys(m.letter_classes).filter(k => m.letter_classes[k] === "V").join("")))}</div>
-    ${L.indic ? `<div>Vowel signs</div><div class="mono" style="word-spacing:.35em;line-height:1.9">${esc(showChars(Object.keys(m.letter_classes).filter(k => m.letter_classes[k] === "D").join("")))}</div>` : ""}
+    ${alphabetRows(L, m)}
     ${L.indic && [...m.alphabet].some(c => VOCALIC_R.has(c)) ? `<div>Vocalic r</div><div>${esc(showChars([...m.alphabet].filter(c => VOCALIC_R.has(c)).join("")))}: written as a vowel, so orthographic CV counts it as V. ${(m.rules || {}).vocalic_r === "V" ? `In ${esc(m.name)} it is a syllabic r (the nucleus of its syllable), so it is a vowel in pronunciation too.` : `In ${esc(m.name)} it is pronounced r + vowel (e.g. Hindi ऋण /ɾɪɳ/, कृपा /kɾɪpɑː/), so phonological CV counts it as CV.`}</div>` : ""}
     ${[...m.alphabet].includes("y") ? `<div>Rule for &lt;y&gt;</div><div>${esc(String(m.y_rule))}</div>` : ""}
     <div>Sources</div><div>${aboutSources(m)}</div>
