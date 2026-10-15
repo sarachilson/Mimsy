@@ -17,7 +17,9 @@ Email: mimsy.pseudowords@gmail.com
 
 ## Using it
 
-**Online:** https://sarachilson.github.io/Mimsy/ — nothing to install; the data is fetched as needed and everything is computed in your browser.
+**Online:** 
+
+**App:** https://sarachilson.github.io/Mimsy/ — nothing to install; the data is fetched as needed and everything is computed in your browser. Just click the link and get started.
 
 **Offline:**
 
