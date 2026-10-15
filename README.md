@@ -10,6 +10,11 @@
 
 It is built from the FILMS/OPUS subtitle frequency lists and, for languages with small or unusable subtitle lists or none at all, word lists from the Leipzig Corpora Collection. Version 0.6-beta: about 20.8 million precomputed pseudowords (the main languages have 190,000–385,000 each; small-corpus languages 15,000–120,000).
 
+Mimsy is still in beta.  All feedback is welcome. If you find a bug, please don't hesitate to reach out and let me know.  I especially welcome feedback for many of the smaller langauges, as it was not possible to test most of them with native speakers. 
+
+Email: mimsy.pseudowords@gmail.com
+
+
 ## Using it
 
 **Online:** https://sarachilson.github.io/Mimsy/ — nothing to install; the data is fetched as needed and everything is computed in your browser.
