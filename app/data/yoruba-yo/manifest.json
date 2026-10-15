@@ -1,0 +1,369 @@
+{
+ "language": "yoruba-yo",
+ "name": "Yoruba",
+ "version": "0.6-beta",
+ "cv_approximate": true,
+ "corpus_tokens": 204942,
+ "small_corpus": true,
+ "bands_enabled": false,
+ "caution": "Very small lexicon (3,935 reference words). The generators mostly recombine fragments of existing words, the attested-cluster filter is very restrictive, and neighbourhood measures are coarse; treat results as illustrative. 0.2 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. 3,935 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, yor_wikipedia_2021_10K, 0.2 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words (52 probable English words were removed). All frequencies come from that corpus, so no frequency bands are offered. Tone marks (grave, acute, macron) were removed, so tone is not represented; ẹ, ọ and ṣ are kept as letters.",
+ "script": "alphabet",
+ "length_unit": "letters",
+ "experimental": true,
+ "created": "2026-10-12",
+ "source": "Leipzig Corpora Collection word list yor_wikipedia_2021_10K (CC BY; Goldhahn, Eckart & Quasthoff 2012)",
+ "sources_detail": {
+  "films": false,
+  "leipzig": {
+   "corpus": "yor_wikipedia_2021_10K",
+   "tokens": 204942,
+   "min_count": 2,
+   "reference_candidates_added": 4568,
+   "types_raw": 23624,
+   "types_kept": 11128,
+   "capitalised_only": 10271,
+   "cased_script": true
+  },
+  "reference_words_by_source": {
+   "films": 0,
+   "leipzig": 3935,
+   "both": 0,
+   "leipzig_name": 0,
+   "leipzig_eng": 0
+  },
+  "english_contamination_removed": {
+   "count": 52,
+   "rule": "Leipzig-only words of 5+ letters that are English words with Zipf >= 4.5",
+   "words": [
+    "about",
+    "against",
+    "agent",
+    "among",
+    "arrest",
+    "beauty",
+    "blood",
+    "bought",
+    "bridge",
+    "brown",
+    "double",
+    "field",
+    "finished",
+    "first",
+    "forward",
+    "himself",
+    "important",
+    "known",
+    "language",
+    "later",
+    "letter",
+    "lieutenant",
+    "london",
+    "media",
+    "million",
+    "model",
+    "months",
+    "morning",
+    "national",
+    "nonsense",
+    "often",
+    "ordered",
+    "parts",
+    "people",
+    "planning",
+    "player",
+    "point",
+    "power",
+    "round",
+    "sergeant",
+    "shall",
+    "single",
+    "steal",
+    "support",
+    "third",
+    "throat",
+    "trees",
+    "until",
+    "within",
+    "women",
+    "written",
+    "years"
+   ]
+  }
+ },
+ "alphabet": "abdefghijklmnoprstuwyẹọṣ",
+ "letter_classes": {
+  "a": "V",
+  "b": "C",
+  "d": "C",
+  "e": "V",
+  "f": "C",
+  "g": "C",
+  "h": "C",
+  "i": "V",
+  "j": "C",
+  "k": "C",
+  "l": "C",
+  "m": "C",
+  "n": "C",
+  "o": "V",
+  "p": "C",
+  "r": "C",
+  "s": "C",
+  "t": "C",
+  "u": "V",
+  "w": "C",
+  "y": "C",
+  "ẹ": "V",
+  "ọ": "V",
+  "ṣ": "C"
+ },
+ "y_rule": "C",
+ "bands": [
+  {
+   "id": 1,
+   "label": "low",
+   "zipf_min": 2.0,
+   "zipf_max": 3.0
+  },
+  {
+   "id": 2,
+   "label": "mid-low",
+   "zipf_min": 3.0,
+   "zipf_max": 3.5
+  },
+  {
+   "id": 3,
+   "label": "mid-high",
+   "zipf_min": 3.5,
+   "zipf_max": 4.0
+  },
+  {
+   "id": 4,
+   "label": "high",
+   "zipf_min": 4.0,
+   "zipf_max": null
+  }
+ ],
+ "reference_lexicon": "plain words (alphabet only) with Zipf >= 2.0 and corpus count >= 3",
+ "generators": {
+  "kn4": "Kneser-Ney 4-gram (type counts)",
+  "tri_type": "plain trigram (type counts)",
+  "tri_token": "plain trigram (token counts)"
+ },
+ "model": {
+  "type": "interpolated Kneser-Ney letter n-gram",
+  "order": 4,
+  "counts": "type-based (each word once)",
+  "boundary_markers": [
+   "^",
+   "$"
+  ],
+  "trigram_variants": "plain maximum-likelihood letter trigrams with two start markers and one end marker; type counts (each word once) or token counts (each word weighted by its per-million frequency)"
+ },
+ "filters": {
+  "length": [
+   3,
+   12
+  ],
+  "not_a_corpus_form": "rejected if it occurs anywhere in the corpus word list",
+  "phonotactic_legality": "initial, medial and final consonant clusters and vowel sequences must each occur in >= 3 reference words",
+  "no_triple_letters": true
+ },
+ "metrics": {
+  "old20": "mean Levenshtein distance to the 20 closest reference words",
+  "coltheart_n": "reference words at distance 1",
+  "n_high_freq_neighbors": "distance-1 neighbours with Zipf >= 4.0",
+  "logprob": "mean log2 probability per letter (incl. word end); model = generating model, all = all-words model"
+ },
+ "generation": {
+  "target_rule": "per generator and training set: number of training words, between 5000 and 40000",
+  "seed": 20261010,
+  "results": {
+   "kn4/all": {
+    "target": 5000,
+    "kept": 5000,
+    "tries": 11156
+   },
+   "tri_type/all": {
+    "target": 5000,
+    "kept": 5000,
+    "tries": 11746
+   },
+   "tri_token/all": {
+    "target": 5000,
+    "kept": 5000,
+    "tries": 34550
+   }
+  }
+ },
+ "counts": {
+  "corpus_forms": 21399,
+  "plain_forms": 15116,
+  "reference_words": 3935,
+  "rare_words": 4624,
+  "plain_token_share": 0.8243,
+  "band_sizes": {
+   "1": 0,
+   "2": 0,
+   "3": 969,
+   "4": 2966
+  }
+ },
+ "inventory_sizes": {
+  "onset": 34,
+  "medial": 40,
+  "coda": 9,
+  "vseq": 33
+ },
+ "inventory": {
+  "onset": [
+   "",
+   "b",
+   "d",
+   "f",
+   "g",
+   "gb",
+   "h",
+   "j",
+   "k",
+   "kr",
+   "l",
+   "m",
+   "n",
+   "nf",
+   "ngb",
+   "nj",
+   "nk",
+   "nl",
+   "nm",
+   "np",
+   "nw",
+   "nṣ",
+   "p",
+   "pl",
+   "pr",
+   "r",
+   "s",
+   "sh",
+   "t",
+   "th",
+   "w",
+   "wh",
+   "y",
+   "ṣ"
+  ],
+  "medial": [
+   "b",
+   "d",
+   "f",
+   "g",
+   "gb",
+   "h",
+   "j",
+   "k",
+   "l",
+   "ll",
+   "m",
+   "mb",
+   "mm",
+   "n",
+   "nb",
+   "nd",
+   "nf",
+   "ng",
+   "ngb",
+   "nj",
+   "nk",
+   "nl",
+   "nm",
+   "nn",
+   "np",
+   "nr",
+   "ns",
+   "nt",
+   "nw",
+   "ny",
+   "nṣ",
+   "p",
+   "r",
+   "s",
+   "st",
+   "t",
+   "tr",
+   "w",
+   "y",
+   "ṣ"
+  ],
+  "coda": [
+   "",
+   "l",
+   "m",
+   "n",
+   "p",
+   "r",
+   "rd",
+   "s",
+   "t"
+  ],
+  "vseq": [
+   "a",
+   "aa",
+   "ae",
+   "ai",
+   "ao",
+   "e",
+   "ea",
+   "ee",
+   "ei",
+   "eo",
+   "i",
+   "ia",
+   "ie",
+   "ii",
+   "io",
+   "iu",
+   "iọ",
+   "o",
+   "oe",
+   "oi",
+   "oo",
+   "ou",
+   "u",
+   "ua",
+   "ui",
+   "uo",
+   "uu",
+   "ẹ",
+   "ẹu",
+   "ẹẹ",
+   "ẹẹẹ",
+   "ọ",
+   "ọọ"
+  ]
+ },
+ "rules": {},
+ "patches": [
+  {
+   "date": "2026-10-11",
+   "what": "removed 709 bank items that occur as a form (any count or capitalisation) in the Leipzig list yor_wikipedia_2021_10K"
+  }
+ ],
+ "caution_items": [
+  {
+   "title": "Experimental",
+   "text": "Very small lexicon (3,935 reference words). The generators mostly recombine fragments of existing words, the attested-cluster filter is very restrictive, and neighbourhood measures are coarse; treat results as illustrative."
+  },
+  {
+   "title": "Small corpus",
+   "text": "0.2 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators."
+  },
+  {
+   "title": "Wikipedia vocabulary only",
+   "text": "3,935 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, yor_wikipedia_2021_10K, 0.2 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words (52 probable English words were removed). All frequencies come from that corpus, so no frequency bands are offered."
+  },
+  {
+   "title": "CV note",
+   "text": "Tone marks (grave, acute, macron) were removed, so tone is not represented; ẹ, ọ and ṣ are kept as letters."
+  }
+ ]
+}
