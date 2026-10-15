@@ -12,7 +12,7 @@ It is built from the FILMS/OPUS subtitle frequency lists and, for languages with
 
 ## Using it
 
-**Online:** https://sarachilson.github.io/mimsy/ — nothing to install; the data is fetched as needed and everything is computed in your browser.
+**Online:** https://sarachilson.github.io/Mimsy/ — nothing to install; the data is fetched as needed and everything is computed in your browser.
 
 **Offline:**
 
