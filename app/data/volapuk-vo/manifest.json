@@ -1,0 +1,341 @@
+{
+ "language": "volapuk-vo",
+ "name": "Volapük",
+ "version": "0.6-beta",
+ "cv_approximate": false,
+ "corpus_tokens": 2290257,
+ "small_corpus": true,
+ "bands_enabled": false,
+ "caution": "Very small lexicon (2,321 reference words). The generators mostly recombine fragments of existing words, the attested-cluster filter is very restrictive, and neighbourhood measures are coarse; treat results as illustrative. 2.3 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. 2,321 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, vol_wikipedia_2021_100K, 2.3 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words (6 probable English words were removed). All frequencies come from that corpus, so no frequency bands are offered.",
+ "caution_items": [
+  {
+   "title": "Experimental",
+   "text": "Very small lexicon (2,321 reference words). The generators mostly recombine fragments of existing words, the attested-cluster filter is very restrictive, and neighbourhood measures are coarse; treat results as illustrative."
+  },
+  {
+   "title": "Small corpus",
+   "text": "2.3 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators."
+  },
+  {
+   "title": "Wikipedia vocabulary only",
+   "text": "2,321 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, vol_wikipedia_2021_100K, 2.3 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words (6 probable English words were removed). All frequencies come from that corpus, so no frequency bands are offered."
+  }
+ ],
+ "script": "alphabet",
+ "length_unit": "letters",
+ "experimental": true,
+ "created": "2026-10-12",
+ "source": "Leipzig Corpora Collection word list vol_wikipedia_2021_100K (CC BY; Goldhahn, Eckart & Quasthoff 2012)",
+ "sources_detail": {
+  "films": false,
+  "leipzig": {
+   "corpus": "vol_wikipedia_2021_100K",
+   "tokens": 2290257,
+   "min_count": 2,
+   "reference_candidates_added": 10228,
+   "types_raw": 68484,
+   "types_kept": 20333,
+   "capitalised_only": 47334,
+   "cased_script": true
+  },
+  "reference_words_by_source": {
+   "films": 0,
+   "leipzig": 2321,
+   "both": 0,
+   "leipzig_name": 0,
+   "leipzig_eng": 0
+  },
+  "english_contamination_removed": {
+   "count": 6,
+   "rule": "Leipzig-only words of 5+ letters that are English words with Zipf >= 4.5",
+   "words": [
+    "begin",
+    "metal",
+    "minister",
+    "planet",
+    "plans",
+    "total"
+   ]
+  }
+ },
+ "alphabet": "abcdefghijklmnopqrstuvwxyzäöüé",
+ "letter_classes": {
+  "a": "V",
+  "b": "C",
+  "c": "C",
+  "d": "C",
+  "e": "V",
+  "f": "C",
+  "g": "C",
+  "h": "C",
+  "i": "V",
+  "j": "C",
+  "k": "C",
+  "l": "C",
+  "m": "C",
+  "n": "C",
+  "o": "V",
+  "p": "C",
+  "q": "C",
+  "r": "C",
+  "s": "C",
+  "t": "C",
+  "u": "V",
+  "v": "C",
+  "w": "C",
+  "x": "C",
+  "y": "C",
+  "z": "C",
+  "ä": "V",
+  "ö": "V",
+  "ü": "V",
+  "é": "V"
+ },
+ "y_rule": "C",
+ "bands": [
+  {
+   "id": 1,
+   "label": "low",
+   "zipf_min": 2.0,
+   "zipf_max": 3.0
+  },
+  {
+   "id": 2,
+   "label": "mid-low",
+   "zipf_min": 3.0,
+   "zipf_max": 3.5
+  },
+  {
+   "id": 3,
+   "label": "mid-high",
+   "zipf_min": 3.5,
+   "zipf_max": 4.0
+  },
+  {
+   "id": 4,
+   "label": "high",
+   "zipf_min": 4.0,
+   "zipf_max": null
+  }
+ ],
+ "reference_lexicon": "plain words (alphabet only) with Zipf >= 2.0 and corpus count >= 3",
+ "generators": {
+  "kn4": "Kneser-Ney 4-gram (type counts)",
+  "tri_type": "plain trigram (type counts)",
+  "tri_token": "plain trigram (token counts)"
+ },
+ "model": {
+  "type": "interpolated Kneser-Ney letter n-gram",
+  "order": 4,
+  "counts": "type-based (each word once)",
+  "boundary_markers": [
+   "^",
+   "$"
+  ],
+  "trigram_variants": "plain maximum-likelihood letter trigrams with two start markers and one end marker; type counts (each word once) or token counts (each word weighted by its per-million frequency)"
+ },
+ "filters": {
+  "length": [
+   3,
+   12
+  ],
+  "not_a_corpus_form": "rejected if it occurs anywhere in the corpus word list",
+  "phonotactic_legality": "initial, medial and final consonant clusters and vowel sequences must each occur in >= 3 reference words",
+  "no_triple_letters": true
+ },
+ "metrics": {
+  "old20": "mean Levenshtein distance to the 20 closest reference words",
+  "coltheart_n": "reference words at distance 1",
+  "n_high_freq_neighbors": "distance-1 neighbours with Zipf >= 4.0",
+  "logprob": "mean log2 probability per letter (incl. word end); model = generating model, all = all-words model"
+ },
+ "generation": {
+  "target_rule": "per generator and training set: number of training words, between 5000 and 40000",
+  "seed": 20261010,
+  "results": {
+   "kn4/all": {
+    "target": 5000,
+    "kept": 5000,
+    "tries": 9709
+   },
+   "tri_type/all": {
+    "target": 5000,
+    "kept": 5000,
+    "tries": 9861
+   },
+   "tri_token/all": {
+    "target": 5000,
+    "kept": 5000,
+    "tries": 122576
+   }
+  }
+ },
+ "counts": {
+  "corpus_forms": 67667,
+  "plain_forms": 38343,
+  "reference_words": 2321,
+  "rare_words": 4689,
+  "plain_token_share": 0.5778,
+  "band_sizes": {
+   "1": 829,
+   "2": 933,
+   "3": 300,
+   "4": 259
+  }
+ },
+ "inventory_sizes": {
+  "onset": 35,
+  "medial": 44,
+  "coda": 26,
+  "vseq": 33
+ },
+ "inventory": {
+  "onset": [
+   "",
+   "b",
+   "bl",
+   "br",
+   "c",
+   "d",
+   "dr",
+   "f",
+   "fl",
+   "g",
+   "gl",
+   "gr",
+   "h",
+   "j",
+   "k",
+   "kl",
+   "kr",
+   "l",
+   "m",
+   "n",
+   "p",
+   "pl",
+   "pr",
+   "pt",
+   "r",
+   "s",
+   "sl",
+   "sm",
+   "sn",
+   "sp",
+   "st",
+   "t",
+   "v",
+   "y",
+   "z"
+  ],
+  "medial": [
+   "b",
+   "bl",
+   "c",
+   "d",
+   "f",
+   "fl",
+   "g",
+   "gl",
+   "gn",
+   "gr",
+   "j",
+   "k",
+   "kl",
+   "kn",
+   "kt",
+   "l",
+   "ld",
+   "lf",
+   "ll",
+   "m",
+   "mp",
+   "my",
+   "n",
+   "nd",
+   "nl",
+   "ns",
+   "nt",
+   "p",
+   "pl",
+   "pr",
+   "pt",
+   "r",
+   "rn",
+   "rv",
+   "s",
+   "sk",
+   "sp",
+   "st",
+   "t",
+   "tt",
+   "v",
+   "x",
+   "y",
+   "z"
+  ],
+  "coda": [
+   "",
+   "b",
+   "bs",
+   "d",
+   "ds",
+   "f",
+   "fs",
+   "g",
+   "gs",
+   "k",
+   "ks",
+   "l",
+   "ls",
+   "m",
+   "ms",
+   "n",
+   "ns",
+   "p",
+   "ps",
+   "r",
+   "rs",
+   "s",
+   "t",
+   "ts",
+   "v",
+   "y"
+  ],
+  "vseq": [
+   "a",
+   "ae",
+   "ai",
+   "au",
+   "e",
+   "ea",
+   "ei",
+   "eo",
+   "eu",
+   "eü",
+   "i",
+   "ia",
+   "ie",
+   "io",
+   "iu",
+   "iä",
+   "o",
+   "oa",
+   "oe",
+   "oi",
+   "oo",
+   "ou",
+   "u",
+   "ue",
+   "ui",
+   "uo",
+   "ä",
+   "äi",
+   "ää",
+   "ö",
+   "ü",
+   "üi",
+   "üo"
+  ]
+ },
+ "rules": {}
+}

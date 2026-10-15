@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+_work/
+_archive/
+_to_delete/
+_leipzig/
+_slim/
+*.zip
+*.tar.gz
+*.tar

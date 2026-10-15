@@ -1,0 +1,330 @@
+{
+ "albanian-sq": {
+  "archive": "FILMS_data.zip",
+  "path": "albanian-sq/word/albanian.sq.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "bosnian-bs": {
+  "archive": "FILMS_data.zip",
+  "path": "bosnian-bs/word/bosnian.bs.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "bulgarian-bg": {
+  "archive": "FILMS_data.zip",
+  "path": "bulgarian-bg/word/bulgarian.bg.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "croatian-hr": {
+  "archive": "FILMS_data.zip",
+  "path": "croatian-hr/word/croatian.hr.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "czech-cs": {
+  "archive": "FILMS_data.zip",
+  "path": "czech-cs/word/czech.cs.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "danish-da": {
+  "archive": "FILMS_data.zip",
+  "path": "danish-da/word/danish.da.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "dutch-nl": {
+  "archive": "FILMS_data.zip",
+  "path": "dutch-nl/word/dutch.nl.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "english-en": {
+  "archive": "FILMS_data.zip",
+  "path": "english-en/word/english.en.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "estonian-et": {
+  "archive": "FILMS_data.zip",
+  "path": "estonian-et/word/estonian.et.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "finnish-fi": {
+  "archive": "FILMS_data.zip",
+  "path": "finnish-fi/word/finnish.fi.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "french-fr": {
+  "archive": "FILMS_data.zip",
+  "path": "french-fr/word/french.fr.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "german-de": {
+  "archive": "FILMS_data.zip",
+  "path": "german-de/word/german.de.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "greek-el": {
+  "archive": "FILMS_data.zip",
+  "path": "greek-el/word/greek.el.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "hungarian-hu": {
+  "archive": "FILMS_data.zip",
+  "path": "hungarian-hu/word/hungarian.hu.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "icelandic-is": {
+  "archive": "FILMS_data.zip",
+  "path": "icelandic-is/word/icelandic.is.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "indonesian-id": {
+  "archive": "FILMS_data.zip",
+  "path": "indonesian-id/word/indonesian.id.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "italian-it": {
+  "archive": "FILMS_data.zip",
+  "path": "italian-it/word/italian.it.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "lithuanian-lt": {
+  "archive": "FILMS_data.zip",
+  "path": "lithuanian-lt/word/lithuanian.lt.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "macedonian-mk": {
+  "archive": "FILMS_data.zip",
+  "path": "macedonian-mk/word/macedonian.mk.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "malay-ms": {
+  "archive": "FILMS_data.zip",
+  "path": "malay-ms/word/malay.ms.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "norwegian-no": {
+  "archive": "FILMS_data.zip",
+  "path": "norwegian-no/word/norwegian.no.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "polish-pl": {
+  "archive": "FILMS_data.zip",
+  "path": "polish-pl/word/polish.pl.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "portuguese-pt": {
+  "archive": "FILMS_data.zip",
+  "path": "portuguese-pt/word/portuguese.pt.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "portuguese_brazil-pt_BR": {
+  "archive": "FILMS_data.zip",
+  "path": "portuguese_brazil-pt_BR/word/portuguese_brazil.pt_BR.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "romanian-ro": {
+  "archive": "FILMS_data.zip",
+  "path": "romanian-ro/word/romanian.ro.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "russian-ru": {
+  "archive": "FILMS_data.zip",
+  "path": "russian-ru/word/russian.ru.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "serbian-sr": {
+  "archive": "FILMS_data.zip",
+  "path": "serbian-sr/word/serbian.sr.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "slovak-sk": {
+  "archive": "FILMS_data.zip",
+  "path": "slovak-sk/word/slovak.sk.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "slovenian-sl": {
+  "archive": "FILMS_data.zip",
+  "path": "slovenian-sl/word/slovenian.sl.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "spanish-es": {
+  "archive": "FILMS_data.zip",
+  "path": "spanish-es/word/spanish.es.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "spanish_latin_america-es_419": {
+  "archive": "FILMS_data.zip",
+  "path": "spanish_latin_america-es_419/word/spanish_latin_america.es_419.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "swedish-sv": {
+  "archive": "FILMS_data.zip",
+  "path": "swedish-sv/word/swedish.sv.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "turkish-tr": {
+  "archive": "FILMS_data.zip",
+  "path": "turkish-tr/word/turkish.tr.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "ukrainian-uk": {
+  "archive": "FILMS_data.zip",
+  "path": "ukrainian-uk/word/ukrainian.uk.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "basque-eu": {
+  "archive": "FILMS_med.zip",
+  "path": "basque-eu/word/basque.eu.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "catalan-ca": {
+  "archive": "FILMS_med.zip",
+  "path": "catalan-ca/word/catalan.ca.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "galician-gl": {
+  "archive": "FILMS_med.zip",
+  "path": "galician-gl/word/galician.gl.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "latvian-lv": {
+  "archive": "FILMS_med.zip",
+  "path": "latvian-lv/word/latvian.lv.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "welsh-cy": {
+  "archive": "FILMS_med.zip",
+  "path": "welsh-cy/word/welsh.cy.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "tagalog-tl": {
+  "archive": "FILMS_med.zip",
+  "path": "tagalog-tl/word/tagalog.tl.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "georgian-ka": {
+  "archive": "FILMS_med.zip",
+  "path": "georgian-ka/word/georgian.ka.word.pron-one_col-default.filtered_by_pron.zipf_4.tsv"
+ },
+ "afrikaans-af": {
+  "archive": "FILMS_sm.zip",
+  "path": "afrikaans-af/word/afrikaans.af.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "aragonese-an": {
+  "archive": "FILMS_sm.zip",
+  "path": "aragonese-an/word/aragonese.an.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "armenian-hy": {
+  "archive": "FILMS_sm.zip",
+  "path": "armenian-hy/word/armenian.hy.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "asturian-ast": {
+  "archive": "FILMS_sm.zip",
+  "path": "asturian-ast/word/asturian.ast.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "azerbaijani-az": {
+  "archive": "FILMS_sm.zip",
+  "path": "azerbaijani-az/word/azerbaijani.az.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "belarusian-be": {
+  "archive": "FILMS_sm.zip",
+  "path": "belarusian-be/word/belarusian.be.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "breton-br": {
+  "archive": "FILMS_sm.zip",
+  "path": "breton-br/word/breton.br.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "esperanto-eo": {
+  "archive": "FILMS_sm.zip",
+  "path": "esperanto-eo/word/esperanto.eo.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "igbo-ig": {
+  "archive": "FILMS_sm.zip",
+  "path": "igbo-ig/word/igbo.ig.word.pron-one_col-default.filtered_by_pron.zipf_4.tsv"
+ },
+ "irish-ga": {
+  "archive": "FILMS_sm.zip",
+  "path": "irish-ga/word/irish.ga.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "kazakh-kk": {
+  "archive": "FILMS_sm.zip",
+  "path": "kazakh-kk/word/kazakh.kk.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "luxembourgish-lb": {
+  "archive": "FILMS_sm.zip",
+  "path": "luxembourgish-lb/word/luxembourgish.lb.word.pron-one_col-default.filtered_by_pron.zipf_4.tsv"
+ },
+ "mongolian-mn": {
+  "archive": "FILMS_sm.zip",
+  "path": "mongolian-mn/word/mongolian.mn.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "northern_sami-se": {
+  "archive": "FILMS_sm.zip",
+  "path": "northern_sami-se/word/northern_sami.se.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "norwegian_nynorsk-nn": {
+  "archive": "FILMS_sm.zip",
+  "path": "norwegian_nynorsk-nn/word/norwegian_nynorsk.nn.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "occitan-oc": {
+  "archive": "FILMS_sm.zip",
+  "path": "occitan-oc/word/occitan.oc.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "portuguese_mozambique-pt_MZ": {
+  "archive": "FILMS_sm.zip",
+  "path": "portuguese_mozambique-pt_MZ/word/portuguese_mozambique.pt_MZ.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "scottish_gaelic-gd": {
+  "archive": "FILMS_sm.zip",
+  "path": "scottish_gaelic-gd/word/scottish_gaelic.gd.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "somali-so": {
+  "archive": "FILMS_sm.zip",
+  "path": "somali-so/word/somali.so.word.pron-one_col-default.filtered_by_pron.zipf_4.tsv"
+ },
+ "swahili-sw": {
+  "archive": "FILMS_sm.zip",
+  "path": "swahili-sw/word/swahili.sw.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "tatar-tt": {
+  "archive": "FILMS_sm.zip",
+  "path": "tatar-tt/word/tatar.tt.word.pron-one_col-default.filtered_by_pron.zipf_4.tsv"
+ },
+ "uzbek-uz": {
+  "archive": "FILMS_sm.zip",
+  "path": "uzbek-uz/word/uzbek.uz.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "arabic-ar": {
+  "archive": "FILMS_data.zip",
+  "path": "arabic-ar/word/arabic.ar.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "hebrew-he": {
+  "archive": "FILMS_data.zip",
+  "path": "hebrew-he/word/hebrew.he.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "persian-fa": {
+  "archive": "FILMS_data.zip",
+  "path": "persian-fa/word/persian.fa.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "urdu-ur": {
+  "archive": "FILMS_med.zip",
+  "path": "urdu-ur/word/urdu.ur.word.pron-one_col-default.filtered_by_pron.zipf_4.tsv"
+ },
+ "kurdish-ku": {
+  "archive": "FILMS_med.zip",
+  "path": "kurdish-ku/word/kurdish.ku.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "sindhi-sd": {
+  "archive": "FILMS_sm.zip",
+  "path": "sindhi-sd/word/sindhi.sd.word.pron-one_col-default.filtered_by_pron.zipf_4.tsv"
+ },
+ "pashto-ps": {
+  "archive": "FILMS_sm.zip",
+  "path": "pashto-ps/word/pashto.ps.word.pron-one_col-default.filtered_by_pron.zipf_4.tsv"
+ },
+ "hindi-hi": {
+  "archive": "FILMS_med.zip",
+  "path": "hindi-hi/word/hindi.hi.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "nepali-ne": {
+  "archive": "FILMS_med.zip",
+  "path": "nepali-ne/word/nepali.ne.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "bengali-bn": {
+  "archive": "FILMS_data.zip",
+  "path": "bengali-bn/word/bengali.bn.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "sinhala-si": {
+  "archive": "FILMS_data.zip",
+  "path": "sinhala-si/word/sinhala.si.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "telugu-te": {
+  "archive": "FILMS_med.zip",
+  "path": "telugu-te/word/telugu.te.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "tamil-ta": {
+  "archive": "FILMS_med.zip",
+  "path": "tamil-ta/word/tamil.ta.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "malayalam-ml": {
+  "archive": "FILMS_med.zip",
+  "path": "malayalam-ml/word/malayalam.ml.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "marathi-mr": {
+  "archive": "FILMS_sm.zip",
+  "path": "marathi-mr/word/marathi.mr.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "kannada-kn": {
+  "archive": "FILMS_sm.zip",
+  "path": "kannada-kn/word/kannada.kn.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "odia-or": {
+  "archive": "FILMS_sm.zip",
+  "path": "odia-or/word/odia.or.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "assamese-as": {
+  "archive": "FILMS_sm.zip",
+  "path": "assamese-as/word/assamese.as.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "vietnamese-vi": {
+  "archive": "FILMS_data.zip",
+  "path": "vietnamese-vi/word/vietnamese.vi.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ }
+}

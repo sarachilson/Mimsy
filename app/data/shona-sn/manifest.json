@@ -1,0 +1,363 @@
+{
+ "language": "shona-sn",
+ "name": "Shona",
+ "version": "0.6-beta",
+ "cv_approximate": false,
+ "corpus_tokens": 355971,
+ "small_corpus": true,
+ "bands_enabled": false,
+ "caution": "0.4 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 14,619 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. 14,619 of the reference words come from a web corpus (Leipzig Corpora Collection, sna_web_2012_30K, 0.4 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words (18 probable English words were removed). All frequencies come from that corpus, so no frequency bands are offered.",
+ "script": "alphabet",
+ "length_unit": "letters",
+ "experimental": false,
+ "created": "2026-10-12",
+ "source": "Leipzig Corpora Collection word list sna_web_2012_30K (CC BY; Goldhahn, Eckart & Quasthoff 2012)",
+ "sources_detail": {
+  "films": false,
+  "leipzig": {
+   "corpus": "sna_web_2012_30K",
+   "tokens": 355971,
+   "min_count": 2,
+   "reference_candidates_added": 15034,
+   "types_raw": 52937,
+   "types_kept": 41325,
+   "capitalised_only": 7346,
+   "cased_script": true
+  },
+  "reference_words_by_source": {
+   "films": 0,
+   "leipzig": 14619,
+   "both": 0,
+   "leipzig_name": 0,
+   "leipzig_eng": 0
+  },
+  "english_contamination_removed": {
+   "count": 18,
+   "rule": "Leipzig-only words of 5+ letters that are English words with Zipf >= 4.5",
+   "words": [
+    "address",
+    "birth",
+    "books",
+    "chose",
+    "closed",
+    "force",
+    "history",
+    "million",
+    "place",
+    "serious",
+    "small",
+    "speed",
+    "spirit",
+    "spring",
+    "summer",
+    "video",
+    "water",
+    "winter"
+   ]
+  }
+ },
+ "alphabet": "abcdefghijklmnopqrstuvwxyz",
+ "letter_classes": {
+  "a": "V",
+  "b": "C",
+  "c": "C",
+  "d": "C",
+  "e": "V",
+  "f": "C",
+  "g": "C",
+  "h": "C",
+  "i": "V",
+  "j": "C",
+  "k": "C",
+  "l": "C",
+  "m": "C",
+  "n": "C",
+  "o": "V",
+  "p": "C",
+  "q": "C",
+  "r": "C",
+  "s": "C",
+  "t": "C",
+  "u": "V",
+  "v": "C",
+  "w": "C",
+  "x": "C",
+  "y": "C",
+  "z": "C"
+ },
+ "y_rule": "C",
+ "bands": [
+  {
+   "id": 1,
+   "label": "low",
+   "zipf_min": 2.0,
+   "zipf_max": 3.0
+  },
+  {
+   "id": 2,
+   "label": "mid-low",
+   "zipf_min": 3.0,
+   "zipf_max": 3.5
+  },
+  {
+   "id": 3,
+   "label": "mid-high",
+   "zipf_min": 3.5,
+   "zipf_max": 4.0
+  },
+  {
+   "id": 4,
+   "label": "high",
+   "zipf_min": 4.0,
+   "zipf_max": null
+  }
+ ],
+ "reference_lexicon": "plain words (alphabet only) with Zipf >= 2.0 and corpus count >= 3",
+ "generators": {
+  "kn4": "Kneser-Ney 4-gram (type counts)",
+  "tri_type": "plain trigram (type counts)",
+  "tri_token": "plain trigram (token counts)"
+ },
+ "model": {
+  "type": "interpolated Kneser-Ney letter n-gram",
+  "order": 4,
+  "counts": "type-based (each word once)",
+  "boundary_markers": [
+   "^",
+   "$"
+  ],
+  "trigram_variants": "plain maximum-likelihood letter trigrams with two start markers and one end marker; type counts (each word once) or token counts (each word weighted by its per-million frequency)"
+ },
+ "filters": {
+  "length": [
+   3,
+   12
+  ],
+  "not_a_corpus_form": "rejected if it occurs anywhere in the corpus word list",
+  "phonotactic_legality": "initial, medial and final consonant clusters and vowel sequences must each occur in >= 3 reference words",
+  "no_triple_letters": true
+ },
+ "metrics": {
+  "old20": "mean Levenshtein distance to the 20 closest reference words",
+  "coltheart_n": "reference words at distance 1",
+  "n_high_freq_neighbors": "distance-1 neighbours with Zipf >= 4.0",
+  "logprob": "mean log2 probability per letter (incl. word end); model = generating model, all = all-words model"
+ },
+ "generation": {
+  "target_rule": "per generator and training set: number of training words, between 5000 and 40000",
+  "seed": 20261010,
+  "results": {
+   "kn4/all": {
+    "target": 14619,
+    "kept": 14619,
+    "tries": 28795
+   },
+   "tri_type/all": {
+    "target": 14619,
+    "kept": 14619,
+    "tries": 37371
+   },
+   "tri_token/all": {
+    "target": 14619,
+    "kept": 14619,
+    "tries": 45222
+   }
+  }
+ },
+ "counts": {
+  "corpus_forms": 48671,
+  "plain_forms": 47112,
+  "reference_words": 14619,
+  "rare_words": 25366,
+  "plain_token_share": 0.7868,
+  "band_sizes": {
+   "1": 0,
+   "2": 0,
+   "3": 7460,
+   "4": 7159
+  }
+ },
+ "inventory_sizes": {
+  "onset": 46,
+  "medial": 65,
+  "coda": 4,
+  "vseq": 35
+ },
+ "inventory": {
+  "onset": [
+   "",
+   "b",
+   "bh",
+   "bv",
+   "bw",
+   "ch",
+   "d",
+   "dh",
+   "dz",
+   "f",
+   "g",
+   "gw",
+   "h",
+   "hw",
+   "j",
+   "k",
+   "kw",
+   "l",
+   "m",
+   "mb",
+   "mh",
+   "mv",
+   "mw",
+   "n",
+   "nd",
+   "ng",
+   "nh",
+   "nj",
+   "ny",
+   "nz",
+   "p",
+   "pf",
+   "r",
+   "rw",
+   "s",
+   "sh",
+   "t",
+   "ts",
+   "tsv",
+   "tw",
+   "v",
+   "vh",
+   "w",
+   "y",
+   "z",
+   "zv"
+  ],
+  "medial": [
+   "b",
+   "bh",
+   "bv",
+   "bw",
+   "ch",
+   "d",
+   "dh",
+   "dy",
+   "dz",
+   "dzv",
+   "dzw",
+   "f",
+   "g",
+   "gw",
+   "h",
+   "hw",
+   "j",
+   "k",
+   "kr",
+   "kw",
+   "l",
+   "m",
+   "mb",
+   "mbw",
+   "mh",
+   "mv",
+   "mw",
+   "n",
+   "nd",
+   "ndw",
+   "ng",
+   "ngw",
+   "nh",
+   "nj",
+   "nw",
+   "ny",
+   "nz",
+   "nzv",
+   "nzw",
+   "p",
+   "pf",
+   "pr",
+   "pw",
+   "r",
+   "rw",
+   "s",
+   "sh",
+   "shw",
+   "st",
+   "sv",
+   "sw",
+   "t",
+   "ts",
+   "tsv",
+   "tsw",
+   "tw",
+   "ty",
+   "v",
+   "vh",
+   "w",
+   "y",
+   "z",
+   "zh",
+   "zv",
+   "zw"
+  ],
+  "coda": [
+   "",
+   "h",
+   "n",
+   "r"
+  ],
+  "vseq": [
+   "a",
+   "aa",
+   "aae",
+   "aai",
+   "aaii",
+   "ae",
+   "ai",
+   "aie",
+   "aii",
+   "aio",
+   "aiu",
+   "ao",
+   "au",
+   "e",
+   "ea",
+   "ee",
+   "ei",
+   "eu",
+   "i",
+   "ia",
+   "ie",
+   "ii",
+   "io",
+   "iu",
+   "o",
+   "oe",
+   "oi",
+   "oo",
+   "ou",
+   "u",
+   "ua",
+   "ue",
+   "ui",
+   "uo",
+   "uu"
+  ]
+ },
+ "rules": {},
+ "patches": [
+  {
+   "date": "2026-10-11",
+   "what": "removed 975 bank items that occur as a form (any count or capitalisation) in the Leipzig list sna_web_2012_30K"
+  }
+ ],
+ "caution_items": [
+  {
+   "title": "Small corpus",
+   "text": "0.4 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 14,619 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages."
+  },
+  {
+   "title": "Web vocabulary only",
+   "text": "14,619 of the reference words come from a web corpus (Leipzig Corpora Collection, sna_web_2012_30K, 0.4 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words (18 probable English words were removed). All frequencies come from that corpus, so no frequency bands are offered."
+  }
+ ]
+}
