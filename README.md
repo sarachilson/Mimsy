@@ -6,7 +6,7 @@
 > *And the mome raths outgrabe.*
 > — Lewis Carroll, *Jabberwocky* (1871)
 
-**Mimsy** is a browser tool for finding, generating and checking pseudowords — strings that look and sound like words of a language but are not — in 173 languages. It takes its name from *Jabberwocky*, the most famous pseudoword text in English: every stanza is full of strings that are plainly English in shape and sound (*brillig*, *slithy*, *toves*) yet mean nothing, which is exactly what a reading experiment needs. Humpty Dumpty glossed *mimsy* for Alice as "flimsy and miserable"; here it means **methodical whimsy** — invented words, made with care. The first stanza of *Jabberwocky* appeared in 1855 in *Mischmasch*, the Carroll family's handwritten magazine, as a "stanza of Anglo-Saxon poetry"; Mimsy does the same trick in 173 languages, and for each one it reports the measures that matter when a pseudoword stands in for a real word: length, CV structure, trigram wordlikeness, OLD20, Coltheart's N, embedded words and more.
+**Mimsy** is a browser tool for finding, generating and checking pseudowords — strings that look and sound like words of a language but are not — in 173 languages. It takes its name from *Jabberwocky*, the most famous pseudoword text in English. For each language it reports the measures that matter when a pseudoword stands in for a real word: length, CV structure, trigram wordlikeness, OLD20, Coltheart's N, embedded words and more.
 
 It is built from the FILMS/OPUS subtitle frequency lists and, for languages with small or unusable subtitle lists or none at all, word lists from the Leipzig Corpora Collection. Version 0.6-beta: about 20.8 million precomputed pseudowords (the main languages have 190,000–385,000 each; small-corpus languages 15,000–120,000).
 
@@ -77,7 +77,7 @@ A "CV basis" switch on the bank tab chooses which pattern the CV filter and the 
 
 ## Graphemes: three CV levels
 
-Since 14 October 2026 every alphabetic language has up to three CV patterns, chosen with the "CV pattern basis" switch on the bank tab (it also drives "CV structure" in Match my words and the CV pattern in Cross-language sets):
+Every alphabetic language has up to three CV patterns, chosen with the "CV pattern basis" switch on the bank tab (it also drives "CV structure" in Match my words and the CV pattern in Cross-language sets):
 
 - **CV (orth.)**: one letter = one unit. Letters are classed as consonant or vowel per language; modifier characters with no sound of their own (Cyrillic ь ъ, Catalan ·, apostrophes, ZWNJ) are skipped.
 - **CV (graph.)** and **Graphemes**: a grapheme is the smallest letter group that spells one sound, so multi-letter graphemes (English *sh*, *ea*; German *sch*, *ei*; Hungarian *dzs*; Zulu *ngc*; Urdu *گھ*) and doubled letters count as one unit, and the Graphemes column counts them. Reading research treats letter length, grapheme complexity and phoneme structure as separate levels (Rey, Ziegler & Jacobs 2000; Schmalz, Marinus, Coltheart & Castles 2015; Borleffs et al. 2017), so stimuli matched on letters alone can differ in grapheme count.
@@ -87,23 +87,8 @@ The inventory is in `pipeline/graphemes_src.json` (one entry per language: `stat
 
 The inventories were compiled from orthography descriptions (Wikipedia orthography articles, Omniglot, academic grammars and the epitran grapheme-to-phoneme maps as a cross-check) and checked against each language's word list; `_graphemes/` in the working folder holds the research files and the check script. Judgement calls are recorded per language in the notes.
 
-## Frequency bands and generator types (hidden in the app)
-
-Since 14 October 2026 the app treats each language's bank as one pool: the frequency-band and generator choices, the "Generated from" and "Generator" columns, the Band column in Analyze, the `pseudo_model` / `pseudo_generator` export columns and the About text on both are hidden. The reason: all generators and bands drew from one shared list of accepted items, so each item is credited only to whichever generator or band produced it first (later generators lose 8–30% of the items they would have produced; 12–20% of a band's items also come out of another band), and a label that records "first to find it" rather than "can be produced by" is misleading as a choice. The data files are unchanged and still carry both columns. To bring everything back, set `SHOW_PROVENANCE = true` near the top of the script in `app/index.html`; the version before the change is saved as `_archive/2026-10-14_bands_and_generators/index_with_bands_and_generators.html` (see RESTORE.md there).
-
-The pipeline still trains the generator models on reference words (Zipf ≥ 2) in four bands on reference words (Zipf ≥ 2) in four bands:
-
-| Band | Zipf | Per million |
-|---|---|---|
-| Low | 2 to 3 | 0.1 to 1 |
-| Mid-low | 3 to 3.5 | 1 to 3 |
-| Mid-high | 3.5 to 4 | 3 to 10 |
-| High | 4 and up | above 10 |
-
 ## Method (summary)
 
-- **Cleaning:** words made only of the language's letters. For Serbian, the script (Latin or Cyrillic) with more text is kept.
-- **Generators (three per training set):** interpolated Kneser-Ney letter 4-grams (type counts); plain letter trigrams with type counts (each word once); plain letter trigrams with token counts (each word weighted by its per-million frequency). All use word-start and word-end markers and go through the same filters, so the generator is the only difference between the three sets. (The app no longer shows which generator produced an item; see above.)
 - **Filters:**
   - no form found anywhere in the corpus list;
   - 3 to 12 letters long;
@@ -135,8 +120,6 @@ Language settings (alphabets, vowels, the rule for `y`, spelling rules) are in `
 
 - CV structure and models are based on letters, not graphemes or sounds (for example, English "sh" counts as CC).
 - There is no morphology check yet, so items can contain real affixes.
-- Not included yet (script rules needed): Thai, Korean (lists downloaded); Khmer, Burmese, Lao, Tigrinya (no Leipzig list found); character-based: Chinese (3 varieties), Japanese, Cantonese. Dialects/varieties of included languages (Bavarian, Kölsch, Swiss German, Limburgish, Egyptian Arabic, …) were left out on purpose.
-- Languages built from small Wikipedia lists (10K sentences) have 2,000–8,000 reference words; Wikipedia vocabulary is formal and full of names (e.g. Chechen, Volapük). Scots keeps its English-shared vocabulary (contamination filter off).
 - Vietnamese has a small search space (about 18,000 legal syllables, fewer than the targets), and most short syllables are one edit from a real one.
 - Bank sizes: each generator and training set gets as many pseudowords as the set has training words, between 5,000 and 40,000 (see `generation` in each manifest).
 
