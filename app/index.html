@@ -1392,6 +1392,13 @@ const TIPS = {
   legal: "Spelling check: are the item's clusters and vowel sequences attested in real words, and are language rules respected?",
   ipa: "Pronunciation from the source dictionary, where available.",
   t: "The real word you entered.", tz: "Zipf frequency of the real word.",
+  xl: "Languages (among those chosen under “Exclude real words of other languages”) in which the item is a real word, with its form and Zipf frequency there.",
+  pxl: "Languages (among those chosen under “Exclude real words of other languages”) in which the pseudoword is a real word.",
+  set: "Set number: one row per set in the wide table; in the long table, the items of one set share a number.", lang: "Language of this item.", role: "Seed = the item the set was built around; match = the closest item found for it in this language.",
+  unit: "Length unit of this language: letters, or aksharas (syllable-sized units) for Indic scripts, fidel for Ethiopic.",
+  oldP: "OLD20 as a percentile among this language's bank items (pseudowords) of the same length: 50 = a typically dense item of that length. Used to compare neighbourhood density across languages with lexicons of different sizes; the raw OLD20 is in the column before it.",
+  n1P: "Coltheart's N as a percentile among this language's bank items (pseudowords) of the same length. Used to compare across languages; the raw N is in the column before it.",
+  notes: "For yoked sets: which measures of a match fall outside the tolerance of its seed, and whether the seed is a real word.",
   told: "OLD20 of the real word.", tlike: "Wordlikeness of the real word.",
   p: "The matched pseudoword: same length and CV pattern, closest OLD20 and wordlikeness.", pold: "OLD20 of the pseudoword.", plike: "Wordlikeness of the pseudoword.",
   pn: "Coltheart's N of the pseudoword.", tn: "Coltheart's N of the real word.", ttri: "Trigram frequency of the real word.", ptri: "Trigram frequency of the pseudoword.", pnear: "Nearest real word to the pseudoword.", pemb: "Longest real word embedded in the pseudoword.",
@@ -1419,7 +1426,7 @@ function renderTable(id, rows, colKeys, colDefs = COLS) {
   tableData[id] = { rows, colKeys, colDefs };
   if (!rows.length) { box.innerHTML = `<div class="empty">No items match these settings.</div>`; return; }
   const lbl = k => typeof colDefs[k][0] === "function" ? colDefs[k][0]() : colDefs[k][0];
-  const head = colKeys.map((k, i) => { const tip = TIPS[k] || TIPS[lbl(k)]; return `<th class="${colDefs[k][2] === "num" ? "num" : ""}" data-i="${i}"${tip ? ` title="${esc(tip)}"` : ""}>${lbl(k)}</th>`; }).join("");
+  const head = colKeys.map((k, i) => { const tip = TIPS[k] || TIPS[lbl(k)] || colDefs[k][3]; return `<th class="${colDefs[k][2] === "num" ? "num" : ""}" data-i="${i}"${tip ? ` title="${esc(tip)}"` : ""}>${lbl(k)}</th>`; }).join("");
   const body = rows.map(r => (xlRowHit(r) ? '<tr class="xlhit">' : "<tr>") + colKeys.map(k => { const d = colDefs[k]; return `<td class="${d[2]}">${esc(d[1](r))}</td>`; }).join("") + "</tr>").join("");
   box.innerHTML = `<table><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table>`;
   $$("th", box).forEach(th => th.addEventListener("click", () => {
@@ -2501,9 +2508,9 @@ function xRender() {
   const order = R.codes, unitsMixed = new Set(order.map(c => R.units[c])).size > 1, wide = $("#xFormat").value === "wide";
   if (wide) {
     const defs = { set: ["Set", r => r.set, "num"] }, keys = ["set"];
-    for (const c of order) { defs[c] = [langName(c) + (R.seedCode === c ? " (seed)" : ""), r => r.items[c] ? r.items[c].w : "—", "pw pick"]; keys.push(c); }
-    for (const c of order) { defs[c + ":old"] = [`${langName(c)} OLD20${R.scale === "pct" ? " pct" : ""}`, r => r.items[c] ? fmt(r.items[c][R.scale === "pct" ? "oldP" : "old"], R.scale === "pct" ? 0 : 2) : "", "num"]; defs[c + ":like"] = [`${langName(c)} wordlike %`, r => r.items[c] ? fmt(r.items[c].like, 0) : "", "num"]; keys.push(c + ":old", c + ":like");
-      for (const col of xExtraKeys(R.F)) { defs[c + ":" + col] = [`${langName(c)} ${X_LONG[col][0]}`, r => r.items[c] ? X_LONG[col][1](r.items[c]) : "", "num"]; keys.push(c + ":" + col); } }
+    for (const c of order) { defs[c] = [langName(c) + (R.seedCode === c ? " (seed)" : ""), r => r.items[c] ? r.items[c].w : "—", "pw pick", `${langName(c)} item of this set${R.seedCode === c ? " (the seed item)" : ""}. Click it to choose another.`]; keys.push(c); }
+    for (const c of order) { defs[c + ":old"] = [`${langName(c)} OLD20${R.scale === "pct" ? " pct" : ""}`, r => r.items[c] ? fmt(r.items[c][R.scale === "pct" ? "oldP" : "old"], R.scale === "pct" ? 0 : 2) : "", "num", R.scale === "pct" ? TIPS.oldP : TIPS.old]; defs[c + ":like"] = [`${langName(c)} wordlike %`, r => r.items[c] ? fmt(r.items[c].like, 0) : "", "num", TIPS.like]; keys.push(c + ":old", c + ":like");
+      for (const col of xExtraKeys(R.F)) { defs[c + ":" + col] = [`${langName(c)} ${X_LONG[col][0]}`, r => r.items[c] ? X_LONG[col][1](r.items[c]) : "", "num", TIPS[col] || TIPS[{ tl: "tl", embn: "embn" }[col]]]; keys.push(c + ":" + col); } }
     defs.notes = ["Notes", r => r.notes || "", ""]; keys.push("notes");
     renderTable("xTable", R.sets, keys, defs);
   } else {
