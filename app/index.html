@@ -199,8 +199,8 @@ body.noprov .prov{display:none!important}
      <div class="hint" data-more="Orthographic Levenshtein distance 20 (Yarkoni, Balota &amp; Yap, 2008): the average number of letter changes (substitutions, insertions, deletions) needed to turn the item into each of its 20 closest reference words. Low values mean a dense neighbourhood (very wordlike); high values mean an isolated item.">Mean distance to the 20 closest real words.</div></div>
    <div class="field"><span class="lbl">Coltheart's N range</span><div class="row"><input type="text" inputmode="decimal" autocomplete="off" id="sNMin" min="0" placeholder="min" value="1"><input type="text" inputmode="decimal" autocomplete="off" id="sNMax" min="0" placeholder="max"></div>
      <div class="hint" id="sNHint" data-more="Coltheart&#x27;s N counts the reference words (Zipf ≥ 2) that differ from the item by exactly one letter substitution. It is always 0 when the minimum distance is 2 or more, so the two settings exclude each other; whichever you change last wins.">Real words one letter away.</div></div>
-   <div class="field"><span class="lbl">Wordlikeness range (percentile)</span><div class="row"><input type="text" inputmode="decimal" autocomplete="off" id="sLikeMin" min="0" max="100" placeholder="min" value="75"><input type="text" inputmode="decimal" autocomplete="off" id="sLikeMax" min="0" max="100" placeholder="max"></div>
-     <div class="hint" data-more="The item is split into letter trigrams including a word-start and word-end marker (^ga gar ard rde den en$ for “garden”). Each trigram&#x27;s count is the number of reference words containing it, and the score is the mean log10(count + 1). It is shown as a percentile among bank items of the same length: 80 means more typical letter sequences than 80% of them.">Higher = more typical letter sequences.</div>
+   <div class="field"><span class="lbl">Wordlikeness range (percentile of real words)</span><div class="row"><input type="text" inputmode="decimal" autocomplete="off" id="sLikeMin" min="0" max="100" placeholder="min"><input type="text" inputmode="decimal" autocomplete="off" id="sLikeMax" min="0" max="100" placeholder="max"></div>
+     <div class="hint" data-more="The item is split into letter trigrams including a word-start and word-end marker (^ga gar ard rde den en$ for “garden”). Each trigram&#x27;s count is the number of reference words containing it, and the score is the mean log10(count + 1). It is shown as a percentile among the language&#x27;s real words of the same length: 80 means more typical letter sequences than 80% of real words of that length.">Higher = more typical letter sequences.</div>
      <div class="row" style="margin-top:8px;align-items:center"><span class="inl" style="flex:0 0 auto">Count trigrams by</span><select id="triMode"><option value="type">word types</option><option value="token">word tokens</option></select></div>
      <div class="hint" data-more="Affects only the wordlikeness score (Wordlikeness % and its raw value, Trigram freq.), in every tab, including matching and cross-language sets; OLD20, Coltheart&#x27;s N and the other measures are unchanged. Types count each real word once. Tokens weight each word by its frequency, so a few very frequent words dominate the counts.">Wordlikeness only, in all tabs.</div></div>
 
@@ -883,14 +883,16 @@ function triScore(L, w) {
 }
 function rescoreBank(L) {
   for (const r of L.bank) r.tri = triScore(L, r.w);
-  L.triAll = Float64Array.from(L.bank.map(r => r.tri)).sort();
+  // Reference distribution for the wordlikeness percentile: the language's real words (reference lexicon), by length.
+  const all = [], byLen = {};
+  for (const w of L.lex.words) { const t = triScore(L, w); if (isNaN(t)) continue; all.push(t); (byLen[wlen(L, w)] = byLen[wlen(L, w)] || []).push(t); }
+  L.triAll = Float64Array.from(all).sort();
   L.triByLen = {};
-  for (const r of L.bank) (L.triByLen[r.len] = L.triByLen[r.len] || []).push(r.tri);
-  for (const k in L.triByLen) L.triByLen[k] = Float64Array.from(L.triByLen[k]).sort();
+  for (const k in byLen) L.triByLen[k] = Float64Array.from(byLen[k]).sort();
   for (const r of L.bank) { r.like = triPct(L, r.w, r.tri); if (Object.hasOwn(r, "triMin")) delete r.triMin; if (Object.hasOwn(r, "trimin")) delete r.trimin; }
   L.triModeUsed = S.triMode;
 }
-function triPct(L, w, score) {   // percentile among bank items of the same length (whole bank if that length is rare)
+function triPct(L, w, score) {   // percentile among real words of the same length (all real words if that length is rare)
   if (isNaN(score)) return NaN;
   const g = L.triByLen[wlen(L, w)], a = g && g.length >= 100 ? g : L.triAll;
   let lo = 0, hi = a.length; while (lo < hi) { const m = (lo + hi) >> 1; if (a[m] < score) lo = m + 1; else hi = m; }
@@ -1366,7 +1368,7 @@ const TIPS = {
   cvg: "* Best guess, not a measurement: a model learned from the existing IPA data of this language predicts the spoken pattern of a new string (abjads: unwritten vowels inferred; Indic scripts: inherent vowels resolved). Its accuracy on held-out real words is on the About tab.",
   tcv: "CV pattern of the real word in the chosen basis (the pseudoword is matched to it). Phonological* = best guess from a model learned on the existing IPA data.",
   cvIpa: "Pattern taken from the word's IPA transcription, where one exists.",
-  like: "Wordlikeness: mean trigram frequency (with word boundaries), as a percentile among bank items of the same length. Higher = more typical letter sequences.",
+  like: "Wordlikeness: mean trigram frequency (with word boundaries), as a percentile among the language's real words of the same length (60 = more typical letter sequences than 60% of real words of that length).",
   tri: "Raw wordlikeness value: mean log10 of the number of reference words containing each of the item's trigrams.",
   old: "OLD20: mean edit distance to the 20 closest real words. Lower = denser neighbourhood.",
   n1: "Coltheart's N: number of real words one letter change away.",
@@ -1398,7 +1400,7 @@ const TIPS = {
 const COLS = {
   w: ["Pseudoword", r => r.w, "pw pick"], model: ["Generated from", r => MODEL_LABEL[r.model] || r.model, ""], gen: ["Generator", r => GEN_LABEL[r.gen] || r.gen || "", ""],
   len: ["Len", r => r.len, "num"], cv: [() => S.L[S.code] && (S.L[S.code].cvg || S.L[S.code].hasGraph) ? "CV (orth.)" : "CV", r => r.cv, "mono"], cvgr: ["CV (graph.)", r => r.cvgr || "", "mono"], ng: ["Graphemes", r => r.ng ?? "", "num"], cvg: ["CV (phon.)*", r => r.cvg || "", "mono"],
-  like: ["Wordlike %", r => fmt(r.like, 0), "num"], tri: ["Trigram freq.", r => fmt(r.tri, 2), "num"],
+  like: ["Wordlike % (vs real words)", r => fmt(r.like, 0), "num"], tri: ["Trigram freq.", r => fmt(r.tri, 2), "num"],
   old: ["OLD20", r => fmt(r.old), "num"], n1: ["Coltheart's N", r => r.n1, "num"], n1h: ["High-freq. neighbours", r => r.n1h, "num"],
   near: ["Nearest word", r => r.near, "mono"], nd: ["Dist.", r => r.nd, "num"], nz: ["Nearest Zipf", r => fmt(r.nz), "num"],
   lpa: ["Model log₂ p", r => fmt(r.lpa, 3), "num"],
@@ -2135,7 +2137,7 @@ function renderAbout() {
    <li><b>Coltheart's N</b>: the number of reference words one letter change away. In Analyze words, <b>High-freq. neighbours</b> counts only those with Zipf ≥ 4. Note that with a minimum distance of 2 or more, N is always 0.</li>
    <li><b>Nearest word</b>, its edit distance and its Zipf frequency.</li>
    <li><b>Zipf frequency</b>: log10 of the word's frequency per billion words, so 3 = one per million and 4 = ten per million (van Heuven, Mandera, Keuleers &amp; Brysbaert 2014).</li>
-   <li><b>Wordlikeness %</b>: the item's mean trigram frequency, as a percentile among bank items of the same length. <b>Trigram freq.</b> is the raw value: the item is split into letter trigrams including a word-start and a word-end marker (e.g. <span class="mono">^ga gar ard rde den en$</span> for “garden”); each trigram's frequency is the number of reference words containing it; the score is the mean of log10(frequency + 1) across the item's trigrams (the summed bigram-frequency tradition of Rice &amp; Robinson 1975 and Gernsbacher 1984, extended here to trigrams; cf. the unconstrained trigram statistics of MCWord, Medler &amp; Binder 2005). It describes sublexical typicality for matching stimuli; it does not capture similarity to a specific word (see OLD20, nearest word and embedded word).</li>
+   <li><b>Wordlikeness %</b>: the item's mean trigram frequency, as a percentile among the language's real words (reference lexicon) of the same length: 60 means more typical letter sequences than 60% of real words of that length. It is a convenience scale for the raw value, not a rating; “wordlikeness” in the rating sense (Bailey &amp; Hahn 2001) is a different, subjective measure that trigram frequency predicts only in part. <b>Trigram freq.</b> is the raw value: the item is split into letter trigrams including a word-start and a word-end marker (e.g. <span class="mono">^ga gar ard rde den en$</span> for “garden”); each trigram's frequency is the number of reference words containing it; the score is the mean of log10(frequency + 1) across the item's trigrams (the summed bigram-frequency tradition of Rice &amp; Robinson 1975 and Gernsbacher 1984, extended here to trigrams; cf. the unconstrained trigram statistics of MCWord, Medler &amp; Binder 2005). It describes sublexical typicality for matching stimuli; it does not capture similarity to a specific word (see OLD20, nearest word and embedded word).</li>
    <li><b>Model log₂ p</b>: mean log₂ probability per letter under the all-words Kneser-Ney letter model, a stricter sequence-legality score kept for reference.</li>
    <li><b>Rarest trigram</b>: the lowest of the item's trigram values (same scale as Trigram freq.), with the trigram in brackets; a weakest-link measure that the mean hides.</li>
    <li><b>OUP</b> (orthographic uniqueness point; Kwantes &amp; Mewhort 1999; Lindell, Nicholls &amp; Castles 2003): the first letter position, counting from the left, at which the item no longer matches the beginning of any real word; shown as “n+” when the whole item is the beginning of a real word.</li>
@@ -2320,7 +2322,9 @@ async function loadPool(code, gen, say) {
   say(`Scoring ${langName(code)}…`); await sleep();
   for (const r of rows) r.tri = triScore(P, r.w);
   P.dist = {};
-  for (const k of ["tri", "old", "n1"]) {
+  { const g = {}, all = []; for (const w of P.lex.words) { const t = triScore(P, w); if (isNaN(t)) continue; all.push(t); (g[wlen(P, w)] = g[wlen(P, w)] || []).push(t); }
+    for (const l in g) g[l] = Float64Array.from(g[l]).sort(); P.dist.tri = { g, all: Float64Array.from(all).sort() }; }
+  for (const k of ["old", "n1"]) {
     const g = {}; for (const r of rows) (g[r.len] = g[r.len] || []).push(r[k]);
     for (const l in g) g[l] = Float64Array.from(g[l]).sort();
     P.dist[k] = { g, all: Float64Array.from(rows.map(r => r[k])).sort() };
@@ -2603,8 +2607,8 @@ wireFileInput("xs", XST);
 function xSetDefaults() {
   const d = XDEF[$("#xScale").value];
   for (const [, , id] of XMEAS) { $("#xv" + id).value = d[id][0]; $("#xt" + id).value = d[id][1]; }
-  if ($("#xScale").value === "pct") setHint("#xScaleHint", "Fair across lexicon sizes.", "OLD20 and N are turned into percentiles among that language's bank items of the same length (50 = a typical item of that length). Raw values depend on lexicon size and alphabet: a 225,000-word Tamil lexicon is far denser than a 20,000-word Faroese one, and Hindi akshara strings have much higher raw OLD20 than Latin-script words. Wordlikeness is always a within-language percentile.");
-  else setHint("#xScaleHint", "Only for similar lexicons.", "Raw OLD20 and N depend on each language's lexicon size and alphabet, so equal values do not mean equally dense neighbourhoods. Use raw values only for closely related languages with lexicons of similar size. Wordlikeness is always a within-language percentile.");
+  if ($("#xScale").value === "pct") setHint("#xScaleHint", "Fair across lexicon sizes.", "OLD20 and N are turned into percentiles among that language's bank items of the same length (50 = a typical item of that length). Raw values depend on lexicon size and alphabet: a 225,000-word Tamil lexicon is far denser than a 20,000-word Faroese one, and Hindi akshara strings have much higher raw OLD20 than Latin-script words. Wordlikeness is always a percentile among the language's real words of the same length.");
+  else setHint("#xScaleHint", "Only for similar lexicons.", "Raw OLD20 and N depend on each language's lexicon size and alphabet, so equal values do not mean equally dense neighbourhoods. Use raw values only for closely related languages with lexicons of similar size. Wordlikeness is always a percentile among the language's real words of the same length.");
 }
 function xRefresh() {
   const yoked = $("#xMode").value === "yoked";
