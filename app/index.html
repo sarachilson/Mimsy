@@ -692,7 +692,7 @@ async function loadLang(code) {
   L.ref = L.lex;                          // reference lexicon used for distances
   L.bank = bindRows(L, parseBank(btxt));   // emb / cvg / cvgr / ng are computed lazily
   buildTrigrams(L);
-  rescoreBank(L);
+  rescoreBank(L); buildDensity(L);
   L.lpSorted = Float64Array.from(L.bank.map(r => r.lpa)).sort();
   S.L[code] = L;
   return L;
@@ -788,6 +788,21 @@ function embListOf(L, w) {
 }
 function extraMeasures(L, w) { const el = embListOf(L, w), tl = tlOf(L, w), tm = triMinOf(L, w); return { oup: oupOf(L, w), tl, tln: tl.length, triMin: tm, trimin: tm.v, embList: el, embN: el.length }; }
 lazy("oup", (L, r) => L && L.lex ? oupOf(L, r.w) : NaN);
+// OLD20 and N as percentiles among the language's bank items of the same length (the cross-language scale, now shown everywhere).
+function buildDensity(L) {
+  L.dens = {};
+  for (const k of ["old", "n1"]) { const g = {}, all = []; for (const r of L.bank) { const v = r[k]; if (isNaN(v)) continue; all.push(v); (g[r.len] = g[r.len] || []).push(v); }
+    for (const l in g) g[l] = Float64Array.from(g[l]).sort(); L.dens[k] = { g, all: Float64Array.from(all).sort() }; }
+}
+function densPct(L, k, len, v) {
+  if (!L || !L.dens || v === undefined || v === null || Number.isNaN(v)) return NaN;
+  const d = L.dens[k], g = d.g[len], a = g && g.length >= 100 ? g : d.all;
+  let lo = 0, hi = a.length; while (lo < hi) { const m = (lo + hi) >> 1; if (a[m] < v) lo = m + 1; else hi = m; }
+  let lo2 = lo, hi2 = a.length; while (lo2 < hi2) { const m = (lo2 + hi2) >> 1; if (a[m] <= v) lo2 = m + 1; else hi2 = m; }
+  return 100 * (lo + lo2) / 2 / a.length;
+}
+lazy("oldP", (L, r) => densPct(L, "old", r.len, r.old));
+lazy("n1P", (L, r) => densPct(L, "n1", r.len, r.n1));
 lazy("tl", (L, r) => L && L.lex ? tlOf(L, r.w) : []);
 lazy("triMin", (L, r) => L && L.triType ? triMinOf(L, r.w) : { v: NaN, g: "" });
 lazy("tln", (L, r) => r.tl ? r.tl.length : NaN);
@@ -1396,6 +1411,8 @@ const TIPS = {
   pxl: "Languages (among those chosen under “Exclude real words of other languages”) in which the pseudoword is a real word.",
   set: "Set number: one row per set in the wide table; in the long table, the items of one set share a number.", lang: "Language of this item.", role: "Seed = the item the set was built around; match = the closest item found for it in this language.",
   unit: "Length unit of this language: letters, or aksharas (syllable-sized units) for Indic scripts, fidel for Ethiopic.",
+  oldp: "OLD20 as a percentile among this language's bank items (pseudowords) of the same length: 50 = a typically dense item of that length; low = crowded neighbourhood, high = isolated. Lets neighbourhood density be compared across languages with lexicons of different sizes.",
+  n1p: "Coltheart's N as a percentile among this language's bank items (pseudowords) of the same length; comparable across languages.",
   oldP: "OLD20 as a percentile among this language's bank items (pseudowords) of the same length: 50 = a typically dense item of that length. Used to compare neighbourhood density across languages with lexicons of different sizes; the raw OLD20 is in the column before it.",
   n1P: "Coltheart's N as a percentile among this language's bank items (pseudowords) of the same length. Used to compare across languages; the raw N is in the column before it.",
   notes: "For yoked sets: which measures of a match fall outside the tolerance of its seed, and whether the seed is a real word.",
@@ -1408,7 +1425,7 @@ const COLS = {
   w: ["Pseudoword", r => r.w, "pw pick"], model: ["Generated from", r => MODEL_LABEL[r.model] || r.model, ""], gen: ["Generator", r => GEN_LABEL[r.gen] || r.gen || "", ""],
   len: ["Len", r => r.len, "num"], cv: [() => S.L[S.code] && (S.L[S.code].cvg || S.L[S.code].hasGraph) ? "CV (orth.)" : "CV", r => r.cv, "mono"], cvgr: ["CV (graph.)", r => r.cvgr || "", "mono"], ng: ["Graphemes", r => r.ng ?? "", "num"], cvg: ["CV (phon.)*", r => r.cvg || "", "mono"],
   like: ["Wordlike % (vs real words)", r => fmt(r.like, 0), "num"], tri: ["Trigram freq.", r => fmt(r.tri, 2), "num"],
-  old: ["OLD20", r => fmt(r.old), "num"], n1: ["Coltheart's N", r => r.n1, "num"], n1h: ["High-freq. neighbours", r => r.n1h, "num"],
+  old: ["OLD20", r => fmt(r.old), "num"], oldp: ["OLD20 pct", r => fmt(r.oldP, 0), "num"], n1: ["Coltheart's N", r => r.n1, "num"], n1p: ["N pct", r => fmt(r.n1P, 0), "num"], n1h: ["High-freq. neighbours", r => r.n1h, "num"],
   near: ["Nearest word", r => r.near, "mono"], nd: ["Dist.", r => r.nd, "num"], nz: ["Nearest Zipf", r => fmt(r.nz), "num"],
   lpa: ["Model log₂ p", r => fmt(r.lpa, 3), "num"],
   emb: ["Embedded word", r => r.emb ? `${r.emb.w} (${r.emb.pos})` : "", "mono"],
@@ -1418,7 +1435,7 @@ const COLS = {
   trimin: ["Rarest trigram", r => r.triMin && !isNaN(r.triMin.v) ? `${fmt(r.triMin.v)} (${r.triMin.g})` : "", "num"],
   xl: ["Word in", r => xlLabel(xlOf(r), r.w), ""],
 };
-const BANK_COLS = ["w", "model", "gen", "len", "cv", "like", "tri", "trimin", "old", "n1", "tl", "near", "nd", "nz", "embn", "oup", "lpa"];
+const BANK_COLS = ["w", "model", "gen", "len", "cv", "like", "tri", "trimin", "old", "oldp", "n1", "n1p", "tl", "near", "nd", "nz", "embn", "oup", "lpa"];
 const bankCols = L => { const c = BANK_COLS.filter(k => SHOW_PROVENANCE || (k !== "model" && k !== "gen")); if (L.cvg) c.splice(c.indexOf("cv") + 1, 0, "cvg"); if (L.hasGraph && !L.indic) c.splice(c.indexOf("cv") + 1, 0, "cvgr", "ng"); if (S.xlSig) c.splice(1, 0, "xl"); return c; };
 const tableData = {};
 function renderTable(id, rows, colKeys, colDefs = COLS) {
@@ -1618,7 +1635,7 @@ async function analyzeWord(L, w, xcls) {
   return { w, real, rare, zipf: real ? L.lex.zipf[i] : NaN, band: real ? L.lex.band[i] : 0, ipa: real ? L.lex.ipa[i] : "",
     len: wlen(L, w), cv: cvOf(w, xcls || L.cls), ...(L.hasGraph ? graphOf(L, w) : { cvgr: "", ng: "" }), cvg: L.cvg ? cvGuess(L, w) : "", cvIpa: real && L.lex.ipa[i] && L.cvg ? ipaCV(L.lex.ipa[i]) : "", bad: bad.join(""), legal: bad.length ? "" : legality(L, w),
     lpa: bad.length ? NaN : all.logprob(w), tri: bad.length && !soft ? NaN : triScore(L, w), like: bad.length && !soft ? NaN : triPct(L, w, triScore(L, w)),
-    old: nb.old, n1: nb.n1, n1h: nb.n1h, near: nb.near, nd: nb.nd, emb: embedded(L, w), ...(bad.length && !soft ? { oup: NaN, tl: null, tln: NaN, triMin: null, trimin: NaN, embN: "", embList: [] } : extraMeasures(L, w)) };
+    old: nb.old, oldP: densPct(L, "old", wlen(L, w), nb.old), n1: nb.n1, n1P: densPct(L, "n1", wlen(L, w), nb.n1), n1h: nb.n1h, near: nb.near, nd: nb.nd, emb: embedded(L, w), ...(bad.length && !soft ? { oup: NaN, tl: null, tln: NaN, triMin: null, trimin: NaN, embN: "", embList: [] } : extraMeasures(L, w)) };
 }
 const A_COLS = {
   w: ["Item", r => r.w, "pw"],
@@ -1627,7 +1644,7 @@ const A_COLS = {
   len: ["Len", r => r.len, "num"], cv: [() => S.L[S.code] && (S.L[S.code].cvg || S.L[S.code].hasGraph) ? "CV (orth.)" : "CV", r => r.cv, "mono"], cvgr: ["CV (graph.)", r => r.cvgr || "", "mono"], ng: ["Graphemes", r => r.ng ?? "", "num"], cvg: ["CV (phon.)*", r => r.cvg, "mono"], cvIpa: ["CV from IPA", r => r.cvIpa, "mono"],
   legal: ["Spelling check", r => r.note && r.note.startsWith("not analyzed") ? r.note : [r.note, r.bad ? (r.note ? "" : `letters not in alphabet: ${r.bad}`) : (r.legal || "ok")].filter(Boolean).join(" · "), ""],
   like: ["Wordlike %", r => isNaN(r.like) ? "" : fmt(r.like, 0), "num"], tri: ["Trigram freq.", r => isNaN(r.tri) ? "" : fmt(r.tri, 2), "num"],
-  old: ["OLD20", r => fmt(r.old), "num"], n1: ["Coltheart's N", r => r.n1, "num"], n1h: ["High-freq. neighbours", r => r.n1h, "num"],
+  old: ["OLD20", r => fmt(r.old), "num"], oldp: ["OLD20 pct", r => fmt(r.oldP, 0), "num"], n1: ["Coltheart's N", r => r.n1, "num"], n1p: ["N pct", r => fmt(r.n1P, 0), "num"], n1h: ["High-freq. neighbours", r => r.n1h, "num"],
   near: ["Nearest other word", r => r.near, "mono"], nd: ["Dist.", r => isNaN(r.nd) ? "" : r.nd, "num"],
   tl: ["TL neighbours", r => r.tl ? (r.tl.length ? `${r.tl.length} (${r.tl.slice(0, 3).join(", ")}${r.tl.length > 3 ? ", …" : ""})` : "0") : "", "num"],
   trimin: ["Rarest trigram", r => r.triMin && !isNaN(r.triMin.v) ? `${fmt(r.triMin.v)} (${r.triMin.g})` : "", "num"],
@@ -1916,7 +1933,7 @@ async function matchOne(L, w, model, gen, crit, md, used, embKeep, xcls) {
   return { t, p, src: p ? srcOf(p) : "", alts: cands, srcOf };
 }
 const ADDED_COLS = [["pseudoword", r => r.p ? r.p.w : ""], ["word_cv_orth", r => r.t.cv], ["word_cv_graph", r => r.t.cvgr || ""], ["word_n_graphemes", r => r.t.ng ?? ""], ["pseudo_cv_graph", r => r.p && r.p.cvgr || ""], ["pseudo_n_graphemes", r => r.p ? (r.p.ng ?? "") : ""], ["word_cv_phon", r => r.t.cvg || ""], ["pseudo_cv_phon", r => r.p && r.p.cvg || ""], ["word_zipf", r => isNaN(r.t.zipf) ? "" : r.t.zipf],
-  ["word_old20", r => isNaN(r.t.old) ? "" : +fmt(r.t.old)], ["word_wordlike_pct", r => isNaN(r.t.like) ? "" : Math.round(r.t.like)], ["word_trigram_freq", r => isNaN(r.t.tri) ? "" : +fmt(r.t.tri, 3)],
+  ["word_old20", r => isNaN(r.t.old) ? "" : +fmt(r.t.old)], ["word_old20_pct", r => isNaN(r.t.oldP) ? "" : Math.round(r.t.oldP)], ["word_coltheart_n_pct", r => isNaN(r.t.n1P) ? "" : Math.round(r.t.n1P)], ["pseudo_old20_pct", r => r.p && !isNaN(r.p.oldP) ? Math.round(r.p.oldP) : ""], ["pseudo_coltheart_n_pct", r => r.p && !isNaN(r.p.n1P) ? Math.round(r.p.n1P) : ""], ["word_wordlike_pct", r => isNaN(r.t.like) ? "" : Math.round(r.t.like)], ["word_trigram_freq", r => isNaN(r.t.tri) ? "" : +fmt(r.t.tri, 3)],
   ["pseudo_old20", r => r.p ? +fmt(r.p.old) : ""], ["pseudo_wordlike_pct", r => r.p ? Math.round(r.p.like) : ""], ["pseudo_trigram_freq", r => r.p ? +fmt(r.p.tri, 3) : ""],
   ["word_coltheart_n", r => r.t.n1], ["word_nearest_dist", r => isNaN(r.t.nd) ? "" : r.t.nd], ["pseudo_coltheart_n", r => r.p ? r.p.n1 : ""], ["pseudo_nearest_word", r => r.p ? r.p.near : ""], ["pseudo_nearest_dist", r => r.p ? r.p.nd : ""],
   ["pseudo_embedded_word", r => r.p && r.p.emb ? r.p.emb.w : ""], ["pseudo_embedded_position", r => r.p && r.p.emb ? r.p.emb.pos : ""],
@@ -2141,6 +2158,7 @@ function renderAbout() {
   <h2>Measures</h2>
   <ul>
    <li><b>OLD20</b>: mean Levenshtein distance to the 20 closest reference words (Yarkoni, Balota &amp; Yap, 2008).</li>
+   <li><b>OLD20 pct</b> and <b>N pct</b>: the same two measures as percentiles among this language's bank items (pseudowords) of the same length — 50 = a typically dense item of that length. Raw OLD20 and N depend on lexicon size, symbol inventory and typical word length (a 225,000-word Tamil lexicon is far denser than a 20,000-word Faroese one), so only the percentiles are comparable across languages.</li>
    <li><b>Coltheart's N</b>: the number of reference words one letter change away. In Analyze words, <b>High-freq. neighbours</b> counts only those with Zipf ≥ 4. Note that with a minimum distance of 2 or more, N is always 0.</li>
    <li><b>Nearest word</b>, its edit distance and its Zipf frequency.</li>
    <li><b>Zipf frequency</b>: log10 of the word's frequency per billion words, so 3 = one per million and 4 = ten per million (van Heuven, Mandera, Keuleers &amp; Brysbaert 2014).</li>
