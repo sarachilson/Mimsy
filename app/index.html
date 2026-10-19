@@ -2158,7 +2158,7 @@ function renderAbout() {
   <h2>Measures</h2>
   <ul>
    <li><b>OLD20</b>: mean Levenshtein distance to the 20 closest reference words (Yarkoni, Balota &amp; Yap, 2008).</li>
-   <li><b>OLD20 pct</b> and <b>N pct</b>: the same two measures as percentiles among this language's bank items (pseudowords) of the same length — 50 = a typically dense item of that length. Raw OLD20 and N depend on lexicon size, symbol inventory and typical word length (a 225,000-word Tamil lexicon is far denser than a 20,000-word Faroese one), so only the percentiles are comparable across languages.</li>
+   <li><b>OLD20 pct</b> and <b>N pct</b>: the same two measures as percentiles among this language's bank items (pseudowords) of the same length — 50 = a typically dense item of that length. Raw OLD20 and N depend on lexicon size, symbol inventory and typical word length (a 225,000-word Tamil lexicon is far denser than a 14,000-word Greenlandic one), so only the percentiles are comparable across languages.</li>
    <li><b>Coltheart's N</b>: the number of reference words one letter change away. In Analyze words, <b>High-freq. neighbours</b> counts only those with Zipf ≥ 4. Note that with a minimum distance of 2 or more, N is always 0.</li>
    <li><b>Nearest word</b>, its edit distance and its Zipf frequency.</li>
    <li><b>Zipf frequency</b>: log10 of the word's frequency per billion words, so 3 = one per million and 4 = ten per million (van Heuven, Mandera, Keuleers &amp; Brysbaert 2014).</li>
@@ -2632,7 +2632,7 @@ wireFileInput("xs", XST);
 function xSetDefaults() {
   const d = XDEF[$("#xScale").value];
   for (const [, , id] of XMEAS) { $("#xv" + id).value = d[id][0]; $("#xt" + id).value = d[id][1]; }
-  if ($("#xScale").value === "pct") setHint("#xScaleHint", "Fair across lexicon sizes.", "OLD20 and N are turned into percentiles among that language's bank items of the same length (50 = a typical item of that length). Raw values depend on lexicon size and alphabet: a 225,000-word Tamil lexicon is far denser than a 20,000-word Faroese one, and Hindi akshara strings have much higher raw OLD20 than Latin-script words. Wordlikeness is always a percentile among the language's real words of the same length.");
+  if ($("#xScale").value === "pct") setHint("#xScaleHint", "Fair across lexicon sizes.", "OLD20 and N are turned into percentiles among that language's bank items of the same length (50 = a typical item of that length). Raw values depend on lexicon size and alphabet: a 225,000-word Tamil lexicon is far denser than a 14,000-word Greenlandic one, and Hindi akshara strings have much higher raw OLD20 than Latin-script words. Wordlikeness is always a percentile among the language's real words of the same length.");
   else setHint("#xScaleHint", "Only for similar lexicons.", "Raw OLD20 and N depend on each language's lexicon size and alphabet, so equal values do not mean equally dense neighbourhoods. Use raw values only for closely related languages with lexicons of similar size. Wordlikeness is always a percentile among the language's real words of the same length.");
 }
 function xRefresh() {
