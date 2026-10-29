@@ -180,6 +180,11 @@ body.noprov .prov{display:none!important}
    <div class="field"><div class="row"><div><label for="sStart">Starts with</label><input type="text" id="sStart"></div><div><label for="sEnd">Ends with</label><input type="text" id="sEnd"></div></div></div>
    <div class="field"><div class="row"><div><label for="sHas">Contains</label><input type="text" id="sHas"></div><div><label for="sAvoid">Avoid letters</label><input type="text" id="sAvoid" placeholder="e.g. qxz"></div></div></div>
 
+   <div class="field" id="morphBox" hidden><span class="lbl">Morphology</span>
+     <select id="sMorph"><option value="">Any</option><option value="affixed">Pseudo-stem + real affixes</option><option value="bare">No affixes (monomorphemic-looking)</option><option value="realstem">Real stem + affixes the analyser rejects</option><option value="gen">From the morphological generator</option></select>
+     <div class="row" style="margin-top:6px"><div><label for="sAffMin">Affixes min</label><input type="text" inputmode="decimal" autocomplete="off" id="sAffMin" placeholder="min"></div><div><label for="sAffMax">max</label><input type="text" inputmode="decimal" autocomplete="off" id="sAffMax" placeholder="max"></div></div>
+     <div class="checks" style="margin-top:6px"><label><input type="checkbox" id="sHarm"> Vowel-harmonic items only</label></div>
+     <div class="hint" id="morphHint" data-more="Each item was run through the language&#x27;s morphological analyser (Apertium transducer). Items the analyser accepts as real word forms were removed from the bank. The rest are labelled by the parse with the shortest stem that the generator maps back to the item: pseudo-stem + real affixes (e.g. түлектес+іміз), no affixes, or a real stem with an affix chain the analyser does not accept. Items from the morphological generator are a pseudo-stem (a stem-level letter model, vowel-harmonic, not a real stem) inflected with a real affix chain by the transducer itself.">Real forms removed; items labelled by stem and affixes.</div></div>
    <div class="sec">Real words</div>
    <div class="field"><label for="sMinDist">Min. distance to the nearest real word</label><select id="sMinDist"><option value="1" selected>Any</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select>
      <div class="hint" data-more="Every pseudoword is at least one letter change away from every real word, so “Any” applies no limit. With 2, an item cannot be turned into a real word by a single substitution, insertion or deletion; 3 and 4 are stricter still and leave fewer items.">2 or more drops items one letter away from a real word.</div></div>
@@ -282,6 +287,7 @@ body.noprov .prov{display:none!important}
      <div class="checks" style="flex-direction:column;align-items:stretch;gap:4px" id="mCrit">
       <label style="justify-content:space-between"><span><input type="checkbox" id="mcCV" checked> CV structure (same pattern and length)</span><select id="mCvBasis" class="cvBasisMirror" style="flex:0 0 auto;width:auto;font-size:12px;padding:2px 4px" title="Which CV pattern: orthographic, graphemic or phonological"></select></label>
       <label><input type="checkbox" id="mcLen"> Length only</label>
+      <label id="mcMorphBox" hidden><input type="checkbox" id="mcMorph"> Same affix chain as the word (morphology)</label>
       <label style="justify-content:space-between"><span><input type="checkbox" id="mcOld" checked> OLD20</span><span class="row" style="flex:0 0 auto;gap:4px"><span class="hint" style="margin:0">±</span><input type="text" inputmode="decimal" autocomplete="off" id="mtOld" value="0.3" style="width:60px"></span></label>
       <label style="justify-content:space-between"><span><input type="checkbox" id="mcLike" checked> Wordlikeness %</span><span class="row" style="flex:0 0 auto;gap:4px"><span class="hint" style="margin:0">±</span><input type="text" inputmode="decimal" autocomplete="off" id="mtLike" value="20" style="width:60px"></span></label>
       <label style="justify-content:space-between"><span><input type="checkbox" id="mcTri"> Trigram freq.</span><span class="row" style="flex:0 0 auto;gap:4px"><span class="hint" style="margin:0">±</span><input type="text" inputmode="decimal" autocomplete="off" id="mtTri" value="0.15" style="width:60px"></span></label>
@@ -663,6 +669,7 @@ async function selectLang(code) {
     $("#sLenLbl").textContent = `Length (${unit})`;
     if (S.lenUnit !== unit) { $("#sLenMin").value = $("#sLenMin").defaultValue = d[0]; $("#sLenMax").value = $("#sLenMax").defaultValue = d[1]; S.lenUnit = unit; } }
   $("#mWords").placeholder = exampleWords(S.L[code], 3).join("\n") || "one word per line";
+  $("#morphBox").hidden = !S.L[code].morph; $("#mcMorphBox").hidden = !S.L[code].morph;
   if (S.gMissing) { $("#cvBasisBox").hidden = false; setHint("#cvBasisHint", "data/graphemes.json was not found, so the graphemic CV is unavailable (copy the file into the data folder and reload).", ""); }
   else if ($("#cvBasisBox").hidden) setHint("#cvBasisHint", "", "");
   else setHint("#cvBasisHint", `Chooses which CV column the CV pattern filter uses: ${[...$("#cvBasisSel").options].map(o => o.value === "guess" ? "phonological" : o.value === "graph" ? "graphemic" : "orthographic").join(", ").replace(/, ([^,]*)$/, " or $1")}.`, cvBasisMore(m, S.L[code], code));
@@ -691,11 +698,37 @@ async function loadLang(code) {
   L.lex = parseLex(ltxt);
   L.ref = L.lex;                          // reference lexicon used for distances
   L.bank = bindRows(L, parseBank(btxt));   // emb / cvg / cvgr / ng are computed lazily
+  await loadMorph(L, code);
   buildTrigrams(L);
   rescoreBank(L); buildDensity(L);
   L.lpSorted = Float64Array.from(L.bank.map(r => r.lpa)).sort();
   S.L[code] = L;
   return L;
+}
+// Morphology layer (languages with an Apertium analyser; see pipeline/morph.py): labels for bank items, real forms removed,
+// items from the morphological generator appended, analyses of the reference words for Match.
+async function loadMorph(L, code) {
+  L.morph = null; L.lexMorph = null; L.morphRemoved = 0; L.morphGen = 0;
+  if (!L.manifest.morphology) return;
+  try {
+    const [mt, bt, lt] = await Promise.all([getText(code + "/morph.tsv.gz"), getText(code + "/bank_morph.tsv.gz").catch(() => ""), getText(code + "/lex_morph.tsv.gz").catch(() => "")]);
+    const M = new Map(), lines = mt.split("\n");
+    for (let i = 1; i < lines.length; i++) { const p = lines[i].split("\t"); if (p.length < 8) continue; M.set(p[0], { t: p[1], stem: p[2], suf: p[3], tags: p[4], na: p[5] === "" ? NaN : +p[5], sr: p[6] === "1", h: p[7] }); }
+    L.morph = M;
+    const before = L.bank.length;
+    L.bank = L.bank.filter(r => { const m = M.get(r.w); return !(m && m.t === "real"); });
+    L.morphRemoved = before - L.bank.length;
+    if (bt) { const extra = bindRows(L, parseBank(bt)); L.bank = L.bank.concat(extra); L.morphGen = extra.length; }
+    if (lt) { const LM = new Map(), ll = lt.split("\n"); for (let i = 1; i < ll.length; i++) { const p = ll[i].split("\t"); if (p.length < 5) continue; LM.set(p[0], { t: "word", stem: p[1], suf: p[2], tags: p[3], na: +p[4] }); } L.lexMorph = LM; }
+  } catch (e) { L.morph = null; }
+}
+const morphOf = (L, w) => L && L.morph ? (L.morph.get(w) || (L.lexMorph && L.lexMorph.get(w)) || null) : null;
+const tagText = tags => tags ? tags.replace(/^<|>$/g, "").split("><").join(".") : "";
+function morphText(m) {
+  if (!m) return "";
+  if (m.t === "bare") return "no affixes";
+  if (m.t === "real") return "real form";
+  return `${m.stem}+${m.suf} · ${tagText(m.tags)}${m.t === "realstem" ? " (real stem)" : ""}`;
 }
 function parseLex(txt) {
   const lines = txt.split("\n"), words = [], zipf = [], band = [], cv = [], ipa = [];
@@ -803,6 +836,8 @@ function densPct(L, k, len, v) {
 }
 lazy("oldP", (L, r) => densPct(L, "old", r.len, r.old));
 lazy("n1P", (L, r) => densPct(L, "n1", r.len, r.n1));
+lazy("mo", (L, r) => morphOf(L, r.w));
+lazy("naff", (L, r) => { const m = morphOf(L, r.w); return m && !isNaN(m.na) ? m.na : NaN; });
 lazy("tl", (L, r) => L && L.lex ? tlOf(L, r.w) : []);
 lazy("triMin", (L, r) => L && L.triType ? triMinOf(L, r.w) : { v: NaN, g: "" });
 lazy("tln", (L, r) => r.tl ? r.tl.length : NaN);
@@ -1407,6 +1442,10 @@ const TIPS = {
   legal: "Spelling check: are the item's clusters and vowel sequences attested in real words, and are language rules respected?",
   ipa: "Pronunciation from the source dictionary, where available.",
   t: "The real word you entered.", tz: "Zipf frequency of the real word.",
+  morph: "Morphological analysis (Apertium transducer): pseudo-stem+affixes with the affix tags (e.g. n.pl.gen), 'no affixes' when no legal affix chain can be split off, '(real stem)' when the stem is a real word but the analyser rejects the combination. Real forms were removed from the bank.",
+  naff: "Number of affixes in the morphological analysis (tags other than part of speech and zero-realised tags).",
+  harm: "Vowel harmony of the item: front, back, mixed (front and back vowels together, as in many loanwords and compounds) or none.",
+  tmorph: "Morphological analysis of the real word (stem + affixes, tags).", pmorph: "Morphological analysis of the pseudoword.",
   xl: "Languages (among those chosen under “Exclude real words of other languages”) in which the item is a real word, with its form and Zipf frequency there.",
   pxl: "Languages (among those chosen under “Exclude real words of other languages”) in which the pseudoword is a real word.",
   set: "Set number: one row per set in the wide table; in the long table, the items of one set share a number.", lang: "Language of this item.", role: "Seed = the item the set was built around; match = the closest item found for it in this language.",
@@ -1426,6 +1465,7 @@ const COLS = {
   len: ["Len", r => r.len, "num"], cv: [() => S.L[S.code] && (S.L[S.code].cvg || S.L[S.code].hasGraph) ? "CV (orth.)" : "CV", r => r.cv, "mono"], cvgr: ["CV (graph.)", r => r.cvgr || "", "mono"], ng: ["Graphemes", r => r.ng ?? "", "num"], cvg: ["CV (phon.)*", r => r.cvg || "", "mono"],
   like: ["Wordlike % (vs real words)", r => fmt(r.like, 0), "num"], tri: ["Trigram freq.", r => fmt(r.tri, 2), "num"],
   old: ["OLD20", r => fmt(r.old), "num"], oldp: ["OLD20 pct", r => fmt(r.oldP, 0), "num"], n1: ["Coltheart's N", r => r.n1, "num"], n1p: ["N pct", r => fmt(r.n1P, 0), "num"], n1h: ["High-freq. neighbours", r => r.n1h, "num"],
+  morph: ["Morphology", r => morphText(r.mo), "mono"], naff: ["Affixes", r => isNaN(r.naff) ? "" : r.naff, "num"], harm: ["Harmony", r => r.mo ? r.mo.h || "" : "", ""],
   near: ["Nearest word", r => r.near, "mono"], nd: ["Dist.", r => r.nd, "num"], nz: ["Nearest Zipf", r => fmt(r.nz), "num"],
   lpa: ["Model log₂ p", r => fmt(r.lpa, 3), "num"],
   emb: ["Embedded word", r => r.emb ? `${r.emb.w} (${r.emb.pos})` : "", "mono"],
@@ -1436,7 +1476,7 @@ const COLS = {
   xl: ["Word in", r => xlLabel(xlOf(r), r.w), ""],
 };
 const BANK_COLS = ["w", "model", "gen", "len", "cv", "like", "tri", "trimin", "old", "oldp", "n1", "n1p", "tl", "near", "nd", "nz", "embn", "oup", "lpa"];
-const bankCols = L => { const c = BANK_COLS.filter(k => SHOW_PROVENANCE || (k !== "model" && k !== "gen")); if (L.cvg) c.splice(c.indexOf("cv") + 1, 0, "cvg"); if (L.hasGraph && !L.indic) c.splice(c.indexOf("cv") + 1, 0, "cvgr", "ng"); if (S.xlSig) c.splice(1, 0, "xl"); return c; };
+const bankCols = L => { const c = BANK_COLS.filter(k => SHOW_PROVENANCE || (k !== "model" && k !== "gen")); if (L.cvg) c.splice(c.indexOf("cv") + 1, 0, "cvg"); if (L.hasGraph && !L.indic) c.splice(c.indexOf("cv") + 1, 0, "cvgr", "ng"); if (L.morph) c.splice(c.indexOf("like"), 0, "morph", "naff", "harm"); if (S.xlSig) c.splice(1, 0, "xl"); return c; };
 const tableData = {};
 function renderTable(id, rows, colKeys, colDefs = COLS) {
   const box = $("#" + id);
@@ -1537,7 +1577,12 @@ function runSearch() {
 
   const embKeep = embFilter("s");
   const genSel = $("#sGen").value;
-  let rows = L.bank.filter(r => (!modelSel || r.model === modelSel) && (!genSel || r.gen === genSel) && r.nd >= md && (!embKeep || embKeep(L, r))
+  const mSel = L.morph ? $("#sMorph").value : "", affMin = L.morph ? num("#sAffMin") : null, affMax = L.morph ? num("#sAffMax") : null, harmOnly = L.morph && $("#sHarm").checked;
+  const morphOk = r => { if (!L.morph) return true; const m = r.mo;
+    if (mSel === "gen") { if (r.model !== "morph") return false; } else if (mSel && (!m || m.t !== mSel)) return false;
+    if (affMin !== null && !(m && m.na >= affMin)) return false; if (affMax !== null && !(!m || isNaN(m.na) || m.na <= affMax)) return false;
+    if (harmOnly && m && m.h === "mixed") return false; return true; };
+  let rows = L.bank.filter(r => (!modelSel || r.model === modelSel) && (!genSel || r.gen === genSel) && r.nd >= md && (!embKeep || embKeep(L, r)) && morphOk(r)
     && (lmin === null || r.len >= lmin) && (lmax === null || r.len <= lmax)
     && (!re || re.test(r[cvBasis()] || r.cv)) && (!st || r.w.startsWith(st)) && (!en || r.w.endsWith(en)) && (!has || r.w.includes(has))
     && (!avoid.size || ![...r.w].some(c => avoid.has(c)))
@@ -1635,7 +1680,7 @@ async function analyzeWord(L, w, xcls) {
   return { w, real, rare, zipf: real ? L.lex.zipf[i] : NaN, band: real ? L.lex.band[i] : 0, ipa: real ? L.lex.ipa[i] : "",
     len: wlen(L, w), cv: cvOf(w, xcls || L.cls), ...(L.hasGraph ? graphOf(L, w) : { cvgr: "", ng: "" }), cvg: L.cvg ? cvGuess(L, w) : "", cvIpa: real && L.lex.ipa[i] && L.cvg ? ipaCV(L.lex.ipa[i]) : "", bad: bad.join(""), legal: bad.length ? "" : legality(L, w),
     lpa: bad.length ? NaN : all.logprob(w), tri: bad.length && !soft ? NaN : triScore(L, w), like: bad.length && !soft ? NaN : triPct(L, w, triScore(L, w)),
-    old: nb.old, oldP: densPct(L, "old", wlen(L, w), nb.old), n1: nb.n1, n1P: densPct(L, "n1", wlen(L, w), nb.n1), n1h: nb.n1h, near: nb.near, nd: nb.nd, emb: embedded(L, w), ...(bad.length && !soft ? { oup: NaN, tl: null, tln: NaN, triMin: null, trimin: NaN, embN: "", embList: [] } : extraMeasures(L, w)) };
+    old: nb.old, oldP: densPct(L, "old", wlen(L, w), nb.old), n1: nb.n1, n1P: densPct(L, "n1", wlen(L, w), nb.n1), n1h: nb.n1h, near: nb.near, nd: nb.nd, emb: embedded(L, w), mo: morphOf(L, w), naff: (m => m && !isNaN(m.na) ? m.na : NaN)(morphOf(L, w)), ...(bad.length && !soft ? { oup: NaN, tl: null, tln: NaN, triMin: null, trimin: NaN, embN: "", embList: [] } : extraMeasures(L, w)) };
 }
 const A_COLS = {
   w: ["Item", r => r.w, "pw"],
@@ -1645,6 +1690,7 @@ const A_COLS = {
   legal: ["Spelling check", r => r.note && r.note.startsWith("not analyzed") ? r.note : [r.note, r.bad ? (r.note ? "" : `letters not in alphabet: ${r.bad}`) : (r.legal || "ok")].filter(Boolean).join(" · "), ""],
   like: ["Wordlike %", r => isNaN(r.like) ? "" : fmt(r.like, 0), "num"], tri: ["Trigram freq.", r => isNaN(r.tri) ? "" : fmt(r.tri, 2), "num"],
   old: ["OLD20", r => fmt(r.old), "num"], oldp: ["OLD20 pct", r => fmt(r.oldP, 0), "num"], n1: ["Coltheart's N", r => r.n1, "num"], n1p: ["N pct", r => fmt(r.n1P, 0), "num"], n1h: ["High-freq. neighbours", r => r.n1h, "num"],
+  morph: ["Morphology", r => morphText(r.mo), "mono"], naff: ["Affixes", r => isNaN(r.naff) ? "" : r.naff, "num"], harm: ["Harmony", r => r.mo ? r.mo.h || "" : "", ""],
   near: ["Nearest other word", r => r.near, "mono"], nd: ["Dist.", r => isNaN(r.nd) ? "" : r.nd, "num"],
   tl: ["TL neighbours", r => r.tl ? (r.tl.length ? `${r.tl.length} (${r.tl.slice(0, 3).join(", ")}${r.tl.length > 3 ? ", …" : ""})` : "0") : "", "num"],
   trimin: ["Rarest trigram", r => r.triMin && !isNaN(r.triMin.v) ? `${fmt(r.triMin.v)} (${r.triMin.g})` : "", "num"],
@@ -1653,7 +1699,7 @@ const A_COLS = {
   ipa: ["IPA", r => r.ipa, ""],
   xl: ["Word in other languages", r => r.w ? xlLabel(xlOf(r), r.w) : "", ""],
 };
-const aColKeys = L => { const c = Object.keys(A_COLS).filter(k => k !== "xl" && (SHOW_PROVENANCE || k !== "band") && (L.cvg || (k !== "cvg" && k !== "cvIpa")) && ((L.hasGraph && !L.indic) || (k !== "cvgr" && k !== "ng"))); if (S.xlSig) c.splice(2, 0, "xl"); return c; };
+const aColKeys = L => { const c = Object.keys(A_COLS).filter(k => k !== "xl" && (SHOW_PROVENANCE || k !== "band") && (L.cvg || (k !== "cvg" && k !== "cvIpa")) && ((L.hasGraph && !L.indic) || (k !== "cvgr" && k !== "ng")) && (L.morph || !["morph", "naff", "harm"].includes(k))); if (S.xlSig) c.splice(2, 0, "xl"); return c; };
 $("#aGo").addEventListener("click", async () => {
   toTop();
   const L = S.L[S.code]; if (!L) return;
@@ -1687,12 +1733,13 @@ const M_COLS = {
   ptrimin: ["Pw rarest tri.", r => r.p && r.p.triMin && !isNaN(r.p.triMin.v) ? `${fmt(r.p.triMin.v)} (${r.p.triMin.g})` : "", "num"], poup: ["Pw OUP", r => r.p && !isNaN(r.p.oup) ? (r.p.oup > r.p.len ? `${r.p.len + 1}+` : r.p.oup) : "", "num"],
   ptl: ["Pw TL nb.", r => r.p && r.p.tl ? (r.p.tl.length ? `${r.p.tl.length} (${r.p.tl.slice(0, 2).join(", ")}${r.p.tl.length > 2 ? ", …" : ""})` : "0") : "", "num"],
   pnear: ["Pw nearest word", r => r.p ? r.p.near : "", "mono"],
+  tmorph: ["Morphology", r => morphText(r.t.mo), "mono"], pmorph: ["Pw morphology", r => r.p ? morphText(r.p.mo) : "", "mono"],
   pemb: ["Pw emb. words", r => r.p ? (r.p.embN ?? "") : "", "num embpick"],
   src: ["Source", r => [r.p ? r.src : "", r.note].filter(Boolean).join(" · "), ""],
   pxl: ["Pseudoword is a word in", r => r.p ? xlLabel(xlOf(r.p), r.p.w) : "", ""],
 };
 // Column order: word, its pseudoword (and "word in" when other languages are checked), then the word's measures, then the pseudoword's.
-const mColKeys = () => { const c = Object.keys(M_COLS).filter(k => k !== "pxl" && k !== "p"); c.splice(1, 0, "p"); if (S.xlSig) c.splice(2, 0, "pxl"); return c; };
+const mColKeys = () => { const L = S.L[S.code]; const c = Object.keys(M_COLS).filter(k => k !== "pxl" && k !== "p" && (L && L.morph || (k !== "tmorph" && k !== "pmorph"))); c.splice(1, 0, "p"); if (S.xlSig) c.splice(2, 0, "pxl"); return c; };
 /* --- reading tables: txt, csv/tsv, xlsx (xlsx via a minimal reader on top of JSZip) --- */
 function parseDelimited(txt) {
   const first = txt.split(/\r?\n/).find(l => l.trim()) || "";
@@ -1904,7 +1951,7 @@ const CRIT_DEFS = [["old", "mcOld", "mtOld", "OLD20", 2], ["like", "mcLike", "mt
   ["trimin", "mcTriMin", "mtTriMin", "rarest trigram", 2], ["oup", "mcOup", "mtOup", "OUP", 0], ["tln", "mcTl", "mtTl", "TL neighbours", 0], ["embN", "mcEmbN", "mtEmbN", "embedded words", 0]];
 function matchCriteria() {
   const num = CRIT_DEFS.filter(([, cb]) => $("#" + cb).checked).map(([key, , tb, label, dp]) => ({ key, tol: Math.max(0, +$("#" + tb).value || 0), label, dp }));
-  return { num, cv: $("#mcCV").checked, len: $("#mcLen").checked };
+  return { num, cv: $("#mcCV").checked, len: $("#mcLen").checked, morph: !$("#mcMorphBox").hidden && $("#mcMorph").checked };
 }
 async function matchOne(L, w, model, gen, crit, md, used, embKeep, xcls) {
   const t = await analyzeWord(L, w, xcls);
@@ -1913,7 +1960,9 @@ async function matchOne(L, w, model, gen, crit, md, used, embKeep, xcls) {
   const offList = r => crit.num.filter(c => !(dev(r, c) <= c.tol));
   const inTol = r => offList(r).length === 0;
   const score = r => crit.num.reduce((s, c) => s + dev(r, c) / Math.max(c.tol, 1e-6), 0);
-  const shapeOk = r => crit.cv ? ((r[B] || r.cv) === tcv && r.len === t.len) : crit.len ? r.len === t.len : true;
+  const tm = crit.morph ? morphOf(L, w) : null;   // same affix chain as the word (languages with a morphology layer); a word without an analysis: no constraint
+  const morphOk = r => !tm || (r.mo && r.mo.tags === tm.tags);
+  const shapeOk = r => morphOk(r) && (crit.cv ? ((r[B] || r.cv) === tcv && r.len === t.len) : crit.len ? r.len === t.len : true);
   // Score the bank rows themselves (their lazily computed measures stay cached across words); copy only the rows returned.
   const rank = (a, b) => ((a.off.length > 0) - (b.off.length > 0)) || (a.score - b.score);
   let scored = [];
@@ -1941,6 +1990,7 @@ const ADDED_COLS = [["pseudoword", r => r.p ? r.p.w : ""], ["word_cv_orth", r =>
   ["word_oup", r => isNaN(r.t.oup) ? "" : r.t.oup], ["pseudo_oup", r => r.p && !isNaN(r.p.oup) ? r.p.oup : ""],
   ["word_tl_neighbours", r => r.t.tl ? r.t.tl.length : ""], ["word_tl_neighbour_words", r => r.t.tl ? r.t.tl.join(" ") : ""], ["pseudo_tl_neighbours", r => r.p && r.p.tl ? r.p.tl.length : ""], ["pseudo_tl_neighbour_words", r => r.p && r.p.tl ? r.p.tl.join(" ") : ""],
   ["word_min_trigram", r => r.t.triMin && !isNaN(r.t.triMin.v) ? +fmt(r.t.triMin.v, 3) : ""], ["word_min_trigram_str", r => r.t.triMin ? r.t.triMin.g : ""], ["pseudo_min_trigram", r => r.p && r.p.triMin && !isNaN(r.p.triMin.v) ? +fmt(r.p.triMin.v, 3) : ""], ["pseudo_min_trigram_str", r => r.p && r.p.triMin ? r.p.triMin.g : ""],
+  ["word_morphology", r => morphText(r.t.mo)], ["pseudo_morphology", r => r.p ? morphText(r.p.mo) : ""],
   ["pseudo_word_in_other_languages", r => r.p && S.xlSig ? xlLabel(xlOf(r.p), r.p.w) : ""], ["pseudo_source", r => r.p ? r.src : ""], ["pseudo_model", r => r.p ? r.p.model : ""], ["pseudo_generator", r => r.p ? r.p.gen : ""], ["input_note", r => r.note || ""]]
   .filter(([n]) => SHOW_PROVENANCE || (n !== "pseudo_model" && n !== "pseudo_generator"));
 $("#mGo").addEventListener("click", async () => {
@@ -2121,11 +2171,19 @@ function alphabetRows(L, m) {
   }
   return rows.join("\n    ");
 }
+function renderMorphAbout(L) {
+  const mo = L.manifest.morphology; if (!mo) return "";
+  const lab = mo.labels || {}, tot = mo.bank_items || 0;
+  return `<h2>${esc(L.manifest.name)}: morphology</h2>
+  <p>Every pseudoword was run through the ${esc(mo.analyser)}. <b>${(mo.real_forms_removed || 0).toLocaleString()}</b> of the ${tot.toLocaleString()} bank items (${tot ? (100 * mo.real_forms_removed / tot).toFixed(1) : 0}%) turned out to be real word forms that the corpus happened not to contain (inflected or derived forms of real stems, such as imperatives or possessed plurals); they are not shown. The remaining items carry a <b>Morphology</b> column: <b>${(lab.affixed || 0).toLocaleString()}</b> are a pseudo-stem with a legal chain of real affixes, <b>${(lab.bare || 0).toLocaleString()}</b> cannot be split into stem and affixes (monomorphemic-looking), and <b>${(lab.realstem || 0).toLocaleString()}</b> are a real stem with an affix chain the analyser does not accept. The label is the parse with the shortest stem among those that the generator maps back to the item; the affix count leaves out the part-of-speech and zero-realised tags.</p>
+  <p>A <b>morphological generator</b> added <b>${(mo.generated || 0).toLocaleString()}</b> items (filter “From the morphological generator”): a pseudo-stem from a letter model trained on the ${(mo.stems || 0).toLocaleString()} analysed stems of common words (vowel-harmonic, never a real stem) is inflected by the transducer with one of ${(mo.affix_chains || 0).toLocaleString()} real affix chains drawn in proportion to their frequency, so suffix allomorphy and harmony are the language's own. In <i>Match my words</i>, “Same affix chain as the word” picks pseudowords whose analysis carries the same tags as the real word (${(mo.lexicon_analysed || 0).toLocaleString()} reference words have an analysis). Vowel harmony is reported, not enforced: about a tenth of common ${esc(L.manifest.name)} words mix front and back vowels (loanwords, compounds, invariant suffixes), so the Harmony column lets you decide.</p>`;
+}
 function renderAbout() {
   const L = S.L[S.code], m = L.manifest, c = m.counts, g = m.generation.results;
   const bands = m.bands_enabled === false ? `<li>No frequency bands: small corpus.</li>` : m.bands.map(b => `<li><b>${MODEL_LABEL[b.id]}</b>: ${(+c.band_sizes[b.id]).toLocaleString()} words</li>`).join("");
   $("#aboutBody").innerHTML = `
   <div style="display:flex;align-items:center;gap:18px;margin:4px 0 18px"><img src="assets/logo.png" alt="Mimsy logo" style="width:150px;height:auto"><div><div style="font-size:20px;font-weight:600">Mimsy</div><div class="hint" style="margin:2px 0 0">Pseudowords in 173 languages · <i>methodical whimsy</i>. Named after the word in Lewis Carroll's <i>Jabberwocky</i> (1871): “All mimsy were the borogoves”.</div><div class="hint" style="margin:6px 0 0">Beta — feedback is welcome, especially from speakers of the smaller languages, which could not all be checked with native speakers. Questions and feedback: <a href="mailto:mimsy.pseudowords@gmail.com">mimsy.pseudowords@gmail.com</a> · bug reports: <a href="https://github.com/sarachilson/Mimsy/issues" target="_blank" rel="noopener">github.com/sarachilson/Mimsy/issues</a> · code and data: <a href="https://github.com/sarachilson/Mimsy" target="_blank" rel="noopener">github.com/sarachilson/Mimsy</a></div></div></div>
+  ${renderMorphAbout(L)}
   <h2>${esc(m.name)}: data</h2>
   <div class="kv">
     <div>Corpus size</div><div>${m.corpus_tokens ? (m.corpus_tokens / 1e6).toLocaleString(undefined, { maximumFractionDigits: 1 }) + " million words" : "n/a"}</div>
@@ -2343,7 +2401,9 @@ async function loadPool(code, gen, say) {
   P.indic = isIndic(P.cls);
   await loadGraphemes(); P.gspec = gspecOf(code); P.hasGraph = hasGraphLevel(P.gspec, P.cls, P.indic) || P.indic;
   P.lex = parseLex(ltxt); buildTrigrams(P);
-  const rows = bindRows(P, parseBank(btxt, (model, g) => (!SHOW_PROVENANCE || model === "all") && (!gen || g === gen)));
+  P.bank = bindRows(P, parseBank(btxt, (model, g) => (!SHOW_PROVENANCE || model === "all") && (!gen || g === gen)));
+  await loadMorph(P, code);   // real forms removed, morphological generator's items added (languages with a morphology layer)
+  const rows = P.bank;
   say(`Scoring ${langName(code)}…`); await sleep();
   for (const r of rows) r.tri = triScore(P, r.w);
   P.dist = {};

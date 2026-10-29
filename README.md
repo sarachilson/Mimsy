@@ -123,10 +123,20 @@ python3 verify_metrics.py english-en 20   # brute-force check of the metrics
 
 Language settings (alphabets, vowels, the rule for `y`, spelling rules) are in `pipeline/languages.py`; `pipeline/derive_alphabet.py <corpus>` prints the letter inventory of a Leipzig list for a new entry; `pipeline/get_leipzig.py` downloads the lists.
 
+## Morphology (pilot: Kazakh)
+
+Agglutinative languages inflect freely, so a frequency list never contains all the real forms, and a generator trained on surface forms produces items that are themselves real words (кітаптарымыз-style forms the corpus happened to miss) or real stems with real suffixes. Since 29 Oct 2026 Kazakh has a morphology layer built with the Apertium Kazakh transducer (apertium-kaz; Washington, Salimzyanov & Tyers 2014) compiled with HFST (Lindén et al. 2011); `pipeline/morph.py` does three things:
+
+- **Real-form rejection.** Every bank item is run through the full analyser; anything it accepts is a real word form and is removed from the bank when the language loads (Kazakh: 7,999 of 120,000 items, 6.7%, including imperatives such as тіре and plural/possessive/case forms). The About tab reports the count.
+- **Morphology labels** for every remaining item, from a "guesser" transducer whose stem lexicon accepts any letter string, with the full phonology re-imposed by regenerating each parse: *affixed* (unknown stem + legal affix chain, e.g. дұғыр·лар·ының n.pl.px3sp.gen), *bare* (no affixes), *real stem* (a real stem with an affix chain the analyser rejects). The bank gets three new columns — **Morphology** (stem·suffixes with the tags), **Affixes** (count) and **Harmony** (front/back/mixed vowel harmony; a label, not a filter, because about a tenth of real Kazakh words — loans, compounds, invariant suffixes — are mixed) — and a **Morphology** filter (any / affixed / bare / real stem / generated; affix count range; harmonic only). Analyze shows the same for a typed item ("real form" when the analyser accepts it).
+- **Morphology-matched generation.** A new generator `morph` builds pseudo-stems with a Kneser-Ney letter 4-gram trained on the analysed stems of Zipf ≥ 3 words (vowel-harmonic, 2–8 letters, not a real stem), draws a real affix chain with its lexicon frequency, and inflects the pair through the transducer, so suffix allomorphy (-лар/-лер/-дар/-дер/-тар/-тер, possessive and case forms) comes out right; 20,000 such items are appended to the Kazakh bank (`bank_morph.tsv.gz`, generator "morph"). In Match, **Same affix chain as the word** restricts candidates to pseudowords with exactly the word's affix chain (кітаптарымыз → a pseudoword with n.pl.px1pl.nom), using the analyses of 87,143 of the 106,571 reference words (`lex_morph.tsv.gz`).
+
+To rebuild: compile the transducers as described in `pipeline/_morph/README.md` (the compiled `.hfstol` files for Kazakh are in the repository) and run `python3 pipeline/morph.py kazakh-kk --tools <hfst bin dir>` (about 1.5 minutes). Adding another language needs an Apertium transducer with a guesser (Turkish, Kyrgyz, Tatar, Kumyk, Finnish and others have one) and an entry in `MORPH` in `morph.py`.
+
 ## Known limitations
 
 - CV structure and models are based on letters, not graphemes or sounds (for example, English "sh" counts as CC).
-- There is no morphology check yet, so items can contain real affixes.
+- Morphology is checked only for Kazakh so far (see below); in the other languages items can contain real affixes or be real inflected forms that are missing from the frequency list.
 - Vietnamese has a small search space (about 18,000 legal syllables, fewer than the targets), and most short syllables are one edit from a real one.
 - Bank sizes: each generator and training set gets as many pseudowords as the set has training words, between 5,000 and 40,000 (see `generation` in each manifest).
 

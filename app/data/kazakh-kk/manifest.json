@@ -973,5 +973,26 @@
    "title": "Newspaper vocabulary added",
    "text": "85,848 of the reference words come from a newspaper corpus (Leipzig Corpora Collection, kaz_newscrawl_2016_1M, 15.2 million words); 20,723 come from the subtitle list. Written sources are more formal than subtitles and contain more names and foreign words. Frequencies of the corpus-only words come from that corpus and are not comparable with subtitle frequencies."
   }
- ]
+ ],
+ "morphology": {
+  "analyser": "apertium-kaz (Apertium Kazakh morphological transducer; HFST build)",
+  "date": "2026-10-29",
+  "bank_items": 120000,
+  "real_forms_removed": 7999,
+  "labels": {
+   "affixed": 66515,
+   "realstem": 4708,
+   "bare": 40778
+  },
+  "generated": 20000,
+  "generator": "pseudo-stem (Kneser-Ney letter 4-gram trained on the analysed stems of words with Zipf >= 3, vowel-harmonic, not a real stem) + a real affix chain drawn with its lexicon frequency, inflected by the transducer",
+  "stems": 5833,
+  "affix_chains": 1143,
+  "lexicon_analysed": 87143,
+  "labelling": "guesser parses validated by the generator; shortest stem, then n > adj > v, then fewer tags; n_affixes counts tags other than POS/subcategory/zero-realised tags",
+  "harmony": {
+   "front": "әөүіе",
+   "back": "аоұы"
+  }
+ }
 }
