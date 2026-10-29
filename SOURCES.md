@@ -27,6 +27,12 @@ The `kn4` generator (`KN` class in `build_bank.py`, mirrored in the app) is an i
 
 **Plain letter n-gram generation (Markov chains over letters).** No single source; the two plain trigram generators (`tri_type`, `tri_token`) are maximum-likelihood trigram models with boundary markers, type-counted or token-weighted, implemented as the user's original proposal and as a transparent contrast to Kneser-Ney.
 
+**Morphology-matched generation (`morph`, Kazakh only, since 29 Oct 2026).** A Kneser-Ney letter 4-gram (as above) trained on *stems* rather than words, plus a real affix chain sampled with its lexicon frequency, inflected by the Apertium Kazakh transducer so that the suffix allomorphs follow the language's phonology. Also used for real-form rejection and the morphology labels (`pipeline/morph.py`).
+
+**Apertium (platform).** Forcada, M. L., Ginestí-Rosell, M., Nordfalk, J., O'Regan, J., Ortiz-Rojas, S., Pérez-Ortiz, J. A., Sánchez-Martínez, F., Ramírez-Sánchez, G. & Tyers, F. M. (2011). Apertium: a free/open-source platform for rule-based machine translation. *Machine Translation, 25*(2), 127–144. https://doi.org/10.1007/s10590-011-9090-0
+**Apertium Kazakh transducer (apertium-kaz, GPL-3.0).** Washington, J., Salimzyanov, I. & Tyers, F. (2014). Finite-state morphological transducers for three Kypchak languages. *Proceedings of LREC 2014*, 3378–3385. https://github.com/apertium/apertium-kaz (git checkout of 29 Oct 2026; the lexc/twol sources are compiled to `pipeline/_morph/kazakh-kk/*.hfstol`; the guesser is Apertium's `dev/guesser`).
+**HFST (Helsinki Finite-State Technology, 3.15.5; GPL/Apache).** Lindén, K., Axelson, E., Hardwick, S., Pirinen, T. & Silfverberg, M. (2011). HFST—Framework for compiling and applying morphologies. In C. Mahlow & M. Piotrowski (Eds.), *Systems and Frameworks for Computational Morphology (SFCM 2011)*, CCIS 100 (pp. 67–85). Springer. (Pages not yet verified against the volume.) Used offline only (hfst-lexc, hfst-twolc, hfst-optimized-lookup); the browser app reads the resulting tables.
+
 ## Measures
 
 **OLD20.** Yarkoni, T., Balota, D. & Yap, M. (2008). Moving beyond Coltheart's N: A new measure of orthographic similarity. *Psychonomic Bulletin & Review, 15*, 971–979.
