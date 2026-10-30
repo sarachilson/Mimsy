@@ -6,7 +6,7 @@
 > *And the mome raths outgrabe.*
 > — Lewis Carroll, *Jabberwocky* (1871)
 
-**Mimsy** is a browser tool for finding, generating and checking pseudowords — strings that look and sound like words of a language but are not — in 173 languages. It takes its name from *Jabberwocky*, the most famous pseudoword text in English. For each language it reports the measures that matter when a pseudoword stands in for a real word: length, CV structure, trigram wordlikeness, OLD20, Coltheart's N, embedded words and more.
+**Mimsy** is a browser tool for finding, generating and checking pseudowords — strings that look and sound like words of a language but are not — in 179 languages. It takes its name from *Jabberwocky*, the most famous pseudoword text in English. For each language it reports the measures that matter when a pseudoword stands in for a real word: length, CV structure, trigram wordlikeness, OLD20, Coltheart's N, embedded words and more.
 
 It is built from the FILMS/OPUS subtitle frequency lists and, for languages with small or unusable subtitle lists or none at all, word lists from the Leipzig Corpora Collection. Version 0.6-beta: about 20.8 million precomputed pseudowords (the main languages have 190,000–385,000 each; small-corpus languages 15,000–120,000).
 
@@ -60,7 +60,26 @@ Thirty languages come from small corpora: eight from FILMS_med (Basque, Catalan,
 
 ## Leipzig Corpora Collection word lists
 
-For languages whose subtitle list is small (fewer than a few thousand usable words) or corrupted, and for languages with no subtitle list at all, the reference lexicon is extended with the word-frequency list of one corpus from the Leipzig Corpora Collection (CC BY; Goldhahn, Eckart & Quasthoff 2012; `pipeline/get_leipzig.py` downloads them, `_leipzig/leipzig_catalog.tsv` lists the corpus used per language). Rules: the largest corpus available, news preferred over web, Wikipedia only when nothing else exists; words are lowercased, and in cased scripts a word is kept only if it occurs in lowercase at least twice (forms seen only capitalised are names or acronyms); a word becomes a reference word with a corpus count of at least 3 (1M/300K corpora) or 2 (smaller). Where a subtitle list exists the two are merged: subtitle Zipf and IPA for the words it has, a Zipf computed from the Leipzig corpus for the others. Languages built from Leipzig alone (89 of them, from Gujarati and Maltese to Amharic, Dhivehi, Yiddish and Navajo; the full list with per-language decisions is in LEIPZIG_NOTES.md) take all frequencies from that corpus and have no frequency bands; their alphabets were derived from the word lists with `pipeline/derive_alphabet.py` and checked by hand. The About tab and the caution banner say which corpus was used and how many reference words come from each source; written-source vocabulary is more formal than subtitles and contains more names and foreign words.
+For languages whose subtitle list is small (fewer than a few thousand usable words) or corrupted, and for languages with no subtitle list at all, the reference lexicon is extended with the word-frequency list of one corpus from the Leipzig Corpora Collection (CC BY; Goldhahn, Eckart & Quasthoff 2012; `pipeline/get_leipzig.py` downloads them, `_leipzig/leipzig_catalog.tsv` lists the corpus used per language). Rules: the largest corpus available, news preferred over web, Wikipedia only when nothing else exists; words are lowercased, and in cased scripts a word is kept only if it occurs in lowercase at least twice (forms seen only capitalised are names or acronyms); a word becomes a reference word with a corpus count of at least 3 (1M/300K corpora) or 2 (smaller). Where a subtitle list exists the two are merged: subtitle Zipf and IPA for the words it has, a Zipf computed from the Leipzig corpus for the others. Languages built from Leipzig alone (95 of them, from Gujarati and Maltese to Amharic, Dhivehi, Yiddish and Navajo; the full list with per-language decisions is in LEIPZIG_NOTES.md) take all frequencies from that corpus and have no frequency bands; their alphabets were derived from the word lists with `pipeline/derive_alphabet.py` and checked by hand. The About tab and the caution banner say which corpus was used and how many reference words come from each source; written-source vocabulary is more formal than subtitles and contains more names and foreign words.
+
+## Regional varieties (Swiss German, Bavarian, Limburgish, West Flemish, Emilian-Romagnol, Egyptian Arabic)
+
+Six regional varieties of languages that are already in the tool were added on 30 Oct 2026, each from its Wikipedia word list (Leipzig Corpora Collection; 0.6–1.9 million words, 13,000–39,000 reference words). They are treated differently from the other languages because so much of their vocabulary is shared with the standard language (`parents=[...]` in `pipeline/languages.py`):
+
+- **Reject list.** Every word form of the parent language (its reference lexicon and rare forms; German 822k, Dutch 644k, Italian 300k, Arabic 1.15M forms) is added to the variety's reject list at build time, so no pseudoword is a real word of the parent either. The parent's Hunspell dictionary is used in the real-word check as well (it catches inflected forms the parent's corpus missed). Shared words stay in the variety's own lexicon: they are words of the variety too and belong in its letter model and its neighbourhood measures.
+- **Pre-selected cross-language check.** When one of these varieties is chosen, the app pre-selects the parent language(s) under "Exclude real words of other languages", so the *Word in* column shows near misses to real German/Dutch/Italian/Arabic words from the start. The user can switch this off like any other cross-language choice.
+- **Banner.** The caution banner has an item "Variety of German" (etc.) saying what was done and how many reference words are shared.
+
+| Variety | Parent(s) | Corpus (Leipzig) | Reference words | Shared with parent | Bank | Removed by parent dictionary |
+|---|---|---|---|---|---|---|
+| Swiss German (gsw) | German | gsw_wikipedia_2021_100K, 1.9M | 24,276 | 5,169 | 72,828 | 71 |
+| Bavarian (bar) | German | bar_wikipedia_2021_100K, 1.8M | 24,062 | 3,700 | 72,186 | 32 |
+| Limburgish (lim) | Dutch, German | lim_wikipedia_2021_100K, 1.8M | 39,106 | 10,693 / 2,718 | 117,318 | 440 |
+| West Flemish (vls) | Dutch | vls_wikipedia_2021_30K, 0.6M | 15,258 | 5,136 | 45,774 | 198 |
+| Emilian-Romagnol (eml) | Italian | eml_wikipedia_2021_30K, 0.7M | 13,470 | 1,257 | 40,410 | 45 |
+| Egyptian Arabic (arz) | Arabic | arz_wikipedia_2021_100K, 1.3M | 30,361 | 16,262 | 91,083 | 4,585 |
+
+None of these varieties has a fixed orthography (Swiss German Wikipedia mixes Dieth-style and ad-hoc spellings; Bavarian has several competing conventions; Limburgish uses the 2003 Veldeke spelling only in part), so the same word occurs in several spellings and the letter models are correspondingly looser. Egyptian Arabic shares the Arabic letter rules (abjad: CV is orthographic) plus the loan letters ڤ پ چ; Persian-shaped ک and ی were normalised to ك and ي. Six smaller varieties with Leipzig lists were not added (Kölsch, Palatine German, Zeelandic, Extremaduran, Samogitian, Fiji Hindi; Pontic Greek has no list): their lists are tiny and their parent languages' vocabulary would dominate.
 
 ## Indic languages (Hindi, Bengali, Nepali, Marathi, Maithili, Newar, Sanskrit, Gujarati, Punjabi, Assamese, Bishnupriya, Odia, Kannada, Tulu, Telugu, Tamil, Malayalam, Sinhala)
 
@@ -148,7 +167,7 @@ To rerun: clone the three dictionary collections, the UniMorph repositories and 
 ## Known limitations
 
 - CV structure and models are based on letters, not graphemes or sounds (for example, English "sh" counts as CC).
-- Morphology is checked only for Kazakh so far (see above); in the other languages items can contain real affixes, and the real-word check (dictionaries, UniMorph, Bible texts) is only as complete as those sources — 81 languages, mostly the small Wikipedia-only ones, have no dictionary at all.
+- Morphology is checked only for Kazakh so far (see above); in the other languages items can contain real affixes, and the real-word check (dictionaries, UniMorph, Bible texts) is only as complete as those sources — 81 languages, mostly the small Wikipedia-only ones, have no dictionary at all (the six regional varieties use their parent language's dictionary).
 - Vietnamese has a small search space (about 18,000 legal syllables, fewer than the targets), and most short syllables are one edit from a real one.
 - Bank sizes: each generator and training set gets as many pseudowords as the set has training words, between 5,000 and 40,000 (see `generation` in each manifest).
 

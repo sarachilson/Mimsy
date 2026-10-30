@@ -2180,5 +2180,66 @@
    "new_forms_not_in_lists": 361,
    "bank_items_accepted": 7
   }
+ },
+ "bavarian-bar": {
+  "hunspell-de": {
+   "dictionary": "wooorm/de/index",
+   "licence": "(GPL-2.0 OR GPL-3.0)",
+   "coverage_of_reference_words": 0.14,
+   "bank_items_accepted": 32,
+   "compounding": "off"
+  }
+ },
+ "egyptian_arabic-arz": {
+  "hunspell-ar": {
+   "dictionary": "libreoffice/ar/ar",
+   "licence": "see COPYING.txt: GPL 2.0/LGPL 2.1/MPL 1.1 tri-license  The contents of this software may be used under the terms of the GNU General Public License Version 2 or later (the \"GPL\")",
+   "coverage_of_reference_words": 0.529,
+   "bank_items_accepted": 4585,
+   "compounding": "off"
+  }
+ },
+ "emilian_romagnol-eml": {
+  "hunspell-it": {
+   "dictionary": "wooorm/it/index",
+   "licence": "GPL-3.0",
+   "coverage_of_reference_words": 0.082,
+   "bank_items_accepted": 45,
+   "compounding": "off"
+  }
+ },
+ "limburgish-lim": {
+  "hunspell-nl": {
+   "dictionary": "wooorm/nl/index",
+   "licence": "(BSD-3-Clause OR CC-BY-3.0)",
+   "coverage_of_reference_words": 0.262,
+   "bank_items_accepted": 418,
+   "compounding": "off"
+  },
+  "hunspell-de": {
+   "dictionary": "wooorm/de/index",
+   "licence": "(GPL-2.0 OR GPL-3.0)",
+   "coverage_of_reference_words": 0.066,
+   "bank_items_accepted": 22,
+   "compounding": "off"
+  }
+ },
+ "swiss_german-gsw": {
+  "hunspell-de": {
+   "dictionary": "wooorm/de/index",
+   "licence": "(GPL-2.0 OR GPL-3.0)",
+   "coverage_of_reference_words": 0.197,
+   "bank_items_accepted": 71,
+   "compounding": "off"
+  }
+ },
+ "west_flemish-vls": {
+  "hunspell-nl": {
+   "dictionary": "wooorm/nl/index",
+   "licence": "(BSD-3-Clause OR CC-BY-3.0)",
+   "coverage_of_reference_words": 0.325,
+   "bank_items_accepted": 198,
+   "compounding": "off"
+  }
  }
 }

@@ -6,7 +6,7 @@
  "corpus_tokens": 9881599,
  "small_corpus": true,
  "bands_enabled": false,
- "caution": "9.9 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 64,318 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. 57,118 of the reference words come from a newspaper corpus (Leipzig Corpora Collection, urd_newscrawl_2016_1M, 26.0 million words); 7,200 come from the subtitle list. Written sources are more formal than subtitles and contain more names and foreign words. Frequencies of the corpus-only words come from that corpus and are not comparable with subtitle frequencies. Urdu is written without short vowels. CV here is orthographic: alif, waw, ye and bari ye (ا آ و ی ے) count as V; the aspiration marker (ھ) and nun ghunna (ں) are modifiers. Diacritics were removed.",
+ "caution": "9.9 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 64,318 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. 57,118 of the reference words come from a newspaper corpus (Leipzig Corpora Collection, urd_newscrawl_2016_1M, 26.0 million words); 7,200 come from the subtitle list. Written sources are more formal than subtitles and contain more names and foreign words. Frequencies of the corpus-only words come from that corpus and are not comparable with subtitle frequencies. Urdu is written without short vowels. CV here is orthographic: alif, waw, ye and bari ye (ا آ و ی ے) count as V; the aspiration letter (ھ) and nun ghunna (ں) count as consonant letters (at the grapheme level ھ joins the consonant before it). Diacritics were removed.",
  "script": "alphabet",
  "length_unit": "letters",
  "experimental": false,
@@ -4322,7 +4322,7 @@
   },
   {
    "title": "Abjad: CV is orthographic",
-   "text": "Urdu is written without short vowels. CV here is orthographic: alif, waw, ye and bari ye (ا آ و ی ے) count as V; the aspiration marker (ھ) and nun ghunna (ں) are modifiers. Diacritics were removed."
+   "text": "Urdu is written without short vowels. CV here is orthographic: alif, waw, ye and bari ye (ا آ و ی ے) count as V; the aspiration letter (ھ) and nun ghunna (ں) count as consonant letters (at the grapheme level ھ joins the consonant before it). Diacritics were removed."
   }
  ],
  "patches": [

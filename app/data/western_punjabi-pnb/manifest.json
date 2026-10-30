@@ -6,7 +6,7 @@
  "corpus_tokens": 5634078,
  "small_corpus": true,
  "bands_enabled": false,
- "caution": "5.6 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 45,777 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. 45,777 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, pnb_wikipedia_2021_300K, 5.6 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words. All frequencies come from that corpus, so no frequency bands are offered. Shahmukhi (Urdu-type Arabic script) is written without short vowels. CV here is orthographic: alif, waw, ye and bari ye count as V; the aspiration marker (ھ) and nun ghunna (ں) are modifiers. Diacritics were removed.",
+ "caution": "5.6 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 45,777 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. 45,777 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, pnb_wikipedia_2021_300K, 5.6 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words. All frequencies come from that corpus, so no frequency bands are offered. Shahmukhi (Urdu-type Arabic script) is written without short vowels. CV here is orthographic: alif, waw, ye and bari ye count as V; the aspiration letter (ھ) and nun ghunna (ں) count as consonant letters (at the grapheme level ھ joins the consonant before it). Diacritics were removed.",
  "caution_items": [
   {
    "title": "Small corpus",
@@ -18,7 +18,7 @@
   },
   {
    "title": "Abjad: CV is orthographic",
-   "text": "Shahmukhi (Urdu-type Arabic script) is written without short vowels. CV here is orthographic: alif, waw, ye and bari ye count as V; the aspiration marker (ھ) and nun ghunna (ں) are modifiers. Diacritics were removed."
+   "text": "Shahmukhi (Urdu-type Arabic script) is written without short vowels. CV here is orthographic: alif, waw, ye and bari ye count as V; the aspiration letter (ھ) and nun ghunna (ں) count as consonant letters (at the grapheme level ھ joins the consonant before it). Diacritics were removed."
   }
  ],
  "script": "alphabet",

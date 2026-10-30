@@ -107,9 +107,9 @@ capitalised-only forms rejected, minimum counts, English-contamination filter fo
   Assamese tables), Tulu (Kannada script).
 
 ### What was skipped and why
-- Dialects / varieties of included languages (user's rule): Bavarian, Kölsch, Palatine German, Swiss German,
+- Dialects / varieties of included languages (user's rule at the time): Bavarian, Kölsch, Palatine German, Swiss German,
   Limburgish, West Flemish, Zeelandic, Extremaduran, Emilian-Romagnol, Samogitian, Pontic Greek, Fiji Hindi,
-  Egyptian Arabic. Duplicate codes: azj, lvs, plt, swh, hbs (mixed Serbo-Croatian), smi (Sami).
+  Egyptian Arabic. (Six of these were added on 2026-10-30, see section 6 below.) Duplicate codes: azj, lvs, plt, swh, hbs (mixed Serbo-Croatian), smi (Sami).
 - Kept under "if in doubt, add it" although some would call them regional: Sicilian, Venetian, Lombard, Piedmontese,
   Ligurian, Low German, Scots, Silesian, Kashubian, Võro, Zazaki, Rusyn, Mingrelian, the two Mari and two Komi
   languages (all have ISO 639-3 codes and their own Wikipedias).
@@ -142,3 +142,27 @@ Malagasy, Meadow Mari, Romansh, Rusyn. 5,000–10,000: the rest. Experimental (<
 Komi-Permyak, Northern Frisian, Interlingue, Quechua, Volapük, Navajo.
 English-contamination removals are largest in Cebuano (438), Mizo (367), Papiamento (360), Kapampangan (302),
 Konkani (245), Javanese (222): Wikipedia/news text in these languages quotes a lot of English.
+
+## 6. Third batch (2026-10-30): six regional varieties with a parent language
+
+Added with the new `parents=[...]` mechanism (parent's word forms go into the reject list; parent pre-selected in the
+cross-language check; parent's Hunspell dictionary used in the real-word check; banner item "Variety of …"):
+
+- Swiss German (gsw_wikipedia_2021_100K, 1.9M tokens, 24,276 reference words; parent German). Alphabet a–z plus
+  ä ö ü è à é ì ù ô ò (French-type accents are frequent in Romand place names and in Dieth spellings of long vowels).
+  ß left out (only in Standard German quotations). No standard orthography: the same word occurs in several spellings.
+- Bavarian (bar_wikipedia_2021_100K, 1.8M, 24,062; parent German). a–z plus ä ö ü ß å é ó (å is the Boarisch
+  Wikipedia's spelling of the dark a). Several competing spelling conventions.
+- Limburgish (lim_wikipedia_2021_100K, 1.8M, 39,106; parents Dutch and German). a–z plus è ö ó ë ä é. The 2003
+  Veldeke spelling is used only in part of the articles. Shares 10,693 reference words with Dutch, 2,718 with German.
+- West Flemish (vls_wikipedia_2021_30K, 0.55M, 15,258; parent Dutch). a–z plus ê ô è ë é ï.
+- Emilian-Romagnol (eml_wikipedia_2021_30K, 0.72M, 13,470; parent Italian). a–z plus a long accent set
+  (è à ò é ì ó â ê ō ṅ ù î ē ô û ä ś ṣ ć ǵ) because the Wikipedia uses at least three local orthographies
+  (Bolognese, Reggiano, Romagnol); only 1,257 reference words are also Italian words.
+- Egyptian Arabic (arz_wikipedia_2021_100K, 1.3M, 30,361; parent Arabic). Arabic letter classes (abjad rules as for
+  Arabic) plus the loan letters ڤ پ چ; Persian-shaped ک and ی normalised to ك and ي. 16,262 reference words (54%) are
+  also Standard Arabic words, and the Arabic Hunspell dictionary removes 4,585 of 91,083 bank items (5%), by far the
+  most of the six — the variety is written largely in Standard Arabic orthography.
+
+Not added (lists too small, parent vocabulary would dominate): Kölsch (ksh), Palatine German (pfl), Zeelandic (zea),
+Extremaduran (ext), Samogitian (sgs), Fiji Hindi (hif). Pontic Greek has no Leipzig list.

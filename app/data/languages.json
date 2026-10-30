@@ -14,6 +14,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_sm.zip",
     "path": "afrikaans-af/word/afrikaans.af.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -32,6 +33,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_data.zip",
     "path": "albanian-sq/word/albanian.sq.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -50,6 +52,7 @@
    "length_unit": "fidel",
    "script": "ethiopic",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -65,6 +68,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": true,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_data.zip",
     "path": "arabic-ar/word/arabic.ar.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -83,6 +87,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_sm.zip",
     "path": "aragonese-an/word/aragonese.an.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -101,6 +106,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_sm.zip",
     "path": "armenian-hy/word/armenian.hy.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -119,6 +125,7 @@
    "length_unit": "aksharas",
    "script": "assamese",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_sm.zip",
     "path": "assamese-as/word/assamese.as.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -137,6 +144,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_sm.zip",
     "path": "asturian-ast/word/asturian.ast.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -155,6 +163,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_sm.zip",
     "path": "azerbaijani-az/word/azerbaijani.az.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -173,6 +182,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -188,6 +198,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -203,6 +214,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -218,10 +230,29 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_med.zip",
     "path": "basque-eu/word/basque.eu.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
    }
+  },
+  {
+   "code": "bavarian-bar",
+   "name": "Bavarian",
+   "reference_words": 24062,
+   "small_corpus": true,
+   "corpus_tokens": 1758132,
+   "experimental": false,
+   "cv_approximate": true,
+   "family": "Germanic",
+   "writing": "Latin",
+   "length_unit": "letters",
+   "script": "alphabet",
+   "abjad": false,
+   "parents": [
+    "german-de"
+   ],
+   "films_file": null
   },
   {
    "code": "belarusian-be",
@@ -236,6 +267,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_sm.zip",
     "path": "belarusian-be/word/belarusian.be.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -254,6 +286,7 @@
    "length_unit": "aksharas",
    "script": "bengali",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_data.zip",
     "path": "bengali-bn/word/bengali.bn.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -272,6 +305,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -287,6 +321,7 @@
    "length_unit": "aksharas",
    "script": "assamese",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -302,6 +337,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_data.zip",
     "path": "bosnian-bs/word/bosnian.bs.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -320,6 +356,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_sm.zip",
     "path": "breton-br/word/breton.br.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -338,6 +375,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_data.zip",
     "path": "bulgarian-bg/word/bulgarian.bg.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -356,6 +394,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -371,6 +410,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_med.zip",
     "path": "catalan-ca/word/catalan.ca.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -389,6 +429,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -404,6 +445,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -419,6 +461,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -434,6 +477,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -449,6 +493,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_data.zip",
     "path": "croatian-hr/word/croatian.hr.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -467,6 +512,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_data.zip",
     "path": "czech-cs/word/czech.cs.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -485,6 +531,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_data.zip",
     "path": "danish-da/word/danish.da.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -503,6 +550,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -518,6 +566,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_data.zip",
     "path": "dutch-nl/word/dutch.nl.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -536,6 +585,43 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
+   "films_file": null
+  },
+  {
+   "code": "egyptian_arabic-arz",
+   "name": "Egyptian Arabic",
+   "reference_words": 30361,
+   "small_corpus": true,
+   "corpus_tokens": 1333943,
+   "experimental": false,
+   "cv_approximate": true,
+   "family": "Semitic",
+   "writing": "Arabic",
+   "length_unit": "letters",
+   "script": "alphabet",
+   "abjad": true,
+   "parents": [
+    "arabic-ar"
+   ],
+   "films_file": null
+  },
+  {
+   "code": "emilian_romagnol-eml",
+   "name": "Emilian-Romagnol",
+   "reference_words": 13470,
+   "small_corpus": true,
+   "corpus_tokens": 722696,
+   "experimental": false,
+   "cv_approximate": true,
+   "family": "Romance",
+   "writing": "Latin",
+   "length_unit": "letters",
+   "script": "alphabet",
+   "abjad": false,
+   "parents": [
+    "italian-it"
+   ],
    "films_file": null
   },
   {
@@ -551,6 +637,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_data.zip",
     "path": "english-en/word/english.en.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -569,6 +656,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -584,6 +672,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_sm.zip",
     "path": "esperanto-eo/word/esperanto.eo.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -602,6 +691,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_data.zip",
     "path": "estonian-et/word/estonian.et.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -620,6 +710,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -635,6 +726,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_data.zip",
     "path": "finnish-fi/word/finnish.fi.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -653,6 +745,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_data.zip",
     "path": "french-fr/word/french.fr.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -671,6 +764,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_med.zip",
     "path": "galician-gl/word/galician.gl.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -689,6 +783,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -704,6 +799,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_med.zip",
     "path": "georgian-ka/word/georgian.ka.word.pron-one_col-default.filtered_by_pron.zipf_4.tsv"
@@ -722,6 +818,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_data.zip",
     "path": "german-de/word/german.de.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -740,6 +837,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": true,
+   "parents": null,
    "films_file": null
   },
   {
@@ -755,6 +853,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_data.zip",
     "path": "greek-el/word/greek.el.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -773,6 +872,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -788,6 +888,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -803,6 +904,7 @@
    "length_unit": "aksharas",
    "script": "gujarati",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -818,6 +920,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -833,6 +936,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -848,6 +952,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": true,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_data.zip",
     "path": "hebrew-he/word/hebrew.he.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -866,6 +971,7 @@
    "length_unit": "aksharas",
    "script": "devanagari",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_med.zip",
     "path": "hindi-hi/word/hindi.hi.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -884,6 +990,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_data.zip",
     "path": "hungarian-hu/word/hungarian.hu.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -902,6 +1009,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_data.zip",
     "path": "icelandic-is/word/icelandic.is.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -920,6 +1028,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -935,6 +1044,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_sm.zip",
     "path": "igbo-ig/word/igbo.ig.word.pron-one_col-default.filtered_by_pron.zipf_4.tsv"
@@ -953,6 +1063,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -968,6 +1079,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_data.zip",
     "path": "indonesian-id/word/indonesian.id.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -986,6 +1098,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -1001,6 +1114,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -1016,6 +1130,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_sm.zip",
     "path": "irish-ga/word/irish.ga.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -1034,6 +1149,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_data.zip",
     "path": "italian-it/word/italian.it.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -1052,6 +1168,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -1067,6 +1184,7 @@
    "length_unit": "aksharas",
    "script": "kannada",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_sm.zip",
     "path": "kannada-kn/word/kannada.kn.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -1085,6 +1203,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -1100,6 +1219,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -1115,6 +1235,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -1130,6 +1251,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_sm.zip",
     "path": "kazakh-kk/word/kazakh.kk.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -1148,6 +1270,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -1163,6 +1286,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -1178,6 +1302,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -1193,6 +1318,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -1208,6 +1334,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": true,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_med.zip",
     "path": "kurdish-ku/word/kurdish.ku.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -1226,6 +1353,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -1241,6 +1369,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -1256,6 +1385,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -1271,6 +1401,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_med.zip",
     "path": "latvian-lv/word/latvian.lv.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -1289,6 +1420,26 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
+   "films_file": null
+  },
+  {
+   "code": "limburgish-lim",
+   "name": "Limburgish",
+   "reference_words": 39106,
+   "small_corpus": true,
+   "corpus_tokens": 1827765,
+   "experimental": false,
+   "cv_approximate": true,
+   "family": "Germanic",
+   "writing": "Latin",
+   "length_unit": "letters",
+   "script": "alphabet",
+   "abjad": false,
+   "parents": [
+    "dutch-nl",
+    "german-de"
+   ],
    "films_file": null
   },
   {
@@ -1304,6 +1455,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_data.zip",
     "path": "lithuanian-lt/word/lithuanian.lt.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -1322,6 +1474,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -1337,6 +1490,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -1352,6 +1506,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -1367,6 +1522,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_sm.zip",
     "path": "luxembourgish-lb/word/luxembourgish.lb.word.pron-one_col-default.filtered_by_pron.zipf_4.tsv"
@@ -1385,6 +1541,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_data.zip",
     "path": "macedonian-mk/word/macedonian.mk.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -1403,6 +1560,7 @@
    "length_unit": "aksharas",
    "script": "devanagari",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -1418,6 +1576,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -1433,6 +1592,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_data.zip",
     "path": "malay-ms/word/malay.ms.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -1451,6 +1611,7 @@
    "length_unit": "aksharas",
    "script": "malayalam",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_med.zip",
     "path": "malayalam-ml/word/malayalam.ml.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -1469,6 +1630,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -1484,6 +1646,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -1499,6 +1662,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -1514,6 +1678,7 @@
    "length_unit": "aksharas",
    "script": "devanagari",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_sm.zip",
     "path": "marathi-mr/word/marathi.mr.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -1532,6 +1697,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": true,
+   "parents": null,
    "films_file": null
   },
   {
@@ -1547,6 +1713,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -1562,6 +1729,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -1577,6 +1745,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -1592,6 +1761,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -1607,6 +1777,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_sm.zip",
     "path": "mongolian-mn/word/mongolian.mn.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -1625,6 +1796,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -1640,6 +1812,7 @@
    "length_unit": "aksharas",
    "script": "devanagari",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_med.zip",
     "path": "nepali-ne/word/nepali.ne.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -1658,6 +1831,7 @@
    "length_unit": "aksharas",
    "script": "devanagari",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -1673,6 +1847,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -1688,6 +1863,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_sm.zip",
     "path": "northern_sami-se/word/northern_sami.se.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -1706,6 +1882,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -1721,6 +1898,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_data.zip",
     "path": "norwegian-no/word/norwegian.no.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -1739,6 +1917,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_sm.zip",
     "path": "norwegian_nynorsk-nn/word/norwegian_nynorsk.nn.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -1757,6 +1936,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_sm.zip",
     "path": "occitan-oc/word/occitan.oc.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -1775,6 +1955,7 @@
    "length_unit": "aksharas",
    "script": "odia",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_sm.zip",
     "path": "odia-or/word/odia.or.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -1793,6 +1974,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -1808,6 +1990,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -1823,6 +2006,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -1838,6 +2022,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": true,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_sm.zip",
     "path": "pashto-ps/word/pashto.ps.word.pron-one_col-default.filtered_by_pron.zipf_4.tsv"
@@ -1856,6 +2041,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_data.zip",
     "path": "persian-fa/word/persian.fa.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -1874,6 +2060,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -1889,6 +2076,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_data.zip",
     "path": "polish-pl/word/polish.pl.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -1907,6 +2095,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_data.zip",
     "path": "portuguese-pt/word/portuguese.pt.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -1925,6 +2114,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_data.zip",
     "path": "portuguese_brazil-pt_BR/word/portuguese_brazil.pt_BR.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -1943,6 +2133,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_sm.zip",
     "path": "portuguese_mozambique-pt_MZ/word/portuguese_mozambique.pt_MZ.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -1961,6 +2152,7 @@
    "length_unit": "aksharas",
    "script": "gurmukhi",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -1976,6 +2168,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -1991,6 +2184,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_data.zip",
     "path": "romanian-ro/word/romanian.ro.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -2009,6 +2203,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -2024,6 +2219,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_data.zip",
     "path": "russian-ru/word/russian.ru.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -2042,6 +2238,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -2057,6 +2254,7 @@
    "length_unit": "aksharas",
    "script": "devanagari",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -2072,6 +2270,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -2087,6 +2286,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -2102,6 +2302,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_sm.zip",
     "path": "scottish_gaelic-gd/word/scottish_gaelic.gd.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -2120,6 +2321,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_data.zip",
     "path": "serbian-sr/word/serbian.sr.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -2138,6 +2340,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -2153,6 +2356,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -2168,6 +2372,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -2183,6 +2388,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": true,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_sm.zip",
     "path": "sindhi-sd/word/sindhi.sd.word.pron-one_col-default.filtered_by_pron.zipf_4.tsv"
@@ -2201,6 +2407,7 @@
    "length_unit": "aksharas",
    "script": "sinhala",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_data.zip",
     "path": "sinhala-si/word/sinhala.si.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -2219,6 +2426,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_data.zip",
     "path": "slovak-sk/word/slovak.sk.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -2237,6 +2445,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_data.zip",
     "path": "slovenian-sl/word/slovenian.sl.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -2255,6 +2464,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_sm.zip",
     "path": "somali-so/word/somali.so.word.pron-one_col-default.filtered_by_pron.zipf_4.tsv"
@@ -2273,6 +2483,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_data.zip",
     "path": "spanish-es/word/spanish.es.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -2291,6 +2502,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_data.zip",
     "path": "spanish_latin_america-es_419/word/spanish_latin_america.es_419.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -2309,6 +2521,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -2324,6 +2537,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_sm.zip",
     "path": "swahili-sw/word/swahili.sw.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -2342,10 +2556,29 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_data.zip",
     "path": "swedish-sv/word/swedish.sv.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
    }
+  },
+  {
+   "code": "swiss_german-gsw",
+   "name": "Swiss German",
+   "reference_words": 24276,
+   "small_corpus": true,
+   "corpus_tokens": 1875269,
+   "experimental": false,
+   "cv_approximate": true,
+   "family": "Germanic",
+   "writing": "Latin",
+   "length_unit": "letters",
+   "script": "alphabet",
+   "abjad": false,
+   "parents": [
+    "german-de"
+   ],
+   "films_file": null
   },
   {
    "code": "tagalog-tl",
@@ -2360,6 +2593,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_med.zip",
     "path": "tagalog-tl/word/tagalog.tl.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -2378,6 +2612,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -2393,6 +2628,7 @@
    "length_unit": "aksharas",
    "script": "tamil",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_med.zip",
     "path": "tamil-ta/word/tamil.ta.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -2411,6 +2647,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_sm.zip",
     "path": "tatar-tt/word/tatar.tt.word.pron-one_col-default.filtered_by_pron.zipf_4.tsv"
@@ -2429,6 +2666,7 @@
    "length_unit": "aksharas",
    "script": "telugu",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_med.zip",
     "path": "telugu-te/word/telugu.te.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -2447,6 +2685,7 @@
    "length_unit": "aksharas",
    "script": "kannada",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -2462,6 +2701,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_data.zip",
     "path": "turkish-tr/word/turkish.tr.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -2480,6 +2720,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -2495,6 +2736,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -2510,6 +2752,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -2525,6 +2768,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_data.zip",
     "path": "ukrainian-uk/word/ukrainian.uk.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -2543,6 +2787,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -2558,6 +2803,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": true,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_med.zip",
     "path": "urdu-ur/word/urdu.ur.word.pron-one_col-default.filtered_by_pron.zipf_4.tsv"
@@ -2576,6 +2822,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -2591,6 +2838,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_sm.zip",
     "path": "uzbek-uz/word/uzbek.uz.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -2609,6 +2857,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -2624,6 +2873,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_data.zip",
     "path": "vietnamese-vi/word/vietnamese.vi.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
@@ -2642,6 +2892,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -2657,6 +2908,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -2672,6 +2924,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -2687,6 +2940,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -2702,10 +2956,29 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": {
     "archive": "FILMS_med.zip",
     "path": "welsh-cy/word/welsh.cy.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
    }
+  },
+  {
+   "code": "west_flemish-vls",
+   "name": "West Flemish",
+   "reference_words": 15258,
+   "small_corpus": true,
+   "corpus_tokens": 554239,
+   "experimental": false,
+   "cv_approximate": true,
+   "family": "Germanic",
+   "writing": "Latin",
+   "length_unit": "letters",
+   "script": "alphabet",
+   "abjad": false,
+   "parents": [
+    "dutch-nl"
+   ],
+   "films_file": null
   },
   {
    "code": "western_frisian-fy",
@@ -2720,6 +2993,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -2735,6 +3009,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -2750,6 +3025,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": true,
+   "parents": null,
    "films_file": null
   },
   {
@@ -2765,6 +3041,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -2780,6 +3057,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -2795,6 +3073,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -2810,6 +3089,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -2825,6 +3105,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   },
   {
@@ -2840,6 +3121,7 @@
    "length_unit": "letters",
    "script": "alphabet",
    "abjad": false,
+   "parents": null,
    "films_file": null
   }
  ]

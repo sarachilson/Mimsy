@@ -129,7 +129,7 @@ body.noprov .prov{display:none!important}
 <body>
 <header>
   <div class="wrap top">
-    <div class="brand" title="All mimsy were the borogoves — Lewis Carroll, Jabberwocky"><img src="assets/mark.png" alt=""><span>Mimsy <small>beta · pseudowords in 173 languages</small></span></div>
+    <div class="brand" title="All mimsy were the borogoves — Lewis Carroll, Jabberwocky"><img src="assets/mark.png" alt=""><span>Mimsy <small>beta · pseudowords in 179 languages</small></span></div>
     <div class="spacer"></div>
     <label class="status" for="lang" style="margin:0">Language</label>
     <select id="lang" style="width:auto;min-width:210px" disabled></select>
@@ -2197,7 +2197,7 @@ function renderRealwordAbout(L) {
   const rf = L.manifest.realword_filter; if (!rf) return "";
   const src = rf.sources || {}, parts = [];
   if (src.hunspell) parts.push(`the <b>${esc(src.hunspell.dictionary.split("/")[1] || src.hunspell.dictionary)}</b> Hunspell spelling dictionary (affix rules on, compounding off; it recognises ${Math.round(100 * src.hunspell.coverage_of_reference_words)}% of the language's reference words)`);
-  for (const k in src) { const m = /^hunspell-(.+)$/.exec(k); if (m) parts.push(`the <b>${esc(src[k].dictionary.split("/")[1] || src[k].dictionary)}</b> Hunspell dictionary of ${esc(realwordSrcName(k).replace(" spelling dictionary", ""))} (the parent language)`); }
+  for (const k in src) { const m = /^hunspell-(.+)$/.exec(k); if (m) parts.push(`the <b>${esc(realwordSrcName(k).replace(" spelling dictionary", ""))}</b> Hunspell spelling dictionary (${esc(L.manifest.name)} is a variety of ${esc(realwordSrcName(k).replace(" spelling dictionary", ""))}; affix rules on, compounding off)`); }
   if (src.unimorph) parts.push(`the <b>UniMorph</b> inflection tables (${(+src.unimorph.forms).toLocaleString()} forms)`);
   if (src.bible) parts.push(`${src.bible.texts.length === 1 ? "a Bible translation" : src.bible.texts.length + " Bible translations"} (${(+src.bible.word_types).toLocaleString()} word types; names left out)`);
   if (!parts.length) return "";
@@ -2219,7 +2219,7 @@ function renderAbout() {
   const L = S.L[S.code], m = L.manifest, c = m.counts, g = m.generation.results;
   const bands = m.bands_enabled === false ? `<li>No frequency bands: small corpus.</li>` : m.bands.map(b => `<li><b>${MODEL_LABEL[b.id]}</b>: ${(+c.band_sizes[b.id]).toLocaleString()} words</li>`).join("");
   $("#aboutBody").innerHTML = `
-  <div style="display:flex;align-items:center;gap:18px;margin:4px 0 18px"><img src="assets/logo.png" alt="Mimsy logo" style="width:150px;height:auto"><div><div style="font-size:20px;font-weight:600">Mimsy</div><div class="hint" style="margin:2px 0 0">Pseudowords in 173 languages · <i>methodical whimsy</i>. Named after the word in Lewis Carroll's <i>Jabberwocky</i> (1871): “All mimsy were the borogoves”.</div><div class="hint" style="margin:6px 0 0">Beta — feedback is welcome, especially from speakers of the smaller languages, which could not all be checked with native speakers. Questions and feedback: <a href="mailto:mimsy.pseudowords@gmail.com">mimsy.pseudowords@gmail.com</a> · bug reports: <a href="https://github.com/sarachilson/Mimsy/issues" target="_blank" rel="noopener">github.com/sarachilson/Mimsy/issues</a> · code and data: <a href="https://github.com/sarachilson/Mimsy" target="_blank" rel="noopener">github.com/sarachilson/Mimsy</a></div></div></div>
+  <div style="display:flex;align-items:center;gap:18px;margin:4px 0 18px"><img src="assets/logo.png" alt="Mimsy logo" style="width:150px;height:auto"><div><div style="font-size:20px;font-weight:600">Mimsy</div><div class="hint" style="margin:2px 0 0">Pseudowords in 179 languages · <i>methodical whimsy</i>. Named after the word in Lewis Carroll's <i>Jabberwocky</i> (1871): “All mimsy were the borogoves”.</div><div class="hint" style="margin:6px 0 0">Beta — feedback is welcome, especially from speakers of the smaller languages, which could not all be checked with native speakers. Questions and feedback: <a href="mailto:mimsy.pseudowords@gmail.com">mimsy.pseudowords@gmail.com</a> · bug reports: <a href="https://github.com/sarachilson/Mimsy/issues" target="_blank" rel="noopener">github.com/sarachilson/Mimsy/issues</a> · code and data: <a href="https://github.com/sarachilson/Mimsy" target="_blank" rel="noopener">github.com/sarachilson/Mimsy</a></div></div></div>
   <h2>${esc(m.name)}: data</h2>
   <div class="kv">
     <div>Corpus size</div><div>${m.corpus_tokens ? (m.corpus_tokens / 1e6).toLocaleString(undefined, { maximumFractionDigits: 1 }) + " million words" : "n/a"}</div>
