@@ -261,7 +261,7 @@ def run(args):
         else:
             extra = []
             if paths is None: srcinfo["bible_skipped"] = {"reason": "large corpus; Bible texts are used for small-corpus languages only"}
-        if not any(k in srcinfo for k in ("hunspell", "unimorph", "bible")):
+        if not any(k in ("hunspell", "unimorph", "bible") or k.startswith("hunspell-") for k in srcinfo):
             print(f"{code:32s} no source", flush=True); continue
         # write
         removed = len(hits)

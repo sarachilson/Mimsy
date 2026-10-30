@@ -765,9 +765,10 @@ def caution_items(cfg, st):
                                + (f" ({eng} probable English words were removed)." if eng else ".")
                                + (" Frequencies of the corpus-only words come from that corpus and are not comparable with subtitle frequencies." if has_films else " All frequencies come from that corpus, so no frequency bands are offered."))})
     if st.get("parents"):
-        P = st["parents"]; names = " and ".join(v["name"] for v in P.values())
-        items.append({"title": f"Variety of {names}", "text": f"{cfg['name']} is a regional variety close to {names}. Every word form of {names} ({sum(v['forms'] for v in P.values()):,} forms) was added to the reject list, so no pseudoword is a real {names} word, and the app pre-selects {names} under \"Exclude real words of other languages\" (the Word-in column shows near misses). "
-                      f"{sum(v['shared_reference_words'] for v in P.values()):,} of the {nref:,} reference words are also {names} words; they stay in the lexicon because they are words of the variety too."})
+        P = st["parents"]; names = " and ".join(v["name"] for v in P.values()); nor = " or ".join(v["name"] for v in P.values())
+        shared = ", ".join(f"{v['shared_reference_words']:,} are also {v['name']} words" for v in P.values())
+        items.append({"title": f"Variety of {names}", "text": f"{cfg['name']} is a regional variety close to {names}. Every word form of {names} ({sum(v['forms'] for v in P.values()):,} forms) was added to the reject list, so no pseudoword is a real {nor} word, and the app pre-selects {names} under \"Exclude real words of other languages\" (the Word-in column shows near misses). "
+                      f"Of the {nref:,} reference words, {shared}; they stay in the lexicon because they are words of the variety too."})
     if cfg.get("cv_note"):
         cv_title = ("Syllabary: CV and length" if cfg.get("script") == "ethiopic" else "Abugida: CV and length") if cfg.get("script") in indic.SCRIPTS else ("Abjad: CV is orthographic" if cfg.get("allow_no_vowel") else "CV note")
         items.append({"title": cv_title, "text": cfg["cv_note"]})
