@@ -98,6 +98,23 @@ LANGS = {
     "swahili-sw":    dict(leipzig="swa_news_2020_30K", name="Swahili", alphabets=[LATIN], y="C"),
     "tatar-tt":      dict(leipzig="tat_news_2015_1M", name="Tatar", alphabets=["аәбвгдеёжҗзийклмнңоөпрстуүфхһцчшщъыьэюя"], vowels="аәеёиоөуүыэюя", mods="ъь"),
     "uzbek-uz":      dict(leipzig="uzb_newscrawl_2011_100K", name="Uzbek", alphabets=[latin("ʻ'")], y="C", normalize={"ʼ": "ʻ", "’": "ʻ", "`": "ʻ"}),
+    # ---- Dialects / regional varieties (added 30 Oct 2026): Wikipedia lists; every form of the parent language(s) goes into the
+    #      reject list, the parent's spelling dictionary is run over the bank (realwords.py), and the app pre-selects the parent
+    #      under "Exclude real words of other languages". Spelling is not standardised in these Wikipedias. ----
+    "swiss_german-gsw": dict(name="Swiss German", alphabets=[latin("äöüèàéìùôò")], y="V", no_films=True, no_bands=True, leipzig="gsw_wikipedia_2021_100K",
+                          parents=["german-de"], cv_note="Swiss German has no standard orthography; the Wikipedia mixes Dieth-style spellings and ad-hoc ones, so the same word occurs in several spellings. ß (Standard German quotations) was left out."),
+    "bavarian-bar":  dict(name="Bavarian", alphabets=[latin("äöüßåéó")], y="V", no_films=True, no_bands=True, leipzig="bar_wikipedia_2021_100K",
+                          parents=["german-de"], cv_note="Bavarian spelling is not standardised (the Wikipedia follows several conventions); å marks the dark a."),
+    "limburgish-lim": dict(name="Limburgish", alphabets=[latin("èöóëäé")], y="auto", no_films=True, no_bands=True, leipzig="lim_wikipedia_2021_100K",
+                          parents=["dutch-nl", "german-de"], cv_note="Limburgish spelling follows the Veldeke conventions loosely; tone and vowel length marks vary between authors."),
+    "west_flemish-vls": dict(name="West Flemish", alphabets=[latin("êôèëéï")], y="auto", no_films=True, no_bands=True, leipzig="vls_wikipedia_2021_30K",
+                          parents=["dutch-nl"], cv_note="West Flemish spelling is not standardised; ê ô mark long vowels in the Wikipedia's usual convention."),
+    "emilian_romagnol-eml": dict(name="Emilian-Romagnol", alphabets=[latin("èàòéìóâêōṅùîēôûäśṣćǵ")], y="auto", no_films=True, no_bands=True, leipzig="eml_wikipedia_2021_30K",
+                          parents=["italian-it"], cv_note="Emilian and Romagnol varieties use several orthographies (macrons for long vowels, ṅ for the velar nasal, ś ṣ for sibilants); the Wikipedia mixes them."),
+    "egyptian_arabic-arz": dict(name="Egyptian Arabic", alphabets=["ابتثجحخدذرزسشصضطظعغفقكلمنهوي" + "أإآءؤئىة" + "ڤپچ"], vowels="اأإآىةوي",
+                          strip_marks=True, strip="ـ\u200e\u200f\u202a\u202b\u202c", normalize={"ک": "ك", "ی": "ي", "گ": "ج"},
+                          rules={"final_only": "ةى", "allow_no_vowel": True}, allow_no_vowel=True, no_films=True, no_bands=True, leipzig="arz_wikipedia_2021_100K",
+                          parents=["arabic-ar"], cv_note="Egyptian Arabic is written without short vowels, like Standard Arabic; CV here is orthographic (alif, ta marbuta, waw and ya count as V). ڤ پ چ occur in loanwords. Spelling of dialect words is not standardised."),
     # ---- Abjads: CV is orthographic (vowel letters = V; unwritten short vowels are not represented) ----
     "arabic-ar":     dict(name="Arabic", alphabets=["ابتثجحخدذرزسشصضطظعغفقكلمنهوي" + "أإآءؤئىة"], vowels="اأإآىةوي",
                           strip_marks=True, strip="ـ\u200e\u200f\u202a\u202b\u202c",
@@ -341,8 +358,8 @@ LANGS = {
 
 # Language family (branch level) for the app's "sort by family" picker; keys are the codes above.
 _FAM = {
-    "Germanic": "english-en german-de dutch-nl danish-da swedish-sv norwegian-no norwegian_nynorsk-nn icelandic-is faroese-fo afrikaans-af luxembourgish-lb low_german-nds northern_frisian-frr western_frisian-fy scots-sco yiddish-yi",
-    "Romance": "french-fr italian-it spanish-es spanish_latin_america-es_419 portuguese-pt portuguese_brazil-pt_BR portuguese_mozambique-pt_MZ romanian-ro catalan-ca galician-gl aragonese-an asturian-ast occitan-oc corsican-co ligurian-lij lombard-lmo mirandese-mwl piedmontese-pms romansh-rm sardinian-sc sicilian-scn venetian-vec walloon-wa ladino-lad latin-la",
+    "Germanic": "english-en german-de dutch-nl danish-da swedish-sv norwegian-no norwegian_nynorsk-nn icelandic-is faroese-fo afrikaans-af luxembourgish-lb low_german-nds northern_frisian-frr western_frisian-fy scots-sco yiddish-yi swiss_german-gsw bavarian-bar limburgish-lim west_flemish-vls",
+    "Romance": "french-fr italian-it spanish-es spanish_latin_america-es_419 portuguese-pt portuguese_brazil-pt_BR portuguese_mozambique-pt_MZ romanian-ro catalan-ca galician-gl aragonese-an asturian-ast occitan-oc corsican-co ligurian-lij lombard-lmo mirandese-mwl piedmontese-pms romansh-rm sardinian-sc sicilian-scn venetian-vec walloon-wa ladino-lad latin-la emilian_romagnol-eml",
     "Slavic": "russian-ru ukrainian-uk belarusian-be polish-pl czech-cs slovak-sk slovenian-sl croatian-hr bosnian-bs serbian-sr bulgarian-bg macedonian-mk kashubian-csb lower_sorbian-dsb upper_sorbian-hsb silesian-szl rusyn-rue",
     "Baltic": "lithuanian-lt latvian-lv",
     "Celtic": "welsh-cy irish-ga scottish_gaelic-gd breton-br manx-gv",
@@ -352,7 +369,7 @@ _FAM = {
     "Dravidian": "tamil-ta telugu-te kannada-kn malayalam-ml tulu-tcy",
     "Turkic": "turkish-tr azerbaijani-az kazakh-kk kyrgyz-ky uzbek-uz tatar-tt bashkir-ba turkmen-tk uyghur-ug chuvash-cv yakut-sah tuvan-tyv karachay_balkar-krc",
     "Uralic": "finnish-fi estonian-et hungarian-hu northern_sami-se voro-vro komi-kv komi_permyak-koi udmurt-udm eastern_mari-mhr western_mari-mrj erzya-myv",
-    "Semitic": "arabic-ar hebrew-he maltese-mt amharic-am",
+    "Semitic": "arabic-ar hebrew-he maltese-mt amharic-am egyptian_arabic-arz",
     "Other Afroasiatic": "hausa-ha somali-so oromo-om",
     "Bantu": "swahili-sw zulu-zu xhosa-xh shona-sn kinyarwanda-rw ganda-lg northern_sotho-nso",
     "Other Niger-Congo": "yoruba-yo igbo-ig",

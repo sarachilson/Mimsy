@@ -681,6 +681,10 @@ async function selectLang(code) {
     $(".ctoggle", cb).addEventListener("click", () => { S.cautionOpen = !S.cautionOpen; const d = $(".cdetails", cb); d.hidden = !S.cautionOpen; $(".ctoggle", cb).textContent = S.cautionOpen ? "Hide details" : "Show details"; });
   } else if (m.caution) cb.innerHTML = `<b>Caution, ${esc(m.name)}:</b> ${esc(provText(m.caution))}`;
   fillModelSelects(); renderAbout();
+  if (m.parents && m.parents.length) {   // regional varieties: the parent language(s) are pre-selected under "Exclude real words of other languages"
+    const add = m.parents.filter(p => !S.xl.codes.includes(p) && S.index.languages.some(l => l.code === p));
+    if (add.length) { S.xl.codes = S.xl.codes.concat(add); try { sessionStorage.setItem("pw.xl", JSON.stringify(S.xl)); } catch (e) {} }
+  }
   await xlSync(); if (S.code !== code) return;
   runSearch();
 }
@@ -723,7 +727,8 @@ async function loadRealwords(L, code) {
   } catch (e) { L.realwords = null; }
 }
 const REALWORD_SRC = { hunspell: "spelling dictionary", unimorph: "UniMorph", bible: "Bible text", "bible-extra": "Bible text" };
-const realwordSource = (L, w) => { const s = L && L.realwords && L.realwords.get(w); return s ? s.split("+").map(k => REALWORD_SRC[k] || k).join(", ") : ""; };
+const realwordSrcName = k => { if (REALWORD_SRC[k]) return REALWORD_SRC[k]; const m = /^hunspell-(.+)$/.exec(k); if (m) { const l = (S.index.languages || []).find(x => x.code.endsWith("-" + m[1])); return `${l ? l.name : m[1]} spelling dictionary`; } return k; };
+const realwordSource = (L, w) => { const s = L && L.realwords && L.realwords.get(w); return s ? s.split("+").map(realwordSrcName).join(", ") : ""; };
 async function loadMorph(L, code) {
   L.morph = null; L.lexMorph = null; L.morphRemoved = 0; L.morphGen = 0;
   if (!L.manifest.morphology) return;
@@ -2192,6 +2197,7 @@ function renderRealwordAbout(L) {
   const rf = L.manifest.realword_filter; if (!rf) return "";
   const src = rf.sources || {}, parts = [];
   if (src.hunspell) parts.push(`the <b>${esc(src.hunspell.dictionary.split("/")[1] || src.hunspell.dictionary)}</b> Hunspell spelling dictionary (affix rules on, compounding off; it recognises ${Math.round(100 * src.hunspell.coverage_of_reference_words)}% of the language's reference words)`);
+  for (const k in src) { const m = /^hunspell-(.+)$/.exec(k); if (m) parts.push(`the <b>${esc(src[k].dictionary.split("/")[1] || src[k].dictionary)}</b> Hunspell dictionary of ${esc(realwordSrcName(k).replace(" spelling dictionary", ""))} (the parent language)`); }
   if (src.unimorph) parts.push(`the <b>UniMorph</b> inflection tables (${(+src.unimorph.forms).toLocaleString()} forms)`);
   if (src.bible) parts.push(`${src.bible.texts.length === 1 ? "a Bible translation" : src.bible.texts.length + " Bible translations"} (${(+src.bible.word_types).toLocaleString()} word types; names left out)`);
   if (!parts.length) return "";
