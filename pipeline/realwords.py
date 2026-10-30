@@ -65,6 +65,8 @@ HS = {
  "ha": "elastic/ha_GH/ha-GH", "hsb": "elastic/hsb/hsb", "kk": "elastic/kk/kk", "mg": "elastic/mg_MG/mg_MG", "mi": "elastic/mi_NZ/mi",
  "ms": "elastic/ms_MY/ms_MY", "pap": "elastic/pap_AW/Papiamento", "tg": "elastic/tg/tg", "zu": "elastic/zu_ZA/zu-ZA",
 }
+# regional varieties: the parent language's dictionary is used as well (its coverage test is run on the parent's own lexicon)
+PARENT_HS = {"gsw": ["de"], "bar": ["de"], "lim": ["nl", "de"], "vls": ["nl"], "eml": ["it"], "arz": ["ar"]}
 ISO3 = {"af":"afr","sq":"sqi","am":"amh","ar":"ara","an":"arg","hy":"hye","as":"asm","ast":"ast","az":"aze","ban":"ban","bjn":"bjn","ba":"bak","eu":"eus","be":"bel","bn":"ben","bcl":"bcl","bpy":"bpy","bs":"bos","br":"bre","bg":"bul","bxr":"bxr","ca":"cat","ceb":"ceb","ce":"che","cv":"chv","co":"cos","hr":"hrv","cs":"ces","da":"dan","dv":"div","nl":"nld","mhr":"mhr","en":"eng","myv":"myv","eo":"epo","et":"est","fo":"fao","fi":"fin","fr":"fra","gl":"glg","lg":"lug","ka":"kat","de":"deu","glk":"glk","el":"ell","kl":"kal","gn":"grn","gu":"guj","ht":"hat","ha":"hau","he":"heb","hi":"hin","hu":"hun","is":"isl","io":"ido","ig":"ibo","ilo":"ilo","id":"ind","ia":"ina","ie":"ile","ga":"gle","it":"ita","jv":"jav","kn":"kan","pam":"pam","krc":"krc","csb":"csb","kk":"kaz","rw":"kin","kv":"kpv","koi":"koi","gom":"gom","ku":"ckb","ky":"kir","lad":"lad","la":"lat","lv":"lav","lij":"lij","lt":"lit","lmo":"lmo","nds":"nds","dsb":"dsb","lb":"ltz","mk":"mkd","mai":"mai","mg":"mlg","ms":"msa","ml":"mal","mt":"mlt","gv":"glv","mi":"mri","mr":"mar","mzn":"mzn","min":"min","xmf":"xmf","mwl":"mwl","lus":"lus","mn":"khk","nv":"nav","ne":"nep","new":"new","frr":"frr","se":"sme","nso":"nso","no":"nob","nn":"nno","oc":"oci","or":"ori","om":"orm","os":"oss","pap":"pap","ps":"pus","fa":"fas","pms":"pms","pl":"pol","pt":"por","pt_BR":"por","pt_MZ":"por","pa":"pan","qu":"que","ro":"ron","rm":"roh","ru":"rus","rue":"rue","sa":"san","sc":"srd","sco":"sco","gd":"gla","sr":"srp","sn":"sna","scn":"scn","szl":"szl","sd":"snd","si":"sin","sk":"slk","sl":"slv","so":"som","es":"spa","es_419":"spa","su":"sun","sw":"swa","sv":"swe","tl":"tgl","tg":"tgk","ta":"tam","tt":"tat","te":"tel","tcy":"tcy","tr":"tur","tk":"tuk","tyv":"tyv","udm":"udm","uk":"ukr","hsb":"hsb","ur":"urd","ug":"uig","uz":"uzb","vec":"vec","vi":"vie","vo":"vol","vro":"vro","wa":"wln","war":"war","cy":"cym","fy":"fry","mrj":"mrj","pnb":"pnb","xh":"xho","sah":"sah","yi":"yid","yo":"yor","diq":"diq","zu":"zul"}
 # christos-c/bible-corpus files for our languages (the eBible corpus is matched by ISO code automatically)
 BIBLE_XML = {"af":"Afrikaans.xml","sq":"Albanian.xml","am":"Amharic.xml","ar":"Arabic.xml","hy":"Armenian-PART.xml","eu":"Basque-NT.xml",
@@ -212,22 +214,23 @@ def run(args):
         cased = any(c.lower() != c.upper() for c in charset)
         hits = {}          # word -> source list
         srcinfo = {}
-        # hunspell
-        if args.hunspell and short in HS:
-            stem = os.path.join(args.hunspell, HS[short]); aff, dic = stem + ".aff", stem + ".dic"
-            if os.path.exists(aff) and os.path.exists(dic):
-                a2, d2 = strip_compounding(aff, dic, workdir, code)
-                h = Hunspell(a2, d2)
-                random.seed(RANDOM_SEED); sample = random.sample(lex, min(SAMPLE, len(lex)))
-                cov = sum(h.accepts(w) for w in sample) / len(sample)
-                if cov >= MIN_COVERAGE:
-                    n = 0
-                    for w in bank:
-                        if h.accepts(w): hits.setdefault(w, []).append("hunspell"); n += 1
-                    srcinfo["hunspell"] = {"dictionary": HS[short], "licence": hunspell_licence(stem), "coverage_of_reference_words": round(cov, 3), "bank_items_accepted": n, "compounding": "off"}
-                else:
-                    srcinfo["hunspell_skipped"] = {"dictionary": HS[short], "coverage_of_reference_words": round(cov, 3), "reason": f"accepts fewer than {int(MIN_COVERAGE*100)}% of the language's reference words"}
-                del h
+        # hunspell (own dictionary, and for regional varieties the parent language's dictionary)
+        for hs_key, tag in [(short, "hunspell")] + [(pk, "hunspell-" + pk) for pk in PARENT_HS.get(short, [])]:
+            if not (args.hunspell and hs_key in HS): continue
+            stem = os.path.join(args.hunspell, HS[hs_key]); aff, dic = stem + ".aff", stem + ".dic"
+            if not (os.path.exists(aff) and os.path.exists(dic)): continue
+            a2, d2 = strip_compounding(aff, dic, workdir, code + "-" + hs_key)
+            h = Hunspell(a2, d2)
+            random.seed(RANDOM_SEED); sample = random.sample(lex, min(SAMPLE, len(lex)))
+            cov = sum(h.accepts(w) for w in sample) / len(sample)
+            if cov >= MIN_COVERAGE or tag != "hunspell":
+                n = 0
+                for w in bank:
+                    if h.accepts(w): hits.setdefault(w, []).append(tag); n += 1
+                srcinfo[tag] = {"dictionary": HS[hs_key], "licence": hunspell_licence(stem), "coverage_of_reference_words": round(cov, 3), "bank_items_accepted": n, "compounding": "off"}
+            else:
+                srcinfo["hunspell_skipped"] = {"dictionary": HS[hs_key], "coverage_of_reference_words": round(cov, 3), "reason": f"accepts fewer than {int(MIN_COVERAGE*100)}% of the language's reference words"}
+            del h
         # unimorph
         if args.unimorph and iso3 and os.path.isdir(os.path.join(args.unimorph, iso3)):
             U = unimorph_forms(args.unimorph, iso3)

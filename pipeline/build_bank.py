@@ -566,11 +566,17 @@ def step_prepare(lang, cfg, args, outdir, work):
     with gzip.open(os.path.join(outdir, "rare.txt.gz"), "wt", encoding="utf-8") as f:
         f.write("\n".join(rare) + "\n")
     # reject set: every form in the corpus list (any frequency, any spelling)
+    parents = {}
+    for pc in cfg.get("parents") or []:   # dialects: every form of the parent language(s) is rejected too (reference words + rare forms)
+        pd = os.path.join(args.out, pc)
+        pforms = set(l.split("\t")[0] for l in gzip.open(os.path.join(pd, "lexicon.tsv.gz"), "rt", encoding="utf-8")) - {"word"} | set(l.strip() for l in gzip.open(os.path.join(pd, "rare.txt.gz"), "rt", encoding="utf-8") if l.strip())
+        parents[pc] = {"name": LANGS[pc]["name"], "forms": len(pforms), "shared_reference_words": sum(1 for w, _ in ref if w in pforms)}
+        all_forms = set(all_forms) | pforms
     with open(os.path.join(work, "reject.txt"), "w", encoding="utf-8") as f:
         f.write("\n".join(sorted(all_forms)))
     state = {
         "alphabet": alphabet, "classes": cls, "corpus_tokens": corpus_tokens, "small_corpus": small, "bands_enabled": bands_enabled,
-        "leipzig": lz, "reference_sources": src_counts, "english_contamination_removed": {"count": len(eng_removed), "rule": f"Leipzig-only words of {ENG_FILTER_MINLEN}+ letters that are English words with Zipf >= {ENG_FILTER_ZIPF}", "words": sorted(eng_removed)},
+        "leipzig": lz, "reference_sources": src_counts, "parents": parents or None, "english_contamination_removed": {"count": len(eng_removed), "rule": f"Leipzig-only words of {ENG_FILTER_MINLEN}+ letters that are English words with Zipf >= {ENG_FILTER_ZIPF}", "words": sorted(eng_removed)},
         "length_unit": ("fidel" if cfg.get("rules", {}).get("syllabary") else "aksharas") if indic.is_indic(cls) else "letters",
         "inventory": {k: sorted(v) for k, v in inv.items()},
         "counts": {"corpus_forms": len(all_forms), "plain_forms": len(plain),
@@ -758,6 +764,10 @@ def caution_items(cfg, st):
                                + " Written sources are more formal than subtitles and contain more names and foreign words"
                                + (f" ({eng} probable English words were removed)." if eng else ".")
                                + (" Frequencies of the corpus-only words come from that corpus and are not comparable with subtitle frequencies." if has_films else " All frequencies come from that corpus, so no frequency bands are offered."))})
+    if st.get("parents"):
+        P = st["parents"]; names = " and ".join(v["name"] for v in P.values())
+        items.append({"title": f"Variety of {names}", "text": f"{cfg['name']} is a regional variety close to {names}. Every word form of {names} ({sum(v['forms'] for v in P.values()):,} forms) was added to the reject list, so no pseudoword is a real {names} word, and the app pre-selects {names} under \"Exclude real words of other languages\" (the Word-in column shows near misses). "
+                      f"{sum(v['shared_reference_words'] for v in P.values()):,} of the {nref:,} reference words are also {names} words; they stay in the lexicon because they are words of the variety too."})
     if cfg.get("cv_note"):
         cv_title = ("Syllabary: CV and length" if cfg.get("script") == "ethiopic" else "Abugida: CV and length") if cfg.get("script") in indic.SCRIPTS else ("Abjad: CV is orthographic" if cfg.get("allow_no_vowel") else "CV note")
         items.append({"title": cv_title, "text": cfg["cv_note"]})
@@ -775,7 +785,7 @@ def rewrite_cautions(out):
         sd = m.get("sources_detail") or {}
         st = {"counts": m["counts"], "corpus_tokens": m.get("corpus_tokens"), "small_corpus": m.get("small_corpus"),
               "leipzig": sd.get("leipzig"), "reference_sources": sd.get("reference_words_by_source"),
-              "english_contamination_removed": sd.get("english_contamination_removed")}
+              "english_contamination_removed": sd.get("english_contamination_removed"), "parents": m.get("parents_detail")}
         items = caution_items(cfg, st)
         m["caution_items"] = items
         m["caution"] = " ".join(" ".join(it["text"].split()) for it in items) or None
@@ -815,6 +825,7 @@ def step_write(lang, cfg, args, outdir, work):
         "small_corpus": small, "bands_enabled": st.get("bands_enabled", not small), "caution": caution, "caution_items": items,
         "script": cfg.get("script", "alphabet"), "length_unit": st.get("length_unit", "letters"),
         "experimental": st["counts"]["reference_words"] < EXPERIMENTAL_WORDS,
+        "parents": list((st.get("parents") or {}).keys()) or None, "parents_detail": st.get("parents"),
         "created": time.strftime("%Y-%m-%d"),
         "source": ("FILMS/OPUS subtitle frequency list: " + ((films_file(lang) or {}).get("path") or "*.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv") if st.get("reference_sources", {}).get("films", 0) + st.get("reference_sources", {}).get("both", 0) or not st.get("leipzig") else "")
                   + ("; " if st.get("leipzig") and (st.get("reference_sources", {}).get("films", 0) + st.get("reference_sources", {}).get("both", 0)) else "")
@@ -919,7 +930,7 @@ def write_index(out):
                           "experimental": m["counts"]["reference_words"] < EXPERIMENTAL_WORDS,
                           "cv_approximate": m.get("cv_approximate", False), "family": FAMILY.get(lang, "Other"),
                           "writing": writing_system(m.get("alphabet", "")), "length_unit": m.get("length_unit", "letters"), "script": m.get("script", "alphabet"),
-                          "abjad": bool(m.get("rules", {}).get("allow_no_vowel")),
+                          "abjad": bool(m.get("rules", {}).get("allow_no_vowel")), "parents": m.get("parents"),
                           "films_file": None if LANGS[lang].get("no_films") else films_file(lang)})
     json.dump({"version": VERSION, "languages": langs}, open(os.path.join(out, "languages.json"), "w", encoding="utf-8"),
               ensure_ascii=False, indent=1)
