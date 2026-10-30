@@ -544,5 +544,37 @@
    "title": "Newspaper vocabulary added",
    "text": "8,732 of the reference words come from a newspaper corpus (Leipzig Corpora Collection, swa_news_2020_30K, 0.8 million words); 10,715 come from the subtitle list. Written sources are more formal than subtitles and contain more names and foreign words (60 probable English words were removed). Frequencies of the corpus-only words come from that corpus and are not comparable with subtitle frequencies."
   }
- ]
+ ],
+ "realword_filter": {
+  "date": "2026-10-29",
+  "bank_items": 58341,
+  "removed": 2187,
+  "removed_pct": 3.75,
+  "by_source": {
+   "hunspell": 2187,
+   "bible": 55
+  },
+  "extra_bible_forms": 1922,
+  "sources": {
+   "hunspell": {
+    "dictionary": "libreoffice/sw_TZ/sw_TZ",
+    "licence": "see README_sw_TZ.txt: README Swahili Myspell Dictionary Release 1.1 2005-08-17  1. Intro   Myspell Swahili Dictionary - Compiled by Alberto Escudero-Pascual aep@it46.se http://www.it",
+    "coverage_of_reference_words": 0.654,
+    "bank_items_accepted": 2187,
+    "compounding": "off"
+   },
+   "bible": {
+    "texts": [
+     {
+      "file": "bible-corpus/bibles/Swahili-NT.xml",
+      "licence": "CC0 (corpus); translation public domain or freely distributable, see metadata.csv"
+     }
+    ],
+    "word_types": 6459,
+    "new_forms_not_in_lists": 1922,
+    "bank_items_accepted": 55
+   }
+  },
+  "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ }
 }

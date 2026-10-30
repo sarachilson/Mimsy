@@ -10693,5 +10693,35 @@
    "title": "Abjad: CV is orthographic",
    "text": "Arabic is written without short vowels. CV here is orthographic: alif (ا أ إ آ ى), ta marbuta (ة), waw (و) and ya (ي) count as V; all other letters as C. Diacritics were removed."
   }
- ]
+ ],
+ "realword_filter": {
+  "date": "2026-10-29",
+  "bank_items": 377316,
+  "removed": 39968,
+  "removed_pct": 10.59,
+  "by_source": {
+   "hunspell": 39935,
+   "unimorph": 57
+  },
+  "extra_bible_forms": 0,
+  "sources": {
+   "hunspell": {
+    "dictionary": "libreoffice/ar/ar",
+    "licence": "see COPYING.txt: GPL 2.0/LGPL 2.1/MPL 1.1 tri-license  The contents of this software may be used under the terms of the GNU General Public License Version 2 or later (the \"GPL\")",
+    "coverage_of_reference_words": 0.98,
+    "bank_items_accepted": 39935,
+    "compounding": "off"
+   },
+   "unimorph": {
+    "repository": "https://github.com/unimorph/ara",
+    "licence": "CC BY-SA 3.0",
+    "forms": 542781,
+    "bank_items_accepted": 57
+   },
+   "bible_skipped": {
+    "reason": "large corpus; Bible texts are used for small-corpus languages only"
+   }
+  },
+  "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ }
 }

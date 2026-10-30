@@ -452,5 +452,24 @@
    "өө"
   ]
  },
- "rules": {}
+ "rules": {},
+ "realword_filter": {
+  "date": "2026-10-29",
+  "bank_items": 23148,
+  "removed": 1392,
+  "removed_pct": 6.01,
+  "by_source": {
+   "unimorph": 1392
+  },
+  "extra_bible_forms": 0,
+  "sources": {
+   "unimorph": {
+    "repository": "https://github.com/unimorph/tyv",
+    "licence": "CC BY-SA 3.0",
+    "forms": 491421,
+    "bank_items_accepted": 1392
+   }
+  },
+  "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ }
 }

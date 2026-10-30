@@ -696,5 +696,28 @@
    "title": "Abugida: CV and length",
    "text": "Sinhala is an abugida: CV (orthographic) counts every consonant letter as C plus an inherent vowel V unless a vowel sign or hal kirima follows; vowel signs and vowel letters are V; anusvaraya is C. Sinhala keeps the inherent vowel, so no phonological variant is offered. Zero-width joiners were removed. Length is counted in aksharas."
   }
- ]
+ ],
+ "realword_filter": {
+  "date": "2026-10-29",
+  "bank_items": 242223,
+  "removed": 1149,
+  "removed_pct": 0.47,
+  "by_source": {
+   "hunspell": 1149
+  },
+  "extra_bible_forms": 0,
+  "sources": {
+   "hunspell": {
+    "dictionary": "libreoffice/si_LK/si_LK",
+    "licence": "see LICENSES-en.txt: LICENSE : GPLv3  This software is a syntax checker for Sinhala(si) language. Copyright (C) <2010>  Laknath Semage <blaknath [at] gmail [dot] com>  This program ",
+    "coverage_of_reference_words": 0.913,
+    "bank_items_accepted": 1149,
+    "compounding": "off"
+   },
+   "bible_skipped": {
+    "reason": "large corpus; Bible texts are used for small-corpus languages only"
+   }
+  },
+  "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ }
 }

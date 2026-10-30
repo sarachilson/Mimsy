@@ -693,5 +693,25 @@
    "yo"
   ]
  },
- "rules": {}
+ "rules": {},
+ "realword_filter": {
+  "date": "2026-10-29",
+  "bank_items": 43857,
+  "removed": 1614,
+  "removed_pct": 3.68,
+  "by_source": {
+   "hunspell": 1614
+  },
+  "extra_bible_forms": 0,
+  "sources": {
+   "hunspell": {
+    "dictionary": "wooorm/ia/index",
+    "licence": "GPL-3.0",
+    "coverage_of_reference_words": 0.901,
+    "bank_items_accepted": 1614,
+    "compounding": "off"
+   }
+  },
+  "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ }
 }

@@ -1480,5 +1480,32 @@
    "ě"
   ]
  },
- "rules": {}
+ "rules": {},
+ "realword_filter": {
+  "date": "2026-10-29",
+  "bank_items": 120000,
+  "removed": 4249,
+  "removed_pct": 3.54,
+  "by_source": {
+   "hunspell": 4249,
+   "unimorph": 2
+  },
+  "extra_bible_forms": 0,
+  "sources": {
+   "hunspell": {
+    "dictionary": "elastic/hsb/hsb",
+    "licence": "see COPYING: GNU GENERAL PUBLIC LICENSE \t\t       Version 2, June 1991   Copyright (C) 1989, 1991 Free Software Foundation, Inc.,  51 Franklin Street, Fifth Floor, Boston, MA",
+    "coverage_of_reference_words": 0.794,
+    "bank_items_accepted": 4249,
+    "compounding": "off"
+   },
+   "unimorph": {
+    "repository": "https://github.com/unimorph/hsb",
+    "licence": "CC BY-SA 3.0",
+    "forms": 664,
+    "bank_items_accepted": 2
+   }
+  },
+  "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ }
 }

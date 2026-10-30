@@ -949,5 +949,44 @@
    "title": "Web vocabulary only",
    "text": "61,032 of the reference words come from a web corpus (Leipzig Corpora Collection, zul_web_2013_100K, 1.5 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words (401 probable English words were removed). All frequencies come from that corpus, so no frequency bands are offered."
   }
- ]
+ ],
+ "realword_filter": {
+  "date": "2026-10-29",
+  "bank_items": 120000,
+  "removed": 14871,
+  "removed_pct": 12.39,
+  "by_source": {
+   "hunspell": 14714,
+   "unimorph": 722,
+   "bible": 7
+  },
+  "extra_bible_forms": 361,
+  "sources": {
+   "hunspell": {
+    "dictionary": "elastic/zu_ZA/zu-ZA",
+    "licence": "see the collection's licence file",
+    "coverage_of_reference_words": 0.772,
+    "bank_items_accepted": 14714,
+    "compounding": "off"
+   },
+   "unimorph": {
+    "repository": "https://github.com/unimorph/zul",
+    "licence": "CC BY-SA 3.0",
+    "forms": 32752,
+    "bank_items_accepted": 722
+   },
+   "bible": {
+    "texts": [
+     {
+      "file": "bible-corpus/bibles/Zulu-NT.xml",
+      "licence": "CC0 (corpus); translation public domain or freely distributable, see metadata.csv"
+     }
+    ],
+    "word_types": 8014,
+    "new_forms_not_in_lists": 361,
+    "bank_items_accepted": 7
+   }
+  },
+  "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ }
 }

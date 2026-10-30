@@ -523,5 +523,29 @@
    "title": "Wikipedia vocabulary added",
    "text": "2,818 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, ibo_wikipedia_2021_10K, 0.2 million words); 816 come from the subtitle list. Written sources are more formal than subtitles and contain more names and foreign words (133 probable English words were removed). Frequencies of the corpus-only words come from that corpus and are not comparable with subtitle frequencies."
   }
- ]
+ ],
+ "realword_filter": {
+  "date": "2026-10-29",
+  "bank_items": 15000,
+  "removed": 233,
+  "removed_pct": 1.55,
+  "by_source": {
+   "bible": 233
+  },
+  "extra_bible_forms": 3712,
+  "sources": {
+   "bible": {
+    "texts": [
+     {
+      "file": "ebible/corpus/ibo-ibo.txt",
+      "licence": "by-sa 4.0 Biblica, Inc."
+     }
+    ],
+    "word_types": 6115,
+    "new_forms_not_in_lists": 3712,
+    "bank_items_accepted": 233
+   }
+  },
+  "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ }
 }

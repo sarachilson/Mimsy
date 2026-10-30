@@ -1794,5 +1794,41 @@
    "title": "Newspaper vocabulary added",
    "text": "98,207 of the reference words come from a newspaper corpus (Leipzig Corpora Collection, epo_newscrawl_2017_1M, 22.0 million words); 25,994 come from the subtitle list. Written sources are more formal than subtitles and contain more names and foreign words (288 probable English words were removed). Frequencies of the corpus-only words come from that corpus and are not comparable with subtitle frequencies."
   }
- ]
+ ],
+ "realword_filter": {
+  "date": "2026-10-29",
+  "bank_items": 120000,
+  "removed": 7079,
+  "removed_pct": 5.9,
+  "by_source": {
+   "hunspell": 7070,
+   "bible": 118
+  },
+  "extra_bible_forms": 5839,
+  "sources": {
+   "hunspell": {
+    "dictionary": "wooorm/eo/index",
+    "licence": "GPL-2.0",
+    "coverage_of_reference_words": 0.612,
+    "bank_items_accepted": 7070,
+    "compounding": "off"
+   },
+   "bible": {
+    "texts": [
+     {
+      "file": "ebible/corpus/epo-epo.txt",
+      "licence": "Public Domain  Public Domain"
+     },
+     {
+      "file": "bible-corpus/bibles/Esperanto.xml",
+      "licence": "CC0 (corpus); translation public domain or freely distributable, see metadata.csv"
+     }
+    ],
+    "word_types": 20382,
+    "new_forms_not_in_lists": 5839,
+    "bank_items_accepted": 118
+   }
+  },
+  "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ }
 }

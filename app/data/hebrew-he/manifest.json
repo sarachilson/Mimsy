@@ -7725,5 +7725,35 @@
    "title": "Abjad: CV is orthographic",
    "text": "Hebrew is written without most vowels. CV here is orthographic: alef, he, waw and yod (א ה ו י) count as V; all other letters as C. Vowel points were removed."
   }
- ]
+ ],
+ "realword_filter": {
+  "date": "2026-10-29",
+  "bank_items": 359067,
+  "removed": 23392,
+  "removed_pct": 6.51,
+  "by_source": {
+   "hunspell": 23190,
+   "unimorph": 393
+  },
+  "extra_bible_forms": 0,
+  "sources": {
+   "hunspell": {
+    "dictionary": "wooorm/he/index",
+    "licence": "AGPL-3.0",
+    "coverage_of_reference_words": 0.994,
+    "bank_items_accepted": 23190,
+    "compounding": "off"
+   },
+   "unimorph": {
+    "repository": "https://github.com/unimorph/heb",
+    "licence": "CC BY-SA 3.0",
+    "forms": 69020,
+    "bank_items_accepted": 393
+   },
+   "bible_skipped": {
+    "reason": "large corpus; Bible texts are used for small-corpus languages only"
+   }
+  },
+  "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ }
 }

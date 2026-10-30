@@ -2169,5 +2169,24 @@
    "title": "Web vocabulary only",
    "text": "41,857 of the reference words come from a web corpus (Leipzig Corpora Collection, mlt_web_2012_300K, 5.9 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words (600 probable English words were removed). All frequencies come from that corpus, so no frequency bands are offered."
   }
- ]
+ ],
+ "realword_filter": {
+  "date": "2026-10-29",
+  "bank_items": 120000,
+  "removed": 23,
+  "removed_pct": 0.02,
+  "by_source": {
+   "unimorph": 23
+  },
+  "extra_bible_forms": 0,
+  "sources": {
+   "unimorph": {
+    "repository": "https://github.com/unimorph/mlt",
+    "licence": "CC BY-SA 3.0",
+    "forms": 1491,
+    "bank_items_accepted": 23
+   }
+  },
+  "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ }
 }

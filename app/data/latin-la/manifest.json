@@ -686,5 +686,44 @@
    "yu"
   ]
  },
- "rules": {}
+ "rules": {},
+ "realword_filter": {
+  "date": "2026-10-29",
+  "bank_items": 120000,
+  "removed": 11688,
+  "removed_pct": 9.74,
+  "by_source": {
+   "hunspell": 11477,
+   "unimorph": 1295,
+   "bible": 347
+  },
+  "extra_bible_forms": 8198,
+  "sources": {
+   "hunspell": {
+    "dictionary": "wooorm/la/index",
+    "licence": "GPL-2.0",
+    "coverage_of_reference_words": 0.892,
+    "bank_items_accepted": 11477,
+    "compounding": "off"
+   },
+   "unimorph": {
+    "repository": "https://github.com/unimorph/lat",
+    "licence": "CC BY-SA 3.0",
+    "forms": 486375,
+    "bank_items_accepted": 1295
+   },
+   "bible": {
+    "texts": [
+     {
+      "file": "ebible/corpus/lat-latVUC.txt",
+      "licence": "Public Domain  Public Domain"
+     }
+    ],
+    "word_types": 20535,
+    "new_forms_not_in_lists": 8198,
+    "bank_items_accepted": 347
+   }
+  },
+  "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ }
 }

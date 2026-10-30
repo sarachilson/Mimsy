@@ -971,5 +971,25 @@
    "uu"
   ]
  },
- "rules": {}
+ "rules": {},
+ "realword_filter": {
+  "date": "2026-10-29",
+  "bank_items": 38817,
+  "removed": 214,
+  "removed_pct": 0.55,
+  "by_source": {
+   "hunspell": 214
+  },
+  "extra_bible_forms": 0,
+  "sources": {
+   "hunspell": {
+    "dictionary": "elastic/pap_AW/Papiamento",
+    "licence": "see the collection's licence file",
+    "coverage_of_reference_words": 0.556,
+    "bank_items_accepted": 214,
+    "compounding": "off"
+   }
+  },
+  "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ }
 }

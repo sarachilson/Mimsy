@@ -876,5 +876,32 @@
    "title": "Wikipedia vocabulary added",
    "text": "32,245 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, oci_wikipedia_2021_100K, 2.0 million words); 6,077 come from the subtitle list. Written sources are more formal than subtitles and contain more names and foreign words (141 probable English words were removed). Frequencies of the corpus-only words come from that corpus and are not comparable with subtitle frequencies."
   }
- ]
+ ],
+ "realword_filter": {
+  "date": "2026-10-29",
+  "bank_items": 114966,
+  "removed": 4824,
+  "removed_pct": 4.2,
+  "by_source": {
+   "hunspell": 4806,
+   "unimorph": 87
+  },
+  "extra_bible_forms": 0,
+  "sources": {
+   "hunspell": {
+    "dictionary": "wooorm/oc/index",
+    "licence": "GPL-2.0",
+    "coverage_of_reference_words": 0.715,
+    "bank_items_accepted": 4806,
+    "compounding": "off"
+   },
+   "unimorph": {
+    "repository": "https://github.com/unimorph/oci",
+    "licence": "CC BY-SA 3.0",
+    "forms": 7465,
+    "bank_items_accepted": 87
+   }
+  },
+  "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ }
 }

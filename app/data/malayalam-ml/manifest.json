@@ -1042,5 +1042,41 @@
    "title": "Abugida: CV and length",
    "text": "Malayalam is an abugida: CV (orthographic) counts every consonant letter as C plus an inherent vowel V unless a vowel sign or virama follows; vowel signs and vowel letters are V; chillu letters and anusvara are C. Old-style chillu spellings (consonant + virama + joiner) were converted to the atomic chillu letters. Length is counted in aksharas."
   }
- ]
+ ],
+ "realword_filter": {
+  "date": "2026-10-29",
+  "bank_items": 120000,
+  "removed": 594,
+  "removed_pct": 0.49,
+  "by_source": {
+   "bible": 594
+  },
+  "extra_bible_forms": 78480,
+  "sources": {
+   "bible": {
+    "texts": [
+     {
+      "file": "ebible/corpus/mal-mal.txt",
+      "licence": "by-sa 4.0 Bridge Communication Systems"
+     },
+     {
+      "file": "ebible/corpus/mal-mal2015.txt",
+      "licence": "by-sa 4.0 The Free Bible Foundation"
+     },
+     {
+      "file": "ebible/corpus/mal-malc.txt",
+      "licence": "by-sa 4.0 Biblica, Inc."
+     },
+     {
+      "file": "bible-corpus/bibles/Malayalam.xml",
+      "licence": "CC0 (corpus); translation public domain or freely distributable, see metadata.csv"
+     }
+    ],
+    "word_types": 98306,
+    "new_forms_not_in_lists": 78480,
+    "bank_items_accepted": 594
+   }
+  },
+  "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ }
 }

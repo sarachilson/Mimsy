@@ -1117,5 +1117,35 @@
  },
  "rules": {},
  "caution_items": [],
- "caution": null
+ "caution": null,
+ "realword_filter": {
+  "date": "2026-10-29",
+  "bank_items": 385437,
+  "removed": 22442,
+  "removed_pct": 5.82,
+  "by_source": {
+   "hunspell": 22404,
+   "unimorph": 303
+  },
+  "extra_bible_forms": 0,
+  "sources": {
+   "hunspell": {
+    "dictionary": "wooorm/lt/index",
+    "licence": "BSD-3-Clause",
+    "coverage_of_reference_words": 0.995,
+    "bank_items_accepted": 22404,
+    "compounding": "off"
+   },
+   "unimorph": {
+    "repository": "https://github.com/unimorph/lit",
+    "licence": "CC BY-SA 3.0",
+    "forms": 28889,
+    "bank_items_accepted": 303
+   },
+   "bible_skipped": {
+    "reason": "large corpus; Bible texts are used for small-corpus languages only"
+   }
+  },
+  "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ }
 }

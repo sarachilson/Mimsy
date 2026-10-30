@@ -690,5 +690,32 @@
    "ü"
   ]
  },
- "rules": {}
+ "rules": {},
+ "realword_filter": {
+  "date": "2026-10-29",
+  "bank_items": 59772,
+  "removed": 7249,
+  "removed_pct": 12.13,
+  "by_source": {
+   "hunspell": 7239,
+   "unimorph": 26
+  },
+  "extra_bible_forms": 0,
+  "sources": {
+   "hunspell": {
+    "dictionary": "wooorm/tk/index",
+    "licence": "Apache-2.0",
+    "coverage_of_reference_words": 0.911,
+    "bank_items_accepted": 7239,
+    "compounding": "off"
+   },
+   "unimorph": {
+    "repository": "https://github.com/unimorph/tuk",
+    "licence": "CC BY-SA 3.0",
+    "forms": 804,
+    "bank_items_accepted": 26
+   }
+  },
+  "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ }
 }

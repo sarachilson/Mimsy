@@ -681,5 +681,32 @@
    "ę"
   ]
  },
- "rules": {}
+ "rules": {},
+ "realword_filter": {
+  "date": "2026-10-29",
+  "bank_items": 21678,
+  "removed": 1558,
+  "removed_pct": 7.19,
+  "by_source": {
+   "hunspell": 1556,
+   "unimorph": 7
+  },
+  "extra_bible_forms": 0,
+  "sources": {
+   "hunspell": {
+    "dictionary": "elastic/csb_PL/Kaszebsczi",
+    "licence": "see Copyright: ﻿All terms included in this dictionary were compiled by Yurek Hinz (aka Jurk) for the purpose of the Kashubian Spell Checker. Michał Ostrowski and Marek Kwidziń",
+    "coverage_of_reference_words": 0.798,
+    "bank_items_accepted": 1556,
+    "compounding": "off"
+   },
+   "unimorph": {
+    "repository": "https://github.com/unimorph/csb",
+    "licence": "CC BY-SA 3.0",
+    "forms": 350,
+    "bank_items_accepted": 7
+   }
+  },
+  "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ }
 }

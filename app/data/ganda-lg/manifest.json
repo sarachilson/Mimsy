@@ -597,5 +597,36 @@
    "uu"
   ]
  },
- "rules": {}
+ "rules": {},
+ "realword_filter": {
+  "date": "2026-10-29",
+  "bank_items": 120000,
+  "removed": 224,
+  "removed_pct": 0.19,
+  "by_source": {
+   "unimorph": 72,
+   "bible": 163
+  },
+  "extra_bible_forms": 5087,
+  "sources": {
+   "unimorph": {
+    "repository": "https://github.com/unimorph/lug",
+    "licence": "CC BY-SA 3.0",
+    "forms": 4692,
+    "bank_items_accepted": 72
+   },
+   "bible": {
+    "texts": [
+     {
+      "file": "ebible/corpus/lug-lug.txt",
+      "licence": "by-sa 4.0 Biblica, Inc."
+     }
+    ],
+    "word_types": 16768,
+    "new_forms_not_in_lists": 5087,
+    "bank_items_accepted": 163
+   }
+  },
+  "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ }
 }
