@@ -1,0 +1,2184 @@
+{
+ "afrikaans-af": {
+  "hunspell": {
+   "dictionary": "libreoffice/af_ZA/af_ZA",
+   "licence": "see README_af_ZA.txt: MySpell Afrikaans Spellchecker ------------------------------  1. Welcome 2. Copyright 3. Installation and Setup 4. Contributing 5. Copying  Enjoy!  1. Welcome ",
+   "coverage_of_reference_words": 0.676,
+   "bank_items_accepted": 493,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/afr",
+   "licence": "CC BY-SA 3.0",
+   "forms": 297209,
+   "bank_items_accepted": 895
+  },
+  "bible": {
+   "texts": [
+    {
+     "file": "bible-corpus/bibles/Afrikaans.xml",
+     "licence": "CC0 (corpus); translation public domain or freely distributable, see metadata.csv"
+    }
+   ],
+   "word_types": 8095,
+   "new_forms_not_in_lists": 400,
+   "bank_items_accepted": 8
+  }
+ },
+ "albanian-sq": {
+  "hunspell": {
+   "dictionary": "libreoffice/sq_AL/sq_AL",
+   "licence": "see README.txt: Myspell dictionary for Albanian Version 1.6.4 (15.07.2011)  This dictionary is released under GPL license version 2.0 or later. You can find the text of the lic",
+   "coverage_of_reference_words": 0.983,
+   "bank_items_accepted": 7924,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/sqi",
+   "licence": "CC BY-SA 3.0",
+   "forms": 10218,
+   "bank_items_accepted": 167
+  },
+  "bible_skipped": {
+   "reason": "large corpus; Bible texts are used for small-corpus languages only"
+  }
+ },
+ "amharic-am": {
+  "hunspell": {
+   "dictionary": "elastic/am_ET/am_ET",
+   "licence": "see Copyright: The contents of this package are provided \"as is\" into the public domain by the Ge'ez Frontier Foundation (GFF).  The GFF makes no representations or warranties",
+   "coverage_of_reference_words": 0.788,
+   "bank_items_accepted": 5943,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/amh",
+   "licence": "CC BY-SA 3.0",
+   "forms": 42929,
+   "bank_items_accepted": 819
+  },
+  "bible": {
+   "texts": [
+    {
+     "file": "bible-corpus/bibles/Amharic.xml",
+     "licence": "CC0 (corpus); translation public domain or freely distributable, see metadata.csv"
+    }
+   ],
+   "word_types": 28504,
+   "new_forms_not_in_lists": 18329,
+   "bank_items_accepted": 977
+  }
+ },
+ "arabic-ar": {
+  "hunspell": {
+   "dictionary": "libreoffice/ar/ar",
+   "licence": "see COPYING.txt: GPL 2.0/LGPL 2.1/MPL 1.1 tri-license  The contents of this software may be used under the terms of the GNU General Public License Version 2 or later (the \"GPL\")",
+   "coverage_of_reference_words": 0.98,
+   "bank_items_accepted": 39935,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/ara",
+   "licence": "CC BY-SA 3.0",
+   "forms": 542781,
+   "bank_items_accepted": 57
+  },
+  "bible_skipped": {
+   "reason": "large corpus; Bible texts are used for small-corpus languages only"
+  }
+ },
+ "aragonese-an": {
+  "hunspell": {
+   "dictionary": "libreoffice/an_ES/an_ES",
+   "licence": "see LICENSES-en.txt: (en) Aragonese spelling dictionary. Version 0.2. (beta) Copyright (c) 2011 Santiago Paricio (sparicio<at>gmail<dot>com) Copyright (c) 2011 Juan Pablo Mart�nez (",
+   "coverage_of_reference_words": 0.615,
+   "bank_items_accepted": 1376,
+   "compounding": "off"
+  }
+ },
+ "armenian-hy": {
+  "hunspell_skipped": {
+   "dictionary": "wooorm/hy/index",
+   "coverage_of_reference_words": 0.283,
+   "reason": "accepts fewer than 50% of the language's reference words"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/hye",
+   "licence": "CC BY-SA 3.0",
+   "forms": 243870,
+   "bank_items_accepted": 2258
+  },
+  "bible": {
+   "texts": [
+    {
+     "file": "bible-corpus/bibles/Armenian-PART.xml",
+     "licence": "CC0 (corpus); translation public domain or freely distributable, see metadata.csv"
+    }
+   ],
+   "word_types": 6036,
+   "new_forms_not_in_lists": 2170,
+   "bank_items_accepted": 91
+  }
+ },
+ "assamese-as": {
+  "hunspell_skipped": {
+   "dictionary": "libreoffice/as_IN/as_IN",
+   "coverage_of_reference_words": 0.451,
+   "reason": "accepts fewer than 50% of the language's reference words"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/asm",
+   "licence": "CC BY-SA 3.0",
+   "forms": 75102,
+   "bank_items_accepted": 880
+  },
+  "bible": {
+   "texts": [
+    {
+     "file": "ebible/corpus/asm-asmfb.txt",
+     "licence": "by-sa 4.0 Bridge Connectivity Solutions"
+    }
+   ],
+   "word_types": 17519,
+   "new_forms_not_in_lists": 9483,
+   "bank_items_accepted": 477
+  }
+ },
+ "asturian-ast": {
+  "unimorph": {
+   "repository": "https://github.com/unimorph/ast",
+   "licence": "CC BY-SA 3.0",
+   "forms": 21589,
+   "bank_items_accepted": 220
+  }
+ },
+ "azerbaijani-az": {
+  "hunspell_skipped": {
+   "dictionary": "elastic/az_AZ-latin/az-Latn-AZ",
+   "coverage_of_reference_words": 0.141,
+   "reason": "accepts fewer than 50% of the language's reference words"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/aze",
+   "licence": "CC BY-SA 3.0",
+   "forms": 6669,
+   "bank_items_accepted": 43
+  }
+ },
+ "bashkir-ba": {
+  "unimorph": {
+   "repository": "https://github.com/unimorph/bak",
+   "licence": "CC BY-SA 3.0",
+   "forms": 10723,
+   "bank_items_accepted": 83
+  }
+ },
+ "basque-eu": {
+  "hunspell": {
+   "dictionary": "wooorm/eu/index",
+   "licence": "GPL-2.0",
+   "coverage_of_reference_words": 0.953,
+   "bank_items_accepted": 10262,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/eus",
+   "licence": "CC BY-SA 3.0",
+   "forms": 10401,
+   "bank_items_accepted": 131
+  },
+  "bible": {
+   "texts": [
+    {
+     "file": "bible-corpus/bibles/Basque-NT.xml",
+     "licence": "CC0 (corpus); translation public domain or freely distributable, see metadata.csv"
+    }
+   ],
+   "word_types": 5905,
+   "new_forms_not_in_lists": 4433,
+   "bank_items_accepted": 64
+  }
+ },
+ "belarusian-be": {
+  "unimorph": {
+   "repository": "https://github.com/unimorph/bel",
+   "licence": "CC BY-SA 3.0",
+   "forms": 10895,
+   "bank_items_accepted": 7
+  },
+  "bible": {
+   "texts": [
+    {
+     "file": "ebible/corpus/bel-bel.txt",
+     "licence": "by-nc 4.0 John the Forerunner Church of Christians of Evangelical Faith of Minsk City"
+    },
+    {
+     "file": "ebible/corpus/bel-beln.txt",
+     "licence": "by-nc 4.0 John the Forerunner Church of Christians of Evangelical Faith of Minsk City"
+    }
+   ],
+   "word_types": 23139,
+   "new_forms_not_in_lists": 6189,
+   "bank_items_accepted": 161
+  }
+ },
+ "bengali-bn": {
+  "hunspell": {
+   "dictionary": "libreoffice/bn_BD/bn_BD",
+   "licence": "see COPYING: GNU GENERAL PUBLIC LICENSE \t\t       Version 2, June 1991   Copyright (C) 1989, 1991 Free Software Foundation, Inc.                        59 Temple Place, Suite",
+   "coverage_of_reference_words": 0.629,
+   "bank_items_accepted": 7515,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/ben",
+   "licence": "CC BY-SA 3.0",
+   "forms": 2847,
+   "bank_items_accepted": 16
+  },
+  "bible": {
+   "texts": [
+    {
+     "file": "ebible/corpus/ben-benirv.txt",
+     "licence": "by-sa 4.0 Bridge Connectivity Solutions Pvt. Ltd."
+    },
+    {
+     "file": "ebible/corpus/ben-benobcv.txt",
+     "licence": "by-sa 4.0 Biblica, Inc."
+    }
+   ],
+   "word_types": 23411,
+   "new_forms_not_in_lists": 8568,
+   "bank_items_accepted": 228
+  }
+ },
+ "bosnian-bs": {
+  "hunspell": {
+   "dictionary": "libreoffice/bs_BA/bs_BA",
+   "licence": "see README.txt: The contents of this software may be used under the terms of the GNU General Public License Version 2 or later or the GNU Lesser General Public License Version ",
+   "coverage_of_reference_words": 0.937,
+   "bank_items_accepted": 1541,
+   "compounding": "off"
+  },
+  "bible_skipped": {
+   "reason": "large corpus; Bible texts are used for small-corpus languages only"
+  }
+ },
+ "breton-br": {
+  "hunspell": {
+   "dictionary": "wooorm/br/index",
+   "licence": "(GPL-2.0 OR LGPL-2.1 OR MPL-1.1)",
+   "coverage_of_reference_words": 0.766,
+   "bank_items_accepted": 5554,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/bre",
+   "licence": "CC BY-SA 3.0",
+   "forms": 1940,
+   "bank_items_accepted": 92
+  },
+  "bible": {
+   "texts": [
+    {
+     "file": "ebible/corpus/bre-breBRG.txt",
+     "licence": "Public Domain  Public Domain"
+    }
+   ],
+   "word_types": 2770,
+   "new_forms_not_in_lists": 440,
+   "bank_items_accepted": 35
+  }
+ },
+ "bulgarian-bg": {
+  "hunspell": {
+   "dictionary": "wooorm/bg/index",
+   "licence": "(GPL-2.0 OR LGPL-2.1 OR MPL-1.1)",
+   "coverage_of_reference_words": 0.99,
+   "bank_items_accepted": 4101,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/bul",
+   "licence": "CC BY-SA 3.0",
+   "forms": 45863,
+   "bank_items_accepted": 287
+  },
+  "bible_skipped": {
+   "reason": "large corpus; Bible texts are used for small-corpus languages only"
+  }
+ },
+ "catalan-ca": {
+  "hunspell": {
+   "dictionary": "wooorm/ca/index",
+   "licence": "(GPL-2.0 OR LGPL-2.1)",
+   "coverage_of_reference_words": 0.948,
+   "bank_items_accepted": 4315,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/cat",
+   "licence": "CC BY-SA 3.0",
+   "forms": 62797,
+   "bank_items_accepted": 368
+  }
+ },
+ "cebuano-ceb": {
+  "unimorph": {
+   "repository": "https://github.com/unimorph/ceb",
+   "licence": "CC BY-SA 3.0",
+   "forms": 430,
+   "bank_items_accepted": 2
+  },
+  "bible": {
+   "texts": [
+    {
+     "file": "ebible/corpus/ceb-cebulb.txt",
+     "licence": "by-sa 4.0 Door43 World Missions Community"
+    },
+    {
+     "file": "bible-corpus/bibles/Cebuano.xml",
+     "licence": "CC0 (corpus); translation public domain or freely distributable, see metadata.csv"
+    }
+   ],
+   "word_types": 16608,
+   "new_forms_not_in_lists": 11986,
+   "bank_items_accepted": 222
+  }
+ },
+ "croatian-hr": {
+  "hunspell": {
+   "dictionary": "wooorm/hr/index",
+   "licence": "(LGPL-2.1 OR SISSL)",
+   "coverage_of_reference_words": 0.984,
+   "bank_items_accepted": 2764,
+   "compounding": "off"
+  },
+  "bible_skipped": {
+   "reason": "large corpus; Bible texts are used for small-corpus languages only"
+  }
+ },
+ "czech-cs": {
+  "hunspell": {
+   "dictionary": "wooorm/cs/index",
+   "licence": "GPL-2.0",
+   "coverage_of_reference_words": 0.992,
+   "bank_items_accepted": 8082,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/ces",
+   "licence": "CC BY-SA 3.0",
+   "forms": 51384,
+   "bank_items_accepted": 136
+  },
+  "bible_skipped": {
+   "reason": "large corpus; Bible texts are used for small-corpus languages only"
+  }
+ },
+ "danish-da": {
+  "hunspell": {
+   "dictionary": "wooorm/da/index",
+   "licence": "(GPL-2.0 OR LGPL-2.1 OR MPL-1.1)",
+   "coverage_of_reference_words": 0.918,
+   "bank_items_accepted": 3347,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/dan",
+   "licence": "CC BY-SA 3.0",
+   "forms": 27897,
+   "bank_items_accepted": 144
+  },
+  "bible_skipped": {
+   "reason": "large corpus; Bible texts are used for small-corpus languages only"
+  }
+ },
+ "dutch-nl": {
+  "hunspell": {
+   "dictionary": "wooorm/nl/index",
+   "licence": "(BSD-3-Clause OR CC-BY-3.0)",
+   "coverage_of_reference_words": 0.882,
+   "bank_items_accepted": 1909,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/nld",
+   "licence": "CC BY-SA 3.0",
+   "forms": 26193,
+   "bank_items_accepted": 247
+  },
+  "bible_skipped": {
+   "reason": "large corpus; Bible texts are used for small-corpus languages only"
+  }
+ },
+ "english-en": {
+  "hunspell": {
+   "dictionary": "wooorm/en/index",
+   "licence": "(MIT AND BSD)",
+   "coverage_of_reference_words": 0.815,
+   "bank_items_accepted": 36,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/eng",
+   "licence": "CC BY-SA 3.0",
+   "forms": 616034,
+   "bank_items_accepted": 2653
+  },
+  "bible_skipped": {
+   "reason": "large corpus; Bible texts are used for small-corpus languages only"
+  }
+ },
+ "esperanto-eo": {
+  "hunspell": {
+   "dictionary": "wooorm/eo/index",
+   "licence": "GPL-2.0",
+   "coverage_of_reference_words": 0.612,
+   "bank_items_accepted": 7070,
+   "compounding": "off"
+  },
+  "bible": {
+   "texts": [
+    {
+     "file": "ebible/corpus/epo-epo.txt",
+     "licence": "Public Domain  Public Domain"
+    },
+    {
+     "file": "bible-corpus/bibles/Esperanto.xml",
+     "licence": "CC0 (corpus); translation public domain or freely distributable, see metadata.csv"
+    }
+   ],
+   "word_types": 20382,
+   "new_forms_not_in_lists": 5839,
+   "bank_items_accepted": 118
+  }
+ },
+ "estonian-et": {
+  "hunspell": {
+   "dictionary": "wooorm/et/index",
+   "licence": "LGPL-2.1",
+   "coverage_of_reference_words": 0.783,
+   "bank_items_accepted": 13757,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/est",
+   "licence": "CC BY-SA 3.0",
+   "forms": 24811,
+   "bank_items_accepted": 179
+  },
+  "bible_skipped": {
+   "reason": "large corpus; Bible texts are used for small-corpus languages only"
+  }
+ },
+ "faroese-fo": {
+  "hunspell": {
+   "dictionary": "wooorm/fo/index",
+   "licence": "(GPL-2.0 OR LGPL-2.1 OR MPL-1.1)",
+   "coverage_of_reference_words": 0.781,
+   "bank_items_accepted": 4456,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/fao",
+   "licence": "CC BY-SA 3.0",
+   "forms": 31366,
+   "bank_items_accepted": 929
+  }
+ },
+ "finnish-fi": {
+  "unimorph": {
+   "repository": "https://github.com/unimorph/fin",
+   "licence": "CC BY-SA 3.0",
+   "forms": 1778561,
+   "bank_items_accepted": 8909
+  },
+  "bible_skipped": {
+   "reason": "large corpus; Bible texts are used for small-corpus languages only"
+  }
+ },
+ "french-fr": {
+  "hunspell": {
+   "dictionary": "wooorm/fr/index",
+   "licence": "MPL-2.0",
+   "coverage_of_reference_words": 0.978,
+   "bank_items_accepted": 2440,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/fra",
+   "licence": "CC BY-SA 3.0",
+   "forms": 401940,
+   "bank_items_accepted": 3344
+  },
+  "bible_skipped": {
+   "reason": "large corpus; Bible texts are used for small-corpus languages only"
+  }
+ },
+ "galician-gl": {
+  "hunspell": {
+   "dictionary": "wooorm/gl/index",
+   "licence": "GPL-3.0",
+   "coverage_of_reference_words": 0.954,
+   "bank_items_accepted": 6428,
+   "compounding": "off"
+  }
+ },
+ "ganda-lg": {
+  "unimorph": {
+   "repository": "https://github.com/unimorph/lug",
+   "licence": "CC BY-SA 3.0",
+   "forms": 4692,
+   "bank_items_accepted": 72
+  },
+  "bible": {
+   "texts": [
+    {
+     "file": "ebible/corpus/lug-lug.txt",
+     "licence": "by-sa 4.0 Biblica, Inc."
+    }
+   ],
+   "word_types": 16768,
+   "new_forms_not_in_lists": 5087,
+   "bank_items_accepted": 163
+  }
+ },
+ "georgian-ka": {
+  "hunspell": {
+   "dictionary": "wooorm/ka/index",
+   "licence": "MIT",
+   "coverage_of_reference_words": 0.618,
+   "bank_items_accepted": 3833,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/kat",
+   "licence": "CC BY-SA 3.0",
+   "forms": 75931,
+   "bank_items_accepted": 539
+  }
+ },
+ "german-de": {
+  "hunspell": {
+   "dictionary": "wooorm/de/index",
+   "licence": "(GPL-2.0 OR GPL-3.0)",
+   "coverage_of_reference_words": 0.702,
+   "bank_items_accepted": 519,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/deu",
+   "licence": "CC BY-SA 3.0",
+   "forms": 172014,
+   "bank_items_accepted": 1810
+  },
+  "bible_skipped": {
+   "reason": "large corpus; Bible texts are used for small-corpus languages only"
+  }
+ },
+ "gilaki-glk": {
+  "bible": {
+   "texts": [
+    {
+     "file": "ebible/corpus/glk-glk.txt",
+     "licence": "by-nd 4.0 gilakmedia.com"
+    }
+   ],
+   "word_types": 1084,
+   "new_forms_not_in_lists": 441,
+   "bank_items_accepted": 44
+  }
+ },
+ "greek-el": {
+  "hunspell": {
+   "dictionary": "wooorm/el/index",
+   "licence": "(GPL-2.0 OR LGPL-2.1 OR MPL-1.1)",
+   "coverage_of_reference_words": 0.988,
+   "bank_items_accepted": 1628,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/ell",
+   "licence": "CC BY-SA 3.0",
+   "forms": 76883,
+   "bank_items_accepted": 140
+  },
+  "bible_skipped": {
+   "reason": "large corpus; Bible texts are used for small-corpus languages only"
+  }
+ },
+ "greenlandic-kl": {
+  "unimorph": {
+   "repository": "https://github.com/unimorph/kal",
+   "licence": "CC BY-SA 3.0",
+   "forms": 321,
+   "bank_items_accepted": 10
+  }
+ },
+ "gujarati-gu": {
+  "hunspell_skipped": {
+   "dictionary": "libreoffice/gu_IN/gu_IN",
+   "coverage_of_reference_words": 0.301,
+   "reason": "accepts fewer than 50% of the language's reference words"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/guj",
+   "licence": "CC BY-SA 3.0",
+   "forms": 15073,
+   "bank_items_accepted": 260
+  },
+  "bible": {
+   "texts": [
+    {
+     "file": "ebible/corpus/guj-guj2017.txt",
+     "licence": "by-sa 4.0 Bridge Connectivity Solutions"
+    },
+    {
+     "file": "bible-corpus/bibles/Gujarati-NT.xml",
+     "licence": "CC0 (corpus); translation public domain or freely distributable, see metadata.csv"
+    }
+   ],
+   "word_types": 22497,
+   "new_forms_not_in_lists": 9935,
+   "bank_items_accepted": 355
+  }
+ },
+ "haitian-ht": {
+  "bible": {
+   "texts": [
+    {
+     "file": "ebible/corpus/hat-hat.txt",
+     "licence": "Public Domain  Public Domain"
+    },
+    {
+     "file": "ebible/corpus/hat-hatbsa.txt",
+     "licence": "by-sa 4.0 Ron Smith"
+    }
+   ],
+   "word_types": 5013,
+   "new_forms_not_in_lists": 1738,
+   "bank_items_accepted": 132
+  }
+ },
+ "hausa-ha": {
+  "hunspell_skipped": {
+   "dictionary": "elastic/ha_GH/ha-GH",
+   "coverage_of_reference_words": 0.201,
+   "reason": "accepts fewer than 50% of the language's reference words"
+  },
+  "bible": {
+   "texts": [
+    {
+     "file": "ebible/corpus/hau-hausa.txt",
+     "licence": "by-sa 4.0 Biblica, Inc."
+    },
+    {
+     "file": "ebible/corpus/hau-hauulb.txt",
+     "licence": "by-sa 4.0 Door43 World Missions Community"
+    }
+   ],
+   "word_types": 8759,
+   "new_forms_not_in_lists": 4091,
+   "bank_items_accepted": 228
+  }
+ },
+ "hebrew-he": {
+  "hunspell": {
+   "dictionary": "wooorm/he/index",
+   "licence": "AGPL-3.0",
+   "coverage_of_reference_words": 0.994,
+   "bank_items_accepted": 23190,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/heb",
+   "licence": "CC BY-SA 3.0",
+   "forms": 69020,
+   "bank_items_accepted": 393
+  },
+  "bible_skipped": {
+   "reason": "large corpus; Bible texts are used for small-corpus languages only"
+  }
+ },
+ "hindi-hi": {
+  "hunspell": {
+   "dictionary": "libreoffice/hi_IN/hi_IN",
+   "licence": "see Copyright: GNU Aspell Hindi Word List Package     Copyright � 2005 Swapnil {Hajare, Sant} <janabhaaratii@ncst.ernet.in>      This program is free software; you can redistr",
+   "coverage_of_reference_words": 0.596,
+   "bank_items_accepted": 5574,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/hin",
+   "licence": "CC BY-SA 3.0",
+   "forms": 1891,
+   "bank_items_accepted": 45
+  },
+  "bible": {
+   "texts": [
+    {
+     "file": "ebible/corpus/hin-hin2017.txt",
+     "licence": "by-sa 4.0 Bridge Connectivity Solutions"
+    },
+    {
+     "file": "ebible/corpus/hin-hincv.txt",
+     "licence": "by-sa 4.0 Biblica, Inc."
+    },
+    {
+     "file": "bible-corpus/bibles/Hindi.xml",
+     "licence": "CC0 (corpus); translation public domain or freely distributable, see metadata.csv"
+    }
+   ],
+   "word_types": 21461,
+   "new_forms_not_in_lists": 10165,
+   "bank_items_accepted": 449
+  }
+ },
+ "hungarian-hu": {
+  "hunspell": {
+   "dictionary": "wooorm/hu/index",
+   "licence": "(GPL-2.0 OR LGPL-2.1 OR MPL-1.1)",
+   "coverage_of_reference_words": 0.974,
+   "bank_items_accepted": 24220,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/hun",
+   "licence": "CC BY-SA 3.0",
+   "forms": 907776,
+   "bank_items_accepted": 1853
+  },
+  "bible_skipped": {
+   "reason": "large corpus; Bible texts are used for small-corpus languages only"
+  }
+ },
+ "icelandic-is": {
+  "hunspell": {
+   "dictionary": "wooorm/is/index",
+   "licence": "CC-BY-SA-3.0",
+   "coverage_of_reference_words": 0.764,
+   "bank_items_accepted": 3843,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/isl",
+   "licence": "CC BY-SA 3.0",
+   "forms": 52198,
+   "bank_items_accepted": 1832
+  },
+  "bible_skipped": {
+   "reason": "large corpus; Bible texts are used for small-corpus languages only"
+  }
+ },
+ "igbo-ig": {
+  "bible": {
+   "texts": [
+    {
+     "file": "ebible/corpus/ibo-ibo.txt",
+     "licence": "by-sa 4.0 Biblica, Inc."
+    }
+   ],
+   "word_types": 6115,
+   "new_forms_not_in_lists": 3712,
+   "bank_items_accepted": 233
+  }
+ },
+ "ilocano-ilo": {
+  "bible": {
+   "texts": [
+    {
+     "file": "ebible/corpus/ilo-iloulb.txt",
+     "licence": "by-sa 4.0 Door43 World Missions Community"
+    }
+   ],
+   "word_types": 15724,
+   "new_forms_not_in_lists": 12956,
+   "bank_items_accepted": 108
+  }
+ },
+ "indonesian-id": {
+  "hunspell": {
+   "dictionary": "libreoffice/id/id_ID",
+   "licence": "see the collection's licence file",
+   "coverage_of_reference_words": 0.927,
+   "bank_items_accepted": 1600,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/ind",
+   "licence": "CC BY-SA 3.0",
+   "forms": 21296,
+   "bank_items_accepted": 411
+  },
+  "bible_skipped": {
+   "reason": "large corpus; Bible texts are used for small-corpus languages only"
+  }
+ },
+ "interlingua-ia": {
+  "hunspell": {
+   "dictionary": "wooorm/ia/index",
+   "licence": "GPL-3.0",
+   "coverage_of_reference_words": 0.901,
+   "bank_items_accepted": 1614,
+   "compounding": "off"
+  }
+ },
+ "interlingue-ie": {
+  "hunspell": {
+   "dictionary": "wooorm/ie/index",
+   "licence": "Apache-2.0",
+   "coverage_of_reference_words": 0.918,
+   "bank_items_accepted": 843,
+   "compounding": "off"
+  }
+ },
+ "irish-ga": {
+  "hunspell": {
+   "dictionary": "wooorm/ga/index",
+   "licence": "GPL-2.0",
+   "coverage_of_reference_words": 0.779,
+   "bank_items_accepted": 2918,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/gle",
+   "licence": "CC BY-SA 3.0",
+   "forms": 24043,
+   "bank_items_accepted": 244
+  }
+ },
+ "italian-it": {
+  "hunspell": {
+   "dictionary": "wooorm/it/index",
+   "licence": "GPL-3.0",
+   "coverage_of_reference_words": 0.973,
+   "bank_items_accepted": 3623,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/ita",
+   "licence": "CC BY-SA 3.0",
+   "forms": 324366,
+   "bank_items_accepted": 1806
+  },
+  "bible_skipped": {
+   "reason": "large corpus; Bible texts are used for small-corpus languages only"
+  }
+ },
+ "kannada-kn": {
+  "hunspell_skipped": {
+   "dictionary": "libreoffice/kn_IN/kn_IN",
+   "coverage_of_reference_words": 0.263,
+   "reason": "accepts fewer than 50% of the language's reference words"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/kan",
+   "licence": "CC BY-SA 3.0",
+   "forms": 3802,
+   "bank_items_accepted": 128
+  },
+  "bible": {
+   "texts": [
+    {
+     "file": "ebible/corpus/kan-kan2017.txt",
+     "licence": "by-sa 4.0 Bridge Connectivity Solutions"
+    },
+    {
+     "file": "ebible/corpus/kan-kanokcv.txt",
+     "licence": "by-sa 4.0 Biblica, Inc."
+    },
+    {
+     "file": "bible-corpus/bibles/Kannada.xml",
+     "licence": "CC0 (corpus); translation public domain or freely distributable, see metadata.csv"
+    }
+   ],
+   "word_types": 76331,
+   "new_forms_not_in_lists": 61348,
+   "bank_items_accepted": 1320
+  }
+ },
+ "kashubian-csb": {
+  "hunspell": {
+   "dictionary": "elastic/csb_PL/Kaszebsczi",
+   "licence": "see Copyright: ﻿All terms included in this dictionary were compiled by Yurek Hinz (aka Jurk) for the purpose of the Kashubian Spell Checker. Michał Ostrowski and Marek Kwidziń",
+   "coverage_of_reference_words": 0.798,
+   "bank_items_accepted": 1556,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/csb",
+   "licence": "CC BY-SA 3.0",
+   "forms": 350,
+   "bank_items_accepted": 7
+  }
+ },
+ "kazakh-kk": {
+  "hunspell_skipped": {
+   "dictionary": "elastic/kk/kk",
+   "coverage_of_reference_words": 0.424,
+   "reason": "accepts fewer than 50% of the language's reference words"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/kaz",
+   "licence": "CC BY-SA 3.0",
+   "forms": 35239,
+   "bank_items_accepted": 305
+  }
+ },
+ "kurdish-ku": {
+  "hunspell_skipped": {
+   "dictionary": "libreoffice/ckb/dictionaries/ckb",
+   "coverage_of_reference_words": 0.403,
+   "reason": "accepts fewer than 50% of the language's reference words"
+  },
+  "bible": {
+   "texts": [
+    {
+     "file": "ebible/corpus/ckb-ckb.txt",
+     "licence": "by-sa 4.0"
+    }
+   ],
+   "word_types": 22492,
+   "new_forms_not_in_lists": 10603,
+   "bank_items_accepted": 412
+  }
+ },
+ "kyrgyz-ky": {
+  "unimorph": {
+   "repository": "https://github.com/unimorph/kir",
+   "licence": "CC BY-SA 3.0",
+   "forms": 2997,
+   "bank_items_accepted": 4
+  }
+ },
+ "latin-la": {
+  "hunspell": {
+   "dictionary": "wooorm/la/index",
+   "licence": "GPL-2.0",
+   "coverage_of_reference_words": 0.892,
+   "bank_items_accepted": 11477,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/lat",
+   "licence": "CC BY-SA 3.0",
+   "forms": 486375,
+   "bank_items_accepted": 1295
+  },
+  "bible": {
+   "texts": [
+    {
+     "file": "ebible/corpus/lat-latVUC.txt",
+     "licence": "Public Domain  Public Domain"
+    }
+   ],
+   "word_types": 20535,
+   "new_forms_not_in_lists": 8198,
+   "bank_items_accepted": 347
+  }
+ },
+ "latvian-lv": {
+  "hunspell": {
+   "dictionary": "wooorm/lv/index",
+   "licence": "LGPL-2.1",
+   "coverage_of_reference_words": 0.933,
+   "bank_items_accepted": 4691,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/lav",
+   "licence": "CC BY-SA 3.0",
+   "forms": 75492,
+   "bank_items_accepted": 339
+  }
+ },
+ "lithuanian-lt": {
+  "hunspell": {
+   "dictionary": "wooorm/lt/index",
+   "licence": "BSD-3-Clause",
+   "coverage_of_reference_words": 0.995,
+   "bank_items_accepted": 22404,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/lit",
+   "licence": "CC BY-SA 3.0",
+   "forms": 28889,
+   "bank_items_accepted": 303
+  },
+  "bible_skipped": {
+   "reason": "large corpus; Bible texts are used for small-corpus languages only"
+  }
+ },
+ "low_german-nds": {
+  "hunspell_skipped": {
+   "dictionary": "wooorm/nds/index",
+   "coverage_of_reference_words": 0.307,
+   "reason": "accepts fewer than 50% of the language's reference words"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/nds",
+   "licence": "CC BY-SA 3.0",
+   "forms": 2495,
+   "bank_items_accepted": 57
+  }
+ },
+ "lower_sorbian-dsb": {
+  "hunspell": {
+   "dictionary": "elastic/dsb/dsb",
+   "licence": "see COPYING.txt: GNU GENERAL PUBLIC LICENSE \t\t       Version 2, June 1991   Copyright (C) 1989, 1991 Free Software Foundation, Inc.,  51 Franklin Street, Fifth Floor, Boston, MA",
+   "coverage_of_reference_words": 0.905,
+   "bank_items_accepted": 1731,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/dsb",
+   "licence": "CC BY-SA 3.0",
+   "forms": 12039,
+   "bank_items_accepted": 256
+  }
+ },
+ "luxembourgish-lb": {
+  "hunspell": {
+   "dictionary": "wooorm/lb/index",
+   "licence": "EUPL-1.1",
+   "coverage_of_reference_words": 0.761,
+   "bank_items_accepted": 947,
+   "compounding": "off"
+  }
+ },
+ "macedonian-mk": {
+  "hunspell": {
+   "dictionary": "wooorm/mk/index",
+   "licence": "GPL-3.0",
+   "coverage_of_reference_words": 0.985,
+   "bank_items_accepted": 9643,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/mkd",
+   "licence": "CC BY-SA 3.0",
+   "forms": 136411,
+   "bank_items_accepted": 2297
+  },
+  "bible_skipped": {
+   "reason": "large corpus; Bible texts are used for small-corpus languages only"
+  }
+ },
+ "malagasy-mg": {
+  "hunspell": {
+   "dictionary": "elastic/mg_MG/mg_MG",
+   "licence": "see README_mg_MG.txt: 1. Version  This is version 0.03 of myspell-mg.  2. Copyright  Myspell dictionary for Malagasy Copyright 2004 Rado Ramarotafika <rado@linuxmg.org>              ",
+   "coverage_of_reference_words": 0.555,
+   "bank_items_accepted": 126,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/mlg",
+   "licence": "CC BY-SA 3.0",
+   "forms": 636,
+   "bank_items_accepted": 22
+  },
+  "bible": {
+   "texts": [
+    {
+     "file": "bible-corpus/bibles/Malagasy.xml",
+     "licence": "CC0 (corpus); translation public domain or freely distributable, see metadata.csv"
+    }
+   ],
+   "word_types": 9853,
+   "new_forms_not_in_lists": 3799,
+   "bank_items_accepted": 142
+  }
+ },
+ "malay-ms": {
+  "hunspell": {
+   "dictionary": "elastic/ms_MY/ms_MY",
+   "licence": "see README_ms_MY.txt: Copyright   Malay Spellchecker v0.1 - 07/10/04 ----------------------------------------- This is an initial version, please check: http://lingucomponent.openoff",
+   "coverage_of_reference_words": 0.851,
+   "bank_items_accepted": 3016,
+   "compounding": "off"
+  },
+  "bible_skipped": {
+   "reason": "large corpus; Bible texts are used for small-corpus languages only"
+  }
+ },
+ "malayalam-ml": {
+  "bible": {
+   "texts": [
+    {
+     "file": "ebible/corpus/mal-mal.txt",
+     "licence": "by-sa 4.0 Bridge Communication Systems"
+    },
+    {
+     "file": "ebible/corpus/mal-mal2015.txt",
+     "licence": "by-sa 4.0 The Free Bible Foundation"
+    },
+    {
+     "file": "ebible/corpus/mal-malc.txt",
+     "licence": "by-sa 4.0 Biblica, Inc."
+    },
+    {
+     "file": "bible-corpus/bibles/Malayalam.xml",
+     "licence": "CC0 (corpus); translation public domain or freely distributable, see metadata.csv"
+    }
+   ],
+   "word_types": 98306,
+   "new_forms_not_in_lists": 78480,
+   "bank_items_accepted": 594
+  }
+ },
+ "maltese-mt": {
+  "unimorph": {
+   "repository": "https://github.com/unimorph/mlt",
+   "licence": "CC BY-SA 3.0",
+   "forms": 1491,
+   "bank_items_accepted": 23
+  }
+ },
+ "manx-gv": {
+  "unimorph": {
+   "repository": "https://github.com/unimorph/glv",
+   "licence": "CC BY-SA 3.0",
+   "forms": 15,
+   "bank_items_accepted": 2
+  },
+  "bible": {
+   "texts": [
+    {
+     "file": "bible-corpus/bibles/Manx-PART.xml",
+     "licence": "CC0 (corpus); translation public domain or freely distributable, see metadata.csv"
+    }
+   ],
+   "word_types": 2234,
+   "new_forms_not_in_lists": 927,
+   "bank_items_accepted": 65
+  }
+ },
+ "maori-mi": {
+  "hunspell": {
+   "dictionary": "elastic/mi_NZ/mi",
+   "licence": "see the collection's licence file",
+   "coverage_of_reference_words": 0.64,
+   "bank_items_accepted": 827,
+   "compounding": "off"
+  },
+  "bible": {
+   "texts": [
+    {
+     "file": "bible-corpus/bibles/Maori.xml",
+     "licence": "CC0 (corpus); translation public domain or freely distributable, see metadata.csv"
+    }
+   ],
+   "word_types": 3718,
+   "new_forms_not_in_lists": 173,
+   "bank_items_accepted": 24
+  }
+ },
+ "marathi-mr": {
+  "hunspell": {
+   "dictionary": "libreoffice/mr_IN/mr_IN",
+   "licence": "see COPYING: GNU GENERAL PUBLIC LICENSE \t\t       Version 2, June 1991   Copyright (C) 1989, 1991 Free Software Foundation, Inc.                        59 Temple Place, Suite",
+   "coverage_of_reference_words": 0.565,
+   "bank_items_accepted": 5780,
+   "compounding": "off"
+  },
+  "bible": {
+   "texts": [
+    {
+     "file": "ebible/corpus/mar-mar.txt",
+     "licence": "by-sa 4.0 Bridge Connectivity Solutions"
+    },
+    {
+     "file": "bible-corpus/bibles/Marathi.xml",
+     "licence": "CC0 (corpus); translation public domain or freely distributable, see metadata.csv"
+    }
+   ],
+   "word_types": 39379,
+   "new_forms_not_in_lists": 18041,
+   "bank_items_accepted": 335
+  }
+ },
+ "mongolian-mn": {
+  "hunspell": {
+   "dictionary": "wooorm/mn/index",
+   "licence": "LPPL-1.3c",
+   "coverage_of_reference_words": 0.788,
+   "bank_items_accepted": 11608,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/khk",
+   "licence": "CC BY-SA 3.0",
+   "forms": 17231,
+   "bank_items_accepted": 408
+  }
+ },
+ "navajo-nv": {
+  "unimorph": {
+   "repository": "https://github.com/unimorph/nav",
+   "licence": "CC BY-SA 3.0",
+   "forms": 11046,
+   "bank_items_accepted": 43
+  }
+ },
+ "nepali-ne": {
+  "hunspell": {
+   "dictionary": "wooorm/ne/index",
+   "licence": "LGPL-2.1",
+   "coverage_of_reference_words": 0.541,
+   "bank_items_accepted": 4855,
+   "compounding": "off"
+  },
+  "bible": {
+   "texts": [
+    {
+     "file": "bible-corpus/bibles/Nepali.xml",
+     "licence": "CC0 (corpus); translation public domain or freely distributable, see metadata.csv"
+    }
+   ],
+   "word_types": 22275,
+   "new_forms_not_in_lists": 10373,
+   "bank_items_accepted": 364
+  }
+ },
+ "northern_frisian-frr": {
+  "unimorph": {
+   "repository": "https://github.com/unimorph/frr",
+   "licence": "CC BY-SA 3.0",
+   "forms": 364,
+   "bank_items_accepted": 24
+  }
+ },
+ "northern_sami-se": {
+  "unimorph": {
+   "repository": "https://github.com/unimorph/sme",
+   "licence": "CC BY-SA 3.0",
+   "forms": 54435,
+   "bank_items_accepted": 260
+  }
+ },
+ "norwegian-no": {
+  "hunspell": {
+   "dictionary": "wooorm/nb/index",
+   "licence": "GPL-2.0",
+   "coverage_of_reference_words": 0.934,
+   "bank_items_accepted": 4152,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/nob",
+   "licence": "CC BY-SA 3.0",
+   "forms": 73159,
+   "bank_items_accepted": 448
+  },
+  "bible_skipped": {
+   "reason": "large corpus; Bible texts are used for small-corpus languages only"
+  }
+ },
+ "norwegian_nynorsk-nn": {
+  "hunspell": {
+   "dictionary": "wooorm/nn/index",
+   "licence": "GPL-2.0",
+   "coverage_of_reference_words": 0.838,
+   "bank_items_accepted": 4823,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/nno",
+   "licence": "CC BY-SA 3.0",
+   "forms": 16928,
+   "bank_items_accepted": 151
+  }
+ },
+ "occitan-oc": {
+  "hunspell": {
+   "dictionary": "wooorm/oc/index",
+   "licence": "GPL-2.0",
+   "coverage_of_reference_words": 0.715,
+   "bank_items_accepted": 4806,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/oci",
+   "licence": "CC BY-SA 3.0",
+   "forms": 7465,
+   "bank_items_accepted": 87
+  }
+ },
+ "oromo-om": {
+  "unimorph": {
+   "repository": "https://github.com/unimorph/orm",
+   "licence": "CC BY-SA 3.0",
+   "forms": 704,
+   "bank_items_accepted": 20
+  }
+ },
+ "papiamento-pap": {
+  "hunspell": {
+   "dictionary": "elastic/pap_AW/Papiamento",
+   "licence": "see the collection's licence file",
+   "coverage_of_reference_words": 0.556,
+   "bank_items_accepted": 214,
+   "compounding": "off"
+  }
+ },
+ "pashto-ps": {
+  "unimorph": {
+   "repository": "https://github.com/unimorph/pus",
+   "licence": "CC BY-SA 3.0",
+   "forms": 2973,
+   "bank_items_accepted": 82
+  }
+ },
+ "persian-fa": {
+  "hunspell": {
+   "dictionary": "wooorm/fa/index",
+   "licence": "Apache-2.0",
+   "coverage_of_reference_words": 0.894,
+   "bank_items_accepted": 8711,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/fas",
+   "licence": "CC BY-SA 3.0",
+   "forms": 3598,
+   "bank_items_accepted": 224
+  },
+  "bible_skipped": {
+   "reason": "large corpus; Bible texts are used for small-corpus languages only"
+  }
+ },
+ "polish-pl": {
+  "hunspell": {
+   "dictionary": "wooorm/pl/index",
+   "licence": "(GPL-3.0 OR LGPL-3.0 OR MPL-2.0)",
+   "coverage_of_reference_words": 0.987,
+   "bank_items_accepted": 5900,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/pol",
+   "licence": "CC BY-SA 3.0",
+   "forms": 122218,
+   "bank_items_accepted": 270
+  },
+  "bible_skipped": {
+   "reason": "large corpus; Bible texts are used for small-corpus languages only"
+  }
+ },
+ "portuguese-pt": {
+  "hunspell": {
+   "dictionary": "wooorm/pt-PT/index",
+   "licence": "(GPL-2.0 OR LGPL-2.1 OR MPL-1.1)",
+   "coverage_of_reference_words": 0.863,
+   "bank_items_accepted": 2541,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/por",
+   "licence": "CC BY-SA 3.0",
+   "forms": 211091,
+   "bank_items_accepted": 1587
+  },
+  "bible_skipped": {
+   "reason": "large corpus; Bible texts are used for small-corpus languages only"
+  }
+ },
+ "portuguese_brazil-pt_BR": {
+  "hunspell": {
+   "dictionary": "wooorm/pt/index",
+   "licence": "(LGPL-3.0 OR MPL-2.0)",
+   "coverage_of_reference_words": 0.961,
+   "bank_items_accepted": 15843,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/por",
+   "licence": "CC BY-SA 3.0",
+   "forms": 211091,
+   "bank_items_accepted": 1279
+  },
+  "bible_skipped": {
+   "reason": "large corpus; Bible texts are used for small-corpus languages only"
+  }
+ },
+ "portuguese_mozambique-pt_MZ": {
+  "hunspell": {
+   "dictionary": "wooorm/pt-PT/index",
+   "licence": "(GPL-2.0 OR LGPL-2.1 OR MPL-1.1)",
+   "coverage_of_reference_words": 0.896,
+   "bank_items_accepted": 1235,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/por",
+   "licence": "CC BY-SA 3.0",
+   "forms": 211091,
+   "bank_items_accepted": 811
+  },
+  "bible": {
+   "texts": [
+    {
+     "file": "ebible/corpus/por-porblt.txt",
+     "licence": "by-sa 4.0 Free Bible Ministry, Inc."
+    },
+    {
+     "file": "ebible/corpus/por-porbr2018.txt",
+     "licence": "by 3.0/br Diego Santos, Mario Sérgio, e Marco Teles"
+    },
+    {
+     "file": "ebible/corpus/por-porbrbsl.txt",
+     "licence": "Public Domain  Public Domain"
+    },
+    {
+     "file": "ebible/corpus/por-portft.txt",
+     "licence": "by-sa 4.0"
+    },
+    {
+     "file": "bible-corpus/bibles/Portuguese.xml",
+     "licence": "CC0 (corpus); translation public domain or freely distributable, see metadata.csv"
+    }
+   ],
+   "word_types": 25182,
+   "new_forms_not_in_lists": 19192,
+   "bank_items_accepted": 464
+  }
+ },
+ "punjabi-pa": {
+  "hunspell_skipped": {
+   "dictionary": "libreoffice/pa_IN/pa_IN",
+   "coverage_of_reference_words": 0.026,
+   "reason": "accepts fewer than 50% of the language's reference words"
+  },
+  "bible": {
+   "texts": [
+    {
+     "file": "ebible/corpus/pan-pan.txt",
+     "licence": "by-sa 4.0 Bridge Connectivity Solutions"
+    }
+   ],
+   "word_types": 7658,
+   "new_forms_not_in_lists": 2385,
+   "bank_items_accepted": 265
+  }
+ },
+ "quechua-qu": {
+  "unimorph": {
+   "repository": "https://github.com/unimorph/que",
+   "licence": "CC BY-SA 3.0",
+   "forms": 147914,
+   "bank_items_accepted": 389
+  }
+ },
+ "romanian-ro": {
+  "hunspell": {
+   "dictionary": "wooorm/ro/index",
+   "licence": "(GPL-2.0 OR LGPL-2.1 OR MPL-1.1)",
+   "coverage_of_reference_words": 0.984,
+   "bank_items_accepted": 3755,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/ron",
+   "licence": "CC BY-SA 3.0",
+   "forms": 48565,
+   "bank_items_accepted": 240
+  },
+  "bible_skipped": {
+   "reason": "large corpus; Bible texts are used for small-corpus languages only"
+  }
+ },
+ "russian-ru": {
+  "hunspell": {
+   "dictionary": "wooorm/ru/index",
+   "licence": "BSD-3-Clause",
+   "coverage_of_reference_words": 0.976,
+   "bank_items_accepted": 2214,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/rus",
+   "licence": "CC BY-SA 3.0",
+   "forms": 319249,
+   "bank_items_accepted": 937
+  },
+  "bible_skipped": {
+   "reason": "large corpus; Bible texts are used for small-corpus languages only"
+  }
+ },
+ "sanskrit-sa": {
+  "hunspell": {
+   "dictionary": "libreoffice/sa_IN/sa_IN",
+   "licence": "see the collection's licence file",
+   "coverage_of_reference_words": 0.812,
+   "bank_items_accepted": 9529,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/san",
+   "licence": "CC BY-SA 3.0",
+   "forms": 17566,
+   "bank_items_accepted": 722
+  },
+  "bible": {
+   "texts": [
+    {
+     "file": "ebible/corpus/san-sanasm.txt",
+     "licence": "by-sa 4.0 SanskritBible.in"
+    },
+    {
+     "file": "ebible/corpus/san-sanben.txt",
+     "licence": "by-sa 4.0 SanskritBible.in"
+    },
+    {
+     "file": "ebible/corpus/san-sanbur.txt",
+     "licence": "by-sa 4.0 SanskritBible.in"
+    },
+    {
+     "file": "ebible/corpus/san-sandev.txt",
+     "licence": "by-sa 4.0 SanskritBible.in"
+    },
+    {
+     "file": "ebible/corpus/san-sanguj.txt",
+     "licence": "by-sa 4.0 SanskritBible.in"
+    },
+    {
+     "file": "ebible/corpus/san-sanhk.txt",
+     "licence": "by-sa 4.0 SanskritBible.in"
+    },
+    {
+     "file": "ebible/corpus/san-sanias.txt",
+     "licence": "by-sa 4.0 SanskritBible.in"
+    },
+    {
+     "file": "ebible/corpus/san-saniso.txt",
+     "licence": "by-sa 4.0 SanskritBible.in"
+    },
+    {
+     "file": "ebible/corpus/san-sanitr.txt",
+     "licence": "by-sa 4.0 SanskritBible.in"
+    },
+    {
+     "file": "ebible/corpus/san-sankhm.txt",
+     "licence": "by-sa 4.0 SanskritBible.in"
+    },
+    {
+     "file": "ebible/corpus/san-sanmal.txt",
+     "licence": "by-sa 4.0 SanskritBible.in"
+    },
+    {
+     "file": "ebible/corpus/san-sanori.txt",
+     "licence": "by-sa 4.0 SanskritBible.in"
+    },
+    {
+     "file": "ebible/corpus/san-sanpun.txt",
+     "licence": "by-sa 4.0 SanskritBible.in"
+    },
+    {
+     "file": "ebible/corpus/san-sansin.txt",
+     "licence": "by-sa 4.0 SanskritBible.in"
+    },
+    {
+     "file": "ebible/corpus/san-santam.txt",
+     "licence": "by-sa 4.0 SanskritBible.in"
+    },
+    {
+     "file": "ebible/corpus/san-santel.txt",
+     "licence": "by-sa 4.0 SanskritBible.in"
+    },
+    {
+     "file": "ebible/corpus/san-santha.txt",
+     "licence": "by-sa 4.0 SanskritBible.in"
+    },
+    {
+     "file": "ebible/corpus/san-santib.txt",
+     "licence": "by-sa 4.0 SanskritBible.in"
+    },
+    {
+     "file": "ebible/corpus/san-sanurd.txt",
+     "licence": "by-sa 4.0 SanskritBible.in"
+    },
+    {
+     "file": "ebible/corpus/san-sanvel.txt",
+     "licence": "by-sa 4.0 SanskritBible.in"
+    }
+   ],
+   "word_types": 8410,
+   "new_forms_not_in_lists": 4346,
+   "bank_items_accepted": 92
+  }
+ },
+ "scottish_gaelic-gd": {
+  "hunspell": {
+   "dictionary": "wooorm/gd/index",
+   "licence": "GPL-3.0",
+   "coverage_of_reference_words": 0.841,
+   "bank_items_accepted": 1385,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/gla",
+   "licence": "CC BY-SA 3.0",
+   "forms": 278,
+   "bank_items_accepted": 11
+  },
+  "bible": {
+   "texts": [
+    {
+     "file": "bible-corpus/bibles/Gaelic-PART.xml",
+     "licence": "CC0 (corpus); translation public domain or freely distributable, see metadata.csv"
+    }
+   ],
+   "word_types": 979,
+   "new_forms_not_in_lists": 338,
+   "bank_items_accepted": 64
+  }
+ },
+ "serbian-sr": {
+  "hunspell": {
+   "dictionary": "wooorm/sr-Latn/index",
+   "licence": "(GPL-2.0 OR LGPL-2.1 OR MPL-1.1 OR CC-BY-SA-3.0)",
+   "coverage_of_reference_words": 0.847,
+   "bank_items_accepted": 2412,
+   "compounding": "off"
+  },
+  "bible_skipped": {
+   "reason": "large corpus; Bible texts are used for small-corpus languages only"
+  }
+ },
+ "shona-sn": {
+  "unimorph": {
+   "repository": "https://github.com/unimorph/sna",
+   "licence": "CC BY-SA 3.0",
+   "forms": 2640,
+   "bank_items_accepted": 64
+  },
+  "bible": {
+   "texts": [
+    {
+     "file": "ebible/corpus/sna-sna.txt",
+     "licence": "by-sa 4.0 Biblica, Inc."
+    },
+    {
+     "file": "bible-corpus/bibles/Shona.xml",
+     "licence": "CC0 (corpus); translation public domain or freely distributable, see metadata.csv"
+    }
+   ],
+   "word_types": 37793,
+   "new_forms_not_in_lists": 23709,
+   "bank_items_accepted": 558
+  }
+ },
+ "sinhala-si": {
+  "hunspell": {
+   "dictionary": "libreoffice/si_LK/si_LK",
+   "licence": "see LICENSES-en.txt: LICENSE : GPLv3  This software is a syntax checker for Sinhala(si) language. Copyright (C) <2010>  Laknath Semage <blaknath [at] gmail [dot] com>  This program ",
+   "coverage_of_reference_words": 0.913,
+   "bank_items_accepted": 1149,
+   "compounding": "off"
+  },
+  "bible_skipped": {
+   "reason": "large corpus; Bible texts are used for small-corpus languages only"
+  }
+ },
+ "slovak-sk": {
+  "hunspell": {
+   "dictionary": "wooorm/sk/index",
+   "licence": "(GPL-2.0 OR LGPL-2.1 OR MPL-1.1)",
+   "coverage_of_reference_words": 0.985,
+   "bank_items_accepted": 6613,
+   "compounding": "off"
+  },
+  "bible_skipped": {
+   "reason": "large corpus; Bible texts are used for small-corpus languages only"
+  }
+ },
+ "slovenian-sl": {
+  "hunspell": {
+   "dictionary": "wooorm/sl/index",
+   "licence": "(GPL-3.0 OR LGPL-2.1)",
+   "coverage_of_reference_words": 0.996,
+   "bank_items_accepted": 5374,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/slv",
+   "licence": "CC BY-SA 3.0",
+   "forms": 25152,
+   "bank_items_accepted": 12
+  },
+  "bible_skipped": {
+   "reason": "large corpus; Bible texts are used for small-corpus languages only"
+  }
+ },
+ "somali-so": {
+  "bible": {
+   "texts": [
+    {
+     "file": "ebible/corpus/som-som.txt",
+     "licence": "by-nc-nd 4.0 Society for International Ministries -- Kenya"
+    },
+    {
+     "file": "bible-corpus/bibles/Somali.xml",
+     "licence": "CC0 (corpus); translation public domain or freely distributable, see metadata.csv"
+    }
+   ],
+   "word_types": 32632,
+   "new_forms_not_in_lists": 19595,
+   "bank_items_accepted": 480
+  }
+ },
+ "spanish-es": {
+  "hunspell": {
+   "dictionary": "wooorm/es/index",
+   "licence": "(GPL-3.0 OR LGPL-3.0 OR MPL-1.1)",
+   "coverage_of_reference_words": 0.919,
+   "bank_items_accepted": 3356,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/spa",
+   "licence": "CC BY-SA 3.0",
+   "forms": 905332,
+   "bank_items_accepted": 2937
+  },
+  "bible_skipped": {
+   "reason": "large corpus; Bible texts are used for small-corpus languages only"
+  }
+ },
+ "spanish_latin_america-es_419": {
+  "hunspell": {
+   "dictionary": "wooorm/es-MX/index",
+   "licence": "(GPL-3.0 OR LGPL-3.0 OR MPL-1.1)",
+   "coverage_of_reference_words": 0.913,
+   "bank_items_accepted": 7304,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/spa",
+   "licence": "CC BY-SA 3.0",
+   "forms": 905332,
+   "bank_items_accepted": 7258
+  },
+  "bible_skipped": {
+   "reason": "large corpus; Bible texts are used for small-corpus languages only"
+  }
+ },
+ "swahili-sw": {
+  "hunspell": {
+   "dictionary": "libreoffice/sw_TZ/sw_TZ",
+   "licence": "see README_sw_TZ.txt: README Swahili Myspell Dictionary Release 1.1 2005-08-17  1. Intro   Myspell Swahili Dictionary - Compiled by Alberto Escudero-Pascual aep@it46.se http://www.it",
+   "coverage_of_reference_words": 0.654,
+   "bank_items_accepted": 2187,
+   "compounding": "off"
+  },
+  "bible": {
+   "texts": [
+    {
+     "file": "bible-corpus/bibles/Swahili-NT.xml",
+     "licence": "CC0 (corpus); translation public domain or freely distributable, see metadata.csv"
+    }
+   ],
+   "word_types": 6459,
+   "new_forms_not_in_lists": 1922,
+   "bank_items_accepted": 55
+  }
+ },
+ "swedish-sv": {
+  "hunspell": {
+   "dictionary": "wooorm/sv/index",
+   "licence": "LGPL-3.0",
+   "coverage_of_reference_words": 0.938,
+   "bank_items_accepted": 1467,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/swe",
+   "licence": "CC BY-SA 3.0",
+   "forms": 95392,
+   "bank_items_accepted": 1128
+  },
+  "bible_skipped": {
+   "reason": "large corpus; Bible texts are used for small-corpus languages only"
+  }
+ },
+ "tagalog-tl": {
+  "unimorph": {
+   "repository": "https://github.com/unimorph/tgl",
+   "licence": "CC BY-SA 3.0",
+   "forms": 2517,
+   "bank_items_accepted": 20
+  },
+  "bible": {
+   "texts": [
+    {
+     "file": "ebible/corpus/tgl-tglulb.txt",
+     "licence": "by-sa 4.0 Door43 World Missions Community"
+    },
+    {
+     "file": "bible-corpus/bibles/Tagalog.xml",
+     "licence": "CC0 (corpus); translation public domain or freely distributable, see metadata.csv"
+    }
+   ],
+   "word_types": 17102,
+   "new_forms_not_in_lists": 7723,
+   "bank_items_accepted": 193
+  }
+ },
+ "tajik-tg": {
+  "hunspell": {
+   "dictionary": "elastic/tg/tg",
+   "licence": "see README.txt: Tajik Hunspell Dictionary.  Tajik Hunspell Dictionary is organized on the basis of Apache License Version 2.0, January 2004 http://www.apache.org/licenses/  Taj",
+   "coverage_of_reference_words": 0.705,
+   "bank_items_accepted": 4569,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/tgk",
+   "licence": "CC BY-SA 3.0",
+   "forms": 78,
+   "bank_items_accepted": 2
+  },
+  "bible": {
+   "texts": [
+    {
+     "file": "ebible/corpus/tgk-tgk.txt",
+     "licence": "by-nc-nd 4.0"
+    }
+   ],
+   "word_types": 4532,
+   "new_forms_not_in_lists": 742,
+   "bank_items_accepted": 35
+  }
+ },
+ "tamil-ta": {
+  "hunspell_skipped": {
+   "dictionary": "libreoffice/ta_IN/ta_IN",
+   "coverage_of_reference_words": 0.236,
+   "reason": "accepts fewer than 50% of the language's reference words"
+  },
+  "bible": {
+   "texts": [
+    {
+     "file": "ebible/corpus/tam-tam2017.txt",
+     "licence": "by-sa 4.0 Bridge Connectivity Solutions"
+    },
+    {
+     "file": "ebible/corpus/tam-tamtcv.txt",
+     "licence": "by-sa 4.0 Biblica, Inc."
+    }
+   ],
+   "word_types": 60261,
+   "new_forms_not_in_lists": 30934,
+   "bank_items_accepted": 118
+  }
+ },
+ "tatar-tt": {
+  "unimorph": {
+   "repository": "https://github.com/unimorph/tat",
+   "licence": "CC BY-SA 3.0",
+   "forms": 7495,
+   "bank_items_accepted": 0
+  }
+ },
+ "telugu-te": {
+  "hunspell_skipped": {
+   "dictionary": "libreoffice/te_IN/te_IN",
+   "coverage_of_reference_words": 0.219,
+   "reason": "accepts fewer than 50% of the language's reference words"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/tel",
+   "licence": "CC BY-SA 3.0",
+   "forms": 1156,
+   "bank_items_accepted": 14
+  },
+  "bible": {
+   "texts": [
+    {
+     "file": "ebible/corpus/tel-tel2017.txt",
+     "licence": "by-sa 4.0 Bridge Connectivity Solutions"
+    },
+    {
+     "file": "bible-corpus/bibles/Telugu.xml",
+     "licence": "CC0 (corpus); translation public domain or freely distributable, see metadata.csv"
+    }
+   ],
+   "word_types": 55670,
+   "new_forms_not_in_lists": 36426,
+   "bank_items_accepted": 664
+  }
+ },
+ "turkish-tr": {
+  "hunspell": {
+   "dictionary": "wooorm/tr/index",
+   "licence": "MIT",
+   "coverage_of_reference_words": 0.98,
+   "bank_items_accepted": 5683,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/tur",
+   "licence": "CC BY-SA 3.0",
+   "forms": 222577,
+   "bank_items_accepted": 1411
+  },
+  "bible_skipped": {
+   "reason": "large corpus; Bible texts are used for small-corpus languages only"
+  }
+ },
+ "turkmen-tk": {
+  "hunspell": {
+   "dictionary": "wooorm/tk/index",
+   "licence": "Apache-2.0",
+   "coverage_of_reference_words": 0.911,
+   "bank_items_accepted": 7239,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/tuk",
+   "licence": "CC BY-SA 3.0",
+   "forms": 804,
+   "bank_items_accepted": 26
+  }
+ },
+ "tuvan-tyv": {
+  "unimorph": {
+   "repository": "https://github.com/unimorph/tyv",
+   "licence": "CC BY-SA 3.0",
+   "forms": 491421,
+   "bank_items_accepted": 1392
+  }
+ },
+ "ukrainian-uk": {
+  "hunspell": {
+   "dictionary": "wooorm/uk/index",
+   "licence": "GPL-3.0",
+   "coverage_of_reference_words": 0.991,
+   "bank_items_accepted": 11556,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/ukr",
+   "licence": "CC BY-SA 3.0",
+   "forms": 14150,
+   "bank_items_accepted": 139
+  },
+  "bible_skipped": {
+   "reason": "large corpus; Bible texts are used for small-corpus languages only"
+  }
+ },
+ "upper_sorbian-hsb": {
+  "hunspell": {
+   "dictionary": "elastic/hsb/hsb",
+   "licence": "see COPYING: GNU GENERAL PUBLIC LICENSE \t\t       Version 2, June 1991   Copyright (C) 1989, 1991 Free Software Foundation, Inc.,  51 Franklin Street, Fifth Floor, Boston, MA",
+   "coverage_of_reference_words": 0.794,
+   "bank_items_accepted": 4249,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/hsb",
+   "licence": "CC BY-SA 3.0",
+   "forms": 664,
+   "bank_items_accepted": 2
+  }
+ },
+ "urdu-ur": {
+  "unimorph": {
+   "repository": "https://github.com/unimorph/urd",
+   "licence": "CC BY-SA 3.0",
+   "forms": 890,
+   "bank_items_accepted": 9
+  },
+  "bible": {
+   "texts": [
+    {
+     "file": "ebible/corpus/urd-urd.txt",
+     "licence": "by-sa 4.0 Bridge Connectivity Solutions Pvt. Ltd."
+    },
+    {
+     "file": "ebible/corpus/urd-urdgvh.txt",
+     "licence": "by-nc-nd 4.0"
+    },
+    {
+     "file": "ebible/corpus/urd-urdgvr.txt",
+     "licence": "by-nc-nd 4.0 Urdu Geo Version"
+    },
+    {
+     "file": "ebible/corpus/urd-urdgvu.txt",
+     "licence": "by-nc-nd 4.0"
+    }
+   ],
+   "word_types": 8042,
+   "new_forms_not_in_lists": 1343,
+   "bank_items_accepted": 103
+  }
+ },
+ "uyghur-ug": {
+  "unimorph": {
+   "repository": "https://github.com/unimorph/uig",
+   "licence": "CC BY-SA 3.0",
+   "forms": 6368,
+   "bank_items_accepted": 0
+  },
+  "bible": {
+   "texts": [
+    {
+     "file": "ebible/corpus/uig-uigara.txt",
+     "licence": "by-sa 4.0"
+    },
+    {
+     "file": "ebible/corpus/uig-uigcyr.txt",
+     "licence": "by-sa 4.0"
+    },
+    {
+     "file": "ebible/corpus/uig-uiglat.txt",
+     "licence": "by-sa 4.0"
+    },
+    {
+     "file": "ebible/corpus/uig-uigpin.txt",
+     "licence": "by-sa 4.0"
+    }
+   ],
+   "word_types": 26779,
+   "new_forms_not_in_lists": 15048,
+   "bank_items_accepted": 460
+  }
+ },
+ "uzbek-uz": {
+  "unimorph": {
+   "repository": "https://github.com/unimorph/uzb",
+   "licence": "CC BY-SA 3.0",
+   "forms": 9835,
+   "bank_items_accepted": 84
+  }
+ },
+ "venetian-vec": {
+  "unimorph": {
+   "repository": "https://github.com/unimorph/vec",
+   "licence": "CC BY-SA 3.0",
+   "forms": 8598,
+   "bank_items_accepted": 223
+  }
+ },
+ "vietnamese-vi": {
+  "hunspell": {
+   "dictionary": "wooorm/vi/index",
+   "licence": "GPL-2.0",
+   "coverage_of_reference_words": 0.887,
+   "bank_items_accepted": 108,
+   "compounding": "off"
+  },
+  "bible_skipped": {
+   "reason": "large corpus; Bible texts are used for small-corpus languages only"
+  }
+ },
+ "voro-vro": {
+  "unimorph": {
+   "repository": "https://github.com/unimorph/vro",
+   "licence": "CC BY-SA 3.0",
+   "forms": 419,
+   "bank_items_accepted": 6
+  }
+ },
+ "welsh-cy": {
+  "hunspell": {
+   "dictionary": "wooorm/cy/index",
+   "licence": "LGPL-3.0",
+   "coverage_of_reference_words": 0.962,
+   "bank_items_accepted": 4170,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/cym",
+   "licence": "CC BY-SA 3.0",
+   "forms": 6240,
+   "bank_items_accepted": 118
+  }
+ },
+ "western_frisian-fy": {
+  "hunspell": {
+   "dictionary": "wooorm/fy/index",
+   "licence": "GPL-3.0",
+   "coverage_of_reference_words": 0.666,
+   "bank_items_accepted": 2814,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/fry",
+   "licence": "CC BY-SA 3.0",
+   "forms": 696,
+   "bank_items_accepted": 27
+  }
+ },
+ "xhosa-xh": {
+  "bible": {
+   "texts": [
+    {
+     "file": "bible-corpus/bibles/Xhosa.xml",
+     "licence": "CC0 (corpus); translation public domain or freely distributable, see metadata.csv"
+    }
+   ],
+   "word_types": 26145,
+   "new_forms_not_in_lists": 16208,
+   "bank_items_accepted": 615
+  }
+ },
+ "yakut-sah": {
+  "unimorph": {
+   "repository": "https://github.com/unimorph/sah",
+   "licence": "CC BY-SA 3.0",
+   "forms": 526431,
+   "bank_items_accepted": 2757
+  }
+ },
+ "yiddish-yi": {
+  "unimorph": {
+   "repository": "https://github.com/unimorph/yid",
+   "licence": "CC BY-SA 3.0",
+   "forms": 3533,
+   "bank_items_accepted": 75
+  }
+ },
+ "yoruba-yo": {
+  "bible": {
+   "texts": [
+    {
+     "file": "ebible/corpus/yor-yor.txt",
+     "licence": "by-sa 4.0 Biblica, Inc."
+    }
+   ],
+   "word_types": 452,
+   "new_forms_not_in_lists": 122,
+   "bank_items_accepted": 19
+  }
+ },
+ "zulu-zu": {
+  "hunspell": {
+   "dictionary": "elastic/zu_ZA/zu-ZA",
+   "licence": "see the collection's licence file",
+   "coverage_of_reference_words": 0.772,
+   "bank_items_accepted": 14714,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/zul",
+   "licence": "CC BY-SA 3.0",
+   "forms": 32752,
+   "bank_items_accepted": 722
+  },
+  "bible": {
+   "texts": [
+    {
+     "file": "bible-corpus/bibles/Zulu-NT.xml",
+     "licence": "CC0 (corpus); translation public domain or freely distributable, see metadata.csv"
+    }
+   ],
+   "word_types": 8014,
+   "new_forms_not_in_lists": 361,
+   "bank_items_accepted": 7
+  }
+ }
+}

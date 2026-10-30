@@ -2537,5 +2537,41 @@
    "title": "Newspaper vocabulary added",
    "text": "74,663 of the reference words come from a newspaper corpus (Leipzig Corpora Collection, hye_newscrawl_2011_100K, 1.6 million words); 10,596 come from the subtitle list. Written sources are more formal than subtitles and contain more names and foreign words. Frequencies of the corpus-only words come from that corpus and are not comparable with subtitle frequencies."
   }
- ]
+ ],
+ "realword_filter": {
+  "date": "2026-10-29",
+  "bank_items": 120000,
+  "removed": 2308,
+  "removed_pct": 1.92,
+  "by_source": {
+   "unimorph": 2258,
+   "bible": 91
+  },
+  "extra_bible_forms": 2170,
+  "sources": {
+   "hunspell_skipped": {
+    "dictionary": "wooorm/hy/index",
+    "coverage_of_reference_words": 0.283,
+    "reason": "accepts fewer than 50% of the language's reference words"
+   },
+   "unimorph": {
+    "repository": "https://github.com/unimorph/hye",
+    "licence": "CC BY-SA 3.0",
+    "forms": 243870,
+    "bank_items_accepted": 2258
+   },
+   "bible": {
+    "texts": [
+     {
+      "file": "bible-corpus/bibles/Armenian-PART.xml",
+      "licence": "CC0 (corpus); translation public domain or freely distributable, see metadata.csv"
+     }
+    ],
+    "word_types": 6036,
+    "new_forms_not_in_lists": 2170,
+    "bank_items_accepted": 91
+   }
+  },
+  "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ }
 }

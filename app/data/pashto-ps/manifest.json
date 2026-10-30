@@ -2543,5 +2543,24 @@
    "title": "Abjad: CV is orthographic",
    "text": "Pashto is written without short vowels. CV here is orthographic: alif, waw and the ye letters (ی ي ې ۍ ئ) count as V. Diacritics were removed."
   }
- ]
+ ],
+ "realword_filter": {
+  "date": "2026-10-29",
+  "bank_items": 100569,
+  "removed": 82,
+  "removed_pct": 0.08,
+  "by_source": {
+   "unimorph": 82
+  },
+  "extra_bible_forms": 0,
+  "sources": {
+   "unimorph": {
+    "repository": "https://github.com/unimorph/pus",
+    "licence": "CC BY-SA 3.0",
+    "forms": 2973,
+    "bank_items_accepted": 82
+   }
+  },
+  "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ }
 }

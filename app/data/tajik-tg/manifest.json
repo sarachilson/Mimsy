@@ -1058,5 +1058,44 @@
    "ӯӣ"
   ]
  },
- "rules": {}
+ "rules": {},
+ "realword_filter": {
+  "date": "2026-10-29",
+  "bank_items": 110466,
+  "removed": 4569,
+  "removed_pct": 4.14,
+  "by_source": {
+   "hunspell": 4569,
+   "bible": 35,
+   "unimorph": 2
+  },
+  "extra_bible_forms": 742,
+  "sources": {
+   "hunspell": {
+    "dictionary": "elastic/tg/tg",
+    "licence": "see README.txt: Tajik Hunspell Dictionary.  Tajik Hunspell Dictionary is organized on the basis of Apache License Version 2.0, January 2004 http://www.apache.org/licenses/  Taj",
+    "coverage_of_reference_words": 0.705,
+    "bank_items_accepted": 4569,
+    "compounding": "off"
+   },
+   "unimorph": {
+    "repository": "https://github.com/unimorph/tgk",
+    "licence": "CC BY-SA 3.0",
+    "forms": 78,
+    "bank_items_accepted": 2
+   },
+   "bible": {
+    "texts": [
+     {
+      "file": "ebible/corpus/tgk-tgk.txt",
+      "licence": "by-nc-nd 4.0"
+     }
+    ],
+    "word_types": 4532,
+    "new_forms_not_in_lists": 742,
+    "bank_items_accepted": 35
+   }
+  },
+  "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ }
 }

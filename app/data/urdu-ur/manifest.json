@@ -4334,5 +4334,48 @@
     "ھ": "M>X"
    }
   }
- ]
+ ],
+ "realword_filter": {
+  "date": "2026-10-29",
+  "bank_items": 120000,
+  "removed": 112,
+  "removed_pct": 0.09,
+  "by_source": {
+   "unimorph": 9,
+   "bible": 103
+  },
+  "extra_bible_forms": 1343,
+  "sources": {
+   "unimorph": {
+    "repository": "https://github.com/unimorph/urd",
+    "licence": "CC BY-SA 3.0",
+    "forms": 890,
+    "bank_items_accepted": 9
+   },
+   "bible": {
+    "texts": [
+     {
+      "file": "ebible/corpus/urd-urd.txt",
+      "licence": "by-sa 4.0 Bridge Connectivity Solutions Pvt. Ltd."
+     },
+     {
+      "file": "ebible/corpus/urd-urdgvh.txt",
+      "licence": "by-nc-nd 4.0"
+     },
+     {
+      "file": "ebible/corpus/urd-urdgvr.txt",
+      "licence": "by-nc-nd 4.0 Urdu Geo Version"
+     },
+     {
+      "file": "ebible/corpus/urd-urdgvu.txt",
+      "licence": "by-nc-nd 4.0"
+     }
+    ],
+    "word_types": 8042,
+    "new_forms_not_in_lists": 1343,
+    "bank_items_accepted": 103
+   }
+  },
+  "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ }
 }

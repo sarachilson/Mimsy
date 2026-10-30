@@ -483,5 +483,24 @@
    "uu"
   ]
  },
- "rules": {}
+ "rules": {},
+ "realword_filter": {
+  "date": "2026-10-29",
+  "bank_items": 24378,
+  "removed": 20,
+  "removed_pct": 0.08,
+  "by_source": {
+   "unimorph": 20
+  },
+  "extra_bible_forms": 0,
+  "sources": {
+   "unimorph": {
+    "repository": "https://github.com/unimorph/orm",
+    "licence": "CC BY-SA 3.0",
+    "forms": 704,
+    "bank_items_accepted": 20
+   }
+  },
+  "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ }
 }

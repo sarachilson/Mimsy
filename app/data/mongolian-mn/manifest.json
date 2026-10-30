@@ -1428,5 +1428,32 @@
    "title": "Newspaper vocabulary added",
    "text": "21,887 of the reference words come from a newspaper corpus (Leipzig Corpora Collection, mon_news_2020_100K, 1.6 million words); 17,383 come from the subtitle list. Written sources are more formal than subtitles and contain more names and foreign words. Frequencies of the corpus-only words come from that corpus and are not comparable with subtitle frequencies."
   }
- ]
+ ],
+ "realword_filter": {
+  "date": "2026-10-29",
+  "bank_items": 117810,
+  "removed": 11620,
+  "removed_pct": 9.86,
+  "by_source": {
+   "hunspell": 11608,
+   "unimorph": 408
+  },
+  "extra_bible_forms": 0,
+  "sources": {
+   "hunspell": {
+    "dictionary": "wooorm/mn/index",
+    "licence": "LPPL-1.3c",
+    "coverage_of_reference_words": 0.788,
+    "bank_items_accepted": 11608,
+    "compounding": "off"
+   },
+   "unimorph": {
+    "repository": "https://github.com/unimorph/khk",
+    "licence": "CC BY-SA 3.0",
+    "forms": 17231,
+    "bank_items_accepted": 408
+   }
+  },
+  "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ }
 }

@@ -428,5 +428,44 @@
    "title": "Small corpus",
    "text": "0.2 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators."
   }
- ]
+ ],
+ "realword_filter": {
+  "date": "2026-10-29",
+  "bank_items": 15000,
+  "removed": 1422,
+  "removed_pct": 9.48,
+  "by_source": {
+   "hunspell": 1385,
+   "bible": 64,
+   "unimorph": 11
+  },
+  "extra_bible_forms": 338,
+  "sources": {
+   "hunspell": {
+    "dictionary": "wooorm/gd/index",
+    "licence": "GPL-3.0",
+    "coverage_of_reference_words": 0.841,
+    "bank_items_accepted": 1385,
+    "compounding": "off"
+   },
+   "unimorph": {
+    "repository": "https://github.com/unimorph/gla",
+    "licence": "CC BY-SA 3.0",
+    "forms": 278,
+    "bank_items_accepted": 11
+   },
+   "bible": {
+    "texts": [
+     {
+      "file": "bible-corpus/bibles/Gaelic-PART.xml",
+      "licence": "CC0 (corpus); translation public domain or freely distributable, see metadata.csv"
+     }
+    ],
+    "word_types": 979,
+    "new_forms_not_in_lists": 338,
+    "bank_items_accepted": 64
+   }
+  },
+  "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ }
 }

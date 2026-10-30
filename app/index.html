@@ -699,6 +699,7 @@ async function loadLang(code) {
   L.ref = L.lex;                          // reference lexicon used for distances
   L.bank = bindRows(L, parseBank(btxt));   // emb / cvg / cvgr / ng are computed lazily
   await loadMorph(L, code);
+  await loadRealwords(L, code);
   buildTrigrams(L);
   rescoreBank(L); buildDensity(L);
   L.lpSorted = Float64Array.from(L.bank.map(r => r.lpa)).sort();
@@ -707,6 +708,22 @@ async function loadLang(code) {
 }
 // Morphology layer (languages with an Apertium analyser; see pipeline/morph.py): labels for bank items, real forms removed,
 // items from the morphological generator appended, analyses of the reference words for Match.
+// Real-word filter (pipeline/realwords.py): bank items that a spelling dictionary, the UniMorph tables or a Bible text show to be
+// real words are removed; "bible-extra" rows are further real words from the texts, used only to flag typed items in Analyze.
+async function loadRealwords(L, code) {
+  L.realwords = null; L.realRemoved = 0;
+  if (!L.manifest.realword_filter) return;
+  try {
+    const M = new Map(), lines = (await getText(code + "/realwords.tsv.gz")).split("\n");
+    for (let i = 1; i < lines.length; i++) { const p = lines[i].split("\t"); if (p.length >= 2 && p[0]) M.set(p[0], p[1]); }
+    L.realwords = M;
+    const before = L.bank.length;
+    L.bank = L.bank.filter(r => !M.has(r.w));
+    L.realRemoved = before - L.bank.length;
+  } catch (e) { L.realwords = null; }
+}
+const REALWORD_SRC = { hunspell: "spelling dictionary", unimorph: "UniMorph", bible: "Bible text", "bible-extra": "Bible text" };
+const realwordSource = (L, w) => { const s = L && L.realwords && L.realwords.get(w); return s ? s.split("+").map(k => REALWORD_SRC[k] || k).join(", ") : ""; };
 async function loadMorph(L, code) {
   L.morph = null; L.lexMorph = null; L.morphRemoved = 0; L.morphGen = 0;
   if (!L.manifest.morphology) return;
@@ -908,7 +925,7 @@ async function getRare(L) {
   return L.rare;
 }
 function isRealWord(L, w) {
-  return L.lex.index.has(w) || !!(L.rare && L.rare.has(w));
+  return L.lex.index.has(w) || !!(L.rare && L.rare.has(w)) || !!(L.realwords && L.realwords.has(w));
 }
 // Wordlikeness: mean log10 trigram type frequency (word boundaries included), from the reference lexicon.
 // Trigram tables keyed by a numeric code (char index × 1024² …) rather than by string slices: several times faster to score.
@@ -1673,18 +1690,18 @@ $("#gGo").addEventListener("click", async () => {
 /* ------------------------------------------------------------------ analyze */
 async function analyzeWord(L, w, xcls) {
   const all = (await getModels(L)).kn4.all; await getRare(L);
-  const i = L.lex.index.get(w), real = i !== undefined, rare = !real && L.rare.has(w);
+  const i = L.lex.index.get(w), real = i !== undefined, rare = !real && L.rare.has(w), dict = !real && !rare ? realwordSource(L, w) : "";
   const bad = [...w].filter(c => !L.alphaSet.has(c));
   const soft = xcls && bad.every(c => c in xcls);   // non-alphabet letters with an agreed fallback class: measures still computed
   const nb = neighbours(L.ref, w, 20, true);
-  return { w, real, rare, zipf: real ? L.lex.zipf[i] : NaN, band: real ? L.lex.band[i] : 0, ipa: real ? L.lex.ipa[i] : "",
+  return { w, real, rare, dict, zipf: real ? L.lex.zipf[i] : NaN, band: real ? L.lex.band[i] : 0, ipa: real ? L.lex.ipa[i] : "",
     len: wlen(L, w), cv: cvOf(w, xcls || L.cls), ...(L.hasGraph ? graphOf(L, w) : { cvgr: "", ng: "" }), cvg: L.cvg ? cvGuess(L, w) : "", cvIpa: real && L.lex.ipa[i] && L.cvg ? ipaCV(L.lex.ipa[i]) : "", bad: bad.join(""), legal: bad.length ? "" : legality(L, w),
     lpa: bad.length ? NaN : all.logprob(w), tri: bad.length && !soft ? NaN : triScore(L, w), like: bad.length && !soft ? NaN : triPct(L, w, triScore(L, w)),
     old: nb.old, oldP: densPct(L, "old", wlen(L, w), nb.old), n1: nb.n1, n1P: densPct(L, "n1", wlen(L, w), nb.n1), n1h: nb.n1h, near: nb.near, nd: nb.nd, emb: embedded(L, w), mo: morphOf(L, w), naff: (m => m && !isNaN(m.na) ? m.na : NaN)(morphOf(L, w)), ...(bad.length && !soft ? { oup: NaN, tl: null, tln: NaN, triMin: null, trimin: NaN, embN: "", embList: [] } : extraMeasures(L, w)) };
 }
 const A_COLS = {
   w: ["Item", r => r.w, "pw"],
-  status: ["Status", r => r.real ? `word · Zipf ${fmt(r.zipf)}` : r.rare ? "rare word (Zipf < 2)" : "not in lexicon", ""],
+  status: ["Status", r => r.real ? `word · Zipf ${fmt(r.zipf)}` : r.rare ? "rare word (Zipf < 2)" : r.dict ? `real word (${r.dict})` : r.mo && r.mo.t === "real" ? "real form (morphological analyser)" : "not in lexicon", ""],
   band: ["Band", r => r.band && S.L[S.code].manifest.bands_enabled !== false ? MODEL_LABEL[String(r.band)] : "", ""],
   len: ["Len", r => r.len, "num"], cv: [() => S.L[S.code] && (S.L[S.code].cvg || S.L[S.code].hasGraph) ? "CV (orth.)" : "CV", r => r.cv, "mono"], cvgr: ["CV (graph.)", r => r.cvgr || "", "mono"], ng: ["Graphemes", r => r.ng ?? "", "num"], cvg: ["CV (phon.)*", r => r.cvg, "mono"], cvIpa: ["CV from IPA", r => r.cvIpa, "mono"],
   legal: ["Spelling check", r => r.note && r.note.startsWith("not analyzed") ? r.note : [r.note, r.bad ? (r.note ? "" : `letters not in alphabet: ${r.bad}`) : (r.legal || "ok")].filter(Boolean).join(" · "), ""],
@@ -2171,6 +2188,17 @@ function alphabetRows(L, m) {
   }
   return rows.join("\n    ");
 }
+function renderRealwordAbout(L) {
+  const rf = L.manifest.realword_filter; if (!rf) return "";
+  const src = rf.sources || {}, parts = [];
+  if (src.hunspell) parts.push(`the <b>${esc(src.hunspell.dictionary.split("/")[1] || src.hunspell.dictionary)}</b> Hunspell spelling dictionary (affix rules on, compounding off; it recognises ${Math.round(100 * src.hunspell.coverage_of_reference_words)}% of the language's reference words)`);
+  if (src.unimorph) parts.push(`the <b>UniMorph</b> inflection tables (${(+src.unimorph.forms).toLocaleString()} forms)`);
+  if (src.bible) parts.push(`${src.bible.texts.length === 1 ? "a Bible translation" : src.bible.texts.length + " Bible translations"} (${(+src.bible.word_types).toLocaleString()} word types; names left out)`);
+  if (!parts.length) return "";
+  const by = rf.by_source || {};
+  return `<h2>Real-word check</h2>
+  <p>A frequency list only has the forms that happened to occur in the corpus, so a letter model trained on it produces some items that are real words anyway: inflected forms the corpus missed, rarer words. Every item was therefore also checked against ${parts.join(", ")}. <b>${(+rf.removed).toLocaleString()}</b> of ${(+rf.bank_items).toLocaleString()} items (${rf.removed_pct}%) were real words by that test and are not shown${Object.keys(by).length > 1 ? ` (${Object.entries(by).map(([k, v]) => `${REALWORD_SRC[k] || k}: ${(+v).toLocaleString()}`).join(", ")}; an item can be found by more than one source)` : ""}. Typed items in <i>Analyze</i> are checked the same way. No dictionary is complete, so a native speaker's check of the final items is still advisable${src.hunspell_skipped ? `; the available Hunspell dictionary was not used because it recognises only ${Math.round(100 * src.hunspell_skipped.coverage_of_reference_words)}% of the language's own words` : ""}.</p>`;
+}
 function renderMorphAbout(L) {
   const mo = L.manifest.morphology; if (!mo) return "";
   const pct = mo.bank_items ? (100 * mo.real_forms_removed / mo.bank_items).toFixed(1) : "?";
@@ -2191,7 +2219,7 @@ function renderAbout() {
     <div>Corpus size</div><div>${m.corpus_tokens ? (m.corpus_tokens / 1e6).toLocaleString(undefined, { maximumFractionDigits: 1 }) + " million words" : "n/a"}</div>
     <div>Reference words (Zipf ≥ 2)</div><div>${c.reference_words.toLocaleString()}</div>
     <div>Rarer words (avoid list only)</div><div>${c.rare_words.toLocaleString()}</div>
-    <div>Pseudowords in the bank</div><div>${L.bank.length.toLocaleString()}</div>
+    <div>Pseudowords in the bank</div><div>${L.bank.length.toLocaleString()}${L.realRemoved || L.morphRemoved ? ` <span class="hint">(${[L.realRemoved ? `${L.realRemoved.toLocaleString()} removed as real words by the dictionary check` : "", L.morphRemoved ? `${L.morphRemoved.toLocaleString()} removed as real forms by the morphological analyser` : ""].filter(Boolean).join("; ")})</span>` : ""}</div>
     ${alphabetRows(L, m)}
     ${L.indic && [...m.alphabet].some(c => VOCALIC_R.has(c)) ? `<div>Vocalic r</div><div>${esc(showChars([...m.alphabet].filter(c => VOCALIC_R.has(c)).join("")))}: written as a vowel, so orthographic CV counts it as V. ${(m.rules || {}).vocalic_r === "V" ? `In ${esc(m.name)} it is a syllabic r (the nucleus of its syllable), so it is a vowel in pronunciation too.` : `In ${esc(m.name)} it is pronounced r + vowel (e.g. Hindi ऋण /ɾɪɳ/, कृपा /kɾɪpɑː/), so phonological CV counts it as CV.`}</div>` : ""}
     ${[...m.alphabet].includes("y") ? `<div>Rule for &lt;y&gt;</div><div>${esc(String(m.y_rule))}</div>` : ""}
@@ -2213,6 +2241,7 @@ function renderAbout() {
      if (r.single_vowel_run) out.push("one syllable (a single vowel group) per item");
      if (r.max_tones !== undefined) out.push(`at most ${r.max_tones} tone mark`);
      return out.length ? `<p>Extra spelling rules for ${esc(m.name)}: ${out.join("; ")}.</p>` : ""; })()}
+  ${renderRealwordAbout(L)}
   ${renderMorphAbout(L)}
   ${m.cv_guess ? `<h2>${L.indic ? "Phonological CV" : "Guessed phonological CV"}</h2><p>${esc(m.cv_guess.method)}. ${m.cv_guess.rule_based ? (L.indic ? "This language has too few words with a pronunciation to learn corrections from, so the schwa-deletion rule is used on its own." : "This language has too few IPA-annotated words to learn from, so the guess uses the syllable rule only (a consonant letter is followed by an unwritten vowel unless a vowel letter follows or it ends the word).") : `Learned from ${m.cv_guess.n_train.toLocaleString()} words (${m.cv_guess.n_aligned.toLocaleString()} aligned).`} ${m.cv_guess.n_test ? `On ${m.cv_guess.n_test} held-out words the guessed CV matched the IPA pattern exactly in ${Math.round(m.cv_guess.exact_cv_match * 100)}% of cases and had the right number of vowels in ${Math.round(m.cv_guess.vowel_count_match * 100)}%.` : ""}</p>` : ""}
   ${renderGraphemes(L)}
@@ -2406,6 +2435,7 @@ async function loadPool(code, gen, say) {
   P.lex = parseLex(ltxt); buildTrigrams(P);
   P.bank = bindRows(P, parseBank(btxt, (model, g) => (!SHOW_PROVENANCE || model === "all") && (!gen || g === gen)));
   await loadMorph(P, code);   // real forms removed, morphological generator's items added (languages with a morphology layer)
+  await loadRealwords(P, code);
   const rows = P.bank;
   say(`Scoring ${langName(code)}…`); await sleep();
   for (const r of rows) r.tri = triScore(P, r.w);

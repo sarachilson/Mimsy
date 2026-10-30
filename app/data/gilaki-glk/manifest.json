@@ -1026,5 +1026,29 @@
   "exact_cv_match": null,
   "vowel_count_match": null,
   "note": "too few IPA words to evaluate; rule-based defaults dominate"
+ },
+ "realword_filter": {
+  "date": "2026-10-29",
+  "bank_items": 27888,
+  "removed": 44,
+  "removed_pct": 0.16,
+  "by_source": {
+   "bible": 44
+  },
+  "extra_bible_forms": 441,
+  "sources": {
+   "bible": {
+    "texts": [
+     {
+      "file": "ebible/corpus/glk-glk.txt",
+      "licence": "by-nd 4.0 gilakmedia.com"
+     }
+    ],
+    "word_types": 1084,
+    "new_forms_not_in_lists": 441,
+    "bank_items_accepted": 44
+   }
+  },
+  "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
  }
 }

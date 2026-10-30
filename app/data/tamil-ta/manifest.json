@@ -900,5 +900,38 @@
    "title": "Abugida: CV and length",
    "text": "Tamil is an abugida: CV (orthographic) counts every consonant letter as C plus an inherent vowel V unless a vowel sign or pulli follows; vowel signs and vowel letters are V. Length is counted in aksharas."
   }
- ]
+ ],
+ "realword_filter": {
+  "date": "2026-10-29",
+  "bank_items": 120000,
+  "removed": 118,
+  "removed_pct": 0.1,
+  "by_source": {
+   "bible": 118
+  },
+  "extra_bible_forms": 30934,
+  "sources": {
+   "hunspell_skipped": {
+    "dictionary": "libreoffice/ta_IN/ta_IN",
+    "coverage_of_reference_words": 0.236,
+    "reason": "accepts fewer than 50% of the language's reference words"
+   },
+   "bible": {
+    "texts": [
+     {
+      "file": "ebible/corpus/tam-tam2017.txt",
+      "licence": "by-sa 4.0 Bridge Connectivity Solutions"
+     },
+     {
+      "file": "ebible/corpus/tam-tamtcv.txt",
+      "licence": "by-sa 4.0 Biblica, Inc."
+     }
+    ],
+    "word_types": 60261,
+    "new_forms_not_in_lists": 30934,
+    "bank_items_accepted": 118
+   }
+  },
+  "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ }
 }

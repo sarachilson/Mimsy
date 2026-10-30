@@ -700,5 +700,32 @@
    "title": "Small corpus",
    "text": "6.6 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 17,469 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages."
   }
- ]
+ ],
+ "realword_filter": {
+  "date": "2026-10-29",
+  "bank_items": 52407,
+  "removed": 4180,
+  "removed_pct": 7.98,
+  "by_source": {
+   "hunspell": 4170,
+   "unimorph": 118
+  },
+  "extra_bible_forms": 0,
+  "sources": {
+   "hunspell": {
+    "dictionary": "wooorm/cy/index",
+    "licence": "LGPL-3.0",
+    "coverage_of_reference_words": 0.962,
+    "bank_items_accepted": 4170,
+    "compounding": "off"
+   },
+   "unimorph": {
+    "repository": "https://github.com/unimorph/cym",
+    "licence": "CC BY-SA 3.0",
+    "forms": 6240,
+    "bank_items_accepted": 118
+   }
+  },
+  "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ }
 }

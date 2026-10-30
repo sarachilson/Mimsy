@@ -503,5 +503,24 @@
    "üü"
   ]
  },
- "rules": {}
+ "rules": {},
+ "realword_filter": {
+  "date": "2026-10-29",
+  "bank_items": 21024,
+  "removed": 6,
+  "removed_pct": 0.03,
+  "by_source": {
+   "unimorph": 6
+  },
+  "extra_bible_forms": 0,
+  "sources": {
+   "unimorph": {
+    "repository": "https://github.com/unimorph/vro",
+    "licence": "CC BY-SA 3.0",
+    "forms": 419,
+    "bank_items_accepted": 6
+   }
+  },
+  "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ }
 }

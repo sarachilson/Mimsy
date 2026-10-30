@@ -535,5 +535,28 @@
  },
  "rules": {},
  "caution_items": [],
- "caution": null
+ "caution": null,
+ "realword_filter": {
+  "date": "2026-10-29",
+  "bank_items": 111336,
+  "removed": 3016,
+  "removed_pct": 2.71,
+  "by_source": {
+   "hunspell": 3016
+  },
+  "extra_bible_forms": 0,
+  "sources": {
+   "hunspell": {
+    "dictionary": "elastic/ms_MY/ms_MY",
+    "licence": "see README_ms_MY.txt: Copyright   Malay Spellchecker v0.1 - 07/10/04 ----------------------------------------- This is an initial version, please check: http://lingucomponent.openoff",
+    "coverage_of_reference_words": 0.851,
+    "bank_items_accepted": 3016,
+    "compounding": "off"
+   },
+   "bible_skipped": {
+    "reason": "large corpus; Bible texts are used for small-corpus languages only"
+   }
+  },
+  "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ }
 }

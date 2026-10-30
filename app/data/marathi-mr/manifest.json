@@ -1017,5 +1017,41 @@
    "title": "Abugida: CV and length",
    "text": "Marathi (Devanagari) is an abugida: CV (orthographic) counts every consonant letter as C plus an inherent vowel V unless a vowel sign or virama follows. CV (phonological) applies the schwa-deletion rule (Hindi-type). Length is counted in aksharas."
   }
- ]
+ ],
+ "realword_filter": {
+  "date": "2026-10-29",
+  "bank_items": 120000,
+  "removed": 5930,
+  "removed_pct": 4.94,
+  "by_source": {
+   "hunspell": 5780,
+   "bible": 335
+  },
+  "extra_bible_forms": 18041,
+  "sources": {
+   "hunspell": {
+    "dictionary": "libreoffice/mr_IN/mr_IN",
+    "licence": "see COPYING: GNU GENERAL PUBLIC LICENSE \t\t       Version 2, June 1991   Copyright (C) 1989, 1991 Free Software Foundation, Inc.                        59 Temple Place, Suite",
+    "coverage_of_reference_words": 0.565,
+    "bank_items_accepted": 5780,
+    "compounding": "off"
+   },
+   "bible": {
+    "texts": [
+     {
+      "file": "ebible/corpus/mar-mar.txt",
+      "licence": "by-sa 4.0 Bridge Connectivity Solutions"
+     },
+     {
+      "file": "bible-corpus/bibles/Marathi.xml",
+      "licence": "CC0 (corpus); translation public domain or freely distributable, see metadata.csv"
+     }
+    ],
+    "word_types": 39379,
+    "new_forms_not_in_lists": 18041,
+    "bank_items_accepted": 335
+   }
+  },
+  "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ }
 }

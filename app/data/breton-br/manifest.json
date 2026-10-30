@@ -989,5 +989,44 @@
    "title": "Wikipedia vocabulary added",
    "text": "18,134 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, bre_wikipedia_2021_100K, 1.8 million words); 5,039 come from the subtitle list. Written sources are more formal than subtitles and contain more names and foreign words (166 probable English words were removed). Frequencies of the corpus-only words come from that corpus and are not comparable with subtitle frequencies."
   }
- ]
+ ],
+ "realword_filter": {
+  "date": "2026-10-29",
+  "bank_items": 69519,
+  "removed": 5558,
+  "removed_pct": 7.99,
+  "by_source": {
+   "hunspell": 5554,
+   "bible": 35,
+   "unimorph": 92
+  },
+  "extra_bible_forms": 440,
+  "sources": {
+   "hunspell": {
+    "dictionary": "wooorm/br/index",
+    "licence": "(GPL-2.0 OR LGPL-2.1 OR MPL-1.1)",
+    "coverage_of_reference_words": 0.766,
+    "bank_items_accepted": 5554,
+    "compounding": "off"
+   },
+   "unimorph": {
+    "repository": "https://github.com/unimorph/bre",
+    "licence": "CC BY-SA 3.0",
+    "forms": 1940,
+    "bank_items_accepted": 92
+   },
+   "bible": {
+    "texts": [
+     {
+      "file": "ebible/corpus/bre-breBRG.txt",
+      "licence": "Public Domain  Public Domain"
+     }
+    ],
+    "word_types": 2770,
+    "new_forms_not_in_lists": 440,
+    "bank_items_accepted": 35
+   }
+  },
+  "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ }
 }

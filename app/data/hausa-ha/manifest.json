@@ -523,5 +523,38 @@
    "title": "CV note",
    "text": "Boko (Latin) orthography; hooked letters ɓ ɗ ƙ ƴ are letters, the apostrophe marks the glottal stop; tone and length marks were removed."
   }
- ]
+ ],
+ "realword_filter": {
+  "date": "2026-10-29",
+  "bank_items": 22533,
+  "removed": 228,
+  "removed_pct": 1.01,
+  "by_source": {
+   "bible": 228
+  },
+  "extra_bible_forms": 4091,
+  "sources": {
+   "hunspell_skipped": {
+    "dictionary": "elastic/ha_GH/ha-GH",
+    "coverage_of_reference_words": 0.201,
+    "reason": "accepts fewer than 50% of the language's reference words"
+   },
+   "bible": {
+    "texts": [
+     {
+      "file": "ebible/corpus/hau-hausa.txt",
+      "licence": "by-sa 4.0 Biblica, Inc."
+     },
+     {
+      "file": "ebible/corpus/hau-hauulb.txt",
+      "licence": "by-sa 4.0 Door43 World Missions Community"
+     }
+    ],
+    "word_types": 8759,
+    "new_forms_not_in_lists": 4091,
+    "bank_items_accepted": 228
+   }
+  },
+  "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ }
 }

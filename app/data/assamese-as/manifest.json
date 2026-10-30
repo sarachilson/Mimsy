@@ -780,5 +780,41 @@
    "title": "Abugida: CV and length",
    "text": "Assamese is an abugida (Bengali script with ৰ and ৱ): CV (orthographic) counts every consonant letter as C plus an inherent vowel V unless a vowel sign or virama follows; anusvara is C. Inherent-vowel deletion is irregular and not modelled. Length is counted in aksharas."
   }
- ]
+ ],
+ "realword_filter": {
+  "date": "2026-10-29",
+  "bank_items": 120000,
+  "removed": 1266,
+  "removed_pct": 1.05,
+  "by_source": {
+   "unimorph": 880,
+   "bible": 477
+  },
+  "extra_bible_forms": 9483,
+  "sources": {
+   "hunspell_skipped": {
+    "dictionary": "libreoffice/as_IN/as_IN",
+    "coverage_of_reference_words": 0.451,
+    "reason": "accepts fewer than 50% of the language's reference words"
+   },
+   "unimorph": {
+    "repository": "https://github.com/unimorph/asm",
+    "licence": "CC BY-SA 3.0",
+    "forms": 75102,
+    "bank_items_accepted": 880
+   },
+   "bible": {
+    "texts": [
+     {
+      "file": "ebible/corpus/asm-asmfb.txt",
+      "licence": "by-sa 4.0 Bridge Connectivity Solutions"
+     }
+    ],
+    "word_types": 17519,
+    "new_forms_not_in_lists": 9483,
+    "bank_items_accepted": 477
+   }
+  },
+  "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ }
 }

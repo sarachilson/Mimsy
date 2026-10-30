@@ -945,5 +945,35 @@
  },
  "rules": {},
  "caution_items": [],
- "caution": null
+ "caution": null,
+ "realword_filter": {
+  "date": "2026-10-29",
+  "bank_items": 304419,
+  "removed": 7986,
+  "removed_pct": 2.62,
+  "by_source": {
+   "hunspell": 7924,
+   "unimorph": 167
+  },
+  "extra_bible_forms": 0,
+  "sources": {
+   "hunspell": {
+    "dictionary": "libreoffice/sq_AL/sq_AL",
+    "licence": "see README.txt: Myspell dictionary for Albanian Version 1.6.4 (15.07.2011)  This dictionary is released under GPL license version 2.0 or later. You can find the text of the lic",
+    "coverage_of_reference_words": 0.983,
+    "bank_items_accepted": 7924,
+    "compounding": "off"
+   },
+   "unimorph": {
+    "repository": "https://github.com/unimorph/sqi",
+    "licence": "CC BY-SA 3.0",
+    "forms": 10218,
+    "bank_items_accepted": 167
+   },
+   "bible_skipped": {
+    "reason": "large corpus; Bible texts are used for small-corpus languages only"
+   }
+  },
+  "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ }
 }

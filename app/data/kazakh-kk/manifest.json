@@ -994,5 +994,29 @@
    "front": "әөүіе",
    "back": "аоұы"
   }
+ },
+ "realword_filter": {
+  "date": "2026-10-29",
+  "bank_items": 120000,
+  "removed": 305,
+  "removed_pct": 0.25,
+  "by_source": {
+   "unimorph": 305
+  },
+  "extra_bible_forms": 0,
+  "sources": {
+   "hunspell_skipped": {
+    "dictionary": "elastic/kk/kk",
+    "coverage_of_reference_words": 0.424,
+    "reason": "accepts fewer than 50% of the language's reference words"
+   },
+   "unimorph": {
+    "repository": "https://github.com/unimorph/kaz",
+    "licence": "CC BY-SA 3.0",
+    "forms": 35239,
+    "bank_items_accepted": 305
+   }
+  },
+  "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
  }
 }
