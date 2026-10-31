@@ -470,7 +470,7 @@ class Trigram:
 
 
 GENERATORS = ["kn4", "tri_type", "tri_token"]
-GEN_LABEL = {"kn4": "Kneser-Ney 4-gram (type counts)", "tri_type": "plain trigram (type counts)", "tri_token": "plain trigram (token counts)"}
+GEN_LABEL = {"kn4": "Kneser-Ney 4-gram (type counts)", "tri_type": "plain trigram (type counts)", "tri_token": "plain trigram (token counts)", "gap": "tonal gap (syllable with an unattested tone) alone or with a real syllable"}
 
 
 # ---------------------------------------------------------------- neighbours (C)
@@ -724,6 +724,9 @@ def step_generate(lang, cfg, args, outdir, work):
                     seen.add(w); counts[n] = counts.get(n, 0) + 1; extra += 1
                     rows.append((w, name, round(m.logprob(w), 4), round(all_kn.logprob(w), 4), gen_name))
                 stats[f"{gen_name}/{name}"]["oversampled"] = {"quota": quota, "added": extra, "tries": xtries, "by_length": {str(k): v for k, v in sorted(counts.items())}}
+    if cfg.get("script") == "syllables":   # second item type: tonal-gap items (syl.gap_rows)
+        grows, gstat = syl.gap_rows(cfg, rng, all_kn, seen, reject)
+        rows += grows; stats["gap/all"] = gstat
     with open(os.path.join(work, "generated.tsv"), "w", encoding="utf-8") as f:
         for r in rows:
             f.write("\t".join(map(str, r)) + "\n")
@@ -856,7 +859,7 @@ def step_write(lang, cfg, args, outdir, work):
         "y_rule": "auto = <y> is C before a vowel, otherwise V" if cfg.get("y") == "auto" else cfg.get("y", "V"),
         "bands": [{"id": b, "label": l, "zipf_min": lo, "zipf_max": None if hi > 50 else hi} for b, l, lo, hi in BANDS],
         "reference_lexicon": f"plain words (alphabet only) with Zipf >= {REF_MIN_ZIPF} and corpus count >= {REF_MIN_COUNT}",
-        "generators": {g: GEN_LABEL[g] for g in gens(lang)},
+        "generators": {g: GEN_LABEL[g] for g in gens(lang) + (["gap"] if cfg.get("script") == "syllables" else [])},
         "model": {"type": "interpolated Kneser-Ney letter n-gram", "order": cfg.get("order", ORDER),
                   "counts": "type-based (each word once)", "boundary_markers": [BOS, EOS],
                   "trigram_variants": "plain maximum-likelihood letter trigrams with two start markers and one end marker; type counts (each word once) or token counts (each word weighted by its per-million frequency)"},

@@ -180,6 +180,9 @@ body.noprov .prov{display:none!important}
    <div class="field"><div class="row"><div><label for="sStart">Starts with</label><input type="text" id="sStart"></div><div><label for="sEnd">Ends with</label><input type="text" id="sEnd"></div></div></div>
    <div class="field"><div class="row"><div><label for="sHas">Contains</label><input type="text" id="sHas"></div><div><label for="sAvoid">Avoid letters</label><input type="text" id="sAvoid" placeholder="e.g. qxz"></div></div></div>
 
+   <div class="field" id="sylBox" hidden><label for="sSylType">Item type</label>
+     <select id="sSylType"><option value="">Any</option><option value="compound">Real syllables only (novel compound)</option><option value="gap">Contains a tonal gap (syllable with a tone it never carries)</option></select>
+     <div class="hint">Every Mandarin syllable is a morpheme, so items made of real syllables are novel compounds; tonal-gap items contain a syllable that is no morpheme at all. Monosyllabic gap items have length 1.</div></div>
    <div class="field" id="morphBox" hidden><span class="lbl">Morphology</span>
      <select id="sMorph"><option value="">Any</option><option value="affixed">Pseudo-stem + real affixes</option><option value="bare">No affixes (monomorphemic-looking)</option><option value="realstem">Real stem + affixes the analyser rejects</option><option value="gen">From the morphological generator</option></select>
      <div class="row" style="margin-top:6px"><div><label for="sAffMin">Affixes min</label><input type="text" inputmode="decimal" autocomplete="off" id="sAffMin" placeholder="min"></div><div><label for="sAffMax">max</label><input type="text" inputmode="decimal" autocomplete="off" id="sAffMax" placeholder="max"></div></div>
@@ -674,7 +677,7 @@ async function selectLang(code) {
     $("#sLenLbl").textContent = `Length (${unit})`;
     if (S.lenUnit !== unit) { $("#sLenMin").value = $("#sLenMin").defaultValue = d[0]; $("#sLenMax").value = $("#sLenMax").defaultValue = d[1]; S.lenUnit = unit; } }
   $("#mWords").placeholder = exampleWords(S.L[code], 3).map(disp).join("\n") || "one word per line";
-  $("#morphBox").hidden = !S.L[code].morph; $("#mcMorphBox").hidden = !S.L[code].morph;
+  $("#morphBox").hidden = !S.L[code].morph; $("#mcMorphBox").hidden = !S.L[code].morph; $("#sylBox").hidden = !S.L[code].syl;
   if (S.gMissing) { $("#cvBasisBox").hidden = false; setHint("#cvBasisHint", "data/graphemes.json was not found, so the graphemic CV is unavailable (copy the file into the data folder and reload).", ""); }
   else if ($("#cvBasisBox").hidden) setHint("#cvBasisHint", "", "");
   else setHint("#cvBasisHint", `Chooses which CV column the CV pattern filter uses: ${[...$("#cvBasisSel").options].map(o => o.value === "guess" ? "phonological" : o.value === "graph" ? "graphemic" : "orthographic").join(", ").replace(/, ([^,]*)$/, " or $1")}.`, cvBasisMore(m, S.L[code], code));
@@ -1442,6 +1445,10 @@ async function generate(L, opts, n, onProgress) {
 /* ------------------------------------------------------------------ tables */
 // Short explanations shown when hovering a column header (keyed by column key, or by header text).
 const TIPS = {
+  sylz: "Mean Zipf of the item's syllables, each syllable's token frequency summed over all words containing it (per syllable in brackets). Gap syllables have none.",
+  homo: "Homophone density: how many distinct characters (morphemes) are read with each toned syllable in the reference words.",
+  styp: "Real syllables = a novel compound of real morphemes; tonal gap = contains a legal syllable with a tone it never carries (no morpheme).",
+  tones: "Tone of each syllable (1–4; 5 = neutral).",
   w: "The generated item. Click a header to sort; click again to reverse.",
   model: "Frequency band of the real words the generator learned from.",
   gen: "Letter model that produced the item: Kneser-Ney 4-gram, or plain trigrams counted by word types or by word tokens.",
@@ -1500,7 +1507,7 @@ const COLS = {
   like: ["Wordlike % (vs real words)", r => fmt(r.like, 0), "num"], tri: [() => S.L[S.code] && S.L[S.code].syl ? "Bigram freq." : "Trigram freq.", r => fmt(r.tri, 2), "num"],
   old: ["OLD20", r => fmt(r.old), "num"], oldp: ["OLD20 pct", r => fmt(r.oldP, 0), "num"], n1: ["Coltheart's N", r => r.n1, "num"], n1p: ["N pct", r => fmt(r.n1P, 0), "num"], n1h: ["High-freq. neighbours", r => r.n1h, "num"],
   morph: ["Morphology", r => morphText(r.mo), "mono"], naff: ["Affixes", r => isNaN(r.naff) ? "" : r.naff, "num"], harm: ["Harmony", r => r.mo ? r.mo.h || "" : "", ""],
-  tones: ["Tones", r => tonesOf(r._L || S.L[S.code], r.w), "mono"],
+  tones: ["Tones", r => tonesOf(r._L || S.L[S.code], r.w), "mono"], sylz: ["Syllable Zipf", r => sylZipfText(r._L || S.L[S.code], r.w), "num"], homo: ["Homophones", r => sylHomoText(r._L || S.L[S.code], r.w), "num"], styp: ["Item type", r => sylTypeText(r._L || S.L[S.code], r.w, r.gen), ""],
   near: ["Nearest word", r => nearDisp(r._L || S.L[S.code], r.near), "mono"], nd: ["Dist.", r => r.nd, "num"], nz: ["Nearest Zipf", r => fmt(r.nz), "num"],
   lpa: ["Model log₂ p", r => fmt(r.lpa, 3), "num"],
   emb: ["Embedded word", r => r.emb ? `${r.emb.w} (${r.emb.pos})` : "", "mono"],
@@ -1511,7 +1518,7 @@ const COLS = {
   xl: ["Word in", r => xlLabel(xlOf(r), r.w), ""],
 };
 const BANK_COLS = ["w", "model", "gen", "len", "cv", "like", "tri", "trimin", "old", "oldp", "n1", "n1p", "tl", "near", "nd", "nz", "embn", "oup", "lpa"];
-const bankCols = L => { let c = BANK_COLS.filter(k => SHOW_PROVENANCE || (k !== "model" && k !== "gen")); if (L.syl) { c = c.filter(k => !SYL_HIDE.has(k)); c.splice(c.indexOf("cv") + 1, 0, "tones"); } if (L.cvg) c.splice(c.indexOf("cv") + 1, 0, "cvg"); if (L.hasGraph && !L.indic) c.splice(c.indexOf("cv") + 1, 0, "cvgr", "ng"); if (L.morph) c.splice(c.indexOf("like"), 0, "morph", "naff", "harm"); if (S.xlSig) c.splice(1, 0, "xl"); return c; };
+const bankCols = L => { let c = BANK_COLS.filter(k => SHOW_PROVENANCE || (k !== "model" && k !== "gen")); if (L.syl) { c = c.filter(k => !SYL_HIDE.has(k)); c.splice(c.indexOf("cv") + 1, 0, "tones", "sylz", "homo", "styp"); } if (L.cvg) c.splice(c.indexOf("cv") + 1, 0, "cvg"); if (L.hasGraph && !L.indic) c.splice(c.indexOf("cv") + 1, 0, "cvgr", "ng"); if (L.morph) c.splice(c.indexOf("like"), 0, "morph", "naff", "harm"); if (S.xlSig) c.splice(1, 0, "xl"); return c; };
 const tableData = {};
 function renderTable(id, rows, colKeys, colDefs = COLS) {
   const box = $("#" + id);
@@ -1567,7 +1574,7 @@ function fillModelSelects() {
   $("#sModels").disabled = !bandsOn;
   const gens = GEN_KEYS.filter(g => L.bank.some(r => r.gen === g));
   $("#sGen").innerHTML = `<option value="">Any generator</option>` + gens.map(g => `<option value="${g}">${GEN_LABEL[g]}</option>`).join("");
-  if (gens.includes("kn4")) $("#sGen").value = "kn4";
+  if (gens.includes("kn4") && !L.syl) $("#sGen").value = "kn4";
   $("#gGen").innerHTML = gens.map(g => `<option value="${g}">${GEN_LABEL[g]}</option>`).join("");
   $("#mGen").innerHTML = `<option value="">Any generator</option>` + gens.map(g => `<option value="${g}">${GEN_LABEL[g]}</option>`).join("");
   const bs = L.manifest.counts.band_sizes;
@@ -1618,7 +1625,8 @@ function runSearch() {
     if (mSel === "gen") { if (r.model !== "morph") return false; } else if (mSel && (!m || m.t !== mSel)) return false;
     if (affMin !== null && !(m && m.na >= affMin)) return false; if (affMax !== null && !(!m || isNaN(m.na) || m.na <= affMax)) return false;
     if (harmOnly && m && m.h === "mixed") return false; return true; };
-  let rows = L.bank.filter(r => (!modelSel || r.model === modelSel) && (!genSel || r.gen === genSel) && r.nd >= md && (!embKeep || embKeep(L, r)) && morphOk(r)
+  const sylSel = L.syl ? $("#sSylType").value : "", sylOk = r => !sylSel || (sylSel === "gap") === (r.gen === "gap");
+  let rows = L.bank.filter(r => (!modelSel || r.model === modelSel) && (!genSel || r.gen === genSel) && r.nd >= md && (!embKeep || embKeep(L, r)) && morphOk(r) && sylOk(r)
     && (lmin === null || r.len >= lmin) && (lmax === null || r.len <= lmax)
     && (!re || re.test(r[cvBasis()] || r.cv)) && (!st || r.w.startsWith(st)) && (!en || r.w.endsWith(en)) && (!has || r.w.includes(has))
     && (!avoid.size || ![...r.w].some(c => avoid.has(c)))
@@ -1727,7 +1735,7 @@ const A_COLS = {
   like: ["Wordlike %", r => isNaN(r.like) ? "" : fmt(r.like, 0), "num"], tri: [() => S.L[S.code] && S.L[S.code].syl ? "Bigram freq." : "Trigram freq.", r => isNaN(r.tri) ? "" : fmt(r.tri, 2), "num"],
   old: ["OLD20", r => fmt(r.old), "num"], oldp: ["OLD20 pct", r => fmt(r.oldP, 0), "num"], n1: ["Coltheart's N", r => r.n1, "num"], n1p: ["N pct", r => fmt(r.n1P, 0), "num"], n1h: ["High-freq. neighbours", r => r.n1h, "num"],
   morph: ["Morphology", r => morphText(r.mo), "mono"], naff: ["Affixes", r => isNaN(r.naff) ? "" : r.naff, "num"], harm: ["Harmony", r => r.mo ? r.mo.h || "" : "", ""],
-  tones: ["Tones", r => tonesOf(S.L[S.code], r.w), "mono"],
+  tones: ["Tones", r => tonesOf(S.L[S.code], r.w), "mono"], sylz: ["Syllable Zipf", r => sylZipfText(S.L[S.code], r.w), "num"], homo: ["Homophones", r => sylHomoText(S.L[S.code], r.w), "num"], styp: ["Item type", r => sylTypeText(S.L[S.code], r.w, ""), ""],
   near: ["Nearest other word", r => nearDisp(S.L[S.code], r.near), "mono"], nd: ["Dist.", r => isNaN(r.nd) ? "" : r.nd, "num"],
   tl: ["TL neighbours", r => r.tl ? (r.tl.length ? `${r.tl.length} (${r.tl.slice(0, 3).join(", ")}${r.tl.length > 3 ? ", …" : ""})` : "0") : "", "num"],
   trimin: [() => S.L[S.code] && S.L[S.code].syl ? "Rarest bigram" : "Rarest trigram", r => r.triMin && !isNaN(r.triMin.v) ? `${fmt(r.triMin.v)} (${r.triMin.g})` : "", "num"],
@@ -1736,7 +1744,7 @@ const A_COLS = {
   ipa: [() => S.L[S.code] && S.L[S.code].syl ? "Characters" : "IPA", r => r.ipa, ""],
   xl: ["Word in other languages", r => r.w ? xlLabel(xlOf(r), r.w) : "", ""],
 };
-const aColKeys = L => { const c = Object.keys(A_COLS).filter(k => k !== "xl" && k !== "tones" && (SHOW_PROVENANCE || k !== "band") && (!L.syl || !SYL_HIDE.has(k)) && (L.cvg || (k !== "cvg" && k !== "cvIpa")) && ((L.hasGraph && !L.indic) || (k !== "cvgr" && k !== "ng")) && (L.morph || !["morph", "naff", "harm"].includes(k))); if (L.syl) c.splice(c.indexOf("cv") + 1, 0, "tones"); if (S.xlSig) c.splice(2, 0, "xl"); return c; };
+const aColKeys = L => { const c = Object.keys(A_COLS).filter(k => k !== "xl" && !["tones", "sylz", "homo", "styp"].includes(k) && (SHOW_PROVENANCE || k !== "band") && (!L.syl || !SYL_HIDE.has(k)) && (L.cvg || (k !== "cvg" && k !== "cvIpa")) && ((L.hasGraph && !L.indic) || (k !== "cvgr" && k !== "ng")) && (L.morph || !["morph", "naff", "harm"].includes(k))); if (L.syl) c.splice(c.indexOf("cv") + 1, 0, "tones", "sylz", "homo", "styp"); if (S.xlSig) c.splice(2, 0, "xl"); return c; };
 $("#aGo").addEventListener("click", async () => {
   toTop();
   const L = S.L[S.code]; if (!L) return;
@@ -1946,7 +1954,15 @@ function buildSymIndex(sym) {   // marked and numbered spellings -> symbol; base
   for (const ch in sym) { const v = sym[ch]; byPy.set(v.py, ch); byNum.set(v.num, ch); bases.add(v.base); if (v.tone === 5) byNum.set(v.base + "0", ch); }
   return { byPy, byNum, bases, maxLen: Math.max(...[...byPy.keys()].map(k => k.length)) };
 }
-function tonesOf(L, w) { return L && L.syl && L.sym ? [...w].map(ch => (L.sym[ch] || {}).tone ?? "?").join("-") : ""; }
+function sylInfo(L, w) {   // per-syllable Zipf and homophone density; gap syllables have no frequency
+  if (!L || !L.syl || !L.sym) return null;
+  const v = [...w].map(ch => L.sym[ch] || {}); if (!v.length || !v.every(x => x.py)) return null; const z = v.map(x => x.zipf), zs = z.filter(x => x != null);
+  return { zipf: zs.length ? zs.reduce((a, b) => a + b, 0) / zs.length : NaN, zlist: z.map(x => x == null ? "gap" : x.toFixed(1)), homo: v.map(x => x.gap ? "gap" : x.homophones ?? "?"), gaps: v.filter(x => x.gap).map(x => x.py), rare: v.filter(x => x.rare).map(x => x.py) };
+}
+const sylZipfText = (L, w) => { const i = sylInfo(L, w); return i ? (isNaN(i.zipf) ? "—" : i.zipf.toFixed(2)) + (w.length > 1 ? ` (${i.zlist.join(" · ")})` : "") : ""; };
+const sylHomoText = (L, w) => { const i = sylInfo(L, w); return i ? i.homo.join(" · ") : ""; };
+const sylTypeText = (L, w, gen) => { const i = sylInfo(L, w); return !i ? "" : i.gaps.length ? `tonal gap: ${i.gaps.join(", ")}` : gen === "gap" ? "tonal gap" : i.rare.length ? `rare reading: ${i.rare.join(", ")}` : "real syllables"; };
+function tonesOf(L, w) { return L && L.syl && L.sym && [...w].every(ch => ch in L.sym) ? [...w].map(ch => L.sym[ch].tone).join("-") : ""; }
 // Measures that are constant or trivial when the unit is the syllable: every syllable is a word (embedded words, OUP), the nearest word is always
 // one syllable away (Dist., OLD20 pct for two-syllable items), transpositions and the rarest bigram carry no information. Hidden for these languages.
 const SYL_HIDE = new Set(["trimin", "tl", "nd", "embn", "oup", "oldp", "emb", "ttrimin", "ttl", "tembn", "toup", "ptrimin", "ptl", "poup", "pemb"]);
@@ -2242,8 +2258,9 @@ const INDIC_GLOSS_BY_CHAR = { "ँ": "candrabindu: nasalises the vowel", "ঁ": 
 function alphabetRows(L, m) {
   const mono = `class="mono" style="word-spacing:.35em;line-height:1.9"`;
   if (L.syl && L.sym) {
-    const vals = Object.values(L.sym), bases = [...new Set(vals.map(v => v.base))].sort(), tones = [1, 2, 3, 4, 5].map(t => `${t === 5 ? "neutral" : "tone " + t}: ${vals.filter(v => v.tone === t).length}`).join(", ");
-    return [`<div>Unit</div><div>Toned syllable, written in pinyin (${vals.length.toLocaleString()} toned syllables; ${tones}). A pseudoword is a sequence of ${(m.rules || {}).min_len || 2}–${(m.rules || {}).max_len || 4} real syllables that is not a word, and every measure counts syllables: length, OLD20 and Coltheart's N (one syllable added, removed or exchanged), the n-gram models and the trigram wordlikeness. Analyze and Match accept pinyin with tone marks (zhōngguó) or tone numbers (zhong1 guo2; 5 or no digit = neutral tone), and Chinese characters for words of the lexicon.</div>`,
+    const vals = Object.values(L.sym), att = vals.filter(v => !v.gap && !v.rare), bases = [...new Set(att.map(v => v.base))].sort(), tones = [1, 2, 3, 4, 5].map(t => `${t === 5 ? "neutral" : "tone " + t}: ${att.filter(v => v.tone === t).length}`).join(", ");
+    return [`<div>Unit</div><div>Toned syllable, written in pinyin (${att.length.toLocaleString()} toned syllables attested in at least three reference words; ${tones}; ${vals.filter(v => v.rare).length} rarer readings are accepted as input but never generated). A pseudoword is a sequence of ${(m.rules || {}).min_len || 2}–${(m.rules || {}).max_len || 4} real syllables that is not a word, and every measure counts syllables: length, OLD20 and Coltheart's N (one syllable added, removed or exchanged), the n-gram models and the trigram wordlikeness. Analyze and Match accept pinyin with tone marks (zhōngguó) or tone numbers (zhong1 guo2; 5 or no digit = neutral tone), and Chinese characters for words of the lexicon.</div>`,
+      `<div>Two item types</div><div>Items made of real syllables are <i>novel compounds</i>, since every Mandarin syllable is a morpheme (the standard nonword type in Mandarin auditory lexical decision). <i>Tonal-gap</i> items contain one of the ${vals.filter(v => v.gap).length} legal syllables that never carry a given tone (e.g. ${vals.filter(v => v.gap).slice(0, 4).map(v => v.py).join(", ")}): a syllable that is no morpheme at all, offered alone (length 1) or with one real syllable. The <i>Item type</i> filter on the bank tab separates them. Syllable Zipf is each syllable's token frequency over all words containing it; Homophones counts the distinct characters read with that syllable.</div>`,
       `<div>Base syllables (${bases.length})</div><div ${mono}>${escRaw(bases.join(" "))}</div>`].join("\n    ");
   }
   const cls = m.letter_classes, chars = [...m.alphabet];
