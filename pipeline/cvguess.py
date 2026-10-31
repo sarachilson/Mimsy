@@ -43,11 +43,14 @@ def ipa_cv(ipa):
 
 
 ALLOWED = {"C": ["C", "CV", "", "V"], "V": ["V", "C", "CV", "", "VC"], "M": ["", "C", "V"],
+           # Thai pre-posed vowel (class P): written before its consonant, spoken after it, so it usually contributes nothing itself and the consonant emits CV
+           "P": ["", "V", "C"],
            # Indic classes (indic.py): K khanda ta, D vowel sign, H virama, N nukta, A/Z anusvara, B candrabindu/visarga
            "K": ["C", ""], "D": ["V", ""], "H": [""], "N": [""], "A": ["", "C"], "Z": ["C", ""], "B": ["", "C"]}
 COST = {("C", "C"): 0, ("C", "CV"): 0.2, ("C", ""): 1.5, ("C", "V"): 1.5,
         ("V", "V"): 0, ("V", "C"): 0.6, ("V", "CV"): 0.6, ("V", ""): 1.2, ("V", "VC"): 1.0,
         ("M", ""): 0, ("M", "C"): 0.5, ("M", "V"): 0.5,
+        ("P", ""): 0, ("P", "V"): 0.3, ("P", "C"): 1.5,
         ("K", "C"): 0, ("K", ""): 1.0, ("D", "V"): 0, ("D", ""): 1.5, ("H", ""): 0, ("N", ""): 0,
         ("A", ""): 0.2, ("A", "C"): 0.2, ("Z", "C"): 0, ("Z", ""): 1.0, ("B", ""): 0, ("B", "C"): 0.8}
 

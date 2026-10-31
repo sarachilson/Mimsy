@@ -353,6 +353,22 @@ LANGS = {
     "tulu-tcy":      dict(name="Tulu", script="kannada", alphabets=[indic.alphabet("kannada")], no_films=True, no_bands=True, leipzig="tcy_wikipedia_2018_10K",
                           strip=BIDI, rules={**INDIC_RULES, **indic.options("kannada")},
                           cv_note="Tulu is written in the Kannada script: CV (orthographic) counts every consonant letter as C plus an inherent vowel V unless a vowel sign or virama follows; anusvara is C. Length is counted in aksharas."),
+    # ---- Thai: letters are code points; vowel signs above/below (V), spacing vowels (V), pre-posed vowels (P: written before, spoken after the consonant),
+    #      tone marks and silencers (M). Implied vowels are unwritten, so consonant-only strings are legal (as for abjads); CV (phon.) from the IPA-trained table.
+    "thai-th":         dict(name="Thai", y="V",
+                          alphabets=["".join(chr(c) for c in range(0x0E01, 0x0E2F)) + "\u0e30\u0e31\u0e32\u0e33\u0e34\u0e35\u0e36\u0e37\u0e38\u0e39\u0e3a" + "\u0e40\u0e41\u0e42\u0e43\u0e44\u0e45\u0e47\u0e48\u0e49\u0e4a\u0e4b\u0e4c\u0e4d"],
+                          vowels="\u0e24\u0e26\u0e30\u0e31\u0e32\u0e33\u0e34\u0e35\u0e36\u0e37\u0e38\u0e39\u0e45", preposed="\u0e40\u0e41\u0e42\u0e43\u0e44",
+                          mods="\u0e3a\u0e47\u0e48\u0e49\u0e4a\u0e4b\u0e4c\u0e4d", strip="\u0e46\u0e2f\u200b\u200c\u200d",
+                          leipzig="tha_newscrawl_2011_100K", allow_no_vowel=True,
+                          rules={"min_len": 2, "max_len": 10, "max_chars": 12, "thai": True, "allow_no_vowel": True},
+                          cv_note="Thai writes no spaces between words, so the word lists come from automatic segmentation (subtitles and a news corpus) and contain some phrases. Letters are counted as written (consonants, vowel signs and tone marks). CV (orthographic): consonant letters C (including อ ว ย, which also serve as vowels), vowel signs V — the pre-posed vowels เ แ โ ใ ไ are written before their consonant and placed after it in the CV string; tone marks, maitaikhu and thanthakhat are skipped; the implied vowels of consonant-only syllables (กด) are not shown, so CV (phonological), learned from the IPA transcriptions, is the better guide. Generated strings follow the writing rules: marks sit on a consonant, at most one vowel sign and one tone mark per consonant, pre-posed vowels followed by a consonant, ั and ็ by a final consonant."),
+    # ---- Hangul: syllable blocks are decomposed into jamo (NFD); the pipeline's letters are the 19 initial consonants, 21 vowels and 27 final consonants
+    "korean-ko":       dict(name="Korean", decompose=True, y="V",
+                          alphabets=["".join(chr(c) for c in range(0x1100, 0x1113)) + "".join(chr(c) for c in range(0x1161, 0x1176)) + "".join(chr(c) for c in range(0x11A8, 0x11C3))],
+                          vowels="".join(chr(c) for c in range(0x1161, 0x1176)), mods="\u110b",   # initial ㅇ is a silent place-holder: a letter for length and distances, no CV unit
+                          leipzig="kor_news_2022_1M",
+                          rules={"min_len": 3, "max_len": 12, "max_chars": 12, "hangul": True},
+                          cv_note="Korean is written in syllable blocks; every block is decomposed into its jamo (initial consonant, vowel, optional final consonant), and the jamo are the letters: length, OLD20, Coltheart's N and the n-gram models count jamo (한 = 3, 안 = 3), as in Korean psycholinguistics. A Syllables column gives the block count. Initial ㅇ is a silent place-holder, so it counts as a letter but not in the CV pattern (안 = VC, 한 = CVC). Compound vowels (ㅘ, ㅢ) and double finals (ㄳ, ㄺ) are single jamo. Only jamo strings that recompose into blocks are kept."),
     # ---- Syllable-symbol languages: the "letters" are toned syllables (see make_pinyin.py, syl.py)
     "chinese_pinyin-zh": dict(name="Chinese (Mandarin, pinyin)", script="syllables", symbols="syllables_zh.json", alphabets=[], y="V",
                           generators=["kn4"], order=3,   # plain trigrams over syllables mostly reproduce real words; a syllable 3-gram is enough for 2–4-syllable items
@@ -380,13 +396,14 @@ _FAM = {
     "Other Niger-Congo": "yoruba-yo igbo-ig",
     "Austronesian": "indonesian-id malay-ms tagalog-tl cebuano-ceb ilocano-ilo waray-war bikol-bcl kapampangan-pam javanese-jv sundanese-su balinese-ban banjar-bjn minangkabau-min malagasy-mg maori-mi",
     "Austroasiatic": "vietnamese-vi",
+    "Kra-Dai": "thai-th",
     "Sino-Tibetan": "chinese_pinyin-zh mizo-lus newar-new",
     "Mongolic": "mongolian-mn buryat-bxr",
     "Caucasian": "georgian-ka mingrelian-xmf chechen-ce",
     "Americas": "navajo-nv quechua-qu guarani-gn",
     "Creoles": "haitian-ht papiamento-pap",
     "Eskimo-Aleut": "greenlandic-kl",
-    "Isolates": "basque-eu",
+    "Isolates": "basque-eu korean-ko",
     "Constructed": "esperanto-eo ido-io interlingua-ia interlingue-ie volapuk-vo",
 }
 FAMILY = {code: fam for fam, codes in _FAM.items() for code in codes.split()}
