@@ -1210,7 +1210,7 @@ function thaiError(w, cls) {
     else if ("\u0e4c\u0e4d\u0e3a\u0e4e".includes(ch)) { if (!(pk === "C" || (ch === "\u0e4c" && THAI_A.has(prev)))) return "mark not on a consonant"; }
     else if (k === "P") { if (i + 1 >= n || (cls[w[i + 1]] || "C") !== "C") return "pre-posed vowel without a consonant"; }
     else if (THAI_S.has(ch)) { if (i === 0 || pk === "P") return "vowel sign without a consonant"; }
-    if (ch === "\u0e31" || ch === "\u0e47") { let j = i + 1; while (j < n && THAI_T.has(w[j])) j++; if (j >= n || (cls[w[j]] || "C") !== "C") return "ั/็ without a final consonant"; }
+    if (ch === "\u0e31") { let j = i + 1; while (j < n && THAI_T.has(w[j])) j++; if (j >= n || (cls[w[j]] || "C") !== "C") return "ั without a final consonant"; }
   }
   return "";
 }
