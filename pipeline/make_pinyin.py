@@ -8,6 +8,10 @@ is mapped to one Private Use Area character (U+E000 ...), so that the ordinary l
 symbol table to display the pinyin again.
 
 Input:  the FILMS subtitle word list (chinese_mainland_china.zh_CN.word.raw.tsv[.gz]: Rank, Word, Frequency, ..., Zipf value)
+Also computed per toned syllable: token frequency (Zipf), homophone density (distinct characters with that reading) and the
+tonal gaps (base syllable × tone 1–4 that occurs in no word): the gaps get symbols of their own after the attested syllables and are
+used by build_bank.py (syl.gap_rows) for a second item type, 'tonal gap' items, which contain a syllable that is no morpheme at all.
+
 Output: _slim/chinese_pinyin-zh.tsv.gz    word (PUA string), freq, zipf, ipa (= most frequent character form, 'n homophones')
         pipeline/syllables_zh.json         symbol table: PUA char -> {py (tone marks), num (tone digit), base, tone, cv}
 
@@ -112,14 +116,20 @@ def main():
     # inventory from reference-eligible words
     inv = {}
     py_rows = []
+    seen_any = set()                 # every toned syllable that occurs in any word (gaps must not be among them)
+    sfreq = {}                       # token frequency of each toned syllable (summed over the words containing it)
+    homo = {}                        # characters read with each toned syllable, in reference-eligible words (homophone density)
     for w, fr, z in rows:
         py = pinyin_of(w)
         if not py:
             continue
         py_rows.append((w, fr, z, py))
+        for ch, s in zip(w, py):
+            seen_any.add(s); sfreq[s] = sfreq.get(s, 0) + fr
         if fr >= MIN_COUNT and z >= MIN_ZIPF:
-            for s in py:
+            for ch, s in zip(w, py):
                 inv[s] = inv.get(s, 0) + 1
+                homo.setdefault(s, set()).add(ch)
     syls = sorted((s for s, n in inv.items() if n >= SYL_MIN_WORDS and "V" in cv_of_syllable(s[0])), key=lambda s: (s[0], s[1]))
     sym = {s: chr(PUA_START + i) for i, s in enumerate(syls)}
     print(f"{len(syls):,} toned syllables ({len(set(b for b, _ in syls))} base syllables) in {sum(1 for r in py_rows if r[1] >= MIN_COUNT and r[2] >= MIN_ZIPF):,} reference-eligible words", flush=True)
@@ -144,8 +154,24 @@ def main():
             hz = forms[0][1] + (f" +{len(forms) - 1}" if len(forms) > 1 else "")
             z = math.log10(fr / tokens * 1e6) + 3
             f.write(f"{key}\t{int(fr)}\t{z:.4f}\t{hz}\n")
-    table = {sym[s]: {"py": with_marks(s[0], s[1]), "num": f"{s[0]}{s[1]}", "base": s[0], "tone": s[1], "cv": cv_of_syllable(s[0]), "words": inv[s]} for s in syls}
-    json.dump({"language": "chinese_pinyin-zh", "unit": "toned syllable", "pua_start": PUA_START, "count": len(table),
+    szipf = lambda s: round(math.log10(sfreq[s] / tokens * 1e6) + 3, 2)
+    table = {sym[s]: {"py": with_marks(s[0], s[1]), "num": f"{s[0]}{s[1]}", "base": s[0], "tone": s[1], "cv": cv_of_syllable(s[0]), "words": inv[s],
+                      "zipf": szipf(s), "homophones": len(homo[s])} for s in syls}
+    # tonal gaps: a base syllable of the inventory with one of the four full tones that occurs in no word at all
+    bases = sorted(set(b for b, _ in syls))
+    gaps = sorted((b, t) for b in bases for t in (1, 2, 3, 4) if (b, t) not in seen_any)
+    for i, s in enumerate(gaps):
+        ch = chr(PUA_START + len(syls) + i)
+        table[ch] = {"py": with_marks(s[0], s[1]), "num": f"{s[0]}{s[1]}", "base": s[0], "tone": s[1], "cv": cv_of_syllable(s[0]), "words": 0, "zipf": None, "homophones": 0, "gap": True}
+    # rare readings: seen in fewer than SYL_MIN_WORDS reference-eligible words (or only in rare words); not generated, but typable in Analyze
+    rare_syl = sorted((s for s in seen_any if s not in sym and "V" in cv_of_syllable(s[0]) and s[0] in set(bases)), key=lambda s: (s[0], s[1]))
+    for i, s in enumerate(rare_syl):
+        ch = chr(PUA_START + len(syls) + len(gaps) + i)
+        table[ch] = {"py": with_marks(s[0], s[1]), "num": f"{s[0]}{s[1]}", "base": s[0], "tone": s[1], "cv": cv_of_syllable(s[0]), "words": inv.get(s, 0),
+                     "zipf": szipf(s), "homophones": len(homo.get(s, ())), "rare": True}
+    print(f"{len(gaps):,} tonal gaps (base syllable × tone 1–4 never attested); {len(rare_syl)} rare readings kept for input only", flush=True)
+    json.dump({"language": "chinese_pinyin-zh", "unit": "toned syllable", "pua_start": PUA_START, "count": len(syls), "gaps": len(gaps),
+               "fields": {"zipf": "Zipf of the syllable's token frequency summed over all words containing it", "homophones": "distinct characters read with this toned syllable in reference-eligible words", "words": "reference-eligible words containing the syllable", "gap": "tonal gap: legal syllable with a tone it never carries (no morpheme); not in any word", "rare": "reading seen in fewer than 3 reference-eligible words: accepted as input, never generated"},
                "source": "pypinyin (MIT) over the FILMS zh_CN subtitle word list; 不 and 一 with citation tones; neutral tone = 5, shown without a mark",
                "symbols": table}, open(os.path.join(HERE, "syllables_zh.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=0)
     print("written", os.path.join(a.slim, "chinese_pinyin-zh.tsv.gz"), "and syllables_zh.json")
