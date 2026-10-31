@@ -604,10 +604,11 @@ $("#folderPick").addEventListener("change", async ev => {
 
 // Language pickers: only "experimental" is flagged in the list (the caution banner carries the rest).
 // Order: A–Z by display name, by corpus size (largest first), or grouped by language family (A–Z within each group).
-function langOptions() {
+const xsetOk = l => l.script !== "syllables";   // cross-language sets compare letter-based measures: syllable-unit languages (Chinese pinyin) are left out
+function langOptions(filter = null) {
   const byName = (a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: "base" });
   const opt = l => `<option value="${l.code}">${esc(l.name)}${l.experimental ? " ⚠ (experimental)" : ""}</option>`;
-  const langs = S.index.languages.slice();
+  const langs = S.index.languages.filter(l => !filter || filter(l));
   if (S.langSort === "size") { langs.sort((a, b) => ((b.corpus_tokens || 0) - (a.corpus_tokens || 0)) || byName(a, b)); return langs.map(opt).join(""); }
   if (S.langSort === "family") {
     const groups = new Map();
@@ -619,7 +620,7 @@ function langOptions() {
 function fillLangPickers() {
   const opts = langOptions(), cur = S.code;
   for (const x of [$("#lang"), ...$$(".langSel")]) { x.innerHTML = opts; if (cur) x.value = cur; }
-  $("#xAdd").innerHTML = `<option value="">Add a language…</option>` + opts;
+  $("#xAdd").innerHTML = `<option value="">Add a language…</option>` + langOptions(xsetOk);
 }
 
 function start() {
@@ -2843,8 +2844,8 @@ function xRefresh() {
   try { localStorage.setItem("pw.xset", JSON.stringify(XS.langs)); } catch (e) {}
 }
 function xInit(code) {
-  try { const v = JSON.parse(localStorage.getItem("pw.xset") || "null"); if (Array.isArray(v)) XS.langs = v.filter(c => S.index.languages.some(l => l.code === c)); } catch (e) {}
-  if (!XS.langs.length && code) XS.langs = [code];
+  try { const v = JSON.parse(localStorage.getItem("pw.xset") || "null"); if (Array.isArray(v)) XS.langs = v.filter(c => S.index.languages.some(l => l.code === c && xsetOk(l))); } catch (e) {}
+  if (!XS.langs.length && code && S.index.languages.some(l => l.code === code && xsetOk(l))) XS.langs = [code];
   xSetDefaults(); xRefresh();
 }
 $("#xAdd").addEventListener("change", () => { const c = $("#xAdd").value; $("#xAdd").value = ""; if (c && !XS.langs.includes(c) && XS.langs.length < 8) XS.langs.push(c); xRefresh(); });
