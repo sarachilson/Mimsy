@@ -584,6 +584,8 @@ def step_prepare(lang, cfg, args, outdir, work):
             if v[3] == "leipzig" and len(w) >= ENG_FILTER_MINLEN and ENG.get(w, 0) >= ENG_FILTER_ZIPF:
                 plain[w] = (v[0], v[1], v[2], "leipzig_eng"); eng_removed.append(w)
     minc_lz = leipzig_min_count(cfg["leipzig"]) if cfg.get("leipzig") else REF_MIN_COUNT
+    import re as _re
+    drop_re = [_re.compile(x) for x in cfg.get("drop_re", [])]
     def keep(w, v):
         fr, z, ipa, src = v
         if src == "leipzig":
@@ -595,6 +597,10 @@ def step_prepare(lang, cfg, args, outdir, work):
         if cfg.get("ipa_only") and not ipa and src != "both":   # FILMS-only forms without a pronunciation are mostly corrupted
             return False
         if cfg.get("rules", {}).get("thai") and not thai_ok(w, cls):   # Thai: segmentation fragments (a lone pre-posed vowel, a stray mark) are not reference words
+            return False
+        if any(r.fullmatch(w) for r in drop_re):   # languages.py drop_re: known corruption patterns (Thai mojibake เธซเธฅเน)
+            return False
+        if cfg.get("max_ref_len") and len(w) > cfg["max_ref_len"]:   # unsegmented phrases in Thai lists are not reference words
             return False
         return True
     ref = sorted(((w, v) for w, v in plain.items() if keep(w, v)), key=lambda x: -x[1][1])
