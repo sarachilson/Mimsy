@@ -449,6 +449,25 @@
    "films_file": null
   },
   {
+   "code": "chinese_pinyin-zh",
+   "name": "Chinese (Mandarin, pinyin)",
+   "reference_words": 106496,
+   "small_corpus": false,
+   "corpus_tokens": 174132964,
+   "experimental": false,
+   "cv_approximate": true,
+   "family": "Sino-Tibetan",
+   "writing": "Pinyin syllables",
+   "length_unit": "syllables",
+   "script": "syllables",
+   "abjad": false,
+   "parents": null,
+   "films_file": {
+    "archive": "FILMS_data.zip",
+    "path": "chinese_mainland_china-zh_CN/word/chinese_mainland_china.zh_CN.word.raw.tsv"
+   }
+  },
+  {
    "code": "chuvash-cv",
    "name": "Chuvash",
    "reference_words": 12509,

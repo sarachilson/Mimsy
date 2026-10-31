@@ -326,5 +326,9 @@
  "vietnamese-vi": {
   "archive": "FILMS_data.zip",
   "path": "vietnamese-vi/word/vietnamese.vi.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "chinese_pinyin-zh": {
+  "archive": "FILMS_data.zip",
+  "path": "chinese_mainland_china-zh_CN/word/chinese_mainland_china.zh_CN.word.raw.tsv"
  }
 }

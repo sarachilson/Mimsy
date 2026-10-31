@@ -353,6 +353,11 @@ LANGS = {
     "tulu-tcy":      dict(name="Tulu", script="kannada", alphabets=[indic.alphabet("kannada")], no_films=True, no_bands=True, leipzig="tcy_wikipedia_2018_10K",
                           strip=BIDI, rules={**INDIC_RULES, **indic.options("kannada")},
                           cv_note="Tulu is written in the Kannada script: CV (orthographic) counts every consonant letter as C plus an inherent vowel V unless a vowel sign or virama follows; anusvara is C. Length is counted in aksharas."),
+    # ---- Syllable-symbol languages: the "letters" are toned syllables (see make_pinyin.py, syl.py)
+    "chinese_pinyin-zh": dict(name="Chinese (Mandarin, pinyin)", script="syllables", symbols="syllables_zh.json", alphabets=[], y="V",
+                          generators=["kn4"], order=3,   # plain trigrams over syllables mostly reproduce real words; a syllable 3-gram is enough for 2–4-syllable items
+                          rules={"min_len": 2, "max_len": 4, "max_chars": 4, "oversample": {"2": 0.5}},   # two-syllable items are the most wanted and the hardest to find (most syllable pairs are words)
+                          cv_note="Mandarin pseudowords are sequences of real toned syllables that do not form a word, so the unit here is the toned syllable (1,187 of them, about 400 base syllables × tones), written in pinyin. Length, neighbours (one syllable substituted, added or removed) and the n-gram models all work on syllables, not letters. CV is the orthographic CV of the pinyin letters of each syllable in turn (zh/ch/sh and ng count as one C; y and w as C; every vowel letter as V): zhōng = CVC, xiǎo = CVVV. Pinyin from pypinyin; 不 and 一 carry their citation tones; the neutral tone is written without a mark."),
 }
 
 
@@ -375,7 +380,7 @@ _FAM = {
     "Other Niger-Congo": "yoruba-yo igbo-ig",
     "Austronesian": "indonesian-id malay-ms tagalog-tl cebuano-ceb ilocano-ilo waray-war bikol-bcl kapampangan-pam javanese-jv sundanese-su balinese-ban banjar-bjn minangkabau-min malagasy-mg maori-mi",
     "Austroasiatic": "vietnamese-vi",
-    "Sino-Tibetan": "mizo-lus newar-new",
+    "Sino-Tibetan": "chinese_pinyin-zh mizo-lus newar-new",
     "Mongolic": "mongolian-mn buryat-bxr",
     "Caucasian": "georgian-ka mingrelian-xmf chechen-ce",
     "Americas": "navajo-nv quechua-qu guarani-gn",

@@ -1,0 +1,9505 @@
+{
+"language": "chinese_pinyin-zh",
+"unit": "toned syllable",
+"pua_start": 57344,
+"count": 1187,
+"source": "pypinyin (MIT) over the FILMS zh_CN subtitle word list; 不 and 一 with citation tones; neutral tone = 5, shown without a mark",
+"symbols": {
+"": {
+"py": "ā",
+"num": "a1",
+"base": "a",
+"tone": 1,
+"cv": "V",
+"words": 1118
+},
+"": {
+"py": "a",
+"num": "a5",
+"base": "a",
+"tone": 5,
+"cv": "V",
+"words": 17
+},
+"": {
+"py": "āi",
+"num": "ai1",
+"base": "ai",
+"tone": 1,
+"cv": "VV",
+"words": 278
+},
+"": {
+"py": "ái",
+"num": "ai2",
+"base": "ai",
+"tone": 2,
+"cv": "VV",
+"words": 38
+},
+"": {
+"py": "ǎi",
+"num": "ai3",
+"base": "ai",
+"tone": 3,
+"cv": "VV",
+"words": 37
+},
+"": {
+"py": "ài",
+"num": "ai4",
+"base": "ai",
+"tone": 4,
+"cv": "VV",
+"words": 908
+},
+"": {
+"py": "ān",
+"num": "an1",
+"base": "an",
+"tone": 1,
+"cv": "VC",
+"words": 697
+},
+"": {
+"py": "ǎn",
+"num": "an3",
+"base": "an",
+"tone": 3,
+"cv": "VC",
+"words": 5
+},
+"": {
+"py": "àn",
+"num": "an4",
+"base": "an",
+"tone": 4,
+"cv": "VC",
+"words": 332
+},
+"": {
+"py": "āng",
+"num": "ang1",
+"base": "ang",
+"tone": 1,
+"cv": "VC",
+"words": 7
+},
+"": {
+"py": "áng",
+"num": "ang2",
+"base": "ang",
+"tone": 2,
+"cv": "VC",
+"words": 72
+},
+"": {
+"py": "àng",
+"num": "ang4",
+"base": "ang",
+"tone": 4,
+"cv": "VC",
+"words": 5
+},
+"": {
+"py": "āo",
+"num": "ao1",
+"base": "ao",
+"tone": 1,
+"cv": "VV",
+"words": 8
+},
+"": {
+"py": "áo",
+"num": "ao2",
+"base": "ao",
+"tone": 2,
+"cv": "VV",
+"words": 25
+},
+"": {
+"py": "ǎo",
+"num": "ao3",
+"base": "ao",
+"tone": 3,
+"cv": "VV",
+"words": 4
+},
+"": {
+"py": "ào",
+"num": "ao4",
+"base": "ao",
+"tone": 4,
+"cv": "VV",
+"words": 565
+},
+"": {
+"py": "bā",
+"num": "ba1",
+"base": "ba",
+"tone": 1,
+"cv": "CV",
+"words": 815
+},
+"": {
+"py": "bá",
+"num": "ba2",
+"base": "ba",
+"tone": 2,
+"cv": "CV",
+"words": 73
+},
+"": {
+"py": "bǎ",
+"num": "ba3",
+"base": "ba",
+"tone": 3,
+"cv": "CV",
+"words": 49
+},
+"": {
+"py": "bà",
+"num": "ba4",
+"base": "ba",
+"tone": 4,
+"cv": "CV",
+"words": 90
+},
+"": {
+"py": "ba",
+"num": "ba5",
+"base": "ba",
+"tone": 5,
+"cv": "CV",
+"words": 12
+},
+"": {
+"py": "bāi",
+"num": "bai1",
+"base": "bai",
+"tone": 1,
+"cv": "CVV",
+"words": 9
+},
+"": {
+"py": "bái",
+"num": "bai2",
+"base": "bai",
+"tone": 2,
+"cv": "CVV",
+"words": 414
+},
+"": {
+"py": "bǎi",
+"num": "bai3",
+"base": "bai",
+"tone": 3,
+"cv": "CVV",
+"words": 482
+},
+"": {
+"py": "bài",
+"num": "bai4",
+"base": "bai",
+"tone": 4,
+"cv": "CVV",
+"words": 171
+},
+"": {
+"py": "bān",
+"num": "ban1",
+"base": "ban",
+"tone": 1,
+"cv": "CVC",
+"words": 311
+},
+"": {
+"py": "bǎn",
+"num": "ban3",
+"base": "ban",
+"tone": 3,
+"cv": "CVC",
+"words": 226
+},
+"": {
+"py": "bàn",
+"num": "ban4",
+"base": "ban",
+"tone": 4,
+"cv": "CVC",
+"words": 398
+},
+"": {
+"py": "bāng",
+"num": "bang1",
+"base": "bang",
+"tone": 1,
+"cv": "CVC",
+"words": 180
+},
+"": {
+"py": "bǎng",
+"num": "bang3",
+"base": "bang",
+"tone": 3,
+"cv": "CVC",
+"words": 66
+},
+"": {
+"py": "bàng",
+"num": "bang4",
+"base": "bang",
+"tone": 4,
+"cv": "CVC",
+"words": 92
+},
+"": {
+"py": "bāo",
+"num": "bao1",
+"base": "bao",
+"tone": 1,
+"cv": "CVV",
+"words": 256
+},
+"": {
+"py": "báo",
+"num": "bao2",
+"base": "bao",
+"tone": 2,
+"cv": "CVV",
+"words": 29
+},
+"": {
+"py": "bǎo",
+"num": "bao3",
+"base": "bao",
+"tone": 3,
+"cv": "CVV",
+"words": 616
+},
+"": {
+"py": "bào",
+"num": "bao4",
+"base": "bao",
+"tone": 4,
+"cv": "CVV",
+"words": 559
+},
+"": {
+"py": "bēi",
+"num": "bei1",
+"base": "bei",
+"tone": 1,
+"cv": "CVV",
+"words": 177
+},
+"": {
+"py": "běi",
+"num": "bei3",
+"base": "bei",
+"tone": 3,
+"cv": "CVV",
+"words": 151
+},
+"": {
+"py": "bèi",
+"num": "bei4",
+"base": "bei",
+"tone": 4,
+"cv": "CVV",
+"words": 665
+},
+"": {
+"py": "bei",
+"num": "bei5",
+"base": "bei",
+"tone": 5,
+"cv": "CVV",
+"words": 3
+},
+"": {
+"py": "bēn",
+"num": "ben1",
+"base": "ben",
+"tone": 1,
+"cv": "CVC",
+"words": 38
+},
+"": {
+"py": "běn",
+"num": "ben3",
+"base": "ben",
+"tone": 3,
+"cv": "CVC",
+"words": 317
+},
+"": {
+"py": "bèn",
+"num": "ben4",
+"base": "ben",
+"tone": 4,
+"cv": "CVC",
+"words": 48
+},
+"": {
+"py": "bēng",
+"num": "beng1",
+"base": "beng",
+"tone": 1,
+"cv": "CVC",
+"words": 31
+},
+"": {
+"py": "béng",
+"num": "beng2",
+"base": "beng",
+"tone": 2,
+"cv": "CVC",
+"words": 5
+},
+"": {
+"py": "bèng",
+"num": "beng4",
+"base": "beng",
+"tone": 4,
+"cv": "CVC",
+"words": 22
+},
+"": {
+"py": "bī",
+"num": "bi1",
+"base": "bi",
+"tone": 1,
+"cv": "CV",
+"words": 61
+},
+"": {
+"py": "bí",
+"num": "bi2",
+"base": "bi",
+"tone": 2,
+"cv": "CV",
+"words": 43
+},
+"": {
+"py": "bǐ",
+"num": "bi3",
+"base": "bi",
+"tone": 3,
+"cv": "CV",
+"words": 561
+},
+"": {
+"py": "bì",
+"num": "bi4",
+"base": "bi",
+"tone": 4,
+"cv": "CV",
+"words": 574
+},
+"": {
+"py": "biān",
+"num": "bian1",
+"base": "bian",
+"tone": 1,
+"cv": "CVVC",
+"words": 286
+},
+"": {
+"py": "biǎn",
+"num": "bian3",
+"base": "bian",
+"tone": 3,
+"cv": "CVVC",
+"words": 39
+},
+"": {
+"py": "biàn",
+"num": "bian4",
+"base": "bian",
+"tone": 4,
+"cv": "CVVC",
+"words": 444
+},
+"": {
+"py": "biāo",
+"num": "biao1",
+"base": "biao",
+"tone": 1,
+"cv": "CVVV",
+"words": 137
+},
+"": {
+"py": "biǎo",
+"num": "biao3",
+"base": "biao",
+"tone": 3,
+"cv": "CVVV",
+"words": 192
+},
+"": {
+"py": "biē",
+"num": "bie1",
+"base": "bie",
+"tone": 1,
+"cv": "CVV",
+"words": 15
+},
+"": {
+"py": "bié",
+"num": "bie2",
+"base": "bie",
+"tone": 2,
+"cv": "CVV",
+"words": 553
+},
+"": {
+"py": "biě",
+"num": "bie3",
+"base": "bie",
+"tone": 3,
+"cv": "CVV",
+"words": 7
+},
+"": {
+"py": "biè",
+"num": "bie4",
+"base": "bie",
+"tone": 4,
+"cv": "CVV",
+"words": 4
+},
+"": {
+"py": "bīn",
+"num": "bin1",
+"base": "bin",
+"tone": 1,
+"cv": "CVC",
+"words": 170
+},
+"": {
+"py": "bìn",
+"num": "bin4",
+"base": "bin",
+"tone": 4,
+"cv": "CVC",
+"words": 13
+},
+"": {
+"py": "bīng",
+"num": "bing1",
+"base": "bing",
+"tone": 1,
+"cv": "CVC",
+"words": 353
+},
+"": {
+"py": "bǐng",
+"num": "bing3",
+"base": "bing",
+"tone": 3,
+"cv": "CVC",
+"words": 129
+},
+"": {
+"py": "bìng",
+"num": "bing4",
+"base": "bing",
+"tone": 4,
+"cv": "CVC",
+"words": 278
+},
+"": {
+"py": "bō",
+"num": "bo1",
+"base": "bo",
+"tone": 1,
+"cv": "CV",
+"words": 592
+},
+"": {
+"py": "bó",
+"num": "bo2",
+"base": "bo",
+"tone": 2,
+"cv": "CV",
+"words": 692
+},
+"": {
+"py": "bǒ",
+"num": "bo3",
+"base": "bo",
+"tone": 3,
+"cv": "CV",
+"words": 9
+},
+"": {
+"py": "bò",
+"num": "bo4",
+"base": "bo",
+"tone": 4,
+"cv": "CV",
+"words": 7
+},
+"": {
+"py": "bo",
+"num": "bo5",
+"base": "bo",
+"tone": 5,
+"cv": "CV",
+"words": 33
+},
+"": {
+"py": "bǔ",
+"num": "bu3",
+"base": "bu",
+"tone": 3,
+"cv": "CV",
+"words": 161
+},
+"": {
+"py": "bù",
+"num": "bu4",
+"base": "bu",
+"tone": 4,
+"cv": "CV",
+"words": 2423
+},
+"": {
+"py": "cā",
+"num": "ca1",
+"base": "ca",
+"tone": 1,
+"cv": "CV",
+"words": 70
+},
+"": {
+"py": "cāi",
+"num": "cai1",
+"base": "cai",
+"tone": 1,
+"cv": "CVV",
+"words": 42
+},
+"": {
+"py": "cái",
+"num": "cai2",
+"base": "cai",
+"tone": 2,
+"cv": "CVV",
+"words": 210
+},
+"": {
+"py": "cǎi",
+"num": "cai3",
+"base": "cai",
+"tone": 3,
+"cv": "CVV",
+"words": 182
+},
+"": {
+"py": "cài",
+"num": "cai4",
+"base": "cai",
+"tone": 4,
+"cv": "CVV",
+"words": 121
+},
+"": {
+"py": "cān",
+"num": "can1",
+"base": "can",
+"tone": 1,
+"cv": "CVC",
+"words": 184
+},
+"": {
+"py": "cán",
+"num": "can2",
+"base": "can",
+"tone": 2,
+"cv": "CVC",
+"words": 79
+},
+"": {
+"py": "cǎn",
+"num": "can3",
+"base": "can",
+"tone": 3,
+"cv": "CVC",
+"words": 38
+},
+"": {
+"py": "càn",
+"num": "can4",
+"base": "can",
+"tone": 4,
+"cv": "CVC",
+"words": 26
+},
+"": {
+"py": "cāng",
+"num": "cang1",
+"base": "cang",
+"tone": 1,
+"cv": "CVC",
+"words": 144
+},
+"": {
+"py": "cáng",
+"num": "cang2",
+"base": "cang",
+"tone": 2,
+"cv": "CVC",
+"words": 135
+},
+"": {
+"py": "cāo",
+"num": "cao1",
+"base": "cao",
+"tone": 1,
+"cv": "CVV",
+"words": 70
+},
+"": {
+"py": "cáo",
+"num": "cao2",
+"base": "cao",
+"tone": 2,
+"cv": "CVV",
+"words": 42
+},
+"": {
+"py": "cǎo",
+"num": "cao3",
+"base": "cao",
+"tone": 3,
+"cv": "CVV",
+"words": 161
+},
+"": {
+"py": "cè",
+"num": "ce4",
+"base": "ce",
+"tone": 4,
+"cv": "CV",
+"words": 201
+},
+"": {
+"py": "céng",
+"num": "ceng2",
+"base": "ceng",
+"tone": 2,
+"cv": "CVC",
+"words": 87
+},
+"": {
+"py": "cèng",
+"num": "ceng4",
+"base": "ceng",
+"tone": 4,
+"cv": "CVC",
+"words": 8
+},
+"": {
+"py": "chā",
+"num": "cha1",
+"base": "cha",
+"tone": 1,
+"cv": "CV",
+"words": 102
+},
+"": {
+"py": "chá",
+"num": "cha2",
+"base": "cha",
+"tone": 2,
+"cv": "CV",
+"words": 410
+},
+"": {
+"py": "chǎ",
+"num": "cha3",
+"base": "cha",
+"tone": 3,
+"cv": "CV",
+"words": 3
+},
+"": {
+"py": "chà",
+"num": "cha4",
+"base": "cha",
+"tone": 4,
+"cv": "CV",
+"words": 78
+},
+"": {
+"py": "chāi",
+"num": "chai1",
+"base": "chai",
+"tone": 1,
+"cv": "CVV",
+"words": 48
+},
+"": {
+"py": "chái",
+"num": "chai2",
+"base": "chai",
+"tone": 2,
+"cv": "CVV",
+"words": 45
+},
+"": {
+"py": "chān",
+"num": "chan1",
+"base": "chan",
+"tone": 1,
+"cv": "CVC",
+"words": 4
+},
+"": {
+"py": "chán",
+"num": "chan2",
+"base": "chan",
+"tone": 2,
+"cv": "CVC",
+"words": 64
+},
+"": {
+"py": "chǎn",
+"num": "chan3",
+"base": "chan",
+"tone": 3,
+"cv": "CVC",
+"words": 167
+},
+"": {
+"py": "chàn",
+"num": "chan4",
+"base": "chan",
+"tone": 4,
+"cv": "CVC",
+"words": 21
+},
+"": {
+"py": "chāng",
+"num": "chang1",
+"base": "chang",
+"tone": 1,
+"cv": "CVC",
+"words": 44
+},
+"": {
+"py": "cháng",
+"num": "chang2",
+"base": "chang",
+"tone": 2,
+"cv": "CVC",
+"words": 376
+},
+"": {
+"py": "chǎng",
+"num": "chang3",
+"base": "chang",
+"tone": 3,
+"cv": "CVC",
+"words": 383
+},
+"": {
+"py": "chàng",
+"num": "chang4",
+"base": "chang",
+"tone": 4,
+"cv": "CVC",
+"words": 129
+},
+"": {
+"py": "chāo",
+"num": "chao1",
+"base": "chao",
+"tone": 1,
+"cv": "CVV",
+"words": 193
+},
+"": {
+"py": "cháo",
+"num": "chao2",
+"base": "chao",
+"tone": 2,
+"cv": "CVV",
+"words": 145
+},
+"": {
+"py": "chǎo",
+"num": "chao3",
+"base": "chao",
+"tone": 3,
+"cv": "CVV",
+"words": 58
+},
+"": {
+"py": "chē",
+"num": "che1",
+"base": "che",
+"tone": 1,
+"cv": "CV",
+"words": 640
+},
+"": {
+"py": "chě",
+"num": "che3",
+"base": "che",
+"tone": 3,
+"cv": "CV",
+"words": 43
+},
+"": {
+"py": "chè",
+"num": "che4",
+"base": "che",
+"tone": 4,
+"cv": "CV",
+"words": 87
+},
+"": {
+"py": "chēn",
+"num": "chen1",
+"base": "chen",
+"tone": 1,
+"cv": "CVC",
+"words": 6
+},
+"": {
+"py": "chén",
+"num": "chen2",
+"base": "chen",
+"tone": 2,
+"cv": "CVC",
+"words": 290
+},
+"": {
+"py": "chèn",
+"num": "chen4",
+"base": "chen",
+"tone": 4,
+"cv": "CVC",
+"words": 54
+},
+"": {
+"py": "chēng",
+"num": "cheng1",
+"base": "cheng",
+"tone": 1,
+"cv": "CVC",
+"words": 130
+},
+"": {
+"py": "chéng",
+"num": "cheng2",
+"base": "cheng",
+"tone": 2,
+"cv": "CVC",
+"words": 1026
+},
+"": {
+"py": "chěng",
+"num": "cheng3",
+"base": "cheng",
+"tone": 3,
+"cv": "CVC",
+"words": 11
+},
+"": {
+"py": "chèng",
+"num": "cheng4",
+"base": "cheng",
+"tone": 4,
+"cv": "CVC",
+"words": 5
+},
+"": {
+"py": "chī",
+"num": "chi1",
+"base": "chi",
+"tone": 1,
+"cv": "CV",
+"words": 215
+},
+"": {
+"py": "chí",
+"num": "chi2",
+"base": "chi",
+"tone": 2,
+"cv": "CV",
+"words": 207
+},
+"": {
+"py": "chǐ",
+"num": "chi3",
+"base": "chi",
+"tone": 3,
+"cv": "CV",
+"words": 110
+},
+"": {
+"py": "chì",
+"num": "chi4",
+"base": "chi",
+"tone": 4,
+"cv": "CV",
+"words": 86
+},
+"": {
+"py": "chōng",
+"num": "chong1",
+"base": "chong",
+"tone": 1,
+"cv": "CVC",
+"words": 175
+},
+"": {
+"py": "chóng",
+"num": "chong2",
+"base": "chong",
+"tone": 2,
+"cv": "CVC",
+"words": 189
+},
+"": {
+"py": "chǒng",
+"num": "chong3",
+"base": "chong",
+"tone": 3,
+"cv": "CVC",
+"words": 24
+},
+"": {
+"py": "chōu",
+"num": "chou1",
+"base": "chou",
+"tone": 1,
+"cv": "CVV",
+"words": 68
+},
+"": {
+"py": "chóu",
+"num": "chou2",
+"base": "chou",
+"tone": 2,
+"cv": "CVV",
+"words": 133
+},
+"": {
+"py": "chǒu",
+"num": "chou3",
+"base": "chou",
+"tone": 3,
+"cv": "CVV",
+"words": 55
+},
+"": {
+"py": "chòu",
+"num": "chou4",
+"base": "chou",
+"tone": 4,
+"cv": "CVV",
+"words": 79
+},
+"": {
+"py": "chū",
+"num": "chu1",
+"base": "chu",
+"tone": 1,
+"cv": "CV",
+"words": 824
+},
+"": {
+"py": "chú",
+"num": "chu2",
+"base": "chu",
+"tone": 2,
+"cv": "CV",
+"words": 145
+},
+"": {
+"py": "chǔ",
+"num": "chu3",
+"base": "chu",
+"tone": 3,
+"cv": "CV",
+"words": 139
+},
+"": {
+"py": "chù",
+"num": "chu4",
+"base": "chu",
+"tone": 4,
+"cv": "CV",
+"words": 247
+},
+"": {
+"py": "chuāi",
+"num": "chuai1",
+"base": "chuai",
+"tone": 1,
+"cv": "CVVV",
+"words": 3
+},
+"": {
+"py": "chuài",
+"num": "chuai4",
+"base": "chuai",
+"tone": 4,
+"cv": "CVVV",
+"words": 8
+},
+"": {
+"py": "chuān",
+"num": "chuan1",
+"base": "chuan",
+"tone": 1,
+"cv": "CVVC",
+"words": 204
+},
+"": {
+"py": "chuán",
+"num": "chuan2",
+"base": "chuan",
+"tone": 2,
+"cv": "CVVC",
+"words": 393
+},
+"": {
+"py": "chuǎn",
+"num": "chuan3",
+"base": "chuan",
+"tone": 3,
+"cv": "CVVC",
+"words": 17
+},
+"": {
+"py": "chuàn",
+"num": "chuan4",
+"base": "chuan",
+"tone": 4,
+"cv": "CVVC",
+"words": 23
+},
+"": {
+"py": "chuāng",
+"num": "chuang1",
+"base": "chuang",
+"tone": 1,
+"cv": "CVVC",
+"words": 70
+},
+"": {
+"py": "chuáng",
+"num": "chuang2",
+"base": "chuang",
+"tone": 2,
+"cv": "CVVC",
+"words": 82
+},
+"": {
+"py": "chuǎng",
+"num": "chuang3",
+"base": "chuang",
+"tone": 3,
+"cv": "CVVC",
+"words": 23
+},
+"": {
+"py": "chuàng",
+"num": "chuang4",
+"base": "chuang",
+"tone": 4,
+"cv": "CVVC",
+"words": 65
+},
+"": {
+"py": "chuī",
+"num": "chui1",
+"base": "chui",
+"tone": 1,
+"cv": "CVV",
+"words": 115
+},
+"": {
+"py": "chuí",
+"num": "chui2",
+"base": "chui",
+"tone": 2,
+"cv": "CVV",
+"words": 69
+},
+"": {
+"py": "chūn",
+"num": "chun1",
+"base": "chun",
+"tone": 1,
+"cv": "CVC",
+"words": 98
+},
+"": {
+"py": "chún",
+"num": "chun2",
+"base": "chun",
+"tone": 2,
+"cv": "CVC",
+"words": 90
+},
+"": {
+"py": "chǔn",
+"num": "chun3",
+"base": "chun",
+"tone": 3,
+"cv": "CVC",
+"words": 48
+},
+"": {
+"py": "chuō",
+"num": "chuo1",
+"base": "chuo",
+"tone": 1,
+"cv": "CVV",
+"words": 17
+},
+"": {
+"py": "chuò",
+"num": "chuo4",
+"base": "chuo",
+"tone": 4,
+"cv": "CVV",
+"words": 13
+},
+"": {
+"py": "cī",
+"num": "ci1",
+"base": "ci",
+"tone": 1,
+"cv": "CV",
+"words": 19
+},
+"": {
+"py": "cí",
+"num": "ci2",
+"base": "ci",
+"tone": 2,
+"cv": "CV",
+"words": 306
+},
+"": {
+"py": "cǐ",
+"num": "ci3",
+"base": "ci",
+"tone": 3,
+"cv": "CV",
+"words": 122
+},
+"": {
+"py": "cì",
+"num": "ci4",
+"base": "ci",
+"tone": 4,
+"cv": "CV",
+"words": 220
+},
+"": {
+"py": "cōng",
+"num": "cong1",
+"base": "cong",
+"tone": 1,
+"cv": "CVC",
+"words": 57
+},
+"": {
+"py": "cóng",
+"num": "cong2",
+"base": "cong",
+"tone": 2,
+"cv": "CVC",
+"words": 210
+},
+"": {
+"py": "còu",
+"num": "cou4",
+"base": "cou",
+"tone": 4,
+"cv": "CVV",
+"words": 26
+},
+"": {
+"py": "cū",
+"num": "cu1",
+"base": "cu",
+"tone": 1,
+"cv": "CV",
+"words": 45
+},
+"": {
+"py": "cù",
+"num": "cu4",
+"base": "cu",
+"tone": 4,
+"cv": "CV",
+"words": 36
+},
+"": {
+"py": "cuān",
+"num": "cuan1",
+"base": "cuan",
+"tone": 1,
+"cv": "CVVC",
+"words": 3
+},
+"": {
+"py": "cuàn",
+"num": "cuan4",
+"base": "cuan",
+"tone": 4,
+"cv": "CVVC",
+"words": 16
+},
+"": {
+"py": "cuī",
+"num": "cui1",
+"base": "cui",
+"tone": 1,
+"cv": "CVV",
+"words": 113
+},
+"": {
+"py": "cuì",
+"num": "cui4",
+"base": "cui",
+"tone": 4,
+"cv": "CVV",
+"words": 75
+},
+"": {
+"py": "cūn",
+"num": "cun1",
+"base": "cun",
+"tone": 1,
+"cv": "CVC",
+"words": 106
+},
+"": {
+"py": "cún",
+"num": "cun2",
+"base": "cun",
+"tone": 2,
+"cv": "CVC",
+"words": 95
+},
+"": {
+"py": "cùn",
+"num": "cun4",
+"base": "cun",
+"tone": 4,
+"cv": "CVC",
+"words": 26
+},
+"": {
+"py": "cuō",
+"num": "cuo1",
+"base": "cuo",
+"tone": 1,
+"cv": "CVV",
+"words": 12
+},
+"": {
+"py": "cuó",
+"num": "cuo2",
+"base": "cuo",
+"tone": 2,
+"cv": "CVV",
+"words": 8
+},
+"": {
+"py": "cuò",
+"num": "cuo4",
+"base": "cuo",
+"tone": 4,
+"cv": "CVV",
+"words": 226
+},
+"": {
+"py": "dā",
+"num": "da1",
+"base": "da",
+"tone": 1,
+"cv": "CV",
+"words": 74
+},
+"": {
+"py": "dá",
+"num": "da2",
+"base": "da",
+"tone": 2,
+"cv": "CV",
+"words": 640
+},
+"": {
+"py": "dǎ",
+"num": "da3",
+"base": "da",
+"tone": 3,
+"cv": "CV",
+"words": 451
+},
+"": {
+"py": "dà",
+"num": "da4",
+"base": "da",
+"tone": 4,
+"cv": "CV",
+"words": 1486
+},
+"": {
+"py": "dāi",
+"num": "dai1",
+"base": "dai",
+"tone": 1,
+"cv": "CVV",
+"words": 62
+},
+"": {
+"py": "dǎi",
+"num": "dai3",
+"base": "dai",
+"tone": 3,
+"cv": "CVV",
+"words": 22
+},
+"": {
+"py": "dài",
+"num": "dai4",
+"base": "dai",
+"tone": 4,
+"cv": "CVV",
+"words": 932
+},
+"": {
+"py": "dān",
+"num": "dan1",
+"base": "dan",
+"tone": 1,
+"cv": "CVC",
+"words": 402
+},
+"": {
+"py": "dǎn",
+"num": "dan3",
+"base": "dan",
+"tone": 3,
+"cv": "CVC",
+"words": 68
+},
+"": {
+"py": "dàn",
+"num": "dan4",
+"base": "dan",
+"tone": 4,
+"cv": "CVC",
+"words": 449
+},
+"": {
+"py": "dāng",
+"num": "dang1",
+"base": "dang",
+"tone": 1,
+"cv": "CVC",
+"words": 332
+},
+"": {
+"py": "dǎng",
+"num": "dang3",
+"base": "dang",
+"tone": 3,
+"cv": "CVC",
+"words": 143
+},
+"": {
+"py": "dàng",
+"num": "dang4",
+"base": "dang",
+"tone": 4,
+"cv": "CVC",
+"words": 123
+},
+"": {
+"py": "dāo",
+"num": "dao1",
+"base": "dao",
+"tone": 1,
+"cv": "CVV",
+"words": 157
+},
+"": {
+"py": "dǎo",
+"num": "dao3",
+"base": "dao",
+"tone": 3,
+"cv": "CVV",
+"words": 379
+},
+"": {
+"py": "dào",
+"num": "dao4",
+"base": "dao",
+"tone": 4,
+"cv": "CVV",
+"words": 1277
+},
+"": {
+"py": "dé",
+"num": "de2",
+"base": "de",
+"tone": 2,
+"cv": "CV",
+"words": 1776
+},
+"": {
+"py": "de",
+"num": "de5",
+"base": "de",
+"tone": 5,
+"cv": "CV",
+"words": 102
+},
+"": {
+"py": "děi",
+"num": "dei3",
+"base": "dei",
+"tone": 3,
+"cv": "CVV",
+"words": 5
+},
+"": {
+"py": "dēng",
+"num": "deng1",
+"base": "deng",
+"tone": 1,
+"cv": "CVC",
+"words": 285
+},
+"": {
+"py": "děng",
+"num": "deng3",
+"base": "deng",
+"tone": 3,
+"cv": "CVC",
+"words": 79
+},
+"": {
+"py": "dèng",
+"num": "deng4",
+"base": "deng",
+"tone": 4,
+"cv": "CVC",
+"words": 48
+},
+"": {
+"py": "dī",
+"num": "di1",
+"base": "di",
+"tone": 1,
+"cv": "CV",
+"words": 171
+},
+"": {
+"py": "dí",
+"num": "di2",
+"base": "di",
+"tone": 2,
+"cv": "CV",
+"words": 703
+},
+"": {
+"py": "dǐ",
+"num": "di3",
+"base": "di",
+"tone": 3,
+"cv": "CV",
+"words": 177
+},
+"": {
+"py": "dì",
+"num": "di4",
+"base": "di",
+"tone": 4,
+"cv": "CV",
+"words": 1217
+},
+"": {
+"py": "di",
+"num": "di5",
+"base": "di",
+"tone": 5,
+"cv": "CV",
+"words": 3
+},
+"": {
+"py": "diān",
+"num": "dian1",
+"base": "dian",
+"tone": 1,
+"cv": "CVVC",
+"words": 61
+},
+"": {
+"py": "diǎn",
+"num": "dian3",
+"base": "dian",
+"tone": 3,
+"cv": "CVVC",
+"words": 886
+},
+"": {
+"py": "diàn",
+"num": "dian4",
+"base": "dian",
+"tone": 4,
+"cv": "CVVC",
+"words": 624
+},
+"": {
+"py": "diāo",
+"num": "diao1",
+"base": "diao",
+"tone": 1,
+"cv": "CVVV",
+"words": 49
+},
+"": {
+"py": "diǎo",
+"num": "diao3",
+"base": "diao",
+"tone": 3,
+"cv": "CVVV",
+"words": 11
+},
+"": {
+"py": "diào",
+"num": "diao4",
+"base": "diao",
+"tone": 4,
+"cv": "CVVV",
+"words": 483
+},
+"": {
+"py": "diē",
+"num": "die1",
+"base": "die",
+"tone": 1,
+"cv": "CVV",
+"words": 52
+},
+"": {
+"py": "dié",
+"num": "die2",
+"base": "die",
+"tone": 2,
+"cv": "CVV",
+"words": 73
+},
+"": {
+"py": "diè",
+"num": "die4",
+"base": "die",
+"tone": 4,
+"cv": "CVV",
+"words": 5
+},
+"": {
+"py": "dīng",
+"num": "ding1",
+"base": "ding",
+"tone": 1,
+"cv": "CVC",
+"words": 224
+},
+"": {
+"py": "dǐng",
+"num": "ding3",
+"base": "ding",
+"tone": 3,
+"cv": "CVC",
+"words": 115
+},
+"": {
+"py": "dìng",
+"num": "ding4",
+"base": "ding",
+"tone": 4,
+"cv": "CVC",
+"words": 309
+},
+"": {
+"py": "diū",
+"num": "diu1",
+"base": "diu",
+"tone": 1,
+"cv": "CVV",
+"words": 47
+},
+"": {
+"py": "dōng",
+"num": "dong1",
+"base": "dong",
+"tone": 1,
+"cv": "CVC",
+"words": 345
+},
+"": {
+"py": "dǒng",
+"num": "dong3",
+"base": "dong",
+"tone": 3,
+"cv": "CVC",
+"words": 65
+},
+"": {
+"py": "dòng",
+"num": "dong4",
+"base": "dong",
+"tone": 4,
+"cv": "CVC",
+"words": 617
+},
+"": {
+"py": "dōu",
+"num": "dou1",
+"base": "dou",
+"tone": 1,
+"cv": "CVV",
+"words": 76
+},
+"": {
+"py": "dǒu",
+"num": "dou3",
+"base": "dou",
+"tone": 3,
+"cv": "CVV",
+"words": 38
+},
+"": {
+"py": "dòu",
+"num": "dou4",
+"base": "dou",
+"tone": 4,
+"cv": "CVV",
+"words": 218
+},
+"": {
+"py": "dū",
+"num": "du1",
+"base": "du",
+"tone": 1,
+"cv": "CV",
+"words": 89
+},
+"": {
+"py": "dú",
+"num": "du2",
+"base": "du",
+"tone": 2,
+"cv": "CV",
+"words": 370
+},
+"": {
+"py": "dǔ",
+"num": "du3",
+"base": "du",
+"tone": 3,
+"cv": "CV",
+"words": 122
+},
+"": {
+"py": "dù",
+"num": "du4",
+"base": "du",
+"tone": 4,
+"cv": "CV",
+"words": 453
+},
+"": {
+"py": "duān",
+"num": "duan1",
+"base": "duan",
+"tone": 1,
+"cv": "CVVC",
+"words": 75
+},
+"": {
+"py": "duǎn",
+"num": "duan3",
+"base": "duan",
+"tone": 3,
+"cv": "CVVC",
+"words": 68
+},
+"": {
+"py": "duàn",
+"num": "duan4",
+"base": "duan",
+"tone": 4,
+"cv": "CVVC",
+"words": 224
+},
+"": {
+"py": "duī",
+"num": "dui1",
+"base": "dui",
+"tone": 1,
+"cv": "CVV",
+"words": 49
+},
+"": {
+"py": "duì",
+"num": "dui4",
+"base": "dui",
+"tone": 4,
+"cv": "CVV",
+"words": 705
+},
+"": {
+"py": "dūn",
+"num": "dun1",
+"base": "dun",
+"tone": 1,
+"cv": "CVC",
+"words": 61
+},
+"": {
+"py": "dǔn",
+"num": "dun3",
+"base": "dun",
+"tone": 3,
+"cv": "CVC",
+"words": 7
+},
+"": {
+"py": "dùn",
+"num": "dun4",
+"base": "dun",
+"tone": 4,
+"cv": "CVC",
+"words": 420
+},
+"": {
+"py": "duō",
+"num": "duo1",
+"base": "duo",
+"tone": 1,
+"cv": "CVV",
+"words": 549
+},
+"": {
+"py": "duó",
+"num": "duo2",
+"base": "duo",
+"tone": 2,
+"cv": "CVV",
+"words": 68
+},
+"": {
+"py": "duǒ",
+"num": "duo3",
+"base": "duo",
+"tone": 3,
+"cv": "CVV",
+"words": 90
+},
+"": {
+"py": "duò",
+"num": "duo4",
+"base": "duo",
+"tone": 4,
+"cv": "CVV",
+"words": 46
+},
+"": {
+"py": "ē",
+"num": "e1",
+"base": "e",
+"tone": 1,
+"cv": "V",
+"words": 8
+},
+"": {
+"py": "é",
+"num": "e2",
+"base": "e",
+"tone": 2,
+"cv": "V",
+"words": 151
+},
+"": {
+"py": "ě",
+"num": "e3",
+"base": "e",
+"tone": 3,
+"cv": "V",
+"words": 7
+},
+"": {
+"py": "è",
+"num": "e4",
+"base": "e",
+"tone": 4,
+"cv": "V",
+"words": 261
+},
+"": {
+"py": "éi",
+"num": "ei2",
+"base": "ei",
+"tone": 2,
+"cv": "VV",
+"words": 6
+},
+"": {
+"py": "ēn",
+"num": "en1",
+"base": "en",
+"tone": 1,
+"cv": "VC",
+"words": 365
+},
+"": {
+"py": "èn",
+"num": "en4",
+"base": "en",
+"tone": 4,
+"cv": "VC",
+"words": 4
+},
+"": {
+"py": "ér",
+"num": "er2",
+"base": "er",
+"tone": 2,
+"cv": "VC",
+"words": 681
+},
+"": {
+"py": "ěr",
+"num": "er3",
+"base": "er",
+"tone": 3,
+"cv": "VC",
+"words": 2121
+},
+"": {
+"py": "èr",
+"num": "er4",
+"base": "er",
+"tone": 4,
+"cv": "VC",
+"words": 303
+},
+"": {
+"py": "er",
+"num": "er5",
+"base": "er",
+"tone": 5,
+"cv": "VC",
+"words": 52
+},
+"": {
+"py": "fā",
+"num": "fa1",
+"base": "fa",
+"tone": 1,
+"cv": "CV",
+"words": 521
+},
+"": {
+"py": "fá",
+"num": "fa2",
+"base": "fa",
+"tone": 2,
+"cv": "CV",
+"words": 81
+},
+"": {
+"py": "fǎ",
+"num": "fa3",
+"base": "fa",
+"tone": 3,
+"cv": "CV",
+"words": 514
+},
+"": {
+"py": "fà",
+"num": "fa4",
+"base": "fa",
+"tone": 4,
+"cv": "CV",
+"words": 56
+},
+"": {
+"py": "fān",
+"num": "fan1",
+"base": "fan",
+"tone": 1,
+"cv": "CVC",
+"words": 177
+},
+"": {
+"py": "fán",
+"num": "fan2",
+"base": "fan",
+"tone": 2,
+"cv": "CVC",
+"words": 174
+},
+"": {
+"py": "fǎn",
+"num": "fan3",
+"base": "fan",
+"tone": 3,
+"cv": "CVC",
+"words": 200
+},
+"": {
+"py": "fàn",
+"num": "fan4",
+"base": "fan",
+"tone": 4,
+"cv": "CVC",
+"words": 430
+},
+"": {
+"py": "fāng",
+"num": "fang1",
+"base": "fang",
+"tone": 1,
+"cv": "CVC",
+"words": 298
+},
+"": {
+"py": "fáng",
+"num": "fang2",
+"base": "fang",
+"tone": 2,
+"cv": "CVC",
+"words": 343
+},
+"": {
+"py": "fǎng",
+"num": "fang3",
+"base": "fang",
+"tone": 3,
+"cv": "CVC",
+"words": 71
+},
+"": {
+"py": "fàng",
+"num": "fang4",
+"base": "fang",
+"tone": 4,
+"cv": "CVC",
+"words": 291
+},
+"": {
+"py": "fēi",
+"num": "fei1",
+"base": "fei",
+"tone": 1,
+"cv": "CVV",
+"words": 750
+},
+"": {
+"py": "féi",
+"num": "fei2",
+"base": "fei",
+"tone": 2,
+"cv": "CVV",
+"words": 75
+},
+"": {
+"py": "fěi",
+"num": "fei3",
+"base": "fei",
+"tone": 3,
+"cv": "CVV",
+"words": 58
+},
+"": {
+"py": "fèi",
+"num": "fei4",
+"base": "fei",
+"tone": 4,
+"cv": "CVV",
+"words": 470
+},
+"": {
+"py": "fēn",
+"num": "fen1",
+"base": "fen",
+"tone": 1,
+"cv": "CVC",
+"words": 490
+},
+"": {
+"py": "fén",
+"num": "fen2",
+"base": "fen",
+"tone": 2,
+"cv": "CVC",
+"words": 32
+},
+"": {
+"py": "fěn",
+"num": "fen3",
+"base": "fen",
+"tone": 3,
+"cv": "CVC",
+"words": 77
+},
+"": {
+"py": "fèn",
+"num": "fen4",
+"base": "fen",
+"tone": 4,
+"cv": "CVC",
+"words": 213
+},
+"": {
+"py": "fēng",
+"num": "feng1",
+"base": "feng",
+"tone": 1,
+"cv": "CVC",
+"words": 752
+},
+"": {
+"py": "féng",
+"num": "feng2",
+"base": "feng",
+"tone": 2,
+"cv": "CVC",
+"words": 49
+},
+"": {
+"py": "fěng",
+"num": "feng3",
+"base": "feng",
+"tone": 3,
+"cv": "CVC",
+"words": 15
+},
+"": {
+"py": "fèng",
+"num": "feng4",
+"base": "feng",
+"tone": 4,
+"cv": "CVC",
+"words": 117
+},
+"": {
+"py": "fó",
+"num": "fo2",
+"base": "fo",
+"tone": 2,
+"cv": "CV",
+"words": 28
+},
+"": {
+"py": "fǒu",
+"num": "fou3",
+"base": "fou",
+"tone": 3,
+"cv": "CVV",
+"words": 31
+},
+"": {
+"py": "fū",
+"num": "fu1",
+"base": "fu",
+"tone": 1,
+"cv": "CV",
+"words": 583
+},
+"": {
+"py": "fú",
+"num": "fu2",
+"base": "fu",
+"tone": 2,
+"cv": "CV",
+"words": 1248
+},
+"": {
+"py": "fǔ",
+"num": "fu3",
+"base": "fu",
+"tone": 3,
+"cv": "CV",
+"words": 170
+},
+"": {
+"py": "fù",
+"num": "fu4",
+"base": "fu",
+"tone": 4,
+"cv": "CV",
+"words": 822
+},
+"": {
+"py": "fu",
+"num": "fu5",
+"base": "fu",
+"tone": 5,
+"cv": "CV",
+"words": 4
+},
+"": {
+"py": "gā",
+"num": "ga1",
+"base": "ga",
+"tone": 1,
+"cv": "CV",
+"words": 48
+},
+"": {
+"py": "gà",
+"num": "ga4",
+"base": "ga",
+"tone": 4,
+"cv": "CV",
+"words": 6
+},
+"": {
+"py": "gāi",
+"num": "gai1",
+"base": "gai",
+"tone": 1,
+"cv": "CVV",
+"words": 103
+},
+"": {
+"py": "gǎi",
+"num": "gai3",
+"base": "gai",
+"tone": 3,
+"cv": "CVV",
+"words": 111
+},
+"": {
+"py": "gài",
+"num": "gai4",
+"base": "gai",
+"tone": 4,
+"cv": "CVV",
+"words": 194
+},
+"": {
+"py": "gān",
+"num": "gan1",
+"base": "gan",
+"tone": 1,
+"cv": "CVC",
+"words": 229
+},
+"": {
+"py": "gǎn",
+"num": "gan3",
+"base": "gan",
+"tone": 3,
+"cv": "CVC",
+"words": 320
+},
+"": {
+"py": "gàn",
+"num": "gan4",
+"base": "gan",
+"tone": 4,
+"cv": "CVC",
+"words": 199
+},
+"": {
+"py": "gāng",
+"num": "gang1",
+"base": "gang",
+"tone": 1,
+"cv": "CVC",
+"words": 256
+},
+"": {
+"py": "gǎng",
+"num": "gang3",
+"base": "gang",
+"tone": 3,
+"cv": "CVC",
+"words": 66
+},
+"": {
+"py": "gàng",
+"num": "gang4",
+"base": "gang",
+"tone": 4,
+"cv": "CVC",
+"words": 9
+},
+"": {
+"py": "gāo",
+"num": "gao1",
+"base": "gao",
+"tone": 1,
+"cv": "CVV",
+"words": 534
+},
+"": {
+"py": "gǎo",
+"num": "gao3",
+"base": "gao",
+"tone": 3,
+"cv": "CVV",
+"words": 80
+},
+"": {
+"py": "gào",
+"num": "gao4",
+"base": "gao",
+"tone": 4,
+"cv": "CVV",
+"words": 134
+},
+"": {
+"py": "gē",
+"num": "ge1",
+"base": "ge",
+"tone": 1,
+"cv": "CV",
+"words": 760
+},
+"": {
+"py": "gé",
+"num": "ge2",
+"base": "ge",
+"tone": 2,
+"cv": "CV",
+"words": 1031
+},
+"": {
+"py": "gě",
+"num": "ge3",
+"base": "ge",
+"tone": 3,
+"cv": "CV",
+"words": 6
+},
+"": {
+"py": "gè",
+"num": "ge4",
+"base": "ge",
+"tone": 4,
+"cv": "CV",
+"words": 585
+},
+"": {
+"py": "ge",
+"num": "ge5",
+"base": "ge",
+"tone": 5,
+"cv": "CV",
+"words": 4
+},
+"": {
+"py": "gěi",
+"num": "gei3",
+"base": "gei",
+"tone": 3,
+"cv": "CVV",
+"words": 225
+},
+"": {
+"py": "gēn",
+"num": "gen1",
+"base": "gen",
+"tone": 1,
+"cv": "CVC",
+"words": 242
+},
+"": {
+"py": "gěn",
+"num": "gen3",
+"base": "gen",
+"tone": 3,
+"cv": "CVC",
+"words": 5
+},
+"": {
+"py": "gèn",
+"num": "gen4",
+"base": "gen",
+"tone": 4,
+"cv": "CVC",
+"words": 5
+},
+"": {
+"py": "gēng",
+"num": "geng1",
+"base": "geng",
+"tone": 1,
+"cv": "CVC",
+"words": 45
+},
+"": {
+"py": "gěng",
+"num": "geng3",
+"base": "geng",
+"tone": 3,
+"cv": "CVC",
+"words": 27
+},
+"": {
+"py": "gèng",
+"num": "geng4",
+"base": "geng",
+"tone": 4,
+"cv": "CVC",
+"words": 14
+},
+"": {
+"py": "gōng",
+"num": "gong1",
+"base": "gong",
+"tone": 1,
+"cv": "CVC",
+"words": 910
+},
+"": {
+"py": "gǒng",
+"num": "gong3",
+"base": "gong",
+"tone": 3,
+"cv": "CVC",
+"words": 14
+},
+"": {
+"py": "gòng",
+"num": "gong4",
+"base": "gong",
+"tone": 4,
+"cv": "CVC",
+"words": 131
+},
+"": {
+"py": "gōu",
+"num": "gou1",
+"base": "gou",
+"tone": 1,
+"cv": "CVV",
+"words": 97
+},
+"": {
+"py": "gǒu",
+"num": "gou3",
+"base": "gou",
+"tone": 3,
+"cv": "CVV",
+"words": 169
+},
+"": {
+"py": "gòu",
+"num": "gou4",
+"base": "gou",
+"tone": 4,
+"cv": "CVV",
+"words": 179
+},
+"": {
+"py": "gū",
+"num": "gu1",
+"base": "gu",
+"tone": 1,
+"cv": "CV",
+"words": 210
+},
+"": {
+"py": "gǔ",
+"num": "gu3",
+"base": "gu",
+"tone": 3,
+"cv": "CV",
+"words": 555
+},
+"": {
+"py": "gù",
+"num": "gu4",
+"base": "gu",
+"tone": 4,
+"cv": "CV",
+"words": 211
+},
+"": {
+"py": "guā",
+"num": "gua1",
+"base": "gua",
+"tone": 1,
+"cv": "CVV",
+"words": 103
+},
+"": {
+"py": "guǎ",
+"num": "gua3",
+"base": "gua",
+"tone": 3,
+"cv": "CVV",
+"words": 26
+},
+"": {
+"py": "guà",
+"num": "gua4",
+"base": "gua",
+"tone": 4,
+"cv": "CVV",
+"words": 67
+},
+"": {
+"py": "guāi",
+"num": "guai1",
+"base": "guai",
+"tone": 1,
+"cv": "CVVV",
+"words": 27
+},
+"": {
+"py": "guǎi",
+"num": "guai3",
+"base": "guai",
+"tone": 3,
+"cv": "CVVV",
+"words": 25
+},
+"": {
+"py": "guài",
+"num": "guai4",
+"base": "guai",
+"tone": 4,
+"cv": "CVVV",
+"words": 134
+},
+"": {
+"py": "guān",
+"num": "guan1",
+"base": "guan",
+"tone": 1,
+"cv": "CVVC",
+"words": 665
+},
+"": {
+"py": "guǎn",
+"num": "guan3",
+"base": "guan",
+"tone": 3,
+"cv": "CVVC",
+"words": 311
+},
+"": {
+"py": "guàn",
+"num": "guan4",
+"base": "guan",
+"tone": 4,
+"cv": "CVVC",
+"words": 132
+},
+"": {
+"py": "guāng",
+"num": "guang1",
+"base": "guang",
+"tone": 1,
+"cv": "CVVC",
+"words": 363
+},
+"": {
+"py": "guǎng",
+"num": "guang3",
+"base": "guang",
+"tone": 3,
+"cv": "CVVC",
+"words": 81
+},
+"": {
+"py": "guàng",
+"num": "guang4",
+"base": "guang",
+"tone": 4,
+"cv": "CVVC",
+"words": 12
+},
+"": {
+"py": "guī",
+"num": "gui1",
+"base": "gui",
+"tone": 1,
+"cv": "CVV",
+"words": 296
+},
+"": {
+"py": "guǐ",
+"num": "gui3",
+"base": "gui",
+"tone": 3,
+"cv": "CVV",
+"words": 230
+},
+"": {
+"py": "guì",
+"num": "gui4",
+"base": "gui",
+"tone": 4,
+"cv": "CVV",
+"words": 197
+},
+"": {
+"py": "gǔn",
+"num": "gun3",
+"base": "gun",
+"tone": 3,
+"cv": "CVC",
+"words": 74
+},
+"": {
+"py": "gùn",
+"num": "gun4",
+"base": "gun",
+"tone": 4,
+"cv": "CVC",
+"words": 34
+},
+"": {
+"py": "guō",
+"num": "guo1",
+"base": "guo",
+"tone": 1,
+"cv": "CVV",
+"words": 48
+},
+"": {
+"py": "guó",
+"num": "guo2",
+"base": "guo",
+"tone": 2,
+"cv": "CVV",
+"words": 411
+},
+"": {
+"py": "guǒ",
+"num": "guo3",
+"base": "guo",
+"tone": 3,
+"cv": "CVV",
+"words": 169
+},
+"": {
+"py": "guò",
+"num": "guo4",
+"base": "guo",
+"tone": 4,
+"cv": "CVV",
+"words": 634
+},
+"": {
+"py": "hā",
+"num": "ha1",
+"base": "ha",
+"tone": 1,
+"cv": "CV",
+"words": 390
+},
+"": {
+"py": "há",
+"num": "ha2",
+"base": "ha",
+"tone": 2,
+"cv": "CV",
+"words": 14
+},
+"": {
+"py": "hāi",
+"num": "hai1",
+"base": "hai",
+"tone": 1,
+"cv": "CVV",
+"words": 11
+},
+"": {
+"py": "hái",
+"num": "hai2",
+"base": "hai",
+"tone": 2,
+"cv": "CVV",
+"words": 217
+},
+"": {
+"py": "hǎi",
+"num": "hai3",
+"base": "hai",
+"tone": 3,
+"cv": "CVV",
+"words": 482
+},
+"": {
+"py": "hài",
+"num": "hai4",
+"base": "hai",
+"tone": 4,
+"cv": "CVV",
+"words": 143
+},
+"": {
+"py": "hān",
+"num": "han1",
+"base": "han",
+"tone": 1,
+"cv": "CVC",
+"words": 11
+},
+"": {
+"py": "hán",
+"num": "han2",
+"base": "han",
+"tone": 2,
+"cv": "CVC",
+"words": 191
+},
+"": {
+"py": "hǎn",
+"num": "han3",
+"base": "han",
+"tone": 3,
+"cv": "CVC",
+"words": 63
+},
+"": {
+"py": "hàn",
+"num": "han4",
+"base": "han",
+"tone": 4,
+"cv": "CVC",
+"words": 352
+},
+"": {
+"py": "háng",
+"num": "hang2",
+"base": "hang",
+"tone": 2,
+"cv": "CVC",
+"words": 151
+},
+"": {
+"py": "háo",
+"num": "hao2",
+"base": "hao",
+"tone": 2,
+"cv": "CVV",
+"words": 138
+},
+"": {
+"py": "hǎo",
+"num": "hao3",
+"base": "hao",
+"tone": 3,
+"cv": "CVV",
+"words": 683
+},
+"": {
+"py": "hào",
+"num": "hao4",
+"base": "hao",
+"tone": 4,
+"cv": "CVV",
+"words": 426
+},
+"": {
+"py": "hē",
+"num": "he1",
+"base": "he",
+"tone": 1,
+"cv": "CV",
+"words": 85
+},
+"": {
+"py": "hé",
+"num": "he2",
+"base": "he",
+"tone": 2,
+"cv": "CV",
+"words": 902
+},
+"": {
+"py": "hè",
+"num": "he4",
+"base": "he",
+"tone": 4,
+"cv": "CV",
+"words": 259
+},
+"": {
+"py": "hēi",
+"num": "hei1",
+"base": "hei",
+"tone": 1,
+"cv": "CVV",
+"words": 342
+},
+"": {
+"py": "hén",
+"num": "hen2",
+"base": "hen",
+"tone": 2,
+"cv": "CVC",
+"words": 38
+},
+"": {
+"py": "hěn",
+"num": "hen3",
+"base": "hen",
+"tone": 3,
+"cv": "CVC",
+"words": 36
+},
+"": {
+"py": "hèn",
+"num": "hen4",
+"base": "hen",
+"tone": 4,
+"cv": "CVC",
+"words": 37
+},
+"": {
+"py": "hēng",
+"num": "heng1",
+"base": "heng",
+"tone": 1,
+"cv": "CVC",
+"words": 55
+},
+"": {
+"py": "héng",
+"num": "heng2",
+"base": "heng",
+"tone": 2,
+"cv": "CVC",
+"words": 99
+},
+"": {
+"py": "hèng",
+"num": "heng4",
+"base": "heng",
+"tone": 4,
+"cv": "CVC",
+"words": 7
+},
+"": {
+"py": "hōng",
+"num": "hong1",
+"base": "hong",
+"tone": 1,
+"cv": "CVC",
+"words": 54
+},
+"": {
+"py": "hóng",
+"num": "hong2",
+"base": "hong",
+"tone": 2,
+"cv": "CVC",
+"words": 372
+},
+"": {
+"py": "hǒng",
+"num": "hong3",
+"base": "hong",
+"tone": 3,
+"cv": "CVC",
+"words": 10
+},
+"": {
+"py": "hóu",
+"num": "hou2",
+"base": "hou",
+"tone": 2,
+"cv": "CVV",
+"words": 88
+},
+"": {
+"py": "hǒu",
+"num": "hou3",
+"base": "hou",
+"tone": 3,
+"cv": "CVV",
+"words": 23
+},
+"": {
+"py": "hòu",
+"num": "hou4",
+"base": "hou",
+"tone": 4,
+"cv": "CVV",
+"words": 509
+},
+"": {
+"py": "hū",
+"num": "hu1",
+"base": "hu",
+"tone": 1,
+"cv": "CV",
+"words": 177
+},
+"": {
+"py": "hú",
+"num": "hu2",
+"base": "hu",
+"tone": 2,
+"cv": "CV",
+"words": 336
+},
+"": {
+"py": "hǔ",
+"num": "hu3",
+"base": "hu",
+"tone": 3,
+"cv": "CV",
+"words": 117
+},
+"": {
+"py": "hù",
+"num": "hu4",
+"base": "hu",
+"tone": 4,
+"cv": "CV",
+"words": 279
+},
+"": {
+"py": "huā",
+"num": "hua1",
+"base": "hua",
+"tone": 1,
+"cv": "CVV",
+"words": 365
+},
+"": {
+"py": "huá",
+"num": "hua2",
+"base": "hua",
+"tone": 2,
+"cv": "CVV",
+"words": 333
+},
+"": {
+"py": "huà",
+"num": "hua4",
+"base": "hua",
+"tone": 4,
+"cv": "CVV",
+"words": 816
+},
+"": {
+"py": "huái",
+"num": "huai2",
+"base": "huai",
+"tone": 2,
+"cv": "CVVV",
+"words": 112
+},
+"": {
+"py": "huài",
+"num": "huai4",
+"base": "huai",
+"tone": 4,
+"cv": "CVVV",
+"words": 131
+},
+"": {
+"py": "huān",
+"num": "huan1",
+"base": "huan",
+"tone": 1,
+"cv": "CVVC",
+"words": 93
+},
+"": {
+"py": "huán",
+"num": "huan2",
+"base": "huan",
+"tone": 2,
+"cv": "CVVC",
+"words": 139
+},
+"": {
+"py": "huǎn",
+"num": "huan3",
+"base": "huan",
+"tone": 3,
+"cv": "CVVC",
+"words": 31
+},
+"": {
+"py": "huàn",
+"num": "huan4",
+"base": "huan",
+"tone": 4,
+"cv": "CVVC",
+"words": 269
+},
+"": {
+"py": "huāng",
+"num": "huang1",
+"base": "huang",
+"tone": 1,
+"cv": "CVVC",
+"words": 68
+},
+"": {
+"py": "huáng",
+"num": "huang2",
+"base": "huang",
+"tone": 2,
+"cv": "CVVC",
+"words": 311
+},
+"": {
+"py": "huǎng",
+"num": "huang3",
+"base": "huang",
+"tone": 3,
+"cv": "CVVC",
+"words": 64
+},
+"": {
+"py": "huàng",
+"num": "huang4",
+"base": "huang",
+"tone": 4,
+"cv": "CVVC",
+"words": 8
+},
+"": {
+"py": "huī",
+"num": "hui1",
+"base": "hui",
+"tone": 1,
+"cv": "CVV",
+"words": 191
+},
+"": {
+"py": "huí",
+"num": "hui2",
+"base": "hui",
+"tone": 2,
+"cv": "CVV",
+"words": 410
+},
+"": {
+"py": "huǐ",
+"num": "hui3",
+"base": "hui",
+"tone": 3,
+"cv": "CVV",
+"words": 96
+},
+"": {
+"py": "huì",
+"num": "hui4",
+"base": "hui",
+"tone": 4,
+"cv": "CVV",
+"words": 1139
+},
+"": {
+"py": "hūn",
+"num": "hun1",
+"base": "hun",
+"tone": 1,
+"cv": "CVC",
+"words": 140
+},
+"": {
+"py": "hún",
+"num": "hun2",
+"base": "hun",
+"tone": 2,
+"cv": "CVC",
+"words": 84
+},
+"": {
+"py": "hùn",
+"num": "hun4",
+"base": "hun",
+"tone": 4,
+"cv": "CVC",
+"words": 87
+},
+"": {
+"py": "huó",
+"num": "huo2",
+"base": "huo",
+"tone": 2,
+"cv": "CVV",
+"words": 195
+},
+"": {
+"py": "huǒ",
+"num": "huo3",
+"base": "huo",
+"tone": 3,
+"cv": "CVV",
+"words": 455
+},
+"": {
+"py": "huò",
+"num": "huo4",
+"base": "huo",
+"tone": 4,
+"cv": "CVV",
+"words": 473
+},
+"": {
+"py": "huo",
+"num": "huo5",
+"base": "huo",
+"tone": 5,
+"cv": "CVV",
+"words": 22
+},
+"": {
+"py": "jī",
+"num": "ji1",
+"base": "ji",
+"tone": 1,
+"cv": "CV",
+"words": 1604
+},
+"": {
+"py": "jí",
+"num": "ji2",
+"base": "ji",
+"tone": 2,
+"cv": "CV",
+"words": 1051
+},
+"": {
+"py": "jǐ",
+"num": "ji3",
+"base": "ji",
+"tone": 3,
+"cv": "CV",
+"words": 247
+},
+"": {
+"py": "jì",
+"num": "ji4",
+"base": "ji",
+"tone": 4,
+"cv": "CV",
+"words": 961
+},
+"": {
+"py": "jiā",
+"num": "jia1",
+"base": "jia",
+"tone": 1,
+"cv": "CVV",
+"words": 1440
+},
+"": {
+"py": "jiá",
+"num": "jia2",
+"base": "jia",
+"tone": 2,
+"cv": "CVV",
+"words": 16
+},
+"": {
+"py": "jiǎ",
+"num": "jia3",
+"base": "jia",
+"tone": 3,
+"cv": "CVV",
+"words": 276
+},
+"": {
+"py": "jià",
+"num": "jia4",
+"base": "jia",
+"tone": 4,
+"cv": "CVV",
+"words": 309
+},
+"": {
+"py": "jia",
+"num": "jia5",
+"base": "jia",
+"tone": 5,
+"cv": "CVV",
+"words": 3
+},
+"": {
+"py": "jiān",
+"num": "jian1",
+"base": "jian",
+"tone": 1,
+"cv": "CVVC",
+"words": 558
+},
+"": {
+"py": "jiǎn",
+"num": "jian3",
+"base": "jian",
+"tone": 3,
+"cv": "CVVC",
+"words": 313
+},
+"": {
+"py": "jiàn",
+"num": "jian4",
+"base": "jian",
+"tone": 4,
+"cv": "CVVC",
+"words": 903
+},
+"": {
+"py": "jiāng",
+"num": "jiang1",
+"base": "jiang",
+"tone": 1,
+"cv": "CVVC",
+"words": 257
+},
+"": {
+"py": "jiǎng",
+"num": "jiang3",
+"base": "jiang",
+"tone": 3,
+"cv": "CVVC",
+"words": 179
+},
+"": {
+"py": "jiàng",
+"num": "jiang4",
+"base": "jiang",
+"tone": 4,
+"cv": "CVVC",
+"words": 166
+},
+"": {
+"py": "jiāo",
+"num": "jiao1",
+"base": "jiao",
+"tone": 1,
+"cv": "CVVV",
+"words": 417
+},
+"": {
+"py": "jiǎo",
+"num": "jiao3",
+"base": "jiao",
+"tone": 3,
+"cv": "CVVV",
+"words": 437
+},
+"": {
+"py": "jiào",
+"num": "jiao4",
+"base": "jiao",
+"tone": 4,
+"cv": "CVVV",
+"words": 378
+},
+"": {
+"py": "jiē",
+"num": "jie1",
+"base": "jie",
+"tone": 1,
+"cv": "CVV",
+"words": 405
+},
+"": {
+"py": "jié",
+"num": "jie2",
+"base": "jie",
+"tone": 2,
+"cv": "CVV",
+"words": 828
+},
+"": {
+"py": "jiě",
+"num": "jie3",
+"base": "jie",
+"tone": 3,
+"cv": "CVV",
+"words": 260
+},
+"": {
+"py": "jiè",
+"num": "jie4",
+"base": "jie",
+"tone": 4,
+"cv": "CVV",
+"words": 358
+},
+"": {
+"py": "jīn",
+"num": "jin1",
+"base": "jin",
+"tone": 1,
+"cv": "CVC",
+"words": 803
+},
+"": {
+"py": "jǐn",
+"num": "jin3",
+"base": "jin",
+"tone": 3,
+"cv": "CVC",
+"words": 339
+},
+"": {
+"py": "jìn",
+"num": "jin4",
+"base": "jin",
+"tone": 4,
+"cv": "CVC",
+"words": 815
+},
+"": {
+"py": "jīng",
+"num": "jing1",
+"base": "jing",
+"tone": 1,
+"cv": "CVC",
+"words": 620
+},
+"": {
+"py": "jǐng",
+"num": "jing3",
+"base": "jing",
+"tone": 3,
+"cv": "CVC",
+"words": 391
+},
+"": {
+"py": "jìng",
+"num": "jing4",
+"base": "jing",
+"tone": 4,
+"cv": "CVC",
+"words": 450
+},
+"": {
+"py": "jiǒng",
+"num": "jiong3",
+"base": "jiong",
+"tone": 3,
+"cv": "CVVC",
+"words": 18
+},
+"": {
+"py": "jiū",
+"num": "jiu1",
+"base": "jiu",
+"tone": 1,
+"cv": "CVV",
+"words": 67
+},
+"": {
+"py": "jiǔ",
+"num": "jiu3",
+"base": "jiu",
+"tone": 3,
+"cv": "CVV",
+"words": 555
+},
+"": {
+"py": "jiù",
+"num": "jiu4",
+"base": "jiu",
+"tone": 4,
+"cv": "CVV",
+"words": 316
+},
+"": {
+"py": "jū",
+"num": "ju1",
+"base": "ju",
+"tone": 1,
+"cv": "CV",
+"words": 143
+},
+"": {
+"py": "jú",
+"num": "ju2",
+"base": "ju",
+"tone": 2,
+"cv": "CV",
+"words": 202
+},
+"": {
+"py": "jǔ",
+"num": "ju3",
+"base": "ju",
+"tone": 3,
+"cv": "CV",
+"words": 129
+},
+"": {
+"py": "jù",
+"num": "ju4",
+"base": "ju",
+"tone": 4,
+"cv": "CV",
+"words": 513
+},
+"": {
+"py": "juān",
+"num": "juan1",
+"base": "juan",
+"tone": 1,
+"cv": "CVVC",
+"words": 46
+},
+"": {
+"py": "juǎn",
+"num": "juan3",
+"base": "juan",
+"tone": 3,
+"cv": "CVVC",
+"words": 70
+},
+"": {
+"py": "juàn",
+"num": "juan4",
+"base": "juan",
+"tone": 4,
+"cv": "CVVC",
+"words": 40
+},
+"": {
+"py": "juē",
+"num": "jue1",
+"base": "jue",
+"tone": 1,
+"cv": "CVV",
+"words": 6
+},
+"": {
+"py": "jué",
+"num": "jue2",
+"base": "jue",
+"tone": 2,
+"cv": "CVV",
+"words": 453
+},
+"": {
+"py": "jūn",
+"num": "jun1",
+"base": "jun",
+"tone": 1,
+"cv": "CVC",
+"words": 467
+},
+"": {
+"py": "jùn",
+"num": "jun4",
+"base": "jun",
+"tone": 4,
+"cv": "CVC",
+"words": 117
+},
+"": {
+"py": "kā",
+"num": "ka1",
+"base": "ka",
+"tone": 1,
+"cv": "CV",
+"words": 64
+},
+"": {
+"py": "kǎ",
+"num": "ka3",
+"base": "ka",
+"tone": 3,
+"cv": "CV",
+"words": 913
+},
+"": {
+"py": "kāi",
+"num": "kai1",
+"base": "kai",
+"tone": 1,
+"cv": "CVV",
+"words": 635
+},
+"": {
+"py": "kǎi",
+"num": "kai3",
+"base": "kai",
+"tone": 3,
+"cv": "CVV",
+"words": 233
+},
+"": {
+"py": "kān",
+"num": "kan1",
+"base": "kan",
+"tone": 1,
+"cv": "CVC",
+"words": 75
+},
+"": {
+"py": "kǎn",
+"num": "kan3",
+"base": "kan",
+"tone": 3,
+"cv": "CVC",
+"words": 85
+},
+"": {
+"py": "kàn",
+"num": "kan4",
+"base": "kan",
+"tone": 4,
+"cv": "CVC",
+"words": 221
+},
+"": {
+"py": "kāng",
+"num": "kang1",
+"base": "kang",
+"tone": 1,
+"cv": "CVC",
+"words": 167
+},
+"": {
+"py": "káng",
+"num": "kang2",
+"base": "kang",
+"tone": 2,
+"cv": "CVC",
+"words": 6
+},
+"": {
+"py": "kàng",
+"num": "kang4",
+"base": "kang",
+"tone": 4,
+"cv": "CVC",
+"words": 64
+},
+"": {
+"py": "kǎo",
+"num": "kao3",
+"base": "kao",
+"tone": 3,
+"cv": "CVV",
+"words": 195
+},
+"": {
+"py": "kào",
+"num": "kao4",
+"base": "kao",
+"tone": 4,
+"cv": "CVV",
+"words": 55
+},
+"": {
+"py": "kē",
+"num": "ke1",
+"base": "ke",
+"tone": 1,
+"cv": "CV",
+"words": 673
+},
+"": {
+"py": "ké",
+"num": "ke2",
+"base": "ke",
+"tone": 2,
+"cv": "CV",
+"words": 45
+},
+"": {
+"py": "kě",
+"num": "ke3",
+"base": "ke",
+"tone": 3,
+"cv": "CV",
+"words": 399
+},
+"": {
+"py": "kè",
+"num": "ke4",
+"base": "ke",
+"tone": 4,
+"cv": "CV",
+"words": 2078
+},
+"": {
+"py": "kěn",
+"num": "ken3",
+"base": "ken",
+"tone": 3,
+"cv": "CVC",
+"words": 147
+},
+"": {
+"py": "kēng",
+"num": "keng1",
+"base": "keng",
+"tone": 1,
+"cv": "CVC",
+"words": 30
+},
+"": {
+"py": "kōng",
+"num": "kong1",
+"base": "kong",
+"tone": 1,
+"cv": "CVC",
+"words": 276
+},
+"": {
+"py": "kǒng",
+"num": "kong3",
+"base": "kong",
+"tone": 3,
+"cv": "CVC",
+"words": 85
+},
+"": {
+"py": "kòng",
+"num": "kong4",
+"base": "kong",
+"tone": 4,
+"cv": "CVC",
+"words": 87
+},
+"": {
+"py": "kǒu",
+"num": "kou3",
+"base": "kou",
+"tone": 3,
+"cv": "CVV",
+"words": 370
+},
+"": {
+"py": "kòu",
+"num": "kou4",
+"base": "kou",
+"tone": 4,
+"cv": "CVV",
+"words": 100
+},
+"": {
+"py": "kū",
+"num": "ku1",
+"base": "ku",
+"tone": 1,
+"cv": "CV",
+"words": 90
+},
+"": {
+"py": "kǔ",
+"num": "ku3",
+"base": "ku",
+"tone": 3,
+"cv": "CV",
+"words": 117
+},
+"": {
+"py": "kù",
+"num": "ku4",
+"base": "ku",
+"tone": 4,
+"cv": "CV",
+"words": 306
+},
+"": {
+"py": "kuā",
+"num": "kua1",
+"base": "kua",
+"tone": 1,
+"cv": "CVV",
+"words": 25
+},
+"": {
+"py": "kuǎ",
+"num": "kua3",
+"base": "kua",
+"tone": 3,
+"cv": "CVV",
+"words": 17
+},
+"": {
+"py": "kuà",
+"num": "kua4",
+"base": "kua",
+"tone": 4,
+"cv": "CVV",
+"words": 29
+},
+"": {
+"py": "kuài",
+"num": "kuai4",
+"base": "kuai",
+"tone": 4,
+"cv": "CVVV",
+"words": 358
+},
+"": {
+"py": "kuān",
+"num": "kuan1",
+"base": "kuan",
+"tone": 1,
+"cv": "CVVC",
+"words": 56
+},
+"": {
+"py": "kuǎn",
+"num": "kuan3",
+"base": "kuan",
+"tone": 3,
+"cv": "CVVC",
+"words": 79
+},
+"": {
+"py": "kuāng",
+"num": "kuang1",
+"base": "kuang",
+"tone": 1,
+"cv": "CVVC",
+"words": 30
+},
+"": {
+"py": "kuáng",
+"num": "kuang2",
+"base": "kuang",
+"tone": 2,
+"cv": "CVVC",
+"words": 85
+},
+"": {
+"py": "kuàng",
+"num": "kuang4",
+"base": "kuang",
+"tone": 4,
+"cv": "CVVC",
+"words": 104
+},
+"": {
+"py": "kuī",
+"num": "kui1",
+"base": "kui",
+"tone": 1,
+"cv": "CVV",
+"words": 45
+},
+"": {
+"py": "kuí",
+"num": "kui2",
+"base": "kui",
+"tone": 2,
+"cv": "CVV",
+"words": 97
+},
+"": {
+"py": "kuǐ",
+"num": "kui3",
+"base": "kui",
+"tone": 3,
+"cv": "CVV",
+"words": 3
+},
+"": {
+"py": "kuì",
+"num": "kui4",
+"base": "kui",
+"tone": 4,
+"cv": "CVV",
+"words": 43
+},
+"": {
+"py": "kūn",
+"num": "kun1",
+"base": "kun",
+"tone": 1,
+"cv": "CVC",
+"words": 51
+},
+"": {
+"py": "kǔn",
+"num": "kun3",
+"base": "kun",
+"tone": 3,
+"cv": "CVC",
+"words": 11
+},
+"": {
+"py": "kùn",
+"num": "kun4",
+"base": "kun",
+"tone": 4,
+"cv": "CVC",
+"words": 44
+},
+"": {
+"py": "kuò",
+"num": "kuo4",
+"base": "kuo",
+"tone": 4,
+"cv": "CVV",
+"words": 54
+},
+"": {
+"py": "lā",
+"num": "la1",
+"base": "la",
+"tone": 1,
+"cv": "CV",
+"words": 1577
+},
+"": {
+"py": "lá",
+"num": "la2",
+"base": "la",
+"tone": 2,
+"cv": "CV",
+"words": 9
+},
+"": {
+"py": "lǎ",
+"num": "la3",
+"base": "la",
+"tone": 3,
+"cv": "CV",
+"words": 8
+},
+"": {
+"py": "là",
+"num": "la4",
+"base": "la",
+"tone": 4,
+"cv": "CV",
+"words": 104
+},
+"": {
+"py": "la",
+"num": "la5",
+"base": "la",
+"tone": 5,
+"cv": "CV",
+"words": 17
+},
+"": {
+"py": "lái",
+"num": "lai2",
+"base": "lai",
+"tone": 2,
+"cv": "CVV",
+"words": 1409
+},
+"": {
+"py": "lài",
+"num": "lai4",
+"base": "lai",
+"tone": 4,
+"cv": "CVV",
+"words": 117
+},
+"": {
+"py": "lán",
+"num": "lan2",
+"base": "lan",
+"tone": 2,
+"cv": "CVC",
+"words": 811
+},
+"": {
+"py": "lǎn",
+"num": "lan3",
+"base": "lan",
+"tone": 3,
+"cv": "CVC",
+"words": 82
+},
+"": {
+"py": "làn",
+"num": "lan4",
+"base": "lan",
+"tone": 4,
+"cv": "CVC",
+"words": 120
+},
+"": {
+"py": "láng",
+"num": "lang2",
+"base": "lang",
+"tone": 2,
+"cv": "CVC",
+"words": 173
+},
+"": {
+"py": "lǎng",
+"num": "lang3",
+"base": "lang",
+"tone": 3,
+"cv": "CVC",
+"words": 143
+},
+"": {
+"py": "làng",
+"num": "lang4",
+"base": "lang",
+"tone": 4,
+"cv": "CVC",
+"words": 70
+},
+"": {
+"py": "lāo",
+"num": "lao1",
+"base": "lao",
+"tone": 1,
+"cv": "CVV",
+"words": 15
+},
+"": {
+"py": "láo",
+"num": "lao2",
+"base": "lao",
+"tone": 2,
+"cv": "CVV",
+"words": 255
+},
+"": {
+"py": "lǎo",
+"num": "lao3",
+"base": "lao",
+"tone": 3,
+"cv": "CVV",
+"words": 530
+},
+"": {
+"py": "lào",
+"num": "lao4",
+"base": "lao",
+"tone": 4,
+"cv": "CVV",
+"words": 14
+},
+"": {
+"py": "lē",
+"num": "le1",
+"base": "le",
+"tone": 1,
+"cv": "CV",
+"words": 3
+},
+"": {
+"py": "lè",
+"num": "le4",
+"base": "le",
+"tone": 4,
+"cv": "CV",
+"words": 262
+},
+"": {
+"py": "le",
+"num": "le5",
+"base": "le",
+"tone": 5,
+"cv": "CV",
+"words": 26
+},
+"": {
+"py": "lēi",
+"num": "lei1",
+"base": "lei",
+"tone": 1,
+"cv": "CVV",
+"words": 274
+},
+"": {
+"py": "léi",
+"num": "lei2",
+"base": "lei",
+"tone": 2,
+"cv": "CVV",
+"words": 491
+},
+"": {
+"py": "lěi",
+"num": "lei3",
+"base": "lei",
+"tone": 3,
+"cv": "CVV",
+"words": 141
+},
+"": {
+"py": "lèi",
+"num": "lei4",
+"base": "lei",
+"tone": 4,
+"cv": "CVV",
+"words": 162
+},
+"": {
+"py": "léng",
+"num": "leng2",
+"base": "leng",
+"tone": 2,
+"cv": "CVC",
+"words": 6
+},
+"": {
+"py": "lěng",
+"num": "leng3",
+"base": "leng",
+"tone": 3,
+"cv": "CVC",
+"words": 111
+},
+"": {
+"py": "lèng",
+"num": "leng4",
+"base": "leng",
+"tone": 4,
+"cv": "CVC",
+"words": 8
+},
+"": {
+"py": "lī",
+"num": "li1",
+"base": "li",
+"tone": 1,
+"cv": "CV",
+"words": 17
+},
+"": {
+"py": "lí",
+"num": "li2",
+"base": "li",
+"tone": 2,
+"cv": "CV",
+"words": 305
+},
+"": {
+"py": "lǐ",
+"num": "li3",
+"base": "li",
+"tone": 3,
+"cv": "CV",
+"words": 1806
+},
+"": {
+"py": "lì",
+"num": "li4",
+"base": "li",
+"tone": 4,
+"cv": "CV",
+"words": 2753
+},
+"": {
+"py": "liǎ",
+"num": "lia3",
+"base": "lia",
+"tone": 3,
+"cv": "CVV",
+"words": 26
+},
+"": {
+"py": "lián",
+"num": "lian2",
+"base": "lian",
+"tone": 2,
+"cv": "CVVC",
+"words": 486
+},
+"": {
+"py": "liǎn",
+"num": "lian3",
+"base": "lian",
+"tone": 3,
+"cv": "CVVC",
+"words": 159
+},
+"": {
+"py": "liàn",
+"num": "lian4",
+"base": "lian",
+"tone": 4,
+"cv": "CVVC",
+"words": 249
+},
+"": {
+"py": "liáng",
+"num": "liang2",
+"base": "liang",
+"tone": 2,
+"cv": "CVVC",
+"words": 207
+},
+"": {
+"py": "liǎng",
+"num": "liang3",
+"base": "liang",
+"tone": 3,
+"cv": "CVVC",
+"words": 190
+},
+"": {
+"py": "liàng",
+"num": "liang4",
+"base": "liang",
+"tone": 4,
+"cv": "CVVC",
+"words": 250
+},
+"": {
+"py": "liāo",
+"num": "liao1",
+"base": "liao",
+"tone": 1,
+"cv": "CVVV",
+"words": 4
+},
+"": {
+"py": "liáo",
+"num": "liao2",
+"base": "liao",
+"tone": 2,
+"cv": "CVVV",
+"words": 139
+},
+"": {
+"py": "liǎo",
+"num": "liao3",
+"base": "liao",
+"tone": 3,
+"cv": "CVVV",
+"words": 47
+},
+"": {
+"py": "liào",
+"num": "liao4",
+"base": "liao",
+"tone": 4,
+"cv": "CVVV",
+"words": 121
+},
+"": {
+"py": "liě",
+"num": "lie3",
+"base": "lie",
+"tone": 3,
+"cv": "CVV",
+"words": 5
+},
+"": {
+"py": "liè",
+"num": "lie4",
+"base": "lie",
+"tone": 4,
+"cv": "CVV",
+"words": 358
+},
+"": {
+"py": "līn",
+"num": "lin1",
+"base": "lin",
+"tone": 1,
+"cv": "CVC",
+"words": 3
+},
+"": {
+"py": "lín",
+"num": "lin2",
+"base": "lin",
+"tone": 2,
+"cv": "CVC",
+"words": 749
+},
+"": {
+"py": "lǐn",
+"num": "lin3",
+"base": "lin",
+"tone": 3,
+"cv": "CVC",
+"words": 10
+},
+"": {
+"py": "lìn",
+"num": "lin4",
+"base": "lin",
+"tone": 4,
+"cv": "CVC",
+"words": 9
+},
+"": {
+"py": "líng",
+"num": "ling2",
+"base": "ling",
+"tone": 2,
+"cv": "CVC",
+"words": 480
+},
+"": {
+"py": "lǐng",
+"num": "ling3",
+"base": "ling",
+"tone": 3,
+"cv": "CVC",
+"words": 174
+},
+"": {
+"py": "lìng",
+"num": "ling4",
+"base": "ling",
+"tone": 4,
+"cv": "CVC",
+"words": 130
+},
+"": {
+"py": "liū",
+"num": "liu1",
+"base": "liu",
+"tone": 1,
+"cv": "CVV",
+"words": 36
+},
+"": {
+"py": "liú",
+"num": "liu2",
+"base": "liu",
+"tone": 2,
+"cv": "CVV",
+"words": 539
+},
+"": {
+"py": "liǔ",
+"num": "liu3",
+"base": "liu",
+"tone": 3,
+"cv": "CVV",
+"words": 42
+},
+"": {
+"py": "liù",
+"num": "liu4",
+"base": "liu",
+"tone": 4,
+"cv": "CVV",
+"words": 146
+},
+"": {
+"py": "lóng",
+"num": "long2",
+"base": "long",
+"tone": 2,
+"cv": "CVC",
+"words": 429
+},
+"": {
+"py": "lǒng",
+"num": "long3",
+"base": "long",
+"tone": 3,
+"cv": "CVC",
+"words": 20
+},
+"": {
+"py": "lóu",
+"num": "lou2",
+"base": "lou",
+"tone": 2,
+"cv": "CVV",
+"words": 132
+},
+"": {
+"py": "lǒu",
+"num": "lou3",
+"base": "lou",
+"tone": 3,
+"cv": "CVV",
+"words": 13
+},
+"": {
+"py": "lòu",
+"num": "lou4",
+"base": "lou",
+"tone": 4,
+"cv": "CVV",
+"words": 59
+},
+"": {
+"py": "lū",
+"num": "lu1",
+"base": "lu",
+"tone": 1,
+"cv": "CV",
+"words": 17
+},
+"": {
+"py": "lú",
+"num": "lu2",
+"base": "lu",
+"tone": 2,
+"cv": "CV",
+"words": 182
+},
+"": {
+"py": "lǔ",
+"num": "lu3",
+"base": "lu",
+"tone": 3,
+"cv": "CV",
+"words": 315
+},
+"": {
+"py": "lù",
+"num": "lu4",
+"base": "lu",
+"tone": 4,
+"cv": "CV",
+"words": 778
+},
+"": {
+"py": "luán",
+"num": "luan2",
+"base": "luan",
+"tone": 2,
+"cv": "CVVC",
+"words": 9
+},
+"": {
+"py": "luǎn",
+"num": "luan3",
+"base": "luan",
+"tone": 3,
+"cv": "CVVC",
+"words": 21
+},
+"": {
+"py": "luàn",
+"num": "luan4",
+"base": "luan",
+"tone": 4,
+"cv": "CVVC",
+"words": 204
+},
+"": {
+"py": "lún",
+"num": "lun2",
+"base": "lun",
+"tone": 2,
+"cv": "CVC",
+"words": 419
+},
+"": {
+"py": "lùn",
+"num": "lun4",
+"base": "lun",
+"tone": 4,
+"cv": "CVC",
+"words": 111
+},
+"": {
+"py": "luō",
+"num": "luo1",
+"base": "luo",
+"tone": 1,
+"cv": "CVV",
+"words": 21
+},
+"": {
+"py": "luó",
+"num": "luo2",
+"base": "luo",
+"tone": 2,
+"cv": "CVV",
+"words": 972
+},
+"": {
+"py": "luǒ",
+"num": "luo3",
+"base": "luo",
+"tone": 3,
+"cv": "CVV",
+"words": 25
+},
+"": {
+"py": "luò",
+"num": "luo4",
+"base": "luo",
+"tone": 4,
+"cv": "CVV",
+"words": 694
+},
+"": {
+"py": "lǘ",
+"num": "lü2",
+"base": "lü",
+"tone": 2,
+"cv": "CV",
+"words": 25
+},
+"": {
+"py": "lǚ",
+"num": "lü3",
+"base": "lü",
+"tone": 3,
+"cv": "CV",
+"words": 120
+},
+"": {
+"py": "lǜ",
+"num": "lü4",
+"base": "lü",
+"tone": 4,
+"cv": "CV",
+"words": 272
+},
+"": {
+"py": "lüè",
+"num": "lüe4",
+"base": "lüe",
+"tone": 4,
+"cv": "CVV",
+"words": 59
+},
+"": {
+"py": "mā",
+"num": "ma1",
+"base": "ma",
+"tone": 1,
+"cv": "CV",
+"words": 114
+},
+"": {
+"py": "má",
+"num": "ma2",
+"base": "ma",
+"tone": 2,
+"cv": "CV",
+"words": 110
+},
+"": {
+"py": "mǎ",
+"num": "ma3",
+"base": "ma",
+"tone": 3,
+"cv": "CV",
+"words": 1442
+},
+"": {
+"py": "mà",
+"num": "ma4",
+"base": "ma",
+"tone": 4,
+"cv": "CV",
+"words": 38
+},
+"": {
+"py": "ma",
+"num": "ma5",
+"base": "ma",
+"tone": 5,
+"cv": "CV",
+"words": 250
+},
+"": {
+"py": "mái",
+"num": "mai2",
+"base": "mai",
+"tone": 2,
+"cv": "CVV",
+"words": 41
+},
+"": {
+"py": "mǎi",
+"num": "mai3",
+"base": "mai",
+"tone": 3,
+"cv": "CVV",
+"words": 108
+},
+"": {
+"py": "mài",
+"num": "mai4",
+"base": "mai",
+"tone": 4,
+"cv": "CVV",
+"words": 573
+},
+"": {
+"py": "mán",
+"num": "man2",
+"base": "man",
+"tone": 2,
+"cv": "CVC",
+"words": 57
+},
+"": {
+"py": "mǎn",
+"num": "man3",
+"base": "man",
+"tone": 3,
+"cv": "CVC",
+"words": 206
+},
+"": {
+"py": "màn",
+"num": "man4",
+"base": "man",
+"tone": 4,
+"cv": "CVC",
+"words": 479
+},
+"": {
+"py": "máng",
+"num": "mang2",
+"base": "mang",
+"tone": 2,
+"cv": "CVC",
+"words": 120
+},
+"": {
+"py": "mǎng",
+"num": "mang3",
+"base": "mang",
+"tone": 3,
+"cv": "CVC",
+"words": 12
+},
+"": {
+"py": "māo",
+"num": "mao1",
+"base": "mao",
+"tone": 1,
+"cv": "CVV",
+"words": 89
+},
+"": {
+"py": "máo",
+"num": "mao2",
+"base": "mao",
+"tone": 2,
+"cv": "CVV",
+"words": 230
+},
+"": {
+"py": "mǎo",
+"num": "mao3",
+"base": "mao",
+"tone": 3,
+"cv": "CVV",
+"words": 13
+},
+"": {
+"py": "mào",
+"num": "mao4",
+"base": "mao",
+"tone": 4,
+"cv": "CVV",
+"words": 154
+},
+"": {
+"py": "me",
+"num": "me5",
+"base": "me",
+"tone": 5,
+"cv": "CV",
+"words": 253
+},
+"": {
+"py": "méi",
+"num": "mei2",
+"base": "mei",
+"tone": 2,
+"cv": "CVV",
+"words": 719
+},
+"": {
+"py": "měi",
+"num": "mei3",
+"base": "mei",
+"tone": 3,
+"cv": "CVV",
+"words": 464
+},
+"": {
+"py": "mèi",
+"num": "mei4",
+"base": "mei",
+"tone": 4,
+"cv": "CVV",
+"words": 118
+},
+"": {
+"py": "mēn",
+"num": "men1",
+"base": "men",
+"tone": 1,
+"cv": "CVC",
+"words": 4
+},
+"": {
+"py": "mén",
+"num": "men2",
+"base": "men",
+"tone": 2,
+"cv": "CVC",
+"words": 482
+},
+"": {
+"py": "mèn",
+"num": "men4",
+"base": "men",
+"tone": 4,
+"cv": "CVC",
+"words": 30
+},
+"": {
+"py": "men",
+"num": "men5",
+"base": "men",
+"tone": 5,
+"cv": "CVC",
+"words": 897
+},
+"": {
+"py": "méng",
+"num": "meng2",
+"base": "meng",
+"tone": 2,
+"cv": "CVC",
+"words": 273
+},
+"": {
+"py": "měng",
+"num": "meng3",
+"base": "meng",
+"tone": 3,
+"cv": "CVC",
+"words": 57
+},
+"": {
+"py": "mèng",
+"num": "meng4",
+"base": "meng",
+"tone": 4,
+"cv": "CVC",
+"words": 151
+},
+"": {
+"py": "mī",
+"num": "mi1",
+"base": "mi",
+"tone": 1,
+"cv": "CV",
+"words": 42
+},
+"": {
+"py": "mí",
+"num": "mi2",
+"base": "mi",
+"tone": 2,
+"cv": "CV",
+"words": 217
+},
+"": {
+"py": "mǐ",
+"num": "mi3",
+"base": "mi",
+"tone": 3,
+"cv": "CV",
+"words": 458
+},
+"": {
+"py": "mì",
+"num": "mi4",
+"base": "mi",
+"tone": 4,
+"cv": "CV",
+"words": 340
+},
+"": {
+"py": "mián",
+"num": "mian2",
+"base": "mian",
+"tone": 2,
+"cv": "CVVC",
+"words": 88
+},
+"": {
+"py": "miǎn",
+"num": "mian3",
+"base": "mian",
+"tone": 3,
+"cv": "CVVC",
+"words": 98
+},
+"": {
+"py": "miàn",
+"num": "mian4",
+"base": "mian",
+"tone": 4,
+"cv": "CVVC",
+"words": 415
+},
+"": {
+"py": "miāo",
+"num": "miao1",
+"base": "miao",
+"tone": 1,
+"cv": "CVVV",
+"words": 4
+},
+"": {
+"py": "miáo",
+"num": "miao2",
+"base": "miao",
+"tone": 2,
+"cv": "CVVV",
+"words": 57
+},
+"": {
+"py": "miǎo",
+"num": "miao3",
+"base": "miao",
+"tone": 3,
+"cv": "CVVV",
+"words": 30
+},
+"": {
+"py": "miào",
+"num": "miao4",
+"base": "miao",
+"tone": 4,
+"cv": "CVVV",
+"words": 62
+},
+"": {
+"py": "miē",
+"num": "mie1",
+"base": "mie",
+"tone": 1,
+"cv": "CVV",
+"words": 16
+},
+"": {
+"py": "miè",
+"num": "mie4",
+"base": "mie",
+"tone": 4,
+"cv": "CVV",
+"words": 84
+},
+"": {
+"py": "mín",
+"num": "min2",
+"base": "min",
+"tone": 2,
+"cv": "CVC",
+"words": 209
+},
+"": {
+"py": "mǐn",
+"num": "min3",
+"base": "min",
+"tone": 3,
+"cv": "CVC",
+"words": 110
+},
+"": {
+"py": "míng",
+"num": "ming2",
+"base": "ming",
+"tone": 2,
+"cv": "CVC",
+"words": 737
+},
+"": {
+"py": "mìng",
+"num": "ming4",
+"base": "ming",
+"tone": 4,
+"cv": "CVC",
+"words": 216
+},
+"": {
+"py": "miù",
+"num": "miu4",
+"base": "miu",
+"tone": 4,
+"cv": "CVV",
+"words": 7
+},
+"": {
+"py": "mō",
+"num": "mo1",
+"base": "mo",
+"tone": 1,
+"cv": "CV",
+"words": 44
+},
+"": {
+"py": "mó",
+"num": "mo2",
+"base": "mo",
+"tone": 2,
+"cv": "CV",
+"words": 490
+},
+"": {
+"py": "mǒ",
+"num": "mo3",
+"base": "mo",
+"tone": 3,
+"cv": "CV",
+"words": 26
+},
+"": {
+"py": "mò",
+"num": "mo4",
+"base": "mo",
+"tone": 4,
+"cv": "CV",
+"words": 561
+},
+"": {
+"py": "mōu",
+"num": "mou1",
+"base": "mou",
+"tone": 1,
+"cv": "CVV",
+"words": 3
+},
+"": {
+"py": "móu",
+"num": "mou2",
+"base": "mou",
+"tone": 2,
+"cv": "CVV",
+"words": 107
+},
+"": {
+"py": "mǒu",
+"num": "mou3",
+"base": "mou",
+"tone": 3,
+"cv": "CVV",
+"words": 29
+},
+"": {
+"py": "mú",
+"num": "mu2",
+"base": "mu",
+"tone": 2,
+"cv": "CV",
+"words": 10
+},
+"": {
+"py": "mǔ",
+"num": "mu3",
+"base": "mu",
+"tone": 3,
+"cv": "CV",
+"words": 536
+},
+"": {
+"py": "mù",
+"num": "mu4",
+"base": "mu",
+"tone": 4,
+"cv": "CV",
+"words": 642
+},
+"": {
+"py": "ná",
+"num": "na2",
+"base": "na",
+"tone": 2,
+"cv": "CV",
+"words": 136
+},
+"": {
+"py": "nǎ",
+"num": "na3",
+"base": "na",
+"tone": 3,
+"cv": "CV",
+"words": 86
+},
+"": {
+"py": "nà",
+"num": "na4",
+"base": "na",
+"tone": 4,
+"cv": "CV",
+"words": 1116
+},
+"": {
+"py": "nǎi",
+"num": "nai3",
+"base": "nai",
+"tone": 3,
+"cv": "CVV",
+"words": 126
+},
+"": {
+"py": "nài",
+"num": "nai4",
+"base": "nai",
+"tone": 4,
+"cv": "CVV",
+"words": 186
+},
+"": {
+"py": "nān",
+"num": "nan1",
+"base": "nan",
+"tone": 1,
+"cv": "CVC",
+"words": 4
+},
+"": {
+"py": "nán",
+"num": "nan2",
+"base": "nan",
+"tone": 2,
+"cv": "CVC",
+"words": 597
+},
+"": {
+"py": "nǎn",
+"num": "nan3",
+"base": "nan",
+"tone": 3,
+"cv": "CVC",
+"words": 5
+},
+"": {
+"py": "nàn",
+"num": "nan4",
+"base": "nan",
+"tone": 4,
+"cv": "CVC",
+"words": 49
+},
+"": {
+"py": "nāng",
+"num": "nang1",
+"base": "nang",
+"tone": 1,
+"cv": "CVC",
+"words": 6
+},
+"": {
+"py": "náng",
+"num": "nang2",
+"base": "nang",
+"tone": 2,
+"cv": "CVC",
+"words": 29
+},
+"": {
+"py": "nāo",
+"num": "nao1",
+"base": "nao",
+"tone": 1,
+"cv": "CVV",
+"words": 7
+},
+"": {
+"py": "náo",
+"num": "nao2",
+"base": "nao",
+"tone": 2,
+"cv": "CVV",
+"words": 15
+},
+"": {
+"py": "nǎo",
+"num": "nao3",
+"base": "nao",
+"tone": 3,
+"cv": "CVV",
+"words": 175
+},
+"": {
+"py": "nào",
+"num": "nao4",
+"base": "nao",
+"tone": 4,
+"cv": "CVV",
+"words": 76
+},
+"": {
+"py": "něi",
+"num": "nei3",
+"base": "nei",
+"tone": 3,
+"cv": "CVV",
+"words": 4
+},
+"": {
+"py": "nèi",
+"num": "nei4",
+"base": "nei",
+"tone": 4,
+"cv": "CVV",
+"words": 351
+},
+"": {
+"py": "nèn",
+"num": "nen4",
+"base": "nen",
+"tone": 4,
+"cv": "CVC",
+"words": 21
+},
+"": {
+"py": "néng",
+"num": "neng2",
+"base": "neng",
+"tone": 2,
+"cv": "CVC",
+"words": 156
+},
+"": {
+"py": "nī",
+"num": "ni1",
+"base": "ni",
+"tone": 1,
+"cv": "CV",
+"words": 260
+},
+"": {
+"py": "ní",
+"num": "ni2",
+"base": "ni",
+"tone": 2,
+"cv": "CV",
+"words": 871
+},
+"": {
+"py": "nǐ",
+"num": "ni3",
+"base": "ni",
+"tone": 3,
+"cv": "CV",
+"words": 183
+},
+"": {
+"py": "nì",
+"num": "ni4",
+"base": "ni",
+"tone": 4,
+"cv": "CV",
+"words": 74
+},
+"": {
+"py": "niān",
+"num": "nian1",
+"base": "nian",
+"tone": 1,
+"cv": "CVVC",
+"words": 3
+},
+"": {
+"py": "nián",
+"num": "nian2",
+"base": "nian",
+"tone": 2,
+"cv": "CVVC",
+"words": 335
+},
+"": {
+"py": "niǎn",
+"num": "nian3",
+"base": "nian",
+"tone": 3,
+"cv": "CVVC",
+"words": 14
+},
+"": {
+"py": "niàn",
+"num": "nian4",
+"base": "nian",
+"tone": 4,
+"cv": "CVVC",
+"words": 102
+},
+"": {
+"py": "niáng",
+"num": "niang2",
+"base": "niang",
+"tone": 2,
+"cv": "CVVC",
+"words": 121
+},
+"": {
+"py": "niàng",
+"num": "niang4",
+"base": "niang",
+"tone": 4,
+"cv": "CVVC",
+"words": 12
+},
+"": {
+"py": "niǎo",
+"num": "niao3",
+"base": "niao",
+"tone": 3,
+"cv": "CVVV",
+"words": 139
+},
+"": {
+"py": "niào",
+"num": "niao4",
+"base": "niao",
+"tone": 4,
+"cv": "CVVV",
+"words": 56
+},
+"": {
+"py": "niē",
+"num": "nie1",
+"base": "nie",
+"tone": 1,
+"cv": "CVV",
+"words": 16
+},
+"": {
+"py": "niè",
+"num": "nie4",
+"base": "nie",
+"tone": 4,
+"cv": "CVV",
+"words": 68
+},
+"": {
+"py": "nín",
+"num": "nin2",
+"base": "nin",
+"tone": 2,
+"cv": "CVC",
+"words": 3
+},
+"": {
+"py": "níng",
+"num": "ning2",
+"base": "ning",
+"tone": 2,
+"cv": "CVC",
+"words": 111
+},
+"": {
+"py": "nìng",
+"num": "ning4",
+"base": "ning",
+"tone": 4,
+"cv": "CVC",
+"words": 8
+},
+"": {
+"py": "niū",
+"num": "niu1",
+"base": "niu",
+"tone": 1,
+"cv": "CVV",
+"words": 29
+},
+"": {
+"py": "niú",
+"num": "niu2",
+"base": "niu",
+"tone": 2,
+"cv": "CVV",
+"words": 159
+},
+"": {
+"py": "niǔ",
+"num": "niu3",
+"base": "niu",
+"tone": 3,
+"cv": "CVV",
+"words": 120
+},
+"": {
+"py": "nóng",
+"num": "nong2",
+"base": "nong",
+"tone": 2,
+"cv": "CVC",
+"words": 122
+},
+"": {
+"py": "nǒng",
+"num": "nong3",
+"base": "nong",
+"tone": 3,
+"cv": "CVC",
+"words": 6
+},
+"": {
+"py": "nòng",
+"num": "nong4",
+"base": "nong",
+"tone": 4,
+"cv": "CVC",
+"words": 137
+},
+"": {
+"py": "nú",
+"num": "nu2",
+"base": "nu",
+"tone": 2,
+"cv": "CV",
+"words": 48
+},
+"": {
+"py": "nǔ",
+"num": "nu3",
+"base": "nu",
+"tone": 3,
+"cv": "CV",
+"words": 53
+},
+"": {
+"py": "nù",
+"num": "nu4",
+"base": "nu",
+"tone": 4,
+"cv": "CV",
+"words": 45
+},
+"": {
+"py": "nuán",
+"num": "nuan2",
+"base": "nuan",
+"tone": 2,
+"cv": "CVVC",
+"words": 5
+},
+"": {
+"py": "nuǎn",
+"num": "nuan3",
+"base": "nuan",
+"tone": 3,
+"cv": "CVVC",
+"words": 49
+},
+"": {
+"py": "nuó",
+"num": "nuo2",
+"base": "nuo",
+"tone": 2,
+"cv": "CVV",
+"words": 22
+},
+"": {
+"py": "nuò",
+"num": "nuo4",
+"base": "nuo",
+"tone": 4,
+"cv": "CVV",
+"words": 368
+},
+"": {
+"py": "nǚ",
+"num": "nü3",
+"base": "nü",
+"tone": 3,
+"cv": "CV",
+"words": 336
+},
+"": {
+"py": "nǜ",
+"num": "nü4",
+"base": "nü",
+"tone": 4,
+"cv": "CV",
+"words": 15
+},
+"": {
+"py": "nüè",
+"num": "nüe4",
+"base": "nüe",
+"tone": 4,
+"cv": "CVV",
+"words": 24
+},
+"": {
+"py": "ō",
+"num": "o1",
+"base": "o",
+"tone": 1,
+"cv": "V",
+"words": 19
+},
+"": {
+"py": "ó",
+"num": "o2",
+"base": "o",
+"tone": 2,
+"cv": "V",
+"words": 6
+},
+"": {
+"py": "ōu",
+"num": "ou1",
+"base": "ou",
+"tone": 1,
+"cv": "VV",
+"words": 223
+},
+"": {
+"py": "ǒu",
+"num": "ou3",
+"base": "ou",
+"tone": 3,
+"cv": "VV",
+"words": 52
+},
+"": {
+"py": "pā",
+"num": "pa1",
+"base": "pa",
+"tone": 1,
+"cv": "CV",
+"words": 31
+},
+"": {
+"py": "pá",
+"num": "pa2",
+"base": "pa",
+"tone": 2,
+"cv": "CV",
+"words": 38
+},
+"": {
+"py": "pà",
+"num": "pa4",
+"base": "pa",
+"tone": 4,
+"cv": "CV",
+"words": 308
+},
+"": {
+"py": "pāi",
+"num": "pai1",
+"base": "pai",
+"tone": 1,
+"cv": "CVV",
+"words": 97
+},
+"": {
+"py": "pái",
+"num": "pai2",
+"base": "pai",
+"tone": 2,
+"cv": "CVV",
+"words": 261
+},
+"": {
+"py": "pài",
+"num": "pai4",
+"base": "pai",
+"tone": 4,
+"cv": "CVV",
+"words": 292
+},
+"": {
+"py": "pān",
+"num": "pan1",
+"base": "pan",
+"tone": 1,
+"cv": "CVC",
+"words": 65
+},
+"": {
+"py": "pán",
+"num": "pan2",
+"base": "pan",
+"tone": 2,
+"cv": "CVC",
+"words": 117
+},
+"": {
+"py": "pàn",
+"num": "pan4",
+"base": "pan",
+"tone": 4,
+"cv": "CVC",
+"words": 120
+},
+"": {
+"py": "pāng",
+"num": "pang1",
+"base": "pang",
+"tone": 1,
+"cv": "CVC",
+"words": 5
+},
+"": {
+"py": "páng",
+"num": "pang2",
+"base": "pang",
+"tone": 2,
+"cv": "CVC",
+"words": 89
+},
+"": {
+"py": "pàng",
+"num": "pang4",
+"base": "pang",
+"tone": 4,
+"cv": "CVC",
+"words": 38
+},
+"": {
+"py": "pāo",
+"num": "pao1",
+"base": "pao",
+"tone": 1,
+"cv": "CVV",
+"words": 41
+},
+"": {
+"py": "páo",
+"num": "pao2",
+"base": "pao",
+"tone": 2,
+"cv": "CVV",
+"words": 31
+},
+"": {
+"py": "pǎo",
+"num": "pao3",
+"base": "pao",
+"tone": 3,
+"cv": "CVV",
+"words": 121
+},
+"": {
+"py": "pào",
+"num": "pao4",
+"base": "pao",
+"tone": 4,
+"cv": "CVV",
+"words": 136
+},
+"": {
+"py": "pēi",
+"num": "pei1",
+"base": "pei",
+"tone": 1,
+"cv": "CVV",
+"words": 8
+},
+"": {
+"py": "péi",
+"num": "pei2",
+"base": "pei",
+"tone": 2,
+"cv": "CVV",
+"words": 128
+},
+"": {
+"py": "pèi",
+"num": "pei4",
+"base": "pei",
+"tone": 4,
+"cv": "CVV",
+"words": 219
+},
+"": {
+"py": "pēn",
+"num": "pen1",
+"base": "pen",
+"tone": 1,
+"cv": "CVC",
+"words": 65
+},
+"": {
+"py": "pén",
+"num": "pen2",
+"base": "pen",
+"tone": 2,
+"cv": "CVC",
+"words": 28
+},
+"": {
+"py": "pěn",
+"num": "pen3",
+"base": "pen",
+"tone": 3,
+"cv": "CVC",
+"words": 3
+},
+"": {
+"py": "pēng",
+"num": "peng1",
+"base": "peng",
+"tone": 1,
+"cv": "CVC",
+"words": 34
+},
+"": {
+"py": "péng",
+"num": "peng2",
+"base": "peng",
+"tone": 2,
+"cv": "CVC",
+"words": 142
+},
+"": {
+"py": "pěng",
+"num": "peng3",
+"base": "peng",
+"tone": 3,
+"cv": "CVC",
+"words": 14
+},
+"": {
+"py": "pèng",
+"num": "peng4",
+"base": "peng",
+"tone": 4,
+"cv": "CVC",
+"words": 54
+},
+"": {
+"py": "pī",
+"num": "pi1",
+"base": "pi",
+"tone": 1,
+"cv": "CV",
+"words": 75
+},
+"": {
+"py": "pí",
+"num": "pi2",
+"base": "pi",
+"tone": 2,
+"cv": "CV",
+"words": 405
+},
+"": {
+"py": "pǐ",
+"num": "pi3",
+"base": "pi",
+"tone": 3,
+"cv": "CV",
+"words": 53
+},
+"": {
+"py": "pì",
+"num": "pi4",
+"base": "pi",
+"tone": 4,
+"cv": "CV",
+"words": 80
+},
+"": {
+"py": "piān",
+"num": "pian1",
+"base": "pian",
+"tone": 1,
+"cv": "CVVC",
+"words": 82
+},
+"": {
+"py": "pián",
+"num": "pian2",
+"base": "pian",
+"tone": 2,
+"cv": "CVVC",
+"words": 10
+},
+"": {
+"py": "piàn",
+"num": "pian4",
+"base": "pian",
+"tone": 4,
+"cv": "CVVC",
+"words": 254
+},
+"": {
+"py": "piāo",
+"num": "piao1",
+"base": "piao",
+"tone": 1,
+"cv": "CVVV",
+"words": 75
+},
+"": {
+"py": "piáo",
+"num": "piao2",
+"base": "piao",
+"tone": 2,
+"cv": "CVVV",
+"words": 12
+},
+"": {
+"py": "piǎo",
+"num": "piao3",
+"base": "piao",
+"tone": 3,
+"cv": "CVVV",
+"words": 3
+},
+"": {
+"py": "piào",
+"num": "piao4",
+"base": "piao",
+"tone": 4,
+"cv": "CVVV",
+"words": 114
+},
+"": {
+"py": "piē",
+"num": "pie1",
+"base": "pie",
+"tone": 1,
+"cv": "CVV",
+"words": 12
+},
+"": {
+"py": "piě",
+"num": "pie3",
+"base": "pie",
+"tone": 3,
+"cv": "CVV",
+"words": 7
+},
+"": {
+"py": "pīn",
+"num": "pin1",
+"base": "pin",
+"tone": 1,
+"cv": "CVC",
+"words": 74
+},
+"": {
+"py": "pín",
+"num": "pin2",
+"base": "pin",
+"tone": 2,
+"cv": "CVC",
+"words": 68
+},
+"": {
+"py": "pǐn",
+"num": "pin3",
+"base": "pin",
+"tone": 3,
+"cv": "CVC",
+"words": 180
+},
+"": {
+"py": "pìn",
+"num": "pin4",
+"base": "pin",
+"tone": 4,
+"cv": "CVC",
+"words": 17
+},
+"": {
+"py": "pīng",
+"num": "ping1",
+"base": "ping",
+"tone": 1,
+"cv": "CVC",
+"words": 7
+},
+"": {
+"py": "píng",
+"num": "ping2",
+"base": "ping",
+"tone": 2,
+"cv": "CVC",
+"words": 459
+},
+"": {
+"py": "pō",
+"num": "po1",
+"base": "po",
+"tone": 1,
+"cv": "CV",
+"words": 65
+},
+"": {
+"py": "pó",
+"num": "po2",
+"base": "po",
+"tone": 2,
+"cv": "CV",
+"words": 66
+},
+"": {
+"py": "pǒ",
+"num": "po3",
+"base": "po",
+"tone": 3,
+"cv": "CV",
+"words": 4
+},
+"": {
+"py": "pò",
+"num": "po4",
+"base": "po",
+"tone": 4,
+"cv": "CV",
+"words": 269
+},
+"": {
+"py": "po",
+"num": "po5",
+"base": "po",
+"tone": 5,
+"cv": "CV",
+"words": 4
+},
+"": {
+"py": "pōu",
+"num": "pou1",
+"base": "pou",
+"tone": 1,
+"cv": "CVV",
+"words": 13
+},
+"": {
+"py": "pū",
+"num": "pu1",
+"base": "pu",
+"tone": 1,
+"cv": "CV",
+"words": 57
+},
+"": {
+"py": "pú",
+"num": "pu2",
+"base": "pu",
+"tone": 2,
+"cv": "CV",
+"words": 65
+},
+"": {
+"py": "pǔ",
+"num": "pu3",
+"base": "pu",
+"tone": 3,
+"cv": "CV",
+"words": 561
+},
+"": {
+"py": "pù",
+"num": "pu4",
+"base": "pu",
+"tone": 4,
+"cv": "CV",
+"words": 41
+},
+"": {
+"py": "qī",
+"num": "qi1",
+"base": "qi",
+"tone": 1,
+"cv": "CV",
+"words": 433
+},
+"": {
+"py": "qí",
+"num": "qi2",
+"base": "qi",
+"tone": 2,
+"cv": "CV",
+"words": 950
+},
+"": {
+"py": "qǐ",
+"num": "qi3",
+"base": "qi",
+"tone": 3,
+"cv": "CV",
+"words": 500
+},
+"": {
+"py": "qì",
+"num": "qi4",
+"base": "qi",
+"tone": 4,
+"cv": "CV",
+"words": 975
+},
+"": {
+"py": "qiā",
+"num": "qia1",
+"base": "qia",
+"tone": 1,
+"cv": "CVV",
+"words": 7
+},
+"": {
+"py": "qiǎ",
+"num": "qia3",
+"base": "qia",
+"tone": 3,
+"cv": "CVV",
+"words": 7
+},
+"": {
+"py": "qià",
+"num": "qia4",
+"base": "qia",
+"tone": 4,
+"cv": "CVV",
+"words": 27
+},
+"": {
+"py": "qiān",
+"num": "qian1",
+"base": "qian",
+"tone": 1,
+"cv": "CVVC",
+"words": 391
+},
+"": {
+"py": "qián",
+"num": "qian2",
+"base": "qian",
+"tone": 2,
+"cv": "CVVC",
+"words": 575
+},
+"": {
+"py": "qiǎn",
+"num": "qian3",
+"base": "qian",
+"tone": 3,
+"cv": "CVVC",
+"words": 61
+},
+"": {
+"py": "qiàn",
+"num": "qian4",
+"base": "qian",
+"tone": 4,
+"cv": "CVVC",
+"words": 128
+},
+"": {
+"py": "qian",
+"num": "qian5",
+"base": "qian",
+"tone": 5,
+"cv": "CVVC",
+"words": 4
+},
+"": {
+"py": "qiāng",
+"num": "qiang1",
+"base": "qiang",
+"tone": 1,
+"cv": "CVVC",
+"words": 355
+},
+"": {
+"py": "qiáng",
+"num": "qiang2",
+"base": "qiang",
+"tone": 2,
+"cv": "CVVC",
+"words": 264
+},
+"": {
+"py": "qiǎng",
+"num": "qiang3",
+"base": "qiang",
+"tone": 3,
+"cv": "CVVC",
+"words": 87
+},
+"": {
+"py": "qiàng",
+"num": "qiang4",
+"base": "qiang",
+"tone": 4,
+"cv": "CVVC",
+"words": 5
+},
+"": {
+"py": "qiāo",
+"num": "qiao1",
+"base": "qiao",
+"tone": 1,
+"cv": "CVVV",
+"words": 75
+},
+"": {
+"py": "qiáo",
+"num": "qiao2",
+"base": "qiao",
+"tone": 2,
+"cv": "CVVV",
+"words": 272
+},
+"": {
+"py": "qiǎo",
+"num": "qiao3",
+"base": "qiao",
+"tone": 3,
+"cv": "CVVV",
+"words": 63
+},
+"": {
+"py": "qiào",
+"num": "qiao4",
+"base": "qiao",
+"tone": 4,
+"cv": "CVVV",
+"words": 61
+},
+"": {
+"py": "qiē",
+"num": "qie1",
+"base": "qie",
+"tone": 1,
+"cv": "CVV",
+"words": 16
+},
+"": {
+"py": "qié",
+"num": "qie2",
+"base": "qie",
+"tone": 2,
+"cv": "CVV",
+"words": 4
+},
+"": {
+"py": "qiě",
+"num": "qie3",
+"base": "qie",
+"tone": 3,
+"cv": "CVV",
+"words": 19
+},
+"": {
+"py": "qiè",
+"num": "qie4",
+"base": "qie",
+"tone": 4,
+"cv": "CVV",
+"words": 228
+},
+"": {
+"py": "qīn",
+"num": "qin1",
+"base": "qin",
+"tone": 1,
+"cv": "CVC",
+"words": 216
+},
+"": {
+"py": "qín",
+"num": "qin2",
+"base": "qin",
+"tone": 2,
+"cv": "CVC",
+"words": 191
+},
+"": {
+"py": "qǐn",
+"num": "qin3",
+"base": "qin",
+"tone": 3,
+"cv": "CVC",
+"words": 8
+},
+"": {
+"py": "qīng",
+"num": "qing1",
+"base": "qing",
+"tone": 1,
+"cv": "CVC",
+"words": 605
+},
+"": {
+"py": "qíng",
+"num": "qing2",
+"base": "qing",
+"tone": 2,
+"cv": "CVC",
+"words": 371
+},
+"": {
+"py": "qǐng",
+"num": "qing3",
+"base": "qing",
+"tone": 3,
+"cv": "CVC",
+"words": 197
+},
+"": {
+"py": "qìng",
+"num": "qing4",
+"base": "qing",
+"tone": 4,
+"cv": "CVC",
+"words": 54
+},
+"": {
+"py": "qióng",
+"num": "qiong2",
+"base": "qiong",
+"tone": 2,
+"cv": "CVVC",
+"words": 79
+},
+"": {
+"py": "qiū",
+"num": "qiu1",
+"base": "qiu",
+"tone": 1,
+"cv": "CVV",
+"words": 119
+},
+"": {
+"py": "qiú",
+"num": "qiu2",
+"base": "qiu",
+"tone": 2,
+"cv": "CVV",
+"words": 581
+},
+"": {
+"py": "qiǔ",
+"num": "qiu3",
+"base": "qiu",
+"tone": 3,
+"cv": "CVV",
+"words": 6
+},
+"": {
+"py": "qū",
+"num": "qu1",
+"base": "qu",
+"tone": 1,
+"cv": "CV",
+"words": 401
+},
+"": {
+"py": "qú",
+"num": "qu2",
+"base": "qu",
+"tone": 2,
+"cv": "CV",
+"words": 19
+},
+"": {
+"py": "qǔ",
+"num": "qu3",
+"base": "qu",
+"tone": 3,
+"cv": "CV",
+"words": 211
+},
+"": {
+"py": "qù",
+"num": "qu4",
+"base": "qu",
+"tone": 4,
+"cv": "CV",
+"words": 296
+},
+"": {
+"py": "quān",
+"num": "quan1",
+"base": "quan",
+"tone": 1,
+"cv": "CVVC",
+"words": 97
+},
+"": {
+"py": "quán",
+"num": "quan2",
+"base": "quan",
+"tone": 2,
+"cv": "CVVC",
+"words": 558
+},
+"": {
+"py": "quǎn",
+"num": "quan3",
+"base": "quan",
+"tone": 3,
+"cv": "CVVC",
+"words": 41
+},
+"": {
+"py": "quàn",
+"num": "quan4",
+"base": "quan",
+"tone": 4,
+"cv": "CVVC",
+"words": 42
+},
+"": {
+"py": "quē",
+"num": "que1",
+"base": "que",
+"tone": 1,
+"cv": "CVV",
+"words": 53
+},
+"": {
+"py": "qué",
+"num": "que2",
+"base": "que",
+"tone": 2,
+"cv": "CVV",
+"words": 4
+},
+"": {
+"py": "què",
+"num": "que4",
+"base": "que",
+"tone": 4,
+"cv": "CVV",
+"words": 131
+},
+"": {
+"py": "qún",
+"num": "qun2",
+"base": "qun",
+"tone": 2,
+"cv": "CVC",
+"words": 131
+},
+"": {
+"py": "rán",
+"num": "ran2",
+"base": "ran",
+"tone": 2,
+"cv": "CVC",
+"words": 197
+},
+"": {
+"py": "rǎn",
+"num": "ran3",
+"base": "ran",
+"tone": 3,
+"cv": "CVC",
+"words": 62
+},
+"": {
+"py": "ráng",
+"num": "rang2",
+"base": "rang",
+"tone": 2,
+"cv": "CVC",
+"words": 4
+},
+"": {
+"py": "rǎng",
+"num": "rang3",
+"base": "rang",
+"tone": 3,
+"cv": "CVC",
+"words": 17
+},
+"": {
+"py": "ràng",
+"num": "rang4",
+"base": "rang",
+"tone": 4,
+"cv": "CVC",
+"words": 95
+},
+"": {
+"py": "ráo",
+"num": "rao2",
+"base": "rao",
+"tone": 2,
+"cv": "CVV",
+"words": 35
+},
+"": {
+"py": "rǎo",
+"num": "rao3",
+"base": "rao",
+"tone": 3,
+"cv": "CVV",
+"words": 31
+},
+"": {
+"py": "rào",
+"num": "rao4",
+"base": "rao",
+"tone": 4,
+"cv": "CVV",
+"words": 36
+},
+"": {
+"py": "rě",
+"num": "re3",
+"base": "re",
+"tone": 3,
+"cv": "CV",
+"words": 38
+},
+"": {
+"py": "rè",
+"num": "re4",
+"base": "re",
+"tone": 4,
+"cv": "CV",
+"words": 216
+},
+"": {
+"py": "rén",
+"num": "ren2",
+"base": "ren",
+"tone": 2,
+"cv": "CVC",
+"words": 2144
+},
+"": {
+"py": "rěn",
+"num": "ren3",
+"base": "ren",
+"tone": 3,
+"cv": "CVC",
+"words": 52
+},
+"": {
+"py": "rèn",
+"num": "ren4",
+"base": "ren",
+"tone": 4,
+"cv": "CVC",
+"words": 256
+},
+"": {
+"py": "rēng",
+"num": "reng1",
+"base": "reng",
+"tone": 1,
+"cv": "CVC",
+"words": 40
+},
+"": {
+"py": "réng",
+"num": "reng2",
+"base": "reng",
+"tone": 2,
+"cv": "CVC",
+"words": 3
+},
+"": {
+"py": "rì",
+"num": "ri4",
+"base": "ri",
+"tone": 4,
+"cv": "CV",
+"words": 349
+},
+"": {
+"py": "rōng",
+"num": "rong1",
+"base": "rong",
+"tone": 1,
+"cv": "CVC",
+"words": 3
+},
+"": {
+"py": "róng",
+"num": "rong2",
+"base": "rong",
+"tone": 2,
+"cv": "CVC",
+"words": 278
+},
+"": {
+"py": "rǒng",
+"num": "rong3",
+"base": "rong",
+"tone": 3,
+"cv": "CVC",
+"words": 4
+},
+"": {
+"py": "róu",
+"num": "rou2",
+"base": "rou",
+"tone": 2,
+"cv": "CVV",
+"words": 58
+},
+"": {
+"py": "ròu",
+"num": "rou4",
+"base": "rou",
+"tone": 4,
+"cv": "CVV",
+"words": 170
+},
+"": {
+"py": "rú",
+"num": "ru2",
+"base": "ru",
+"tone": 2,
+"cv": "CV",
+"words": 247
+},
+"": {
+"py": "rǔ",
+"num": "ru3",
+"base": "ru",
+"tone": 3,
+"cv": "CV",
+"words": 82
+},
+"": {
+"py": "rù",
+"num": "ru4",
+"base": "ru",
+"tone": 4,
+"cv": "CV",
+"words": 320
+},
+"": {
+"py": "ruǎn",
+"num": "ruan3",
+"base": "ruan",
+"tone": 3,
+"cv": "CVVC",
+"words": 72
+},
+"": {
+"py": "ruí",
+"num": "rui2",
+"base": "rui",
+"tone": 2,
+"cv": "CVV",
+"words": 3
+},
+"": {
+"py": "ruǐ",
+"num": "rui3",
+"base": "rui",
+"tone": 3,
+"cv": "CVV",
+"words": 14
+},
+"": {
+"py": "ruì",
+"num": "rui4",
+"base": "rui",
+"tone": 4,
+"cv": "CVV",
+"words": 470
+},
+"": {
+"py": "rùn",
+"num": "run4",
+"base": "run",
+"tone": 4,
+"cv": "CVC",
+"words": 36
+},
+"": {
+"py": "ruò",
+"num": "ruo4",
+"base": "ruo",
+"tone": 4,
+"cv": "CVV",
+"words": 122
+},
+"": {
+"py": "sā",
+"num": "sa1",
+"base": "sa",
+"tone": 1,
+"cv": "CV",
+"words": 91
+},
+"": {
+"py": "sǎ",
+"num": "sa3",
+"base": "sa",
+"tone": 3,
+"cv": "CV",
+"words": 27
+},
+"": {
+"py": "sà",
+"num": "sa4",
+"base": "sa",
+"tone": 4,
+"cv": "CV",
+"words": 368
+},
+"": {
+"py": "sāi",
+"num": "sai1",
+"base": "sai",
+"tone": 1,
+"cv": "CVV",
+"words": 270
+},
+"": {
+"py": "sài",
+"num": "sai4",
+"base": "sai",
+"tone": 4,
+"cv": "CVV",
+"words": 296
+},
+"": {
+"py": "sān",
+"num": "san1",
+"base": "san",
+"tone": 1,
+"cv": "CVC",
+"words": 397
+},
+"": {
+"py": "sǎn",
+"num": "san3",
+"base": "san",
+"tone": 3,
+"cv": "CVC",
+"words": 39
+},
+"": {
+"py": "sàn",
+"num": "san4",
+"base": "san",
+"tone": 4,
+"cv": "CVC",
+"words": 87
+},
+"": {
+"py": "sāng",
+"num": "sang1",
+"base": "sang",
+"tone": 1,
+"cv": "CVC",
+"words": 134
+},
+"": {
+"py": "sǎng",
+"num": "sang3",
+"base": "sang",
+"tone": 3,
+"cv": "CVC",
+"words": 17
+},
+"": {
+"py": "sàng",
+"num": "sang4",
+"base": "sang",
+"tone": 4,
+"cv": "CVC",
+"words": 43
+},
+"": {
+"py": "sāo",
+"num": "sao1",
+"base": "sao",
+"tone": 1,
+"cv": "CVV",
+"words": 34
+},
+"": {
+"py": "sǎo",
+"num": "sao3",
+"base": "sao",
+"tone": 3,
+"cv": "CVV",
+"words": 66
+},
+"": {
+"py": "sào",
+"num": "sao4",
+"base": "sao",
+"tone": 4,
+"cv": "CVV",
+"words": 4
+},
+"": {
+"py": "sè",
+"num": "se4",
+"base": "se",
+"tone": 4,
+"cv": "CV",
+"words": 408
+},
+"": {
+"py": "sēn",
+"num": "sen1",
+"base": "sen",
+"tone": 1,
+"cv": "CVC",
+"words": 332
+},
+"": {
+"py": "sēng",
+"num": "seng1",
+"base": "seng",
+"tone": 1,
+"cv": "CVC",
+"words": 21
+},
+"": {
+"py": "shā",
+"num": "sha1",
+"base": "sha",
+"tone": 1,
+"cv": "CV",
+"words": 873
+},
+"": {
+"py": "shá",
+"num": "sha2",
+"base": "sha",
+"tone": 2,
+"cv": "CV",
+"words": 27
+},
+"": {
+"py": "shǎ",
+"num": "sha3",
+"base": "sha",
+"tone": 3,
+"cv": "CV",
+"words": 77
+},
+"": {
+"py": "shà",
+"num": "sha4",
+"base": "sha",
+"tone": 4,
+"cv": "CV",
+"words": 13
+},
+"": {
+"py": "shāi",
+"num": "shai1",
+"base": "shai",
+"tone": 1,
+"cv": "CVV",
+"words": 6
+},
+"": {
+"py": "shǎi",
+"num": "shai3",
+"base": "shai",
+"tone": 3,
+"cv": "CVV",
+"words": 5
+},
+"": {
+"py": "shài",
+"num": "shai4",
+"base": "shai",
+"tone": 4,
+"cv": "CVV",
+"words": 22
+},
+"": {
+"py": "shān",
+"num": "shan1",
+"base": "shan",
+"tone": 1,
+"cv": "CVC",
+"words": 619
+},
+"": {
+"py": "shǎn",
+"num": "shan3",
+"base": "shan",
+"tone": 3,
+"cv": "CVC",
+"words": 68
+},
+"": {
+"py": "shàn",
+"num": "shan4",
+"base": "shan",
+"tone": 4,
+"cv": "CVC",
+"words": 179
+},
+"": {
+"py": "shāng",
+"num": "shang1",
+"base": "shang",
+"tone": 1,
+"cv": "CVC",
+"words": 331
+},
+"": {
+"py": "shǎng",
+"num": "shang3",
+"base": "shang",
+"tone": 3,
+"cv": "CVC",
+"words": 40
+},
+"": {
+"py": "shàng",
+"num": "shang4",
+"base": "shang",
+"tone": 4,
+"cv": "CVC",
+"words": 991
+},
+"": {
+"py": "shāo",
+"num": "shao1",
+"base": "shao",
+"tone": 1,
+"cv": "CVV",
+"words": 123
+},
+"": {
+"py": "sháo",
+"num": "shao2",
+"base": "shao",
+"tone": 2,
+"cv": "CVV",
+"words": 11
+},
+"": {
+"py": "shǎo",
+"num": "shao3",
+"base": "shao",
+"tone": 3,
+"cv": "CVV",
+"words": 121
+},
+"": {
+"py": "shào",
+"num": "shao4",
+"base": "shao",
+"tone": 4,
+"cv": "CVV",
+"words": 79
+},
+"": {
+"py": "shē",
+"num": "she1",
+"base": "she",
+"tone": 1,
+"cv": "CV",
+"words": 13
+},
+"": {
+"py": "shé",
+"num": "she2",
+"base": "she",
+"tone": 2,
+"cv": "CV",
+"words": 74
+},
+"": {
+"py": "shě",
+"num": "she3",
+"base": "she",
+"tone": 3,
+"cv": "CV",
+"words": 70
+},
+"": {
+"py": "shè",
+"num": "she4",
+"base": "she",
+"tone": 4,
+"cv": "CV",
+"words": 412
+},
+"": {
+"py": "shēn",
+"num": "shen1",
+"base": "shen",
+"tone": 1,
+"cv": "CVC",
+"words": 586
+},
+"": {
+"py": "shén",
+"num": "shen2",
+"base": "shen",
+"tone": 2,
+"cv": "CVC",
+"words": 623
+},
+"": {
+"py": "shěn",
+"num": "shen3",
+"base": "shen",
+"tone": 3,
+"cv": "CVC",
+"words": 106
+},
+"": {
+"py": "shèn",
+"num": "shen4",
+"base": "shen",
+"tone": 4,
+"cv": "CVC",
+"words": 73
+},
+"": {
+"py": "shēng",
+"num": "sheng1",
+"base": "sheng",
+"tone": 1,
+"cv": "CVC",
+"words": 1129
+},
+"": {
+"py": "shéng",
+"num": "sheng2",
+"base": "sheng",
+"tone": 2,
+"cv": "CVC",
+"words": 38
+},
+"": {
+"py": "shěng",
+"num": "sheng3",
+"base": "sheng",
+"tone": 3,
+"cv": "CVC",
+"words": 43
+},
+"": {
+"py": "shèng",
+"num": "sheng4",
+"base": "sheng",
+"tone": 4,
+"cv": "CVC",
+"words": 526
+},
+"": {
+"py": "shī",
+"num": "shi1",
+"base": "shi",
+"tone": 1,
+"cv": "CV",
+"words": 782
+},
+"": {
+"py": "shí",
+"num": "shi2",
+"base": "shi",
+"tone": 2,
+"cv": "CV",
+"words": 1668
+},
+"": {
+"py": "shǐ",
+"num": "shi3",
+"base": "shi",
+"tone": 3,
+"cv": "CV",
+"words": 579
+},
+"": {
+"py": "shì",
+"num": "shi4",
+"base": "shi",
+"tone": 4,
+"cv": "CV",
+"words": 2497
+},
+"": {
+"py": "shi",
+"num": "shi5",
+"base": "shi",
+"tone": 5,
+"cv": "CV",
+"words": 18
+},
+"": {
+"py": "shōu",
+"num": "shou1",
+"base": "shou",
+"tone": 1,
+"cv": "CVV",
+"words": 213
+},
+"": {
+"py": "shǒu",
+"num": "shou3",
+"base": "shou",
+"tone": 3,
+"cv": "CVV",
+"words": 946
+},
+"": {
+"py": "shòu",
+"num": "shou4",
+"base": "shou",
+"tone": 4,
+"cv": "CVV",
+"words": 360
+},
+"": {
+"py": "shū",
+"num": "shu1",
+"base": "shu",
+"tone": 1,
+"cv": "CV",
+"words": 583
+},
+"": {
+"py": "shú",
+"num": "shu2",
+"base": "shu",
+"tone": 2,
+"cv": "CV",
+"words": 84
+},
+"": {
+"py": "shǔ",
+"num": "shu3",
+"base": "shu",
+"tone": 3,
+"cv": "CV",
+"words": 227
+},
+"": {
+"py": "shù",
+"num": "shu4",
+"base": "shu",
+"tone": 4,
+"cv": "CV",
+"words": 608
+},
+"": {
+"py": "shuā",
+"num": "shua1",
+"base": "shua",
+"tone": 1,
+"cv": "CVV",
+"words": 33
+},
+"": {
+"py": "shuǎ",
+"num": "shua3",
+"base": "shua",
+"tone": 3,
+"cv": "CVV",
+"words": 35
+},
+"": {
+"py": "shuāi",
+"num": "shuai1",
+"base": "shuai",
+"tone": 1,
+"cv": "CVVV",
+"words": 58
+},
+"": {
+"py": "shuǎi",
+"num": "shuai3",
+"base": "shuai",
+"tone": 3,
+"cv": "CVVV",
+"words": 17
+},
+"": {
+"py": "shuài",
+"num": "shuai4",
+"base": "shuai",
+"tone": 4,
+"cv": "CVVV",
+"words": 61
+},
+"": {
+"py": "shuān",
+"num": "shuan1",
+"base": "shuan",
+"tone": 1,
+"cv": "CVVC",
+"words": 22
+},
+"": {
+"py": "shuàn",
+"num": "shuan4",
+"base": "shuan",
+"tone": 4,
+"cv": "CVVC",
+"words": 4
+},
+"": {
+"py": "shuāng",
+"num": "shuang1",
+"base": "shuang",
+"tone": 1,
+"cv": "CVVC",
+"words": 144
+},
+"": {
+"py": "shuǎng",
+"num": "shuang3",
+"base": "shuang",
+"tone": 3,
+"cv": "CVVC",
+"words": 44
+},
+"": {
+"py": "shuí",
+"num": "shui2",
+"base": "shui",
+"tone": 2,
+"cv": "CVV",
+"words": 81
+},
+"": {
+"py": "shuǐ",
+"num": "shui3",
+"base": "shui",
+"tone": 3,
+"cv": "CVV",
+"words": 607
+},
+"": {
+"py": "shuì",
+"num": "shui4",
+"base": "shui",
+"tone": 4,
+"cv": "CVV",
+"words": 157
+},
+"": {
+"py": "shǔn",
+"num": "shun3",
+"base": "shun",
+"tone": 3,
+"cv": "CVC",
+"words": 3
+},
+"": {
+"py": "shùn",
+"num": "shun4",
+"base": "shun",
+"tone": 4,
+"cv": "CVC",
+"words": 122
+},
+"": {
+"py": "shuō",
+"num": "shuo1",
+"base": "shuo",
+"tone": 1,
+"cv": "CVV",
+"words": 391
+},
+"": {
+"py": "shuò",
+"num": "shuo4",
+"base": "shuo",
+"tone": 4,
+"cv": "CVV",
+"words": 34
+},
+"": {
+"py": "sī",
+"num": "si1",
+"base": "si",
+"tone": 1,
+"cv": "CV",
+"words": 3878
+},
+"": {
+"py": "sǐ",
+"num": "si3",
+"base": "si",
+"tone": 3,
+"cv": "CV",
+"words": 542
+},
+"": {
+"py": "sì",
+"num": "si4",
+"base": "si",
+"tone": 4,
+"cv": "CV",
+"words": 317
+},
+"": {
+"py": "si",
+"num": "si5",
+"base": "si",
+"tone": 5,
+"cv": "CV",
+"words": 25
+},
+"": {
+"py": "sōng",
+"num": "song1",
+"base": "song",
+"tone": 1,
+"cv": "CVC",
+"words": 131
+},
+"": {
+"py": "sǒng",
+"num": "song3",
+"base": "song",
+"tone": 3,
+"cv": "CVC",
+"words": 18
+},
+"": {
+"py": "sòng",
+"num": "song4",
+"base": "song",
+"tone": 4,
+"cv": "CVC",
+"words": 238
+},
+"": {
+"py": "sōu",
+"num": "sou1",
+"base": "sou",
+"tone": 1,
+"cv": "CVV",
+"words": 62
+},
+"": {
+"py": "sǒu",
+"num": "sou3",
+"base": "sou",
+"tone": 3,
+"cv": "CVV",
+"words": 7
+},
+"": {
+"py": "sòu",
+"num": "sou4",
+"base": "sou",
+"tone": 4,
+"cv": "CVV",
+"words": 5
+},
+"": {
+"py": "sū",
+"num": "su1",
+"base": "su",
+"tone": 1,
+"cv": "CV",
+"words": 210
+},
+"": {
+"py": "sú",
+"num": "su2",
+"base": "su",
+"tone": 2,
+"cv": "CV",
+"words": 40
+},
+"": {
+"py": "sù",
+"num": "su4",
+"base": "su",
+"tone": 4,
+"cv": "CV",
+"words": 348
+},
+"": {
+"py": "suān",
+"num": "suan1",
+"base": "suan",
+"tone": 1,
+"cv": "CVVC",
+"words": 53
+},
+"": {
+"py": "suàn",
+"num": "suan4",
+"base": "suan",
+"tone": 4,
+"cv": "CVVC",
+"words": 144
+},
+"": {
+"py": "suī",
+"num": "sui1",
+"base": "sui",
+"tone": 1,
+"cv": "CVV",
+"words": 16
+},
+"": {
+"py": "suí",
+"num": "sui2",
+"base": "sui",
+"tone": 2,
+"cv": "CVV",
+"words": 94
+},
+"": {
+"py": "suǐ",
+"num": "sui3",
+"base": "sui",
+"tone": 3,
+"cv": "CVV",
+"words": 8
+},
+"": {
+"py": "suì",
+"num": "sui4",
+"base": "sui",
+"tone": 4,
+"cv": "CVV",
+"words": 127
+},
+"": {
+"py": "sūn",
+"num": "sun1",
+"base": "sun",
+"tone": 1,
+"cv": "CVC",
+"words": 66
+},
+"": {
+"py": "sǔn",
+"num": "sun3",
+"base": "sun",
+"tone": 3,
+"cv": "CVC",
+"words": 48
+},
+"": {
+"py": "suō",
+"num": "suo1",
+"base": "suo",
+"tone": 1,
+"cv": "CVV",
+"words": 87
+},
+"": {
+"py": "suǒ",
+"num": "suo3",
+"base": "suo",
+"tone": 3,
+"cv": "CVV",
+"words": 541
+},
+"": {
+"py": "suo",
+"num": "suo5",
+"base": "suo",
+"tone": 5,
+"cv": "CVV",
+"words": 11
+},
+"": {
+"py": "tā",
+"num": "ta1",
+"base": "ta",
+"tone": 1,
+"cv": "CV",
+"words": 76
+},
+"": {
+"py": "tǎ",
+"num": "ta3",
+"base": "ta",
+"tone": 3,
+"cv": "CV",
+"words": 487
+},
+"": {
+"py": "tà",
+"num": "ta4",
+"base": "ta",
+"tone": 4,
+"cv": "CV",
+"words": 64
+},
+"": {
+"py": "tāi",
+"num": "tai1",
+"base": "tai",
+"tone": 1,
+"cv": "CVV",
+"words": 46
+},
+"": {
+"py": "tái",
+"num": "tai2",
+"base": "tai",
+"tone": 2,
+"cv": "CVV",
+"words": 236
+},
+"": {
+"py": "tài",
+"num": "tai4",
+"base": "tai",
+"tone": 4,
+"cv": "CVV",
+"words": 479
+},
+"": {
+"py": "tān",
+"num": "tan1",
+"base": "tan",
+"tone": 1,
+"cv": "CVC",
+"words": 88
+},
+"": {
+"py": "tán",
+"num": "tan2",
+"base": "tan",
+"tone": 2,
+"cv": "CVC",
+"words": 217
+},
+"": {
+"py": "tǎn",
+"num": "tan3",
+"base": "tan",
+"tone": 3,
+"cv": "CVC",
+"words": 183
+},
+"": {
+"py": "tàn",
+"num": "tan4",
+"base": "tan",
+"tone": 4,
+"cv": "CVC",
+"words": 141
+},
+"": {
+"py": "tāng",
+"num": "tang1",
+"base": "tang",
+"tone": 1,
+"cv": "CVC",
+"words": 107
+},
+"": {
+"py": "táng",
+"num": "tang2",
+"base": "tang",
+"tone": 2,
+"cv": "CVC",
+"words": 320
+},
+"": {
+"py": "tǎng",
+"num": "tang3",
+"base": "tang",
+"tone": 3,
+"cv": "CVC",
+"words": 29
+},
+"": {
+"py": "tàng",
+"num": "tang4",
+"base": "tang",
+"tone": 4,
+"cv": "CVC",
+"words": 25
+},
+"": {
+"py": "tāo",
+"num": "tao1",
+"base": "tao",
+"tone": 1,
+"cv": "CVV",
+"words": 33
+},
+"": {
+"py": "táo",
+"num": "tao2",
+"base": "tao",
+"tone": 2,
+"cv": "CVV",
+"words": 215
+},
+"": {
+"py": "tǎo",
+"num": "tao3",
+"base": "tao",
+"tone": 3,
+"cv": "CVV",
+"words": 63
+},
+"": {
+"py": "tào",
+"num": "tao4",
+"base": "tao",
+"tone": 4,
+"cv": "CVV",
+"words": 80
+},
+"": {
+"py": "tè",
+"num": "te4",
+"base": "te",
+"tone": 4,
+"cv": "CV",
+"words": 1545
+},
+"": {
+"py": "téng",
+"num": "teng2",
+"base": "teng",
+"tone": 2,
+"cv": "CVC",
+"words": 149
+},
+"": {
+"py": "tī",
+"num": "ti1",
+"base": "ti",
+"tone": 1,
+"cv": "CV",
+"words": 96
+},
+"": {
+"py": "tí",
+"num": "ti2",
+"base": "ti",
+"tone": 2,
+"cv": "CV",
+"words": 375
+},
+"": {
+"py": "tǐ",
+"num": "ti3",
+"base": "ti",
+"tone": 3,
+"cv": "CV",
+"words": 294
+},
+"": {
+"py": "tì",
+"num": "ti4",
+"base": "ti",
+"tone": 4,
+"cv": "CV",
+"words": 82
+},
+"": {
+"py": "tiān",
+"num": "tian1",
+"base": "tian",
+"tone": 1,
+"cv": "CVVC",
+"words": 672
+},
+"": {
+"py": "tián",
+"num": "tian2",
+"base": "tian",
+"tone": 2,
+"cv": "CVVC",
+"words": 267
+},
+"": {
+"py": "tiǎn",
+"num": "tian3",
+"base": "tian",
+"tone": 3,
+"cv": "CVVC",
+"words": 14
+},
+"": {
+"py": "tiàn",
+"num": "tian4",
+"base": "tian",
+"tone": 4,
+"cv": "CVVC",
+"words": 3
+},
+"": {
+"py": "tiāo",
+"num": "tiao1",
+"base": "tiao",
+"tone": 1,
+"cv": "CVVV",
+"words": 49
+},
+"": {
+"py": "tiáo",
+"num": "tiao2",
+"base": "tiao",
+"tone": 2,
+"cv": "CVVV",
+"words": 237
+},
+"": {
+"py": "tiǎo",
+"num": "tiao3",
+"base": "tiao",
+"tone": 3,
+"cv": "CVVV",
+"words": 13
+},
+"": {
+"py": "tiào",
+"num": "tiao4",
+"base": "tiao",
+"tone": 4,
+"cv": "CVVV",
+"words": 120
+},
+"": {
+"py": "tiē",
+"num": "tie1",
+"base": "tie",
+"tone": 1,
+"cv": "CVV",
+"words": 67
+},
+"": {
+"py": "tiě",
+"num": "tie3",
+"base": "tie",
+"tone": 3,
+"cv": "CVV",
+"words": 203
+},
+"": {
+"py": "tīng",
+"num": "ting1",
+"base": "ting",
+"tone": 1,
+"cv": "CVC",
+"words": 334
+},
+"": {
+"py": "tíng",
+"num": "ting2",
+"base": "ting",
+"tone": 2,
+"cv": "CVC",
+"words": 251
+},
+"": {
+"py": "tǐng",
+"num": "ting3",
+"base": "ting",
+"tone": 3,
+"cv": "CVC",
+"words": 63
+},
+"": {
+"py": "tōng",
+"num": "tong1",
+"base": "tong",
+"tone": 1,
+"cv": "CVC",
+"words": 217
+},
+"": {
+"py": "tóng",
+"num": "tong2",
+"base": "tong",
+"tone": 2,
+"cv": "CVC",
+"words": 401
+},
+"": {
+"py": "tǒng",
+"num": "tong3",
+"base": "tong",
+"tone": 3,
+"cv": "CVC",
+"words": 121
+},
+"": {
+"py": "tòng",
+"num": "tong4",
+"base": "tong",
+"tone": 4,
+"cv": "CVC",
+"words": 124
+},
+"": {
+"py": "tōu",
+"num": "tou1",
+"base": "tou",
+"tone": 1,
+"cv": "CVV",
+"words": 107
+},
+"": {
+"py": "tóu",
+"num": "tou2",
+"base": "tou",
+"tone": 2,
+"cv": "CVV",
+"words": 817
+},
+"": {
+"py": "tòu",
+"num": "tou4",
+"base": "tou",
+"tone": 4,
+"cv": "CVV",
+"words": 85
+},
+"": {
+"py": "tou",
+"num": "tou5",
+"base": "tou",
+"tone": 5,
+"cv": "CVV",
+"words": 64
+},
+"": {
+"py": "tū",
+"num": "tu1",
+"base": "tu",
+"tone": 1,
+"cv": "CV",
+"words": 76
+},
+"": {
+"py": "tú",
+"num": "tu2",
+"base": "tu",
+"tone": 2,
+"cv": "CV",
+"words": 398
+},
+"": {
+"py": "tǔ",
+"num": "tu3",
+"base": "tu",
+"tone": 3,
+"cv": "CV",
+"words": 191
+},
+"": {
+"py": "tù",
+"num": "tu4",
+"base": "tu",
+"tone": 4,
+"cv": "CV",
+"words": 35
+},
+"": {
+"py": "tuān",
+"num": "tuan1",
+"base": "tuan",
+"tone": 1,
+"cv": "CVVC",
+"words": 3
+},
+"": {
+"py": "tuán",
+"num": "tuan2",
+"base": "tuan",
+"tone": 2,
+"cv": "CVVC",
+"words": 150
+},
+"": {
+"py": "tuī",
+"num": "tui1",
+"base": "tui",
+"tone": 1,
+"cv": "CVV",
+"words": 124
+},
+"": {
+"py": "tuí",
+"num": "tui2",
+"base": "tui",
+"tone": 2,
+"cv": "CVV",
+"words": 11
+},
+"": {
+"py": "tuǐ",
+"num": "tui3",
+"base": "tui",
+"tone": 3,
+"cv": "CVV",
+"words": 81
+},
+"": {
+"py": "tuì",
+"num": "tui4",
+"base": "tui",
+"tone": 4,
+"cv": "CVV",
+"words": 104
+},
+"": {
+"py": "tūn",
+"num": "tun1",
+"base": "tun",
+"tone": 1,
+"cv": "CVC",
+"words": 37
+},
+"": {
+"py": "tún",
+"num": "tun2",
+"base": "tun",
+"tone": 2,
+"cv": "CVC",
+"words": 22
+},
+"": {
+"py": "tuō",
+"num": "tuo1",
+"base": "tuo",
+"tone": 1,
+"cv": "CVV",
+"words": 498
+},
+"": {
+"py": "tuó",
+"num": "tuo2",
+"base": "tuo",
+"tone": 2,
+"cv": "CVV",
+"words": 54
+},
+"": {
+"py": "tuǒ",
+"num": "tuo3",
+"base": "tuo",
+"tone": 3,
+"cv": "CVV",
+"words": 30
+},
+"": {
+"py": "tuò",
+"num": "tuo4",
+"base": "tuo",
+"tone": 4,
+"cv": "CVV",
+"words": 25
+},
+"": {
+"py": "wā",
+"num": "wa1",
+"base": "wa",
+"tone": 1,
+"cv": "CV",
+"words": 68
+},
+"": {
+"py": "wá",
+"num": "wa2",
+"base": "wa",
+"tone": 2,
+"cv": "CV",
+"words": 58
+},
+"": {
+"py": "wǎ",
+"num": "wa3",
+"base": "wa",
+"tone": 3,
+"cv": "CV",
+"words": 315
+},
+"": {
+"py": "wà",
+"num": "wa4",
+"base": "wa",
+"tone": 4,
+"cv": "CV",
+"words": 17
+},
+"": {
+"py": "wa",
+"num": "wa5",
+"base": "wa",
+"tone": 5,
+"cv": "CV",
+"words": 24
+},
+"": {
+"py": "wāi",
+"num": "wai1",
+"base": "wai",
+"tone": 1,
+"cv": "CVV",
+"words": 29
+},
+"": {
+"py": "wǎi",
+"num": "wai3",
+"base": "wai",
+"tone": 3,
+"cv": "CVV",
+"words": 4
+},
+"": {
+"py": "wài",
+"num": "wai4",
+"base": "wai",
+"tone": 4,
+"cv": "CVV",
+"words": 311
+},
+"": {
+"py": "wān",
+"num": "wan1",
+"base": "wan",
+"tone": 1,
+"cv": "CVC",
+"words": 84
+},
+"": {
+"py": "wán",
+"num": "wan2",
+"base": "wan",
+"tone": 2,
+"cv": "CVC",
+"words": 382
+},
+"": {
+"py": "wǎn",
+"num": "wan3",
+"base": "wan",
+"tone": 3,
+"cv": "CVC",
+"words": 162
+},
+"": {
+"py": "wàn",
+"num": "wan4",
+"base": "wan",
+"tone": 4,
+"cv": "CVC",
+"words": 373
+},
+"": {
+"py": "wāng",
+"num": "wang1",
+"base": "wang",
+"tone": 1,
+"cv": "CVC",
+"words": 16
+},
+"": {
+"py": "wáng",
+"num": "wang2",
+"base": "wang",
+"tone": 2,
+"cv": "CVC",
+"words": 294
+},
+"": {
+"py": "wǎng",
+"num": "wang3",
+"base": "wang",
+"tone": 3,
+"cv": "CVC",
+"words": 265
+},
+"": {
+"py": "wàng",
+"num": "wang4",
+"base": "wang",
+"tone": 4,
+"cv": "CVC",
+"words": 217
+},
+"": {
+"py": "wēi",
+"num": "wei1",
+"base": "wei",
+"tone": 1,
+"cv": "CVV",
+"words": 508
+},
+"": {
+"py": "wéi",
+"num": "wei2",
+"base": "wei",
+"tone": 2,
+"cv": "CVV",
+"words": 969
+},
+"": {
+"py": "wěi",
+"num": "wei3",
+"base": "wei",
+"tone": 3,
+"cv": "CVV",
+"words": 328
+},
+"": {
+"py": "wèi",
+"num": "wei4",
+"base": "wei",
+"tone": 4,
+"cv": "CVV",
+"words": 1078
+},
+"": {
+"py": "wēn",
+"num": "wen1",
+"base": "wen",
+"tone": 1,
+"cv": "CVC",
+"words": 173
+},
+"": {
+"py": "wén",
+"num": "wen2",
+"base": "wen",
+"tone": 2,
+"cv": "CVC",
+"words": 541
+},
+"": {
+"py": "wěn",
+"num": "wen3",
+"base": "wen",
+"tone": 3,
+"cv": "CVC",
+"words": 98
+},
+"": {
+"py": "wèn",
+"num": "wen4",
+"base": "wen",
+"tone": 4,
+"cv": "CVC",
+"words": 185
+},
+"": {
+"py": "wēng",
+"num": "weng1",
+"base": "weng",
+"tone": 1,
+"cv": "CVC",
+"words": 34
+},
+"": {
+"py": "wèng",
+"num": "weng4",
+"base": "weng",
+"tone": 4,
+"cv": "CVC",
+"words": 5
+},
+"": {
+"py": "wō",
+"num": "wo1",
+"base": "wo",
+"tone": 1,
+"cv": "CV",
+"words": 67
+},
+"": {
+"py": "wǒ",
+"num": "wo3",
+"base": "wo",
+"tone": 3,
+"cv": "CV",
+"words": 41
+},
+"": {
+"py": "wò",
+"num": "wo4",
+"base": "wo",
+"tone": 4,
+"cv": "CV",
+"words": 254
+},
+"": {
+"py": "wū",
+"num": "wu1",
+"base": "wu",
+"tone": 1,
+"cv": "CV",
+"words": 306
+},
+"": {
+"py": "wú",
+"num": "wu2",
+"base": "wu",
+"tone": 2,
+"cv": "CV",
+"words": 890
+},
+"": {
+"py": "wǔ",
+"num": "wu3",
+"base": "wu",
+"tone": 3,
+"cv": "CV",
+"words": 702
+},
+"": {
+"py": "wù",
+"num": "wu4",
+"base": "wu",
+"tone": 4,
+"cv": "CV",
+"words": 622
+},
+"": {
+"py": "xī",
+"num": "xi1",
+"base": "xi",
+"tone": 1,
+"cv": "CV",
+"words": 1581
+},
+"": {
+"py": "xí",
+"num": "xi2",
+"base": "xi",
+"tone": 2,
+"cv": "CV",
+"words": 201
+},
+"": {
+"py": "xǐ",
+"num": "xi3",
+"base": "xi",
+"tone": 3,
+"cv": "CV",
+"words": 239
+},
+"": {
+"py": "xì",
+"num": "xi4",
+"base": "xi",
+"tone": 4,
+"cv": "CV",
+"words": 330
+},
+"": {
+"py": "xiā",
+"num": "xia1",
+"base": "xia",
+"tone": 1,
+"cv": "CVV",
+"words": 77
+},
+"": {
+"py": "xiá",
+"num": "xia2",
+"base": "xia",
+"tone": 2,
+"cv": "CVV",
+"words": 147
+},
+"": {
+"py": "xià",
+"num": "xia4",
+"base": "xia",
+"tone": 4,
+"cv": "CVV",
+"words": 960
+},
+"": {
+"py": "xiān",
+"num": "xian1",
+"base": "xian",
+"tone": 1,
+"cv": "CVVC",
+"words": 331
+},
+"": {
+"py": "xián",
+"num": "xian2",
+"base": "xian",
+"tone": 2,
+"cv": "CVVC",
+"words": 236
+},
+"": {
+"py": "xiǎn",
+"num": "xian3",
+"base": "xian",
+"tone": 3,
+"cv": "CVVC",
+"words": 146
+},
+"": {
+"py": "xiàn",
+"num": "xian4",
+"base": "xian",
+"tone": 4,
+"cv": "CVVC",
+"words": 635
+},
+"": {
+"py": "xiāng",
+"num": "xiang1",
+"base": "xiang",
+"tone": 1,
+"cv": "CVVC",
+"words": 622
+},
+"": {
+"py": "xiáng",
+"num": "xiang2",
+"base": "xiang",
+"tone": 2,
+"cv": "CVVC",
+"words": 108
+},
+"": {
+"py": "xiǎng",
+"num": "xiang3",
+"base": "xiang",
+"tone": 3,
+"cv": "CVVC",
+"words": 292
+},
+"": {
+"py": "xiàng",
+"num": "xiang4",
+"base": "xiang",
+"tone": 4,
+"cv": "CVVC",
+"words": 449
+},
+"": {
+"py": "xiāo",
+"num": "xiao1",
+"base": "xiao",
+"tone": 1,
+"cv": "CVVV",
+"words": 247
+},
+"": {
+"py": "xiǎo",
+"num": "xiao3",
+"base": "xiao",
+"tone": 3,
+"cv": "CVVV",
+"words": 1106
+},
+"": {
+"py": "xiào",
+"num": "xiao4",
+"base": "xiao",
+"tone": 4,
+"cv": "CVVV",
+"words": 355
+},
+"": {
+"py": "xiē",
+"num": "xie1",
+"base": "xie",
+"tone": 1,
+"cv": "CVV",
+"words": 219
+},
+"": {
+"py": "xié",
+"num": "xie2",
+"base": "xie",
+"tone": 2,
+"cv": "CVV",
+"words": 186
+},
+"": {
+"py": "xiě",
+"num": "xie3",
+"base": "xie",
+"tone": 3,
+"cv": "CVV",
+"words": 141
+},
+"": {
+"py": "xiè",
+"num": "xie4",
+"base": "xie",
+"tone": 4,
+"cv": "CVV",
+"words": 285
+},
+"": {
+"py": "xīn",
+"num": "xin1",
+"base": "xin",
+"tone": 1,
+"cv": "CVC",
+"words": 1161
+},
+"": {
+"py": "xìn",
+"num": "xin4",
+"base": "xin",
+"tone": 4,
+"cv": "CVC",
+"words": 270
+},
+"": {
+"py": "xīng",
+"num": "xing1",
+"base": "xing",
+"tone": 1,
+"cv": "CVC",
+"words": 350
+},
+"": {
+"py": "xíng",
+"num": "xing2",
+"base": "xing",
+"tone": 2,
+"cv": "CVC",
+"words": 656
+},
+"": {
+"py": "xǐng",
+"num": "xing3",
+"base": "xing",
+"tone": 3,
+"cv": "CVC",
+"words": 69
+},
+"": {
+"py": "xìng",
+"num": "xing4",
+"base": "xing",
+"tone": 4,
+"cv": "CVC",
+"words": 653
+},
+"": {
+"py": "xiōng",
+"num": "xiong1",
+"base": "xiong",
+"tone": 1,
+"cv": "CVVC",
+"words": 209
+},
+"": {
+"py": "xióng",
+"num": "xiong2",
+"base": "xiong",
+"tone": 2,
+"cv": "CVVC",
+"words": 158
+},
+"": {
+"py": "xiū",
+"num": "xiu1",
+"base": "xiu",
+"tone": 1,
+"cv": "CVV",
+"words": 305
+},
+"": {
+"py": "xiǔ",
+"num": "xiu3",
+"base": "xiu",
+"tone": 3,
+"cv": "CVV",
+"words": 9
+},
+"": {
+"py": "xiù",
+"num": "xiu4",
+"base": "xiu",
+"tone": 4,
+"cv": "CVV",
+"words": 201
+},
+"": {
+"py": "xū",
+"num": "xu1",
+"base": "xu",
+"tone": 1,
+"cv": "CV",
+"words": 158
+},
+"": {
+"py": "xú",
+"num": "xu2",
+"base": "xu",
+"tone": 2,
+"cv": "CV",
+"words": 31
+},
+"": {
+"py": "xǔ",
+"num": "xu3",
+"base": "xu",
+"tone": 3,
+"cv": "CV",
+"words": 147
+},
+"": {
+"py": "xù",
+"num": "xu4",
+"base": "xu",
+"tone": 4,
+"cv": "CV",
+"words": 165
+},
+"": {
+"py": "xuān",
+"num": "xuan1",
+"base": "xuan",
+"tone": 1,
+"cv": "CVVC",
+"words": 69
+},
+"": {
+"py": "xuán",
+"num": "xuan2",
+"base": "xuan",
+"tone": 2,
+"cv": "CVVC",
+"words": 92
+},
+"": {
+"py": "xuǎn",
+"num": "xuan3",
+"base": "xuan",
+"tone": 3,
+"cv": "CVVC",
+"words": 178
+},
+"": {
+"py": "xuàn",
+"num": "xuan4",
+"base": "xuan",
+"tone": 4,
+"cv": "CVVC",
+"words": 29
+},
+"": {
+"py": "xuē",
+"num": "xue1",
+"base": "xue",
+"tone": 1,
+"cv": "CVV",
+"words": 45
+},
+"": {
+"py": "xué",
+"num": "xue2",
+"base": "xue",
+"tone": 2,
+"cv": "CVV",
+"words": 458
+},
+"": {
+"py": "xuě",
+"num": "xue3",
+"base": "xue",
+"tone": 3,
+"cv": "CVV",
+"words": 185
+},
+"": {
+"py": "xuè",
+"num": "xue4",
+"base": "xue",
+"tone": 4,
+"cv": "CVV",
+"words": 234
+},
+"": {
+"py": "xūn",
+"num": "xun1",
+"base": "xun",
+"tone": 1,
+"cv": "CVC",
+"words": 69
+},
+"": {
+"py": "xún",
+"num": "xun2",
+"base": "xun",
+"tone": 2,
+"cv": "CVC",
+"words": 152
+},
+"": {
+"py": "xùn",
+"num": "xun4",
+"base": "xun",
+"tone": 4,
+"cv": "CVC",
+"words": 228
+},
+"": {
+"py": "yā",
+"num": "ya1",
+"base": "ya",
+"tone": 1,
+"cv": "CV",
+"words": 228
+},
+"": {
+"py": "yá",
+"num": "ya2",
+"base": "ya",
+"tone": 2,
+"cv": "CV",
+"words": 156
+},
+"": {
+"py": "yǎ",
+"num": "ya3",
+"base": "ya",
+"tone": 3,
+"cv": "CV",
+"words": 238
+},
+"": {
+"py": "yà",
+"num": "ya4",
+"base": "ya",
+"tone": 4,
+"cv": "CV",
+"words": 939
+},
+"": {
+"py": "ya",
+"num": "ya5",
+"base": "ya",
+"tone": 5,
+"cv": "CV",
+"words": 52
+},
+"": {
+"py": "yān",
+"num": "yan1",
+"base": "yan",
+"tone": 1,
+"cv": "CVC",
+"words": 174
+},
+"": {
+"py": "yán",
+"num": "yan2",
+"base": "yan",
+"tone": 2,
+"cv": "CVC",
+"words": 633
+},
+"": {
+"py": "yǎn",
+"num": "yan3",
+"base": "yan",
+"tone": 3,
+"cv": "CVC",
+"words": 457
+},
+"": {
+"py": "yàn",
+"num": "yan4",
+"base": "yan",
+"tone": 4,
+"cv": "CVC",
+"words": 236
+},
+"": {
+"py": "yāng",
+"num": "yang1",
+"base": "yang",
+"tone": 1,
+"cv": "CVC",
+"words": 29
+},
+"": {
+"py": "yáng",
+"num": "yang2",
+"base": "yang",
+"tone": 2,
+"cv": "CVC",
+"words": 402
+},
+"": {
+"py": "yǎng",
+"num": "yang3",
+"base": "yang",
+"tone": 3,
+"cv": "CVC",
+"words": 215
+},
+"": {
+"py": "yàng",
+"num": "yang4",
+"base": "yang",
+"tone": 4,
+"cv": "CVC",
+"words": 212
+},
+"": {
+"py": "yāo",
+"num": "yao1",
+"base": "yao",
+"tone": 1,
+"cv": "CVV",
+"words": 128
+},
+"": {
+"py": "yáo",
+"num": "yao2",
+"base": "yao",
+"tone": 2,
+"cv": "CVV",
+"words": 142
+},
+"": {
+"py": "yǎo",
+"num": "yao3",
+"base": "yao",
+"tone": 3,
+"cv": "CVV",
+"words": 96
+},
+"": {
+"py": "yào",
+"num": "yao4",
+"base": "yao",
+"tone": 4,
+"cv": "CVV",
+"words": 412
+},
+"": {
+"py": "yē",
+"num": "ye1",
+"base": "ye",
+"tone": 1,
+"cv": "CV",
+"words": 26
+},
+"": {
+"py": "yé",
+"num": "ye2",
+"base": "ye",
+"tone": 2,
+"cv": "CV",
+"words": 218
+},
+"": {
+"py": "yě",
+"num": "ye3",
+"base": "ye",
+"tone": 3,
+"cv": "CV",
+"words": 219
+},
+"": {
+"py": "yè",
+"num": "ye4",
+"base": "ye",
+"tone": 4,
+"cv": "CV",
+"words": 544
+},
+"": {
+"py": "yī",
+"num": "yi1",
+"base": "yi",
+"tone": 1,
+"cv": "CV",
+"words": 1980
+},
+"": {
+"py": "yí",
+"num": "yi2",
+"base": "yi",
+"tone": 2,
+"cv": "CV",
+"words": 375
+},
+"": {
+"py": "yǐ",
+"num": "yi3",
+"base": "yi",
+"tone": 3,
+"cv": "CV",
+"words": 346
+},
+"": {
+"py": "yì",
+"num": "yi4",
+"base": "yi",
+"tone": 4,
+"cv": "CV",
+"words": 1352
+},
+"": {
+"py": "yi",
+"num": "yi5",
+"base": "yi",
+"tone": 5,
+"cv": "CV",
+"words": 3
+},
+"": {
+"py": "yīn",
+"num": "yin1",
+"base": "yin",
+"tone": 1,
+"cv": "CVC",
+"words": 385
+},
+"": {
+"py": "yín",
+"num": "yin2",
+"base": "yin",
+"tone": 2,
+"cv": "CVC",
+"words": 148
+},
+"": {
+"py": "yǐn",
+"num": "yin3",
+"base": "yin",
+"tone": 3,
+"cv": "CVC",
+"words": 252
+},
+"": {
+"py": "yìn",
+"num": "yin4",
+"base": "yin",
+"tone": 4,
+"cv": "CVC",
+"words": 109
+},
+"": {
+"py": "yīng",
+"num": "ying1",
+"base": "ying",
+"tone": 1,
+"cv": "CVC",
+"words": 363
+},
+"": {
+"py": "yíng",
+"num": "ying2",
+"base": "ying",
+"tone": 2,
+"cv": "CVC",
+"words": 274
+},
+"": {
+"py": "yǐng",
+"num": "ying3",
+"base": "ying",
+"tone": 3,
+"cv": "CVC",
+"words": 162
+},
+"": {
+"py": "yìng",
+"num": "ying4",
+"base": "ying",
+"tone": 4,
+"cv": "CVC",
+"words": 175
+},
+"": {
+"py": "yō",
+"num": "yo1",
+"base": "yo",
+"tone": 1,
+"cv": "CV",
+"words": 33
+},
+"": {
+"py": "yōng",
+"num": "yong1",
+"base": "yong",
+"tone": 1,
+"cv": "CVC",
+"words": 77
+},
+"": {
+"py": "yǒng",
+"num": "yong3",
+"base": "yong",
+"tone": 3,
+"cv": "CVC",
+"words": 213
+},
+"": {
+"py": "yòng",
+"num": "yong4",
+"base": "yong",
+"tone": 4,
+"cv": "CVC",
+"words": 338
+},
+"": {
+"py": "yōu",
+"num": "you1",
+"base": "you",
+"tone": 1,
+"cv": "CVV",
+"words": 168
+},
+"": {
+"py": "yóu",
+"num": "you2",
+"base": "you",
+"tone": 2,
+"cv": "CVV",
+"words": 577
+},
+"": {
+"py": "yǒu",
+"num": "you3",
+"base": "you",
+"tone": 3,
+"cv": "CVV",
+"words": 680
+},
+"": {
+"py": "yòu",
+"num": "you4",
+"base": "you",
+"tone": 4,
+"cv": "CVV",
+"words": 210
+},
+"": {
+"py": "yū",
+"num": "yu1",
+"base": "yu",
+"tone": 1,
+"cv": "CV",
+"words": 18
+},
+"": {
+"py": "yú",
+"num": "yu2",
+"base": "yu",
+"tone": 2,
+"cv": "CV",
+"words": 775
+},
+"": {
+"py": "yǔ",
+"num": "yu3",
+"base": "yu",
+"tone": 3,
+"cv": "CV",
+"words": 519
+},
+"": {
+"py": "yù",
+"num": "yu4",
+"base": "yu",
+"tone": 4,
+"cv": "CV",
+"words": 686
+},
+"": {
+"py": "yuān",
+"num": "yuan1",
+"base": "yuan",
+"tone": 1,
+"cv": "CVVC",
+"words": 43
+},
+"": {
+"py": "yuán",
+"num": "yuan2",
+"base": "yuan",
+"tone": 2,
+"cv": "CVVC",
+"words": 977
+},
+"": {
+"py": "yuǎn",
+"num": "yuan3",
+"base": "yuan",
+"tone": 3,
+"cv": "CVVC",
+"words": 171
+},
+"": {
+"py": "yuàn",
+"num": "yuan4",
+"base": "yuan",
+"tone": 4,
+"cv": "CVVC",
+"words": 289
+},
+"": {
+"py": "yuē",
+"num": "yue1",
+"base": "yue",
+"tone": 1,
+"cv": "CVV",
+"words": 213
+},
+"": {
+"py": "yuè",
+"num": "yue4",
+"base": "yue",
+"tone": 4,
+"cv": "CVV",
+"words": 352
+},
+"": {
+"py": "yūn",
+"num": "yun1",
+"base": "yun",
+"tone": 1,
+"cv": "CVC",
+"words": 41
+},
+"": {
+"py": "yún",
+"num": "yun2",
+"base": "yun",
+"tone": 2,
+"cv": "CVC",
+"words": 161
+},
+"": {
+"py": "yǔn",
+"num": "yun3",
+"base": "yun",
+"tone": 3,
+"cv": "CVC",
+"words": 32
+},
+"": {
+"py": "yùn",
+"num": "yun4",
+"base": "yun",
+"tone": 4,
+"cv": "CVC",
+"words": 236
+},
+"": {
+"py": "yun",
+"num": "yun5",
+"base": "yun",
+"tone": 5,
+"cv": "CVC",
+"words": 3
+},
+"": {
+"py": "zā",
+"num": "za1",
+"base": "za",
+"tone": 1,
+"cv": "CV",
+"words": 12
+},
+"": {
+"py": "zá",
+"num": "za2",
+"base": "za",
+"tone": 2,
+"cv": "CV",
+"words": 120
+},
+"": {
+"py": "zǎ",
+"num": "za3",
+"base": "za",
+"tone": 3,
+"cv": "CV",
+"words": 10
+},
+"": {
+"py": "zāi",
+"num": "zai1",
+"base": "zai",
+"tone": 1,
+"cv": "CVV",
+"words": 55
+},
+"": {
+"py": "zǎi",
+"num": "zai3",
+"base": "zai",
+"tone": 3,
+"cv": "CVV",
+"words": 143
+},
+"": {
+"py": "zài",
+"num": "zai4",
+"base": "zai",
+"tone": 4,
+"cv": "CVV",
+"words": 380
+},
+"": {
+"py": "zān",
+"num": "zan1",
+"base": "zan",
+"tone": 1,
+"cv": "CVC",
+"words": 3
+},
+"": {
+"py": "zán",
+"num": "zan2",
+"base": "zan",
+"tone": 2,
+"cv": "CVC",
+"words": 9
+},
+"": {
+"py": "zǎn",
+"num": "zan3",
+"base": "zan",
+"tone": 3,
+"cv": "CVC",
+"words": 6
+},
+"": {
+"py": "zàn",
+"num": "zan4",
+"base": "zan",
+"tone": 4,
+"cv": "CVC",
+"words": 82
+},
+"": {
+"py": "zāng",
+"num": "zang1",
+"base": "zang",
+"tone": 1,
+"cv": "CVC",
+"words": 26
+},
+"": {
+"py": "zàng",
+"num": "zang4",
+"base": "zang",
+"tone": 4,
+"cv": "CVC",
+"words": 94
+},
+"": {
+"py": "zāo",
+"num": "zao1",
+"base": "zao",
+"tone": 1,
+"cv": "CVV",
+"words": 48
+},
+"": {
+"py": "záo",
+"num": "zao2",
+"base": "zao",
+"tone": 2,
+"cv": "CVV",
+"words": 6
+},
+"": {
+"py": "zǎo",
+"num": "zao3",
+"base": "zao",
+"tone": 3,
+"cv": "CVV",
+"words": 175
+},
+"": {
+"py": "zào",
+"num": "zao4",
+"base": "zao",
+"tone": 4,
+"cv": "CVV",
+"words": 176
+},
+"": {
+"py": "zé",
+"num": "ze2",
+"base": "ze",
+"tone": 2,
+"cv": "CV",
+"words": 239
+},
+"": {
+"py": "zéi",
+"num": "zei2",
+"base": "zei",
+"tone": 2,
+"cv": "CVV",
+"words": 71
+},
+"": {
+"py": "zěn",
+"num": "zen3",
+"base": "zen",
+"tone": 3,
+"cv": "CVC",
+"words": 58
+},
+"": {
+"py": "zēng",
+"num": "zeng1",
+"base": "zeng",
+"tone": 1,
+"cv": "CVC",
+"words": 61
+},
+"": {
+"py": "zèng",
+"num": "zeng4",
+"base": "zeng",
+"tone": 4,
+"cv": "CVC",
+"words": 22
+},
+"": {
+"py": "zhā",
+"num": "zha1",
+"base": "zha",
+"tone": 1,
+"cv": "CV",
+"words": 128
+},
+"": {
+"py": "zhá",
+"num": "zha2",
+"base": "zha",
+"tone": 2,
+"cv": "CV",
+"words": 36
+},
+"": {
+"py": "zhǎ",
+"num": "zha3",
+"base": "zha",
+"tone": 3,
+"cv": "CV",
+"words": 5
+},
+"": {
+"py": "zhà",
+"num": "zha4",
+"base": "zha",
+"tone": 4,
+"cv": "CV",
+"words": 120
+},
+"": {
+"py": "zhāi",
+"num": "zhai1",
+"base": "zhai",
+"tone": 1,
+"cv": "CVV",
+"words": 43
+},
+"": {
+"py": "zhái",
+"num": "zhai2",
+"base": "zhai",
+"tone": 2,
+"cv": "CVV",
+"words": 23
+},
+"": {
+"py": "zhǎi",
+"num": "zhai3",
+"base": "zhai",
+"tone": 3,
+"cv": "CVV",
+"words": 6
+},
+"": {
+"py": "zhài",
+"num": "zhai4",
+"base": "zhai",
+"tone": 4,
+"cv": "CVV",
+"words": 52
+},
+"": {
+"py": "zhān",
+"num": "zhan1",
+"base": "zhan",
+"tone": 1,
+"cv": "CVC",
+"words": 110
+},
+"": {
+"py": "zhǎn",
+"num": "zhan3",
+"base": "zhan",
+"tone": 3,
+"cv": "CVC",
+"words": 111
+},
+"": {
+"py": "zhàn",
+"num": "zhan4",
+"base": "zhan",
+"tone": 4,
+"cv": "CVC",
+"words": 519
+},
+"": {
+"py": "zhāng",
+"num": "zhang1",
+"base": "zhang",
+"tone": 1,
+"cv": "CVC",
+"words": 269
+},
+"": {
+"py": "zhǎng",
+"num": "zhang3",
+"base": "zhang",
+"tone": 3,
+"cv": "CVC",
+"words": 588
+},
+"": {
+"py": "zhàng",
+"num": "zhang4",
+"base": "zhang",
+"tone": 4,
+"cv": "CVC",
+"words": 201
+},
+"": {
+"py": "zhāo",
+"num": "zhao1",
+"base": "zhao",
+"tone": 1,
+"cv": "CVV",
+"words": 123
+},
+"": {
+"py": "zháo",
+"num": "zhao2",
+"base": "zhao",
+"tone": 2,
+"cv": "CVV",
+"words": 10
+},
+"": {
+"py": "zhǎo",
+"num": "zhao3",
+"base": "zhao",
+"tone": 3,
+"cv": "CVV",
+"words": 143
+},
+"": {
+"py": "zhào",
+"num": "zhao4",
+"base": "zhao",
+"tone": 4,
+"cv": "CVV",
+"words": 292
+},
+"": {
+"py": "zhē",
+"num": "zhe1",
+"base": "zhe",
+"tone": 1,
+"cv": "CV",
+"words": 38
+},
+"": {
+"py": "zhé",
+"num": "zhe2",
+"base": "zhe",
+"tone": 2,
+"cv": "CV",
+"words": 114
+},
+"": {
+"py": "zhě",
+"num": "zhe3",
+"base": "zhe",
+"tone": 3,
+"cv": "CV",
+"words": 733
+},
+"": {
+"py": "zhè",
+"num": "zhe4",
+"base": "zhe",
+"tone": 4,
+"cv": "CV",
+"words": 430
+},
+"": {
+"py": "zhe",
+"num": "zhe5",
+"base": "zhe",
+"tone": 5,
+"cv": "CV",
+"words": 138
+},
+"": {
+"py": "zhēn",
+"num": "zhen1",
+"base": "zhen",
+"tone": 1,
+"cv": "CVC",
+"words": 631
+},
+"": {
+"py": "zhěn",
+"num": "zhen3",
+"base": "zhen",
+"tone": 3,
+"cv": "CVC",
+"words": 74
+},
+"": {
+"py": "zhèn",
+"num": "zhen4",
+"base": "zhen",
+"tone": 4,
+"cv": "CVC",
+"words": 307
+},
+"": {
+"py": "zhēng",
+"num": "zheng1",
+"base": "zheng",
+"tone": 1,
+"cv": "CVC",
+"words": 215
+},
+"": {
+"py": "zhěng",
+"num": "zheng3",
+"base": "zheng",
+"tone": 3,
+"cv": "CVC",
+"words": 124
+},
+"": {
+"py": "zhèng",
+"num": "zheng4",
+"base": "zheng",
+"tone": 4,
+"cv": "CVC",
+"words": 681
+},
+"": {
+"py": "zhī",
+"num": "zhi1",
+"base": "zhi",
+"tone": 1,
+"cv": "CV",
+"words": 836
+},
+"": {
+"py": "zhí",
+"num": "zhi2",
+"base": "zhi",
+"tone": 2,
+"cv": "CV",
+"words": 467
+},
+"": {
+"py": "zhǐ",
+"num": "zhi3",
+"base": "zhi",
+"tone": 3,
+"cv": "CV",
+"words": 467
+},
+"": {
+"py": "zhì",
+"num": "zhi4",
+"base": "zhi",
+"tone": 4,
+"cv": "CV",
+"words": 968
+},
+"": {
+"py": "zhōng",
+"num": "zhong1",
+"base": "zhong",
+"tone": 1,
+"cv": "CVC",
+"words": 695
+},
+"": {
+"py": "zhǒng",
+"num": "zhong3",
+"base": "zhong",
+"tone": 3,
+"cv": "CVC",
+"words": 168
+},
+"": {
+"py": "zhòng",
+"num": "zhong4",
+"base": "zhong",
+"tone": 4,
+"cv": "CVC",
+"words": 414
+},
+"": {
+"py": "zhōu",
+"num": "zhou1",
+"base": "zhou",
+"tone": 1,
+"cv": "CVV",
+"words": 406
+},
+"": {
+"py": "zhóu",
+"num": "zhou2",
+"base": "zhou",
+"tone": 2,
+"cv": "CVV",
+"words": 23
+},
+"": {
+"py": "zhǒu",
+"num": "zhou3",
+"base": "zhou",
+"tone": 3,
+"cv": "CVV",
+"words": 12
+},
+"": {
+"py": "zhòu",
+"num": "zhou4",
+"base": "zhou",
+"tone": 4,
+"cv": "CVV",
+"words": 79
+},
+"": {
+"py": "zhū",
+"num": "zhu1",
+"base": "zhu",
+"tone": 1,
+"cv": "CV",
+"words": 391
+},
+"": {
+"py": "zhú",
+"num": "zhu2",
+"base": "zhu",
+"tone": 2,
+"cv": "CV",
+"words": 92
+},
+"": {
+"py": "zhǔ",
+"num": "zhu3",
+"base": "zhu",
+"tone": 3,
+"cv": "CV",
+"words": 512
+},
+"": {
+"py": "zhù",
+"num": "zhu4",
+"base": "zhu",
+"tone": 4,
+"cv": "CV",
+"words": 822
+},
+"": {
+"py": "zhuā",
+"num": "zhua1",
+"base": "zhua",
+"tone": 1,
+"cv": "CVV",
+"words": 58
+},
+"": {
+"py": "zhuāi",
+"num": "zhuai1",
+"base": "zhuai",
+"tone": 1,
+"cv": "CVVV",
+"words": 7
+},
+"": {
+"py": "zhuān",
+"num": "zhuan1",
+"base": "zhuan",
+"tone": 1,
+"cv": "CVVC",
+"words": 126
+},
+"": {
+"py": "zhuǎn",
+"num": "zhuan3",
+"base": "zhuan",
+"tone": 3,
+"cv": "CVVC",
+"words": 211
+},
+"": {
+"py": "zhuàn",
+"num": "zhuan4",
+"base": "zhuan",
+"tone": 4,
+"cv": "CVVC",
+"words": 67
+},
+"": {
+"py": "zhuāng",
+"num": "zhuang1",
+"base": "zhuang",
+"tone": 1,
+"cv": "CVVC",
+"words": 319
+},
+"": {
+"py": "zhuàng",
+"num": "zhuang4",
+"base": "zhuang",
+"tone": 4,
+"cv": "CVVC",
+"words": 201
+},
+"": {
+"py": "zhuī",
+"num": "zhui1",
+"base": "zhui",
+"tone": 1,
+"cv": "CVV",
+"words": 121
+},
+"": {
+"py": "zhuì",
+"num": "zhui4",
+"base": "zhui",
+"tone": 4,
+"cv": "CVV",
+"words": 46
+},
+"": {
+"py": "zhǔn",
+"num": "zhun3",
+"base": "zhun",
+"tone": 3,
+"cv": "CVC",
+"words": 106
+},
+"": {
+"py": "zhuō",
+"num": "zhuo1",
+"base": "zhuo",
+"tone": 1,
+"cv": "CVV",
+"words": 93
+},
+"": {
+"py": "zhuó",
+"num": "zhuo2",
+"base": "zhuo",
+"tone": 2,
+"cv": "CVV",
+"words": 108
+},
+"": {
+"py": "zī",
+"num": "zi1",
+"base": "zi",
+"tone": 1,
+"cv": "CV",
+"words": 388
+},
+"": {
+"py": "zǐ",
+"num": "zi3",
+"base": "zi",
+"tone": 3,
+"cv": "CV",
+"words": 163
+},
+"": {
+"py": "zì",
+"num": "zi4",
+"base": "zi",
+"tone": 4,
+"cv": "CV",
+"words": 588
+},
+"": {
+"py": "zi",
+"num": "zi5",
+"base": "zi",
+"tone": 5,
+"cv": "CV",
+"words": 1145
+},
+"": {
+"py": "zōng",
+"num": "zong1",
+"base": "zong",
+"tone": 1,
+"cv": "CVC",
+"words": 114
+},
+"": {
+"py": "zǒng",
+"num": "zong3",
+"base": "zong",
+"tone": 3,
+"cv": "CVC",
+"words": 181
+},
+"": {
+"py": "zòng",
+"num": "zong4",
+"base": "zong",
+"tone": 4,
+"cv": "CVC",
+"words": 49
+},
+"": {
+"py": "zōu",
+"num": "zou1",
+"base": "zou",
+"tone": 1,
+"cv": "CVV",
+"words": 5
+},
+"": {
+"py": "zǒu",
+"num": "zou3",
+"base": "zou",
+"tone": 3,
+"cv": "CVV",
+"words": 297
+},
+"": {
+"py": "zòu",
+"num": "zou4",
+"base": "zou",
+"tone": 4,
+"cv": "CVV",
+"words": 60
+},
+"": {
+"py": "zū",
+"num": "zu1",
+"base": "zu",
+"tone": 1,
+"cv": "CV",
+"words": 45
+},
+"": {
+"py": "zú",
+"num": "zu2",
+"base": "zu",
+"tone": 2,
+"cv": "CV",
+"words": 246
+},
+"": {
+"py": "zǔ",
+"num": "zu3",
+"base": "zu",
+"tone": 3,
+"cv": "CV",
+"words": 259
+},
+"": {
+"py": "zuān",
+"num": "zuan1",
+"base": "zuan",
+"tone": 1,
+"cv": "CVVC",
+"words": 35
+},
+"": {
+"py": "zuǎn",
+"num": "zuan3",
+"base": "zuan",
+"tone": 3,
+"cv": "CVVC",
+"words": 4
+},
+"": {
+"py": "zuàn",
+"num": "zuan4",
+"base": "zuan",
+"tone": 4,
+"cv": "CVVC",
+"words": 10
+},
+"": {
+"py": "zuǐ",
+"num": "zui3",
+"base": "zui",
+"tone": 3,
+"cv": "CVV",
+"words": 116
+},
+"": {
+"py": "zuì",
+"num": "zui4",
+"base": "zui",
+"tone": 4,
+"cv": "CVV",
+"words": 268
+},
+"": {
+"py": "zui",
+"num": "zui5",
+"base": "zui",
+"tone": 5,
+"cv": "CVV",
+"words": 4
+},
+"": {
+"py": "zūn",
+"num": "zun1",
+"base": "zun",
+"tone": 1,
+"cv": "CVC",
+"words": 60
+},
+"": {
+"py": "zuó",
+"num": "zuo2",
+"base": "zuo",
+"tone": 2,
+"cv": "CVV",
+"words": 17
+},
+"": {
+"py": "zuǒ",
+"num": "zuo3",
+"base": "zuo",
+"tone": 3,
+"cv": "CVV",
+"words": 185
+},
+"": {
+"py": "zuò",
+"num": "zuo4",
+"base": "zuo",
+"tone": 4,
+"cv": "CVV",
+"words": 643
+}
+}
+}
