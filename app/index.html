@@ -2575,7 +2575,8 @@ async function loadPool(code, gen, say) {
     for (const l in g) g[l] = Float64Array.from(g[l]).sort();
     P.dist[k] = { g, all: Float64Array.from(rows.map(r => r[k])).sort() };
   }
-  for (const r of rows) { r.like = xPct(P, "tri", r.len, r.tri); r.oldP = xPct(P, "old", r.len, r.old); r.n1P = xPct(P, "n1", r.len, r.n1); }
+  const own = (r, k, v) => Object.defineProperty(r, k, { value: v, writable: true, configurable: true, enumerable: true });   // oldP / n1P are prototype getters (lazy): give the row its own value
+  for (const r of rows) { r.like = xPct(P, "tri", r.len, r.tri); own(r, "oldP", xPct(P, "old", r.len, r.old)); own(r, "n1P", xPct(P, "n1", r.len, r.n1)); }
   P.rows = rows; P.byLen = {}; for (const r of rows) (P.byLen[r.len] = P.byLen[r.len] || []).push(r);
   P.byWord = new Map(rows.map(r => [r.w, r]));
   if (!S.XW[code]) S.XW[code] = { lex: new Map(P.lex.words.map((w, i) => [w, P.lex.zipf[i]])) };
