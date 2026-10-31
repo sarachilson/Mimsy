@@ -194,7 +194,7 @@ def clean_word(w, cfg):
 THAI_A = set("\u0e31\u0e34\u0e35\u0e36\u0e37\u0e38\u0e39")   # vowel signs above/below the consonant
 THAI_T = set("\u0e48\u0e49\u0e4a\u0e4b")                          # tone marks
 THAI_S = set("\u0e30\u0e32\u0e33\u0e45")                          # spacing vowels after the consonant
-THAI_NEED_FINAL = {"\u0e31", "\u0e47"}                             # mai han-akat and maitaikhu require a final consonant
+THAI_NEED_FINAL = {"\u0e31"}                                       # mai han-akat requires a final consonant (maitaikhu usually does too, but ก็ 'also' ends in it)
 
 
 def thai_ok(w, cls):
@@ -584,7 +584,7 @@ def step_prepare(lang, cfg, args, outdir, work):
             if v[3] == "leipzig" and len(w) >= ENG_FILTER_MINLEN and ENG.get(w, 0) >= ENG_FILTER_ZIPF:
                 plain[w] = (v[0], v[1], v[2], "leipzig_eng"); eng_removed.append(w)
     minc_lz = leipzig_min_count(cfg["leipzig"]) if cfg.get("leipzig") else REF_MIN_COUNT
-    def keep(v):
+    def keep(w, v):
         fr, z, ipa, src = v
         if src == "leipzig":
             return z >= REF_MIN_ZIPF and fr >= minc_lz
@@ -594,8 +594,10 @@ def step_prepare(lang, cfg, args, outdir, work):
             return False
         if cfg.get("ipa_only") and not ipa and src != "both":   # FILMS-only forms without a pronunciation are mostly corrupted
             return False
+        if cfg.get("rules", {}).get("thai") and not thai_ok(w, cls):   # Thai: segmentation fragments (a lone pre-posed vowel, a stray mark) are not reference words
+            return False
         return True
-    ref = sorted(((w, v) for w, v in plain.items() if keep(v)), key=lambda x: -x[1][1])
+    ref = sorted(((w, v) for w, v in plain.items() if keep(w, v)), key=lambda x: -x[1][1])
     small = corpus_tokens is not None and corpus_tokens < SMALL_CORPUS_TOKENS
     bands_enabled = not small and not cfg.get("no_bands")
     def band_of(z):
@@ -622,7 +624,7 @@ def step_prepare(lang, cfg, args, outdir, work):
     src_counts = {"films": 0, "leipzig": 0, "both": 0, "leipzig_name": 0, "leipzig_eng": 0}
     for w, v in ref:
         src_counts[v[3]] += 1
-    rare = sorted(w for w, v in plain.items() if not keep(v) and v[3] not in ("leipzig_name", "leipzig_eng"))
+    rare = sorted(w for w, v in plain.items() if not keep(w, v) and v[3] not in ("leipzig_name", "leipzig_eng"))
     os.makedirs(outdir, exist_ok=True)
     with gzip.open(os.path.join(outdir, "lexicon.tsv.gz"), "wt", encoding="utf-8") as f:
         f.write("word\tzipf\tband\tcv\tipa\n")
