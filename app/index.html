@@ -1500,6 +1500,7 @@ const COLS = {
   like: ["Wordlike % (vs real words)", r => fmt(r.like, 0), "num"], tri: [() => S.L[S.code] && S.L[S.code].syl ? "Bigram freq." : "Trigram freq.", r => fmt(r.tri, 2), "num"],
   old: ["OLD20", r => fmt(r.old), "num"], oldp: ["OLD20 pct", r => fmt(r.oldP, 0), "num"], n1: ["Coltheart's N", r => r.n1, "num"], n1p: ["N pct", r => fmt(r.n1P, 0), "num"], n1h: ["High-freq. neighbours", r => r.n1h, "num"],
   morph: ["Morphology", r => morphText(r.mo), "mono"], naff: ["Affixes", r => isNaN(r.naff) ? "" : r.naff, "num"], harm: ["Harmony", r => r.mo ? r.mo.h || "" : "", ""],
+  tones: ["Tones", r => tonesOf(r._L || S.L[S.code], r.w), "mono"],
   near: ["Nearest word", r => nearDisp(r._L || S.L[S.code], r.near), "mono"], nd: ["Dist.", r => r.nd, "num"], nz: ["Nearest Zipf", r => fmt(r.nz), "num"],
   lpa: ["Model log₂ p", r => fmt(r.lpa, 3), "num"],
   emb: ["Embedded word", r => r.emb ? `${r.emb.w} (${r.emb.pos})` : "", "mono"],
@@ -1510,7 +1511,7 @@ const COLS = {
   xl: ["Word in", r => xlLabel(xlOf(r), r.w), ""],
 };
 const BANK_COLS = ["w", "model", "gen", "len", "cv", "like", "tri", "trimin", "old", "oldp", "n1", "n1p", "tl", "near", "nd", "nz", "embn", "oup", "lpa"];
-const bankCols = L => { const c = BANK_COLS.filter(k => SHOW_PROVENANCE || (k !== "model" && k !== "gen")); if (L.cvg) c.splice(c.indexOf("cv") + 1, 0, "cvg"); if (L.hasGraph && !L.indic) c.splice(c.indexOf("cv") + 1, 0, "cvgr", "ng"); if (L.morph) c.splice(c.indexOf("like"), 0, "morph", "naff", "harm"); if (S.xlSig) c.splice(1, 0, "xl"); return c; };
+const bankCols = L => { let c = BANK_COLS.filter(k => SHOW_PROVENANCE || (k !== "model" && k !== "gen")); if (L.syl) { c = c.filter(k => !SYL_HIDE.has(k)); c.splice(c.indexOf("cv") + 1, 0, "tones"); } if (L.cvg) c.splice(c.indexOf("cv") + 1, 0, "cvg"); if (L.hasGraph && !L.indic) c.splice(c.indexOf("cv") + 1, 0, "cvgr", "ng"); if (L.morph) c.splice(c.indexOf("like"), 0, "morph", "naff", "harm"); if (S.xlSig) c.splice(1, 0, "xl"); return c; };
 const tableData = {};
 function renderTable(id, rows, colKeys, colDefs = COLS) {
   const box = $("#" + id);
@@ -1726,6 +1727,7 @@ const A_COLS = {
   like: ["Wordlike %", r => isNaN(r.like) ? "" : fmt(r.like, 0), "num"], tri: [() => S.L[S.code] && S.L[S.code].syl ? "Bigram freq." : "Trigram freq.", r => isNaN(r.tri) ? "" : fmt(r.tri, 2), "num"],
   old: ["OLD20", r => fmt(r.old), "num"], oldp: ["OLD20 pct", r => fmt(r.oldP, 0), "num"], n1: ["Coltheart's N", r => r.n1, "num"], n1p: ["N pct", r => fmt(r.n1P, 0), "num"], n1h: ["High-freq. neighbours", r => r.n1h, "num"],
   morph: ["Morphology", r => morphText(r.mo), "mono"], naff: ["Affixes", r => isNaN(r.naff) ? "" : r.naff, "num"], harm: ["Harmony", r => r.mo ? r.mo.h || "" : "", ""],
+  tones: ["Tones", r => tonesOf(S.L[S.code], r.w), "mono"],
   near: ["Nearest other word", r => nearDisp(S.L[S.code], r.near), "mono"], nd: ["Dist.", r => isNaN(r.nd) ? "" : r.nd, "num"],
   tl: ["TL neighbours", r => r.tl ? (r.tl.length ? `${r.tl.length} (${r.tl.slice(0, 3).join(", ")}${r.tl.length > 3 ? ", …" : ""})` : "0") : "", "num"],
   trimin: [() => S.L[S.code] && S.L[S.code].syl ? "Rarest bigram" : "Rarest trigram", r => r.triMin && !isNaN(r.triMin.v) ? `${fmt(r.triMin.v)} (${r.triMin.g})` : "", "num"],
@@ -1734,7 +1736,7 @@ const A_COLS = {
   ipa: [() => S.L[S.code] && S.L[S.code].syl ? "Characters" : "IPA", r => r.ipa, ""],
   xl: ["Word in other languages", r => r.w ? xlLabel(xlOf(r), r.w) : "", ""],
 };
-const aColKeys = L => { const c = Object.keys(A_COLS).filter(k => k !== "xl" && (SHOW_PROVENANCE || k !== "band") && (L.cvg || (k !== "cvg" && k !== "cvIpa")) && ((L.hasGraph && !L.indic) || (k !== "cvgr" && k !== "ng")) && (L.morph || !["morph", "naff", "harm"].includes(k))); if (S.xlSig) c.splice(2, 0, "xl"); return c; };
+const aColKeys = L => { const c = Object.keys(A_COLS).filter(k => k !== "xl" && k !== "tones" && (SHOW_PROVENANCE || k !== "band") && (!L.syl || !SYL_HIDE.has(k)) && (L.cvg || (k !== "cvg" && k !== "cvIpa")) && ((L.hasGraph && !L.indic) || (k !== "cvgr" && k !== "ng")) && (L.morph || !["morph", "naff", "harm"].includes(k))); if (L.syl) c.splice(c.indexOf("cv") + 1, 0, "tones"); if (S.xlSig) c.splice(2, 0, "xl"); return c; };
 $("#aGo").addEventListener("click", async () => {
   toTop();
   const L = S.L[S.code]; if (!L) return;
@@ -1774,7 +1776,7 @@ const M_COLS = {
   pxl: ["Pseudoword is a word in", r => r.p ? xlLabel(xlOf(r.p), r.p.w) : "", ""],
 };
 // Column order: word, its pseudoword (and "word in" when other languages are checked), then the word's measures, then the pseudoword's.
-const mColKeys = () => { const L = S.L[S.code]; const c = Object.keys(M_COLS).filter(k => k !== "pxl" && k !== "p" && (L && L.morph || (k !== "tmorph" && k !== "pmorph"))); c.splice(1, 0, "p"); if (S.xlSig) c.splice(2, 0, "pxl"); return c; };
+const mColKeys = () => { const L = S.L[S.code]; const c = Object.keys(M_COLS).filter(k => k !== "pxl" && k !== "p" && (L && L.morph || (k !== "tmorph" && k !== "pmorph")) && !(L && L.syl && SYL_HIDE.has(k))); c.splice(1, 0, "p"); if (S.xlSig) c.splice(2, 0, "pxl"); return c; };
 /* --- reading tables: txt, csv/tsv, xlsx (xlsx via a minimal reader on top of JSZip) --- */
 function parseDelimited(txt) {
   const first = txt.split(/\r?\n/).find(l => l.trim()) || "";
@@ -1944,6 +1946,10 @@ function buildSymIndex(sym) {   // marked and numbered spellings -> symbol; base
   for (const ch in sym) { const v = sym[ch]; byPy.set(v.py, ch); byNum.set(v.num, ch); bases.add(v.base); if (v.tone === 5) byNum.set(v.base + "0", ch); }
   return { byPy, byNum, bases, maxLen: Math.max(...[...byPy.keys()].map(k => k.length)) };
 }
+function tonesOf(L, w) { return L && L.syl && L.sym ? [...w].map(ch => (L.sym[ch] || {}).tone ?? "?").join("-") : ""; }
+// Measures that are constant or trivial when the unit is the syllable: every syllable is a word (embedded words, OUP), the nearest word is always
+// one syllable away (Dist., OLD20 pct for two-syllable items), transpositions and the rarest bigram carry no information. Hidden for these languages.
+const SYL_HIDE = new Set(["trimin", "tl", "nd", "embn", "oup", "oldp", "emb", "ttrimin", "ttl", "tembn", "toup", "ptrimin", "ptl", "poup", "pemb"]);
 function nearDisp(L, w) {   // syllable languages: add the most frequent character form of the nearest word
   if (!L || !L.syl || !w) return w;
   const i = L.lex.index.get(w); const hz = i !== undefined ? L.lex.ipa[i] : "";
