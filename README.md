@@ -6,7 +6,7 @@
 > *And the mome raths outgrabe.*
 > — Lewis Carroll, *Jabberwocky* (1871)
 
-**Mimsy** is a browser tool for finding, generating and checking pseudowords — strings that look and sound like words of a language but are not — in 179 languages. It takes its name from *Jabberwocky*, the most famous pseudoword text in English. For each language it reports the measures that matter when a pseudoword stands in for a real word: length, CV structure, trigram wordlikeness, OLD20, Coltheart's N, embedded words and more.
+**Mimsy** is a browser tool for finding, generating and checking pseudowords — strings that look and sound like words of a language but are not — in 180 languages. It takes its name from *Jabberwocky*, the most famous pseudoword text in English. For each language it reports the measures that matter when a pseudoword stands in for a real word: length, CV structure, trigram wordlikeness, OLD20, Coltheart's N, embedded words and more.
 
 It is built from the FILMS/OPUS subtitle frequency lists and, for languages with small or unusable subtitle lists or none at all, word lists from the Leipzig Corpora Collection. Version 0.6-beta: about 20.8 million precomputed pseudowords (the main languages have 190,000–385,000 each; small-corpus languages 15,000–120,000).
 
@@ -101,6 +101,16 @@ These scripts leave most vowels unwritten, so two CV patterns are offered:
 
 A "CV basis" switch on the bank tab chooses which pattern the CV filter and the matching use. Pseudowords themselves are generated, scored and matched on letters (unvocalized surface forms), as in the other languages; for abjads the attested-cluster filter is not applied, because runs of consonant letters are not clusters, and items without vowel letters are allowed.
 
+## Chinese (Mandarin, pinyin): syllables as the unit
+
+Mandarin has only about 400 base syllables (1,187 with tone in our data), and almost every legal syllable is a real morpheme, so a letter model over pinyin would produce either illegal syllables or real ones. Chinese pseudowords are therefore **sequences of real toned syllables that do not form a word** — the stimulus type used in Mandarin auditory lexical decision — and the pipeline's "letters" are toned syllables:
+
+- `pipeline/make_pinyin.py` turns the FILMS zh_CN subtitle list (1.19 M character strings, 174 M tokens) into pinyin with pypinyin (MIT; phrase dictionary first, then per character; 不 and 一 with their citation tones; neutral tone written without a mark), merges homophones (same toned syllables: frequencies added; the most frequent character form is kept for display), and maps every toned syllable that occurs in at least three reference-eligible words to one Private Use Area character (U+E000 …). The symbol table is `pipeline/syllables_zh.json` and is copied into the manifest.
+- `build_bank.py` then runs unchanged (`script="syllables"`; `pipeline/syl.py`): the Kneser-Ney model is a syllable 3-gram (`order=3`; only the KN generator is built, because plain trigrams over syllables reproduce real words), items are 2–4 syllables long (two-syllable items are oversampled to half of each set, since most syllable pairs are words), every syllable is legal so only the length and no-triple rules apply, and the reject list holds every pinyin form of the corpus (828k, including 722k rare ones). Length, OLD20, Coltheart's N (one syllable exchanged, added or removed), the nearest word and the trigram wordlikeness all count syllables. CV is the orthographic CV of the pinyin letters of each syllable in turn (zh/ch/sh/ng one C; y, w as C; every vowel letter V): zhōng = CVC, xiǎo = CVVV. The neighbour kernel (`neighbors.c`) now takes 16-bit symbols, so alphabets of more than 255 units work.
+- The app shows the symbols as pinyin with tone marks (an apostrophe before a vowel-initial syllable, as in pinyin orthography), the nearest word with its characters, and accepts in Analyze, Match and the search filters pinyin with tone marks (zhōngguó), tone numbers (zhong1 guo2, zhong1guo2; 5 or no digit = neutral tone) or Chinese characters for words of the lexicon. There is no real-word check beyond the corpus list (no Hunspell dictionary applies), and no graphemic or phonological CV.
+
+Not built: *pseudo-compounds* (two real characters that do not form a word, the usual visual pseudoword type for Chinese reading research) — a different stimulus type, possible from the same data but outside a sound-based tool for now.
+
 ## Graphemes: three CV levels
 
 Every alphabetic language has up to three CV patterns, chosen with the "CV pattern basis" switch on the bank tab (it also drives "CV structure" in Match my words and the CV pattern in Cross-language sets):
@@ -138,6 +148,7 @@ cd pipeline
 python3 build_bank.py                     # all languages (3–4 hours; resumable, rerun to continue)
 python3 build_bank.py --lang english-en   # one language
 python3 verify_metrics.py english-en 20   # brute-force check of the metrics
+python3 make_pinyin.py <FILMS chinese_mainland_china.zh_CN.word.raw.tsv>   # Chinese: writes _slim/chinese_pinyin-zh.tsv.gz and syllables_zh.json (needs pypinyin)
 ```
 
 Language settings (alphabets, vowels, the rule for `y`, spelling rules) are in `pipeline/languages.py`; `pipeline/derive_alphabet.py <corpus>` prints the letter inventory of a Leipzig list for a new entry; `pipeline/get_leipzig.py` downloads the lists.
@@ -168,6 +179,7 @@ To rerun: clone the three dictionary collections, the UniMorph repositories and 
 
 - CV structure and models are based on letters, not graphemes or sounds (for example, English "sh" counts as CC).
 - Morphology is checked only for Kazakh so far (see above); in the other languages items can contain real affixes, and the real-word check (dictionaries, UniMorph, Bible texts) is only as complete as those sources — 81 languages, mostly the small Wikipedia-only ones, have no dictionary at all (the six regional varieties use their parent language's dictionary).
+- Chinese (pinyin) items are syllable sequences: the reject list is the corpus list only, and pinyin from pypinyin can be wrong for rare heteronyms (characters with several readings).
 - Vietnamese has a small search space (about 18,000 legal syllables, fewer than the targets), and most short syllables are one edit from a real one.
 - Bank sizes: each generator and training set gets as many pseudowords as the set has training words, between 5,000 and 40,000 (see `generation` in each manifest).
 

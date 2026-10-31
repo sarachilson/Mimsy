@@ -14,6 +14,7 @@ import argparse, ctypes, gzip, json, math, os, random, sys, time, unicodedata
 import numpy as np
 from languages import LANGS, BASE_V, FAMILY
 import indic
+import syl
 
 VERSION = "0.6-beta"
 ORDER = 4                       # letter n-gram order (3 letters of context)
@@ -51,6 +52,7 @@ OLD_K = 20
 INV_MIN_TYPES = 3               # a cluster is 'legal' if it occurs in at least this many reference words
 SEED = 20261010
 BOS, EOS = "^", "$"
+CACHE_MAX = 20000               # context-distribution cache entries per model
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
@@ -59,6 +61,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 def letter_classes(cfg, alphabet):
     if cfg.get("script") in indic.SCRIPTS:
         return indic.classes(cfg["script"])
+    if cfg.get("script") == "syllables":
+        return syl.classes(cfg)
     vowels = set(cfg.get("vowels", ""))
     mods = set(cfg.get("mods", ""))
     cmods = set(cfg.get("cmods", ""))   # consonant-side modifier letters (Urdu ھ ں): C in the orthographic CV, never fill a slot in generation
@@ -93,6 +97,8 @@ def cv_of(word, cls):
     """Letter-based CV string. Modifier letters are skipped; auto-<y> is C before a vowel. Indic scripts: akshara-based."""
     if indic.is_indic(cls):
         return indic.cv_of(word, cls)
+    if syl.is_syl(cls):
+        return syl.cv_of(word, cls)
     out = []
     n = len(word)
     for i, ch in enumerate(word):
@@ -146,6 +152,8 @@ def shape(word, cls):
     """(chars, aligned CV) for cluster extraction; Indic words are expanded with their inherent vowels."""
     if indic.is_indic(cls):
         return indic.aligned(word, cls)
+    if syl.is_syl(cls):
+        return syl.aligned(word, cls)
     return word, cv_aligned(word, cls)
 
 
@@ -272,7 +280,7 @@ def load_words(lang, cfg, slim_dir, leipzig_dir=None):
         leipzig_info = {"corpus": name, "tokens": lz_tokens, "min_count": minc, "reference_candidates_added": added, **lz_stats}
     # choose alphabet with most token mass
     best = None
-    for alpha in cfg["alphabets"]:
+    for alpha in ([syl.alphabet(cfg)] if cfg.get("script") == "syllables" else cfg["alphabets"]):
         aset = set(alpha)
         mass = sum(v[0] for w, v in rows.items() if w and all(c in aset for c in w))
         if best is None or mass > best[1]:
@@ -357,6 +365,7 @@ class KN:
                     q[j] += max(c - D, 0) / S
             p = q
         p = p / p.sum()
+        if len(self._cache) > CACHE_MAX: self._cache.clear()   # bounded: large vocabularies (syllable symbols) would otherwise exhaust memory
         self._cache[h] = p
         return p
 
@@ -426,6 +435,7 @@ class Trigram:
                 j = self.vidx.get(c)
                 if j is not None:
                     p[j] = k / e[0]
+        if len(self._cache) > CACHE_MAX: self._cache.clear()
         self._cache[h] = p
         return p
 
@@ -474,8 +484,8 @@ def load_lib():
     lib = ctypes.CDLL(so)
     P = np.ctypeslib.ndpointer
     lib.neighbors.argtypes = [
-        P(np.uint8), P(np.int64), ctypes.c_int,
-        P(np.uint8), P(np.int64),
+        P(np.uint16), P(np.int64), ctypes.c_int,
+        P(np.uint16), P(np.int64),
         P(np.int32), P(np.int64), ctypes.c_int,
         P(np.uint8), ctypes.c_int, ctypes.c_int,
         P(np.float64), P(np.int32), P(np.int32), P(np.int32), P(np.int32)]
@@ -484,7 +494,7 @@ def load_lib():
 
 
 def encode(words, sym):
-    data = np.frombuffer(bytes(sym[c] for w in words for c in w), dtype=np.uint8).copy()
+    data = np.array([sym[c] for w in words for c in w], dtype=np.uint16)
     off = np.zeros(len(words) + 1, dtype=np.int64)
     off[1:] = np.cumsum([len(w) for w in words])
     return data, off
@@ -577,7 +587,7 @@ def step_prepare(lang, cfg, args, outdir, work):
     state = {
         "alphabet": alphabet, "classes": cls, "corpus_tokens": corpus_tokens, "small_corpus": small, "bands_enabled": bands_enabled,
         "leipzig": lz, "reference_sources": src_counts, "parents": parents or None, "english_contamination_removed": {"count": len(eng_removed), "rule": f"Leipzig-only words of {ENG_FILTER_MINLEN}+ letters that are English words with Zipf >= {ENG_FILTER_ZIPF}", "words": sorted(eng_removed)},
-        "length_unit": ("fidel" if cfg.get("rules", {}).get("syllabary") else "aksharas") if indic.is_indic(cls) else "letters",
+        "length_unit": ("fidel" if cfg.get("rules", {}).get("syllabary") else "aksharas") if indic.is_indic(cls) else ("syllables" if syl.is_syl(cls) else "letters"),
         "inventory": {k: sorted(v) for k, v in inv.items()},
         "counts": {"corpus_forms": len(all_forms), "plain_forms": len(plain),
                    "reference_words": len(ref), "rare_words": len(rare),
@@ -625,6 +635,8 @@ def legal(w, cls, inv, rules=None):
     for i in range(len(w) - 2):
         if w[i] == w[i + 1] == w[i + 2]:
             return False
+    if syl.is_syl(cls):   # syllable symbols: every syllable is legal, only length and repetition rules apply
+        return True
     o, med, cd, vs = clusters(chars, al)
     if not rules.get("allow_no_vowel"):   # abjads: consonant-letter runs are not clusters (vowels unwritten)
         if o not in inv["onset"] or cd not in inv["coda"]:
@@ -656,10 +668,16 @@ def build_models(lang, work, outdir):
     for name, rows in sets.items():
         words = [w for w, _, _ in rows]
         tokens = [10 ** (z - 3) for _, z, _ in rows]   # per-million frequency from Zipf
-        models[("kn4", name)] = KN(words, vocab)
-        models[("tri_type", name)] = Trigram(words, vocab)
-        models[("tri_token", name)] = Trigram(words, vocab, tokens)
+        models[("kn4", name)] = KN(words, vocab, order=LANGS[lang].get("order", ORDER))
+        if "tri_type" in gens(lang): models[("tri_type", name)] = Trigram(words, vocab)
+        if "tri_token" in gens(lang): models[("tri_token", name)] = Trigram(words, vocab, tokens)
     return st, lex, models, targets
+
+
+def gens(lang):
+    """Generators built for a language (languages.py 'generators'; default all three). Syllable-symbol languages keep only kn4:
+    plain trigrams over syllables mostly reproduce real words and the tables would be large."""
+    return LANGS[lang].get("generators", GENERATORS)
 
 
 def step_generate(lang, cfg, args, outdir, work):
@@ -671,7 +689,7 @@ def step_generate(lang, cfg, args, outdir, work):
     stats = {}
     all_kn = models[("kn4", "all")]
     set_names = ["1", "2", "3", "4", "all"] if st.get("bands_enabled", not st.get("small_corpus")) else ["all"]
-    for gen_name in GENERATORS:
+    for gen_name in gens(lang):
         for name in set_names:
             m = models[(gen_name, name)]
             kept = 0; tries = 0; target = targets[name]
@@ -709,7 +727,7 @@ def step_generate(lang, cfg, args, outdir, work):
     with open(os.path.join(work, "generated.tsv"), "w", encoding="utf-8") as f:
         for r in rows:
             f.write("\t".join(map(str, r)) + "\n")
-    out = {g: {name: models[(g, name)].export() for name in set_names} for g in GENERATORS}
+    out = {g: {name: models[(g, name)].export() for name in set_names} for g in gens(lang)}
     with gzip.open(os.path.join(outdir, "models.json.gz"), "wt", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, separators=(",", ":"))
     json.dump(stats, open(os.path.join(work, "gen_stats.json"), "w"))
@@ -834,11 +852,12 @@ def step_write(lang, cfg, args, outdir, work):
         "sources_detail": {"films": bool(st.get("reference_sources", {}).get("films", 0) + st.get("reference_sources", {}).get("both", 0)), "leipzig": st.get("leipzig"), "reference_words_by_source": st.get("reference_sources"),
                            "english_contamination_removed": st.get("english_contamination_removed")},
         "alphabet": st["alphabet"], "letter_classes": st["classes"],
+        "symbols": ({**{k: v for k, v in syl.table(cfg).items() if k != "symbols"}, "symbols": syl.table(cfg)["symbols"]} if cfg.get("script") == "syllables" else None),
         "y_rule": "auto = <y> is C before a vowel, otherwise V" if cfg.get("y") == "auto" else cfg.get("y", "V"),
         "bands": [{"id": b, "label": l, "zipf_min": lo, "zipf_max": None if hi > 50 else hi} for b, l, lo, hi in BANDS],
         "reference_lexicon": f"plain words (alphabet only) with Zipf >= {REF_MIN_ZIPF} and corpus count >= {REF_MIN_COUNT}",
-        "generators": GEN_LABEL,
-        "model": {"type": "interpolated Kneser-Ney letter n-gram", "order": ORDER,
+        "generators": {g: GEN_LABEL[g] for g in gens(lang)},
+        "model": {"type": "interpolated Kneser-Ney letter n-gram", "order": cfg.get("order", ORDER),
                   "counts": "type-based (each word once)", "boundary_markers": [BOS, EOS],
                   "trigram_variants": "plain maximum-likelihood letter trigrams with two start markers and one end marker; type counts (each word once) or token counts (each word weighted by its per-million frequency)"},
         "filters": {"length": [cfg.get("rules", {}).get("min_len", MIN_LEN), cfg.get("rules", {}).get("max_len", MAX_LEN)],
@@ -901,7 +920,7 @@ def writing_system(alphabet):
               ("Hebrew", 0x590, 0x600), ("Arabic", 0x600, 0x700), ("Arabic", 0x750, 0x780), ("Thaana", 0x780, 0x7C0), ("Devanagari", 0x900, 0x980),
               ("Bengali", 0x980, 0xA00), ("Gurmukhi", 0xA00, 0xA80), ("Gujarati", 0xA80, 0xB00), ("Odia", 0xB00, 0xB80), ("Tamil", 0xB80, 0xC00),
               ("Telugu", 0xC00, 0xC80), ("Kannada", 0xC80, 0xD00), ("Malayalam", 0xD00, 0xD80), ("Sinhala", 0xD80, 0xE00), ("Georgian", 0x10A0, 0x1100),
-              ("Ethiopic", 0x1200, 0x1380)]
+              ("Ethiopic", 0x1200, 0x1380), ("Pinyin syllables", 0xE000, 0xF900)]
     counts = {}
     for ch in alphabet:
         o = ord(ch)

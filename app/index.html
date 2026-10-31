@@ -129,7 +129,7 @@ body.noprov .prov{display:none!important}
 <body>
 <header>
   <div class="wrap top">
-    <div class="brand" title="All mimsy were the borogoves — Lewis Carroll, Jabberwocky"><img src="assets/mark.png" alt=""><span>Mimsy <small>beta · pseudowords in 179 languages</small></span></div>
+    <div class="brand" title="All mimsy were the borogoves — Lewis Carroll, Jabberwocky"><img src="assets/mark.png" alt=""><span>Mimsy <small>beta · pseudowords in 180 languages</small></span></div>
     <div class="spacer"></div>
     <label class="status" for="lang" style="margin:0">Language</label>
     <select id="lang" style="width:auto;min-width:210px" disabled></select>
@@ -540,7 +540,12 @@ const GEN_LABEL = {"kn4": "Kneser-Ney 4-gram", "tri_type": "Plain trigram, type 
 const GEN_KEYS = ["kn4", "tri_type", "tri_token"];
 const TRAIN_LABEL = {"1": "Low frequency (Zipf 2–3)", "2": "Mid-low frequency (Zipf 3–3.5)", "3": "Mid-high frequency (Zipf 3.5–4)", "4": "High frequency (Zipf ≥ 4)", "all": "All frequencies together (Zipf ≥ 2)"};
 const S = { mode: null, files: null, index: null, code: null, L: {} };
-const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const escRaw = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const esc = s => escRaw(disp(s));
+// Syllable-symbol languages (Mandarin pinyin): every toned syllable is one Private Use Area character in the data; SYM maps it back to pinyin for display.
+const SYM = new Map(), SYM_RE = /[\uE000-\uF8FF]+/g;
+function disp(s) { s = String(s); return SYM.size && SYM_RE.test(s) ? s.replace(SYM_RE, run => { let out = ""; for (const ch of run) { const py = SYM.get(ch) || "?"; out += (out && /^[aoeāáǎàōóǒòēéěè]/.test(py) ? "'" : "") + py; } return out; }) : s; }
+const isSyl = cls => { for (const k in cls) return String(cls[k]).startsWith("S:"); return false; };
 const fmt = (x, d = 2) => (x === null || x === undefined || Number.isNaN(x)) ? "" : (+x).toFixed(d);
 const norm = s => s.normalize("NFC").trim().toLowerCase();
 function mulberry(seed) { return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
@@ -635,7 +640,7 @@ function start() {
 function exampleWords(L, n) {
   const lex = L.lex, unit = L.manifest.length_unit || "letters", lo = unit === "letters" ? 5 : 2, hi = unit === "letters" ? 7 : 4;
   const hasIpa = lex.ipa.some(Boolean);
-  const ok = w => /^\p{L}+$/u.test(w) && w === w.toLowerCase() && (L.indic || !L.cls || [...w].some(ch => L.cls[ch] === "V" || L.cls[ch] === "Y"));
+  const ok = w => (L.syl ? /^[\uE000-\uF8FF]+$/u.test(w) : /^\p{L}+$/u.test(w) && w === w.toLowerCase()) && (L.indic || L.syl || !L.cls || [...w].some(ch => L.cls[ch] === "V" || L.cls[ch] === "Y"));
   const gather = (zlo, zhi, needIpa, lenOk) => { const c = []; for (let i = 0; i < lex.words.length; i++) { const z = lex.zipf[i]; if (z >= zlo && z < zhi && (!needIpa || lex.ipa[i])) { const w = lex.words[i], l = wlen(L, w); if ((!lenOk || (l >= lo && l <= hi)) && ok(w)) c.push(w); } } return c; };
   let cand = gather(4.5, 5.5, hasIpa, true);
   if (cand.length < n) cand = gather(4, 9, false, true);
@@ -658,7 +663,7 @@ async function selectLang(code) {
   S.recent = [code].concat((S.recent || []).filter(c => c !== code)).slice(0, 2);
   for (const c in S.L) if (!S.recent.includes(c)) delete S.L[c];   // keep memory bounded: two languages at a time
   const m = S.L[code].manifest, cb = $("#caution");
-  { const L = S.L[code], opts = [["orth", L.indic ? "Orthographic (akshara: inherent vowels counted)" : "Orthographic (one letter = one unit)"]];
+  { const L = S.L[code], opts = [["orth", L.indic ? "Orthographic (akshara: inherent vowels counted)" : L.syl ? "Orthographic (pinyin letters of each syllable)" : "Orthographic (one letter = one unit)"]];
     if (L.hasGraph && !L.indic) opts.push(["graph", "Graphemic (sh, ch, ea … = one unit)"]);
     if (L.cvg) opts.push(["guess", L.indic ? ((m.rules || {}).schwa_rule === false ? "Phonological* (learned from pronunciations)" : "Phonological* (schwa deletion applied)") : "Phonological* (unwritten vowels inferred)"]);
     $("#cvBasisSel").innerHTML = opts.map(([v, t]) => `<option value="${v}">${esc(t)}</option>`).join("");
@@ -668,7 +673,7 @@ async function selectLang(code) {
   { const unit = m.length_unit || "letters", d = unit === "letters" ? ["4", "6"] : ["2", "4"];   // aksharas (abugidas) or fidel (Ethiopic): syllable-sized units
     $("#sLenLbl").textContent = `Length (${unit})`;
     if (S.lenUnit !== unit) { $("#sLenMin").value = $("#sLenMin").defaultValue = d[0]; $("#sLenMax").value = $("#sLenMax").defaultValue = d[1]; S.lenUnit = unit; } }
-  $("#mWords").placeholder = exampleWords(S.L[code], 3).join("\n") || "one word per line";
+  $("#mWords").placeholder = exampleWords(S.L[code], 3).map(disp).join("\n") || "one word per line";
   $("#morphBox").hidden = !S.L[code].morph; $("#mcMorphBox").hidden = !S.L[code].morph;
   if (S.gMissing) { $("#cvBasisBox").hidden = false; setHint("#cvBasisHint", "data/graphemes.json was not found, so the graphemic CV is unavailable (copy the file into the data folder and reload).", ""); }
   else if ($("#cvBasisBox").hidden) setHint("#cvBasisHint", "", "");
@@ -696,6 +701,8 @@ async function loadLang(code) {
   if (L.manifest.cv_guess) { try { L.cvg = JSON.parse(await getText(code + "/cvguess.json.gz")); } catch (e) { L.cvg = null; } }
   L.cls = L.manifest.letter_classes;
   L.indic = isIndic(L.cls);
+  L.syl = isSyl(L.cls);
+  if (L.syl && L.manifest.symbols) { L.sym = L.manifest.symbols.symbols; for (const ch in L.sym) SYM.set(ch, L.sym[ch].py); L.symBy = buildSymIndex(L.sym); }
   await loadGraphemes(); L.gspec = gspecOf(code); L.hasGraph = hasGraphLevel(L.gspec, L.cls, L.indic) || L.indic;
   L.alphaSet = new Set([...L.manifest.alphabet]);
   L.inv = {}; for (const k in L.manifest.inventory) L.inv[k] = new Set(L.manifest.inventory[k]);
@@ -830,9 +837,9 @@ function tlOf(L, w) {
 }
 // Rarest trigram: the item's least frequent trigram (with boundaries) under the current type/token counting.
 function triMinOf(L, w) {
-  const T = S.triMode === "token" ? L.triToken : L.triType, x = triCodes(L, w), str = BOS + w + EOS, n = x.length - 2;
+  const T = S.triMode === "token" ? L.triToken : L.triType, x = triCodes(L, w), str = BOS + w + EOS, W = triW(L), n = x.length - W + 1;
   let best = Infinity, g = "";
-  for (let i = 0; i < n; i++) { const v = Math.log10((T.get((x[i] * TRI_K + x[i + 1]) * TRI_K + x[i + 2]) || 0) + 1); if (v < best) { best = v; g = str.slice(i, i + 3); } }
+  for (let i = 0; i < n; i++) { const v = Math.log10((T.get(triKey(L, x, i)) || 0) + 1); if (v < best) { best = v; g = str.slice(i, i + W); } }
   return n > 0 ? { v: best, g } : { v: NaN, g: "" };
 }
 // All distinct real words (3+ letters, Zipf ≥ S.embZipf) inside the item, longest first, with their positions.
@@ -940,17 +947,20 @@ function triCodes(L, w) {   // codes of the letters of ^w$ (unknown letters get 
   for (let i = 0; i < w.length; i++) { let c = ci.get(w[i]); if (c === undefined) { c = ci.size + 3; ci.set(w[i], c); } out[i + 1] = c; }
   return out;
 }
+// Syllable-symbol languages (pinyin) use bigrams of syllables instead of trigrams: a two-syllable item has only one inner pair.
+const triW = L => L.syl ? 2 : 3;
+const triKey = (L, x, i) => L.syl ? x[i] * TRI_K + x[i + 1] : (x[i] * TRI_K + x[i + 1]) * TRI_K + x[i + 2];
 function buildTrigrams(L) {
-  const t = new Map(), tk = new Map(); L.charIdx = new Map();
+  const t = new Map(), tk = new Map(); L.charIdx = new Map(); const W = triW(L);
   L.lex.words.forEach((w, i) => { const x = triCodes(L, w), k = 10 ** (L.lex.zipf[i] - 3);
-    for (let j = 0; j + 3 <= x.length; j++) { const g = (x[j] * TRI_K + x[j + 1]) * TRI_K + x[j + 2]; t.set(g, (t.get(g) || 0) + 1); tk.set(g, (tk.get(g) || 0) + k); } });
+    for (let j = 0; j + W <= x.length; j++) { const g = triKey(L, x, j); t.set(g, (t.get(g) || 0) + 1); tk.set(g, (tk.get(g) || 0) + k); } });
   L.triType = t; L.triToken = tk;
 }
 S.triMode = "type";
 function triScore(L, w) {
   const T = S.triMode === "token" ? L.triToken : L.triType;
-  const x = triCodes(L, w), n = x.length - 2; if (n <= 0) return NaN;
-  let sum = 0; for (let i = 0; i < n; i++) sum += Math.log10((T.get((x[i] * TRI_K + x[i + 1]) * TRI_K + x[i + 2]) || 0) + 1);
+  const x = triCodes(L, w), n = x.length - triW(L) + 1; if (n <= 0) return NaN;
+  let sum = 0; for (let i = 0; i < n; i++) sum += Math.log10((T.get(triKey(L, x, i)) || 0) + 1);
   return sum / n;
 }
 function rescoreBank(L) {
@@ -1047,6 +1057,7 @@ const VOCALIC_R = new Set("ऋृঋৃଋୃઋૃఋృಋೃഋൃ");
 const wlen = (L, w) => L.indic ? indicLen(w, L.cls) : w.length;
 function cvOf(w, cls) {
   if (isIndic(cls)) return indicCV(w, cls);
+  if (isSyl(cls)) { let o = ""; for (const ch of w) o += (cls[ch] || "S:").slice(2); return o; }
   let out = "";
   for (let i = 0; i < w.length; i++) {
     let c = cls[w[i]] || "C";
@@ -1176,6 +1187,7 @@ function ruleViolation(L, w) {          // language-specific spelling rules (man
   return "";
 }
 function legality(L, w) {
+  if (L.syl) return [...w].every(ch => ch in L.cls) ? ruleViolation(L, w) : "not a sequence of Mandarin syllables";
   let chars = w, al;
   if (L.indic) { const e = indicSeqError(w, L.cls, L.manifest.rules); if (e) return e; ({ chars, al } = indicAligned(w, L.cls)); } else al = cvAligned(w, L.cls);
   if (!al.includes("V") && !(L.manifest.rules || {}).allow_no_vowel) return "no vowel";
@@ -1485,16 +1497,16 @@ const TIPS = {
 const COLS = {
   w: ["Pseudoword", r => r.w, "pw pick"], model: ["Generated from", r => MODEL_LABEL[r.model] || r.model, ""], gen: ["Generator", r => GEN_LABEL[r.gen] || r.gen || "", ""],
   len: ["Len", r => r.len, "num"], cv: [() => S.L[S.code] && (S.L[S.code].cvg || S.L[S.code].hasGraph) ? "CV (orth.)" : "CV", r => r.cv, "mono"], cvgr: ["CV (graph.)", r => r.cvgr || "", "mono"], ng: ["Graphemes", r => r.ng ?? "", "num"], cvg: ["CV (phon.)*", r => r.cvg || "", "mono"],
-  like: ["Wordlike % (vs real words)", r => fmt(r.like, 0), "num"], tri: ["Trigram freq.", r => fmt(r.tri, 2), "num"],
+  like: ["Wordlike % (vs real words)", r => fmt(r.like, 0), "num"], tri: [() => S.L[S.code] && S.L[S.code].syl ? "Bigram freq." : "Trigram freq.", r => fmt(r.tri, 2), "num"],
   old: ["OLD20", r => fmt(r.old), "num"], oldp: ["OLD20 pct", r => fmt(r.oldP, 0), "num"], n1: ["Coltheart's N", r => r.n1, "num"], n1p: ["N pct", r => fmt(r.n1P, 0), "num"], n1h: ["High-freq. neighbours", r => r.n1h, "num"],
   morph: ["Morphology", r => morphText(r.mo), "mono"], naff: ["Affixes", r => isNaN(r.naff) ? "" : r.naff, "num"], harm: ["Harmony", r => r.mo ? r.mo.h || "" : "", ""],
-  near: ["Nearest word", r => r.near, "mono"], nd: ["Dist.", r => r.nd, "num"], nz: ["Nearest Zipf", r => fmt(r.nz), "num"],
+  near: ["Nearest word", r => nearDisp(r._L || S.L[S.code], r.near), "mono"], nd: ["Dist.", r => r.nd, "num"], nz: ["Nearest Zipf", r => fmt(r.nz), "num"],
   lpa: ["Model log₂ p", r => fmt(r.lpa, 3), "num"],
   emb: ["Embedded word", r => r.emb ? `${r.emb.w} (${r.emb.pos})` : "", "mono"],
   embn: ["Embedded words", r => r.embN === "" ? "" : r.embN, "num embpick"],
   oup: ["OUP", r => isNaN(r.oup) ? "" : r.oup > r.len ? `${r.len + 1}+` : r.oup, "num"],
   tl: ["TL neighbours", r => r.tl ? (r.tl.length ? `${r.tl.length} (${r.tl.slice(0, 3).join(", ")}${r.tl.length > 3 ? ", …" : ""})` : "0") : "", "num"],
-  trimin: ["Rarest trigram", r => r.triMin && !isNaN(r.triMin.v) ? `${fmt(r.triMin.v)} (${r.triMin.g})` : "", "num"],
+  trimin: [() => S.L[S.code] && S.L[S.code].syl ? "Rarest bigram" : "Rarest trigram", r => r.triMin && !isNaN(r.triMin.v) ? `${fmt(r.triMin.v)} (${r.triMin.g})` : "", "num"],
   xl: ["Word in", r => xlLabel(xlOf(r), r.w), ""],
 };
 const BANK_COLS = ["w", "model", "gen", "len", "cv", "like", "tri", "trimin", "old", "oldp", "n1", "n1p", "tl", "near", "nd", "nz", "embn", "oup", "lpa"];
@@ -1520,7 +1532,7 @@ function tableToCSV(id) {
   const t = tableData[id]; if (!t) return "";
   const q = v => /[",\n]/.test(v) ? `"${String(v).replace(/"/g, '""')}"` : v;
   const lines = [t.colKeys.map(k => q(typeof t.colDefs[k][0] === "function" ? t.colDefs[k][0]() : t.colDefs[k][0])).join(",")];
-  for (const r of t.rows) lines.push(t.colKeys.map(k => q(String(t.colDefs[k][1](r)))).join(","));
+  for (const r of t.rows) lines.push(t.colKeys.map(k => q(disp(t.colDefs[k][1](r)))).join(","));
   return lines.join("\n");
 }
 document.addEventListener("click", ev => {
@@ -1534,7 +1546,7 @@ document.addEventListener("click", ev => {
     const t = tableData[b.dataset.copy]; if (!t) return;
     const col = b.dataset.colkey && t.colKeys.includes(b.dataset.colkey) ? b.dataset.colkey : null;
     const cols = col ? [col] : b.dataset.colkey ? t.colKeys.filter(k => (t.colDefs[k][2] || "").includes("pw")) : [t.colKeys[+(b.dataset.col || 0)]];
-    navigator.clipboard.writeText(t.rows.map(r => cols.map(k => t.colDefs[k][1](r)).join("\t")).join("\n")).then(() => { const o = b.textContent; b.textContent = "Copied"; setTimeout(() => b.textContent = o, 1200); });
+    navigator.clipboard.writeText(t.rows.map(r => cols.map(k => disp(t.colDefs[k][1](r))).join("\t")).join("\n")).then(() => { const o = b.textContent; b.textContent = "Copied"; setTimeout(() => b.textContent = o, 1200); });
   }
 });
 
@@ -1592,7 +1604,8 @@ function runSearch() {
   const modelSel = $("#sModels").value;
   const num = id => { const v = $(id).value; return v === "" ? null : +v; };
   const lmin = num("#sLenMin"), lmax = num("#sLenMax"), omin = num("#sOldMin"), omax = num("#sOldMax"), nmin = num("#sNMin"), nmax = num("#sNMax"), likeMin = num("#sLikeMin"), likeMax = num("#sLikeMax");
-  const st = norm($("#sStart").value), en = norm($("#sEnd").value), has = norm($("#sHas").value), avoid = new Set([...norm($("#sAvoid").value)]);
+  const sy = v => { const t = norm(v); if (!t || !L.syl) return t; return pinyinToSym(L, t) || t; };
+  const st = sy($("#sStart").value), en = sy($("#sEnd").value), has = sy($("#sHas").value), avoid = new Set([...sy($("#sAvoid").value)]);
   let md = +$("#sMinDist").value;
   if (nmin !== null && nmin >= 1 && md >= 2) { md = 1; $("#sMinDist").value = "1"; setHint("#sNHint", "Min. distance reset to Any: N ≥ 1 needs a real word one letter away.", "Coltheart's N counts the reference words (Zipf ≥ 2) that differ from the item by exactly one letter substitution. It is always 0 when the minimum distance is 2 or more, so the two settings exclude each other; whichever you change last wins."); }
   else setHint("#sNHint", md >= 2 ? "With a distance of 2 or more, N is always 0." : "Real words one letter away.", "Coltheart's N counts the reference words (Zipf ≥ 2) that differ from the item by exactly one letter substitution. It is always 0 when the minimum distance is 2 or more, so the two settings exclude each other; whichever you change last wins.");
@@ -1683,7 +1696,7 @@ $("#gGo").addEventListener("click", async () => {
   $("#gGo").disabled = true; $("#gStatus").textContent = "Loading model…";
   try {
     const res = await generate(L, { slots, lenMin, lenMax, modelKey: key, modelLabel: label, gen: $("#gGen").value || "kn4", wl: $("#gWl").value, minDist: +$("#gMinDist").value,
-      has: norm($("#gHas").value), avoid: norm($("#gAvoid").value), legal: $("#gLegal").checked, embKeep: embFilter("g") },
+      has: (v => L.syl && v ? pinyinToSym(L, v) || v : v)(norm($("#gHas").value)), avoid: (v => L.syl && v ? pinyinToSym(L, v) || v : v)(norm($("#gAvoid").value)), legal: $("#gLegal").checked, embKeep: embFilter("g") },
       n, (k, t) => $("#gStatus").textContent = `Sampling… ${k} candidates from ${t} tries`);
     renderTable("gTable", res.out, BANK_COLS);
     $("#gCount").textContent = `${res.out.length} pseudowords`;
@@ -1710,15 +1723,15 @@ const A_COLS = {
   band: ["Band", r => r.band && S.L[S.code].manifest.bands_enabled !== false ? MODEL_LABEL[String(r.band)] : "", ""],
   len: ["Len", r => r.len, "num"], cv: [() => S.L[S.code] && (S.L[S.code].cvg || S.L[S.code].hasGraph) ? "CV (orth.)" : "CV", r => r.cv, "mono"], cvgr: ["CV (graph.)", r => r.cvgr || "", "mono"], ng: ["Graphemes", r => r.ng ?? "", "num"], cvg: ["CV (phon.)*", r => r.cvg, "mono"], cvIpa: ["CV from IPA", r => r.cvIpa, "mono"],
   legal: ["Spelling check", r => r.note && r.note.startsWith("not analyzed") ? r.note : [r.note, r.bad ? (r.note ? "" : `letters not in alphabet: ${r.bad}`) : (r.legal || "ok")].filter(Boolean).join(" · "), ""],
-  like: ["Wordlike %", r => isNaN(r.like) ? "" : fmt(r.like, 0), "num"], tri: ["Trigram freq.", r => isNaN(r.tri) ? "" : fmt(r.tri, 2), "num"],
+  like: ["Wordlike %", r => isNaN(r.like) ? "" : fmt(r.like, 0), "num"], tri: [() => S.L[S.code] && S.L[S.code].syl ? "Bigram freq." : "Trigram freq.", r => isNaN(r.tri) ? "" : fmt(r.tri, 2), "num"],
   old: ["OLD20", r => fmt(r.old), "num"], oldp: ["OLD20 pct", r => fmt(r.oldP, 0), "num"], n1: ["Coltheart's N", r => r.n1, "num"], n1p: ["N pct", r => fmt(r.n1P, 0), "num"], n1h: ["High-freq. neighbours", r => r.n1h, "num"],
   morph: ["Morphology", r => morphText(r.mo), "mono"], naff: ["Affixes", r => isNaN(r.naff) ? "" : r.naff, "num"], harm: ["Harmony", r => r.mo ? r.mo.h || "" : "", ""],
-  near: ["Nearest other word", r => r.near, "mono"], nd: ["Dist.", r => isNaN(r.nd) ? "" : r.nd, "num"],
+  near: ["Nearest other word", r => nearDisp(S.L[S.code], r.near), "mono"], nd: ["Dist.", r => isNaN(r.nd) ? "" : r.nd, "num"],
   tl: ["TL neighbours", r => r.tl ? (r.tl.length ? `${r.tl.length} (${r.tl.slice(0, 3).join(", ")}${r.tl.length > 3 ? ", …" : ""})` : "0") : "", "num"],
-  trimin: ["Rarest trigram", r => r.triMin && !isNaN(r.triMin.v) ? `${fmt(r.triMin.v)} (${r.triMin.g})` : "", "num"],
+  trimin: [() => S.L[S.code] && S.L[S.code].syl ? "Rarest bigram" : "Rarest trigram", r => r.triMin && !isNaN(r.triMin.v) ? `${fmt(r.triMin.v)} (${r.triMin.g})` : "", "num"],
   embn: ["Embedded words", r => r.embN ?? "", "num embpick"],
   oup: ["OUP", r => isNaN(r.oup) ? "" : r.oup > r.len ? `${r.len + 1}+` : r.oup, "num"],
-  ipa: ["IPA", r => r.ipa, ""],
+  ipa: [() => S.L[S.code] && S.L[S.code].syl ? "Characters" : "IPA", r => r.ipa, ""],
   xl: ["Word in other languages", r => r.w ? xlLabel(xlOf(r), r.w) : "", ""],
 };
 const aColKeys = L => { const c = Object.keys(A_COLS).filter(k => k !== "xl" && (SHOW_PROVENANCE || k !== "band") && (L.cvg || (k !== "cvg" && k !== "cvIpa")) && ((L.hasGraph && !L.indic) || (k !== "cvgr" && k !== "ng")) && (L.morph || !["morph", "naff", "harm"].includes(k))); if (S.xlSig) c.splice(2, 0, "xl"); return c; };
@@ -1925,12 +1938,55 @@ function askModal(html, buttons) {
 /* --- input cleaning for Match: letters of the alphabet pass; other letters get a fallback class (base letter if it is in the
    alphabet, else a cross-script vowel list, else C); punctuation/symbols/stray diacritics are removed; digits or spaces make the item unmatchable. --- */
 const UNIV_V = new Set("aeiouyæøœəɛɔɪʊɐɑıаеёиоуыэюяіїєөүұәӯӣӑӗӧӱαεηιουωաեէըիուօაეიოუاويأإآىئؤەېۆאוי");
+/* ------------------------------------------------------------------ syllable-symbol languages (pinyin) */
+function buildSymIndex(sym) {   // marked and numbered spellings -> symbol; bases for the segmenter
+  const byPy = new Map(), byNum = new Map(), bases = new Set();
+  for (const ch in sym) { const v = sym[ch]; byPy.set(v.py, ch); byNum.set(v.num, ch); bases.add(v.base); if (v.tone === 5) byNum.set(v.base + "0", ch); }
+  return { byPy, byNum, bases, maxLen: Math.max(...[...byPy.keys()].map(k => k.length)) };
+}
+function nearDisp(L, w) {   // syllable languages: add the most frequent character form of the nearest word
+  if (!L || !L.syl || !w) return w;
+  const i = L.lex.index.get(w); const hz = i !== undefined ? L.lex.ipa[i] : "";
+  return hz ? `${w} ${hz.replace(/ \+\d+$/, "")}` : w;
+}
+function pinyinToSym(L, text) {   // "zhōngguó", "zhong1 guo2", "zhong1guo2", "zhong guo" -> symbol string, or null
+  const X = L.symBy; if (!X) return null;
+  let t = text.normalize("NFC").toLowerCase().replace(/u:/g, "ü").replace(/v/g, "ü").replace(/[\s'’\-·.]+/g, " ").trim();
+  if (!t) return null;
+  if (/^[\uE000-\uF8FF]+$/.test(t)) return t;
+  if (/\d/.test(t)) {   // numbered tones: each syllable ends with its digit
+    const parts = t.match(/[a-zü]+[0-5]/g); if (!parts || parts.join("") !== t.replace(/ /g, "")) return null;
+    let out = ""; for (const p of parts) { const ch = X.byNum.get(p) || X.byNum.get(p.replace(/0$/, "5")); if (!ch) return null; out += ch; } return out;
+  }
+  const seg = chunk => {   // longest-match segmentation into marked syllables (neutral tone = unmarked spelling)
+    const memo = new Map();
+    const go = i => { if (i === chunk.length) return ""; if (memo.has(i)) return memo.get(i);
+      let r = null; for (let n = Math.min(X.maxLen, chunk.length - i); n >= 1 && r === null; n--) { const ch = X.byPy.get(chunk.slice(i, i + n)); if (ch !== undefined) { const rest = go(i + n); if (rest !== null) r = ch + rest; } }
+      memo.set(i, r); return r; };
+    return go(0);
+  };
+  let out = ""; for (const c of t.split(" ")) { const r = seg(c); if (r === null) return null; out += r; } return out || null;
+}
+function cleanPinyin(L, raw) {
+  const out = { raw, w: "", stripped: [], foreign: {}, digit: false, multi: false, unmatchable: "", note: "" };
+  const t = raw.normalize("NFC").trim();
+  if (/^[\u3400-\u9FFF]+$/.test(t)) {   // Chinese characters: only a real word of the lexicon can be looked up
+    if (!L.lex.hzIndex) { L.lex.hzIndex = new Map(); L.lex.ipa.forEach((h, i) => { if (h) L.lex.hzIndex.set(h.replace(/ \+\d+$/, ""), L.lex.words[i]); }); }
+    const w = L.lex.hzIndex.get(t);
+    if (w) { out.w = w; out.note = "characters looked up as a word of the lexicon"; return out; }
+    out.unmatchable = "characters not in the lexicon: type the pinyin (zhong1 guo2 or zhōngguó)"; return out;
+  }
+  const w = pinyinToSym(L, t);
+  if (!w) { out.unmatchable = "not a sequence of Mandarin syllables (type pinyin with tone marks or tone numbers, e.g. zhong1guo2)"; return out; }
+  out.w = w; return out;
+}
 function fallbackClass(L, ch) {
   const base = ch.normalize("NFD")[0], c = L.cls[base];
   if (c) return c === "V" || c === "Y" ? "V" : "C";
   return UNIV_V.has(base) || UNIV_V.has(ch) ? "V" : "C";
 }
 function cleanInput(L, raw) {
+  if (L.syl) return cleanPinyin(L, raw);
   const out = { raw, w: "", stripped: [], foreign: {}, digit: /\p{N}/u.test(raw), multi: /\s/.test(raw) };
   for (const ch of raw) {
     if (L.alphaSet.has(ch) || ch in L.cls) { out.w += ch; continue; }
@@ -2178,7 +2234,13 @@ const INDIC_GLOSS = { H: "virama (halant): suppresses the inherent vowel of the 
 const INDIC_GLOSS_BY_CHAR = { "ँ": "candrabindu: nasalises the vowel", "ঁ": "candrabindu: nasalises the vowel", "ઁ": "candrabindu: nasalises the vowel", "ଁ": "candrabindu: nasalises the vowel", "ఁ": "candrabindu: nasalises the vowel",
   "ਂ": "bindi: nasalises the vowel", "ੰ": "tippi: nasalises the vowel or marks a nasal consonant", "ੱ": "addak: doubles the consonant that follows" };
 function alphabetRows(L, m) {
-  const cls = m.letter_classes, chars = [...m.alphabet], mono = `class="mono" style="word-spacing:.35em;line-height:1.9"`;
+  const mono = `class="mono" style="word-spacing:.35em;line-height:1.9"`;
+  if (L.syl && L.sym) {
+    const vals = Object.values(L.sym), bases = [...new Set(vals.map(v => v.base))].sort(), tones = [1, 2, 3, 4, 5].map(t => `${t === 5 ? "neutral" : "tone " + t}: ${vals.filter(v => v.tone === t).length}`).join(", ");
+    return [`<div>Unit</div><div>Toned syllable, written in pinyin (${vals.length.toLocaleString()} toned syllables; ${tones}). A pseudoword is a sequence of ${(m.rules || {}).min_len || 2}–${(m.rules || {}).max_len || 4} real syllables that is not a word, and every measure counts syllables: length, OLD20 and Coltheart's N (one syllable added, removed or exchanged), the n-gram models and the trigram wordlikeness. Analyze and Match accept pinyin with tone marks (zhōngguó) or tone numbers (zhong1 guo2; 5 or no digit = neutral tone), and Chinese characters for words of the lexicon.</div>`,
+      `<div>Base syllables (${bases.length})</div><div ${mono}>${escRaw(bases.join(" "))}</div>`].join("\n    ");
+  }
+  const cls = m.letter_classes, chars = [...m.alphabet];
   const of = (...k) => chars.filter(c => k.includes(cls[c] || "C")).join("");
   const cons = of("C", "X"), vow = of("V"), y = of("Y"), signs = of("D");
   const other = chars.filter(c => !["C", "V", "Y", "D"].includes(cls[c] || "C"));
@@ -2219,7 +2281,7 @@ function renderAbout() {
   const L = S.L[S.code], m = L.manifest, c = m.counts, g = m.generation.results;
   const bands = m.bands_enabled === false ? `<li>No frequency bands: small corpus.</li>` : m.bands.map(b => `<li><b>${MODEL_LABEL[b.id]}</b>: ${(+c.band_sizes[b.id]).toLocaleString()} words</li>`).join("");
   $("#aboutBody").innerHTML = `
-  <div style="display:flex;align-items:center;gap:18px;margin:4px 0 18px"><img src="assets/logo.png" alt="Mimsy logo" style="width:150px;height:auto"><div><div style="font-size:20px;font-weight:600">Mimsy</div><div class="hint" style="margin:2px 0 0">Pseudowords in 179 languages · <i>methodical whimsy</i>. Named after the word in Lewis Carroll's <i>Jabberwocky</i> (1871): “All mimsy were the borogoves”.</div><div class="hint" style="margin:6px 0 0">Beta — feedback is welcome, especially from speakers of the smaller languages, which could not all be checked with native speakers. Questions and feedback: <a href="mailto:mimsy.pseudowords@gmail.com">mimsy.pseudowords@gmail.com</a> · bug reports: <a href="https://github.com/sarachilson/Mimsy/issues" target="_blank" rel="noopener">github.com/sarachilson/Mimsy/issues</a> · code and data: <a href="https://github.com/sarachilson/Mimsy" target="_blank" rel="noopener">github.com/sarachilson/Mimsy</a></div></div></div>
+  <div style="display:flex;align-items:center;gap:18px;margin:4px 0 18px"><img src="assets/logo.png" alt="Mimsy logo" style="width:150px;height:auto"><div><div style="font-size:20px;font-weight:600">Mimsy</div><div class="hint" style="margin:2px 0 0">Pseudowords in 180 languages · <i>methodical whimsy</i>. Named after the word in Lewis Carroll's <i>Jabberwocky</i> (1871): “All mimsy were the borogoves”.</div><div class="hint" style="margin:6px 0 0">Beta — feedback is welcome, especially from speakers of the smaller languages, which could not all be checked with native speakers. Questions and feedback: <a href="mailto:mimsy.pseudowords@gmail.com">mimsy.pseudowords@gmail.com</a> · bug reports: <a href="https://github.com/sarachilson/Mimsy/issues" target="_blank" rel="noopener">github.com/sarachilson/Mimsy/issues</a> · code and data: <a href="https://github.com/sarachilson/Mimsy" target="_blank" rel="noopener">github.com/sarachilson/Mimsy</a></div></div></div>
   <h2>${esc(m.name)}: data</h2>
   <div class="kv">
     <div>Corpus size</div><div>${m.corpus_tokens ? (m.corpus_tokens / 1e6).toLocaleString(undefined, { maximumFractionDigits: 1 }) + " million words" : "n/a"}</div>

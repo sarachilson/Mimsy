@@ -1,5 +1,5 @@
 // Orthographic neighbourhood metrics (exact) for pseudoword banks.
-// Strings are pre-encoded as dense symbol ids (uint8) by the Python side.
+// Strings are pre-encoded as dense symbol ids (uint16; alphabets of up to 65,535 symbols, e.g. toned syllables) by the Python side.
 // Distance: Levenshtein via Myers/Hyyro bit-parallel algorithm (query length <= 64).
 // For each query: OLD-k (mean distance to k closest lexicon words), nearest word
 // (smallest distance; ties -> lower lexicon index = higher frequency), Coltheart N
@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-static inline int myers(const uint64_t *peq, int m, const uint8_t *t, int n) {
+static inline int myers(const uint64_t *peq, int m, const uint16_t *t, int n) {
     uint64_t pv = ~0ULL, mv = 0, last = 1ULL << (m - 1);
     int score = m;
     for (int j = 0; j < n; j++) {
@@ -31,8 +31,8 @@ static inline int myers(const uint64_t *peq, int m, const uint8_t *t, int n) {
 // len_order: lexicon indices grouped by length; len_start[L]..len_start[L+1] (L up to maxlen)
 // flags: per lexicon word (1 = counts toward flagged neighbour count)
 void neighbors(
-    const uint8_t *q_data, const int64_t *q_off, int n_q,
-    const uint8_t *lex_data, const int64_t *lex_off,
+    const uint16_t *q_data, const int64_t *q_off, int n_q,
+    const uint16_t *lex_data, const int64_t *lex_off,
     const int32_t *len_order, const int64_t *len_start, int maxlen,
     const uint8_t *flags, int alphabet, int k,
     double *out_old, int32_t *out_nearest, int32_t *out_nearest_d,
@@ -40,7 +40,7 @@ void neighbors(
 {
     #pragma omp parallel for schedule(dynamic, 64)
     for (int qi = 0; qi < n_q; qi++) {
-        const uint8_t *q = q_data + q_off[qi];
+        const uint16_t *q = q_data + q_off[qi];
         int m = (int)(q_off[qi + 1] - q_off[qi]);
         uint64_t *peq = calloc(alphabet, sizeof(uint64_t));
         for (int i = 0; i < m; i++) peq[q[i]] |= 1ULL << i;
