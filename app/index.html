@@ -129,7 +129,7 @@ body.noprov .prov{display:none!important}
 <body>
 <header>
   <div class="wrap top">
-    <div class="brand" title="All mimsy were the borogoves — Lewis Carroll, Jabberwocky"><img src="assets/mark.png" alt=""><span>Mimsy <small>beta · pseudowords in 180 languages</small></span></div>
+    <div class="brand" title="All mimsy were the borogoves — Lewis Carroll, Jabberwocky"><img src="assets/mark.png" alt=""><span>Mimsy <small>beta · pseudowords in 182 languages</small></span></div>
     <div class="spacer"></div>
     <label class="status" for="lang" style="margin:0">Language</label>
     <select id="lang" style="width:auto;min-width:210px" disabled></select>
@@ -547,7 +547,8 @@ const escRaw = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;","
 const esc = s => escRaw(disp(s));
 // Syllable-symbol languages (Mandarin pinyin): every toned syllable is one Private Use Area character in the data; SYM maps it back to pinyin for display.
 const SYM = new Map(), SYM_RE = /[\uE000-\uF8FF]+/g;
-function disp(s) { s = String(s); return SYM.size && SYM_RE.test(s) ? s.replace(SYM_RE, run => { let out = ""; for (const ch of run) { const py = SYM.get(ch) || "?"; out += (out && /^[aoeāáǎàōóǒòēéěè]/.test(py) ? "'" : "") + py; } return out; }) : s; }
+let DISP_NFC = false;   // Korean: data holds conjoining jamo (NFD); shown recomposed into syllable blocks
+function disp(s) { s = String(s); if (DISP_NFC) s = s.normalize("NFC"); return SYM.size && SYM_RE.test(s) ? s.replace(SYM_RE, run => { let out = ""; for (const ch of run) { const py = SYM.get(ch) || "?"; out += (out && /^[aoeāáǎàōóǒòēéěè]/.test(py) ? "'" : "") + py; } return out; }) : s; }
 const isSyl = cls => { for (const k in cls) return String(cls[k]).startsWith("S:"); return false; };
 const fmt = (x, d = 2) => (x === null || x === undefined || Number.isNaN(x)) ? "" : (+x).toFixed(d);
 const norm = s => s.normalize("NFC").trim().toLowerCase();
@@ -642,7 +643,7 @@ function start() {
 // A few common real words of the language as examples: Zipf 4.5–5.5 (frequent content words rather than function words
 // or the names that fill the top of subtitle lists), of typical length, with a pronunciation when the lexicon has them.
 function exampleWords(L, n) {
-  const lex = L.lex, unit = L.manifest.length_unit || "letters", lo = unit === "letters" ? 5 : 2, hi = unit === "letters" ? 7 : 4;
+  const lex = L.lex, unit = L.manifest.length_unit || "letters", lo = unit === "letters" ? 5 : unit === "jamo" ? 5 : 2, hi = unit === "letters" ? 7 : unit === "jamo" ? 9 : 4;
   const hasIpa = lex.ipa.some(Boolean);
   const ok = w => (L.syl ? /^[\uE000-\uF8FF]+$/u.test(w) : /^\p{L}+$/u.test(w) && w === w.toLowerCase()) && (L.indic || L.syl || !L.cls || [...w].some(ch => L.cls[ch] === "V" || L.cls[ch] === "Y"));
   const gather = (zlo, zhi, needIpa, lenOk) => { const c = []; for (let i = 0; i < lex.words.length; i++) { const z = lex.zipf[i]; if (z >= zlo && z < zhi && (!needIpa || lex.ipa[i])) { const w = lex.words[i], l = wlen(L, w); if ((!lenOk || (l >= lo && l <= hi)) && ok(w)) c.push(w); } } return c; };
@@ -655,6 +656,7 @@ function exampleWords(L, n) {
 }
 async function selectLang(code) {
   S.code = code;
+  DISP_NFC = /^korean-/.test(code);
   if (S.L[code] && S.L[code].triModeUsed !== S.triMode) rescoreBank(S.L[code]);
   $("#lang").value = code; $$(".langSel").forEach(x => x.value = code);
   try { localStorage.setItem("pw.lang", code); } catch (e) {}
@@ -667,14 +669,14 @@ async function selectLang(code) {
   S.recent = [code].concat((S.recent || []).filter(c => c !== code)).slice(0, 2);
   for (const c in S.L) if (!S.recent.includes(c)) delete S.L[c];   // keep memory bounded: two languages at a time
   const m = S.L[code].manifest, cb = $("#caution");
-  { const L = S.L[code], opts = [["orth", L.indic ? "Orthographic (akshara: inherent vowels counted)" : L.syl ? "Orthographic (pinyin letters of each syllable)" : "Orthographic (one letter = one unit)"]];
+  { const L = S.L[code], opts = [["orth", L.indic ? "Orthographic (akshara: inherent vowels counted)" : L.syl ? "Orthographic (pinyin letters of each syllable)" : L.hangul ? "Orthographic (one jamo = one unit; initial ㅇ skipped)" : L.thai ? "Orthographic (letters and vowel signs; tone marks skipped)" : "Orthographic (one letter = one unit)"]];
     if (L.hasGraph && !L.indic) opts.push(["graph", "Graphemic (sh, ch, ea … = one unit)"]);
     if (L.cvg) opts.push(["guess", L.indic ? ((m.rules || {}).schwa_rule === false ? "Phonological* (learned from pronunciations)" : "Phonological* (schwa deletion applied)") : "Phonological* (unwritten vowels inferred)"]);
     $("#cvBasisSel").innerHTML = opts.map(([v, t]) => `<option value="${v}">${esc(t)}</option>`).join("");
     $("#mCvBasis").innerHTML = opts.map(([v]) => `<option value="${v}">${{ orth: "orthographic", graph: "graphemic", guess: "phonological*" }[v]}</option>`).join("");
     $("#cvBasisBox").hidden = opts.length < 2; $("#mCvBasis").hidden = opts.length < 2;
     S.cvBasis = L.cvg && ((m.cv_guess || {}).exact_cv_match || 0) >= 0.7 ? "guess" : "orth"; $("#cvBasisSel").value = $("#mCvBasis").value = S.cvBasis; }
-  { const unit = m.length_unit || "letters", d = unit === "letters" ? ["4", "6"] : ["2", "4"];   // aksharas (abugidas) or fidel (Ethiopic): syllable-sized units
+  { const unit = m.length_unit || "letters", d = unit === "letters" ? ["4", "6"] : unit === "jamo" ? ["5", "9"] : ["2", "4"];   // aksharas (abugidas) or fidel (Ethiopic): syllable-sized units; jamo: 2–3 per block
     $("#sLenLbl").textContent = `Length (${unit})`;
     if (S.lenUnit !== unit) { $("#sLenMin").value = $("#sLenMin").defaultValue = d[0]; $("#sLenMax").value = $("#sLenMax").defaultValue = d[1]; S.lenUnit = unit; } }
   $("#mWords").placeholder = exampleWords(S.L[code], 3).map(disp).join("\n") || "one word per line";
@@ -706,6 +708,7 @@ async function loadLang(code) {
   L.cls = L.manifest.letter_classes;
   L.indic = isIndic(L.cls);
   L.syl = isSyl(L.cls);
+  L.hangul = !!(L.manifest.rules || {}).hangul; L.thai = !!(L.manifest.rules || {}).thai;
   if (L.syl && L.manifest.symbols) { L.sym = L.manifest.symbols.symbols; for (const ch in L.sym) SYM.set(ch, L.sym[ch].py); L.symBy = buildSymIndex(L.sym); }
   await loadGraphemes(); L.gspec = gspecOf(code); L.hasGraph = hasGraphLevel(L.gspec, L.cls, L.indic) || L.indic;
   L.alphaSet = new Set([...L.manifest.alphabet]);
@@ -1062,21 +1065,24 @@ const wlen = (L, w) => L.indic ? indicLen(w, L.cls) : w.length;
 function cvOf(w, cls) {
   if (isIndic(cls)) return indicCV(w, cls);
   if (isSyl(cls)) { let o = ""; for (const ch of w) o += (cls[ch] || "S:").slice(2); return o; }
-  let out = "";
+  let out = "", pend = 0;   // P = vowel written before its consonant (Thai เ แ โ ใ ไ): placed after the consonant in the CV string
   for (let i = 0; i < w.length; i++) {
     let c = cls[w[i]] || "C";
     if (c === "M") continue;
+    if (c === "P") { pend++; continue; }
     if (c === "X") c = "C";
     if (c === "Y") c = (i + 1 < w.length && cls[w[i + 1]] === "V") ? "C" : "V";
     out += c;
+    if (c === "C" && pend) { out += "V".repeat(pend); pend = 0; }
   }
-  return out;
+  return out + "V".repeat(pend);
 }
 function cvAligned(w, cls) {
   let out = "";
   for (let i = 0; i < w.length; i++) {
     let c = cls[w[i]] || "C";
     if (c === "M" || c === "X") c = "C";
+    if (c === "P") c = "V";
     if (c === "Y") c = (i + 1 < w.length && cls[w[i + 1]] === "V") ? "C" : "V";
     out += c;
   }
@@ -1188,6 +1194,24 @@ function ruleViolation(L, w) {          // language-specific spelling rules (man
   if (r.final_only && ch.slice(0, -1).some(c => r.final_only.includes(c))) return `“${r.final_only}” inside the word`;
   if (r.not_final && r.not_final.includes(ch[ch.length - 1])) return `ends in “${ch[ch.length - 1]}”`;
   if (r.max_tones !== undefined && [...w.normalize("NFD")].filter(c => TONES.has(c)).length > r.max_tones) return "more than one tone mark";
+  if (r.hangul && /[\u1100-\u11ff]/.test(w.normalize("NFC"))) return "jamo do not form syllable blocks";
+  if (r.thai) { const e = thaiError(w, L.cls); if (e) return e; }
+  return "";
+}
+// Thai writing rules (mirrors thai_ok in build_bank.py)
+const THAI_A = new Set("\u0e31\u0e34\u0e35\u0e36\u0e37\u0e38\u0e39"), THAI_T = new Set("\u0e48\u0e49\u0e4a\u0e4b"), THAI_S = new Set("\u0e30\u0e32\u0e33\u0e45");
+function thaiError(w, cls) {
+  const n = w.length;
+  for (let i = 0; i < n; i++) {
+    const ch = w[i], k = cls[ch] || "C", prev = i ? w[i - 1] : "", pk = prev ? (cls[prev] || "C") : "";
+    if (THAI_A.has(ch)) { if (pk !== "C") return "vowel sign not on a consonant"; if (i + 1 < n && THAI_A.has(w[i + 1])) return "two vowel signs on one consonant"; }
+    else if (THAI_T.has(ch)) { if (!(pk === "C" || THAI_A.has(prev) || prev === "\u0e47")) return "tone mark not on a consonant"; if (i + 1 < n && (THAI_T.has(w[i + 1]) || THAI_A.has(w[i + 1]))) return "mark after the tone mark"; }
+    else if (ch === "\u0e47") { if (pk !== "C") return "maitaikhu not on a consonant"; }
+    else if ("\u0e4c\u0e4d\u0e3a\u0e4e".includes(ch)) { if (!(pk === "C" || (ch === "\u0e4c" && THAI_A.has(prev)))) return "mark not on a consonant"; }
+    else if (k === "P") { if (i + 1 >= n || (cls[w[i + 1]] || "C") !== "C") return "pre-posed vowel without a consonant"; }
+    else if (THAI_S.has(ch)) { if (i === 0 || pk === "P") return "vowel sign without a consonant"; }
+    if (ch === "\u0e31" || ch === "\u0e47") { let j = i + 1; while (j < n && THAI_T.has(w[j])) j++; if (j >= n || (cls[w[j]] || "C") !== "C") return "ั/็ without a final consonant"; }
+  }
   return "";
 }
 function legality(L, w) {
@@ -1450,6 +1474,7 @@ const TIPS = {
   homo: "Homophone density: how many distinct characters (morphemes) are read with each toned syllable in the reference words.",
   styp: "Real syllables = a novel compound of real morphemes; tonal gap = contains a legal syllable with a tone it never carries (no morpheme).",
   tones: "Tone of each syllable (1–4; 5 = neutral).",
+  blocks: "Number of syllable blocks (length is counted in jamo).",
   w: "The generated item. Click a header to sort; click again to reverse.",
   model: "Frequency band of the real words the generator learned from.",
   gen: "Letter model that produced the item: Kneser-Ney 4-gram, or plain trigrams counted by word types or by word tokens.",
@@ -1508,6 +1533,7 @@ const COLS = {
   like: ["Wordlike % (vs real words)", r => fmt(r.like, 0), "num"], tri: [() => S.L[S.code] && S.L[S.code].syl ? "Bigram freq." : "Trigram freq.", r => fmt(r.tri, 2), "num"],
   old: ["OLD20", r => fmt(r.old), "num"], oldp: ["OLD20 pct", r => fmt(r.oldP, 0), "num"], n1: ["Coltheart's N", r => r.n1, "num"], n1p: ["N pct", r => fmt(r.n1P, 0), "num"], n1h: ["High-freq. neighbours", r => r.n1h, "num"],
   morph: ["Morphology", r => morphText(r.mo), "mono"], naff: ["Affixes", r => isNaN(r.naff) ? "" : r.naff, "num"], harm: ["Harmony", r => r.mo ? r.mo.h || "" : "", ""],
+  blocks: ["Syllables", r => blocksOf(r._L || S.L[S.code], r.w), "num"],
   tones: ["Tones", r => tonesOf(r._L || S.L[S.code], r.w), "mono"], sylz: ["Syllable Zipf", r => sylZipfText(r._L || S.L[S.code], r.w), "num"], homo: ["Homophones", r => sylHomoText(r._L || S.L[S.code], r.w), "num"], styp: ["Item type", r => sylTypeText(r._L || S.L[S.code], r.w, r.gen), ""],
   near: ["Nearest word", r => nearDisp(r._L || S.L[S.code], r.near), "mono"], nd: ["Dist.", r => r.nd, "num"], nz: ["Nearest Zipf", r => fmt(r.nz), "num"],
   lpa: ["Model log₂ p", r => fmt(r.lpa, 3), "num"],
@@ -1519,7 +1545,7 @@ const COLS = {
   xl: ["Word in", r => xlLabel(xlOf(r), r.w), ""],
 };
 const BANK_COLS = ["w", "model", "gen", "len", "cv", "like", "tri", "trimin", "old", "oldp", "n1", "n1p", "tl", "near", "nd", "nz", "embn", "oup", "lpa"];
-const bankCols = L => { let c = BANK_COLS.filter(k => SHOW_PROVENANCE || (k !== "model" && k !== "gen")); if (L.syl) { c = c.filter(k => !SYL_HIDE.has(k)); c.splice(c.indexOf("cv") + 1, 0, "tones", "sylz", "homo", "styp"); } if (L.cvg) c.splice(c.indexOf("cv") + 1, 0, "cvg"); if (L.hasGraph && !L.indic) c.splice(c.indexOf("cv") + 1, 0, "cvgr", "ng"); if (L.morph) c.splice(c.indexOf("like"), 0, "morph", "naff", "harm"); if (S.xlSig) c.splice(1, 0, "xl"); return c; };
+const bankCols = L => { let c = BANK_COLS.filter(k => SHOW_PROVENANCE || (k !== "model" && k !== "gen")); if (L.syl) { c = c.filter(k => !SYL_HIDE.has(k)); c.splice(c.indexOf("cv") + 1, 0, "tones", "sylz", "homo", "styp"); } if (L.hangul) c.splice(c.indexOf("len") + 1, 0, "blocks"); if (L.cvg) c.splice(c.indexOf("cv") + 1, 0, "cvg"); if (L.hasGraph && !L.indic) c.splice(c.indexOf("cv") + 1, 0, "cvgr", "ng"); if (L.morph) c.splice(c.indexOf("like"), 0, "morph", "naff", "harm"); if (S.xlSig) c.splice(1, 0, "xl"); return c; };
 const tableData = {};
 function renderTable(id, rows, colKeys, colDefs = COLS) {
   const box = $("#" + id);
@@ -1613,7 +1639,7 @@ function runSearch() {
   const modelSel = $("#sModels").value;
   const num = id => { const v = $(id).value; return v === "" ? null : +v; };
   const lmin = num("#sLenMin"), lmax = num("#sLenMax"), omin = num("#sOldMin"), omax = num("#sOldMax"), nmin = num("#sNMin"), nmax = num("#sNMax"), likeMin = num("#sLikeMin"), likeMax = num("#sLikeMax");
-  const sy = v => { const t = norm(v); if (!t || !L.syl) return t; return pinyinToSym(L, t) || t; };
+  const sy = v => { const t = norm(v); if (!t) return t; if (L.hangul) return t.normalize("NFD"); if (!L.syl) return t; return pinyinToSym(L, t) || t; };
   const st = sy($("#sStart").value), en = sy($("#sEnd").value), has = sy($("#sHas").value), avoid = new Set([...sy($("#sAvoid").value)]);
   let md = +$("#sMinDist").value;
   if (nmin !== null && nmin >= 1 && md >= 2) { md = 1; $("#sMinDist").value = "1"; setHint("#sNHint", "Min. distance reset to Any: N ≥ 1 needs a real word one letter away.", "Coltheart's N counts the reference words (Zipf ≥ 2) that differ from the item by exactly one letter substitution. It is always 0 when the minimum distance is 2 or more, so the two settings exclude each other; whichever you change last wins."); }
@@ -1706,7 +1732,7 @@ $("#gGo").addEventListener("click", async () => {
   $("#gGo").disabled = true; $("#gStatus").textContent = "Loading model…";
   try {
     const res = await generate(L, { slots, lenMin, lenMax, modelKey: key, modelLabel: label, gen: $("#gGen").value || "kn4", wl: $("#gWl").value, minDist: +$("#gMinDist").value,
-      has: (v => L.syl && v ? pinyinToSym(L, v) || v : v)(norm($("#gHas").value)), avoid: (v => L.syl && v ? pinyinToSym(L, v) || v : v)(norm($("#gAvoid").value)), legal: $("#gLegal").checked, embKeep: embFilter("g") },
+      has: (v => L.hangul ? v.normalize("NFD") : L.syl && v ? pinyinToSym(L, v) || v : v)(norm($("#gHas").value)), avoid: (v => L.hangul ? v.normalize("NFD") : L.syl && v ? pinyinToSym(L, v) || v : v)(norm($("#gAvoid").value)), legal: $("#gLegal").checked, embKeep: embFilter("g") },
       n, (k, t) => $("#gStatus").textContent = `Sampling… ${k} candidates from ${t} tries`);
     renderTable("gTable", res.out, BANK_COLS);
     $("#gCount").textContent = `${res.out.length} pseudowords`;
@@ -1736,6 +1762,7 @@ const A_COLS = {
   like: ["Wordlike %", r => isNaN(r.like) ? "" : fmt(r.like, 0), "num"], tri: [() => S.L[S.code] && S.L[S.code].syl ? "Bigram freq." : "Trigram freq.", r => isNaN(r.tri) ? "" : fmt(r.tri, 2), "num"],
   old: ["OLD20", r => fmt(r.old), "num"], oldp: ["OLD20 pct", r => fmt(r.oldP, 0), "num"], n1: ["Coltheart's N", r => r.n1, "num"], n1p: ["N pct", r => fmt(r.n1P, 0), "num"], n1h: ["High-freq. neighbours", r => r.n1h, "num"],
   morph: ["Morphology", r => morphText(r.mo), "mono"], naff: ["Affixes", r => isNaN(r.naff) ? "" : r.naff, "num"], harm: ["Harmony", r => r.mo ? r.mo.h || "" : "", ""],
+  blocks: ["Syllables", r => blocksOf(S.L[S.code], r.w), "num"],
   tones: ["Tones", r => tonesOf(S.L[S.code], r.w), "mono"], sylz: ["Syllable Zipf", r => sylZipfText(S.L[S.code], r.w), "num"], homo: ["Homophones", r => sylHomoText(S.L[S.code], r.w), "num"], styp: ["Item type", r => sylTypeText(S.L[S.code], r.w, ""), ""],
   near: ["Nearest other word", r => nearDisp(S.L[S.code], r.near), "mono"], nd: ["Dist.", r => isNaN(r.nd) ? "" : r.nd, "num"],
   tl: ["TL neighbours", r => r.tl ? (r.tl.length ? `${r.tl.length} (${r.tl.slice(0, 3).join(", ")}${r.tl.length > 3 ? ", …" : ""})` : "0") : "", "num"],
@@ -1745,7 +1772,7 @@ const A_COLS = {
   ipa: [() => S.L[S.code] && S.L[S.code].syl ? "Characters" : "IPA", r => r.ipa, ""],
   xl: ["Word in other languages", r => r.w ? xlLabel(xlOf(r), r.w) : "", ""],
 };
-const aColKeys = L => { const c = Object.keys(A_COLS).filter(k => k !== "xl" && !["tones", "sylz", "homo", "styp"].includes(k) && (SHOW_PROVENANCE || k !== "band") && (!L.syl || !SYL_HIDE.has(k)) && (L.cvg || (k !== "cvg" && k !== "cvIpa")) && ((L.hasGraph && !L.indic) || (k !== "cvgr" && k !== "ng")) && (L.morph || !["morph", "naff", "harm"].includes(k))); if (L.syl) c.splice(c.indexOf("cv") + 1, 0, "tones", "sylz", "homo", "styp"); if (S.xlSig) c.splice(2, 0, "xl"); return c; };
+const aColKeys = L => { const c = Object.keys(A_COLS).filter(k => k !== "xl" && !["tones", "sylz", "homo", "styp", "blocks"].includes(k) && (SHOW_PROVENANCE || k !== "band") && (!L.syl || !SYL_HIDE.has(k)) && (L.cvg || (k !== "cvg" && k !== "cvIpa")) && ((L.hasGraph && !L.indic) || (k !== "cvgr" && k !== "ng")) && (L.morph || !["morph", "naff", "harm"].includes(k))); if (L.syl) c.splice(c.indexOf("cv") + 1, 0, "tones", "sylz", "homo", "styp"); if (L.hangul) c.splice(c.indexOf("len") + 1, 0, "blocks"); if (S.xlSig) c.splice(2, 0, "xl"); return c; };
 $("#aGo").addEventListener("click", async () => {
   toTop();
   const L = S.L[S.code]; if (!L) return;
@@ -1963,6 +1990,7 @@ function sylInfo(L, w) {   // per-syllable Zipf and homophone density; gap sylla
 const sylZipfText = (L, w) => { const i = sylInfo(L, w); return i ? (isNaN(i.zipf) ? "—" : i.zipf.toFixed(2)) + (w.length > 1 ? ` (${i.zlist.join(" · ")})` : "") : ""; };
 const sylHomoText = (L, w) => { const i = sylInfo(L, w); return i ? i.homo.join(" · ") : ""; };
 const sylTypeText = (L, w, gen) => { const i = sylInfo(L, w); return !i ? "" : i.gaps.length ? `tonal gap: ${i.gaps.join(", ")}` : gen === "gap" ? "tonal gap" : i.rare.length ? `rare reading: ${i.rare.join(", ")}` : "real syllables"; };
+const blocksOf = (L, w) => L && L.hangul ? [...w].filter(ch => L.cls[ch] === "V").length : "";
 function tonesOf(L, w) { return L && L.syl && L.sym && [...w].every(ch => ch in L.sym) ? [...w].map(ch => L.sym[ch].tone).join("-") : ""; }
 // Measures that are constant or trivial when the unit is the syllable: every syllable is a word (embedded words, OUP), the nearest word is always
 // one syllable away (Dist., OLD20 pct for two-syllable items), transpositions and the rarest bigram carry no information. Hidden for these languages.
@@ -2010,6 +2038,7 @@ function fallbackClass(L, ch) {
 }
 function cleanInput(L, raw) {
   if (L.syl) return cleanPinyin(L, raw);
+  if (L.hangul) raw = raw.normalize("NFD");
   const out = { raw, w: "", stripped: [], foreign: {}, digit: /\p{N}/u.test(raw), multi: /\s/.test(raw) };
   for (const ch of raw) {
     if (L.alphaSet.has(ch) || ch in L.cls) { out.w += ch; continue; }
@@ -2264,14 +2293,21 @@ function alphabetRows(L, m) {
       `<div>Two item types</div><div>Items made of real syllables are <i>novel compounds</i>, since every Mandarin syllable is a morpheme (the standard nonword type in Mandarin auditory lexical decision). <i>Tonal-gap</i> items contain one of the ${vals.filter(v => v.gap).length} legal syllables that never carry a given tone (e.g. ${vals.filter(v => v.gap).slice(0, 4).map(v => v.py).join(", ")}): a syllable that is no morpheme at all, offered alone (length 1) or with one real syllable. The <i>Item type</i> filter on the bank tab separates them. Syllable Zipf is each syllable's token frequency over all words containing it; Homophones counts the distinct characters read with that syllable.</div>`,
       `<div>Base syllables (${bases.length})</div><div ${mono}>${escRaw(bases.join(" "))}</div>`].join("\n    ");
   }
+  if (L.hangul) {
+    return [`<div>Unit</div><div>Jamo. Every syllable block is decomposed into its initial consonant, vowel and optional final consonant (한 = ㅎ ㅏ ㄴ, 3 jamo); length, OLD20, Coltheart's N and the n-gram models count jamo. Initial ㅇ is a silent place-holder: a letter for length and distances, no unit in the CV pattern (안 = VC). Only jamo strings that recompose into blocks are kept. Analyze and Match accept ordinary Hangul.</div>`,
+      `<div>Initial consonants (19)</div><div ${mono}>ㄱ ㄲ ㄴ ㄷ ㄸ ㄹ ㅁ ㅂ ㅃ ㅅ ㅆ ㅇ ㅈ ㅉ ㅊ ㅋ ㅌ ㅍ ㅎ</div>`,
+      `<div>Vowels (21)</div><div ${mono}>ㅏ ㅐ ㅑ ㅒ ㅓ ㅔ ㅕ ㅖ ㅗ ㅘ ㅙ ㅚ ㅛ ㅜ ㅝ ㅞ ㅟ ㅠ ㅡ ㅢ ㅣ</div>`,
+      `<div>Final consonants (27)</div><div ${mono}>ㄱ ㄲ ㄳ ㄴ ㄵ ㄶ ㄷ ㄹ ㄺ ㄻ ㄼ ㄽ ㄾ ㄿ ㅀ ㅁ ㅂ ㅄ ㅅ ㅆ ㅇ ㅈ ㅊ ㅋ ㅌ ㅍ ㅎ</div>`].join("\n    ");
+  }
   const cls = m.letter_classes, chars = [...m.alphabet];
   const of = (...k) => chars.filter(c => k.includes(cls[c] || "C")).join("");
-  const cons = of("C", "X"), vow = of("V"), y = of("Y"), signs = of("D");
-  const other = chars.filter(c => !["C", "V", "Y", "D"].includes(cls[c] || "C"));
+  const cons = of("C", "X"), vow = of("V"), y = of("Y"), signs = of("D"), pre = of("P");
+  const other = chars.filter(c => !["C", "V", "Y", "D", "P"].includes(cls[c] || "C"));
   const rows = [];
   rows.push(`<div>Consonant letters</div><div ${mono}>${esc(showChars(cons))}${y ? ` <span class="hint" style="display:inline">(${esc(y)}: consonant or vowel by position, see below)</span>` : ""}</div>`);
   rows.push(`<div>Vowel letters</div><div ${mono}>${esc(showChars(vow))}</div>`);
   if (signs) rows.push(`<div>Vowel signs</div><div ${mono}>${esc(showChars(signs))}</div>`);
+  if (pre) rows.push(`<div>Pre-posed vowels</div><div ${mono}>${esc(showChars(pre))} <span class="hint" style="display:inline">(written before the consonant, pronounced after it: placed after the C in the CV pattern)</span></div>`);
   if (other.length) {
     const items = other.map(c => { const g = CHAR_GLOSS[c] || [showChars(c), (INDIC_GLOSS_BY_CHAR[c] || INDIC_GLOSS[cls[c]]) ? (INDIC_GLOSS_BY_CHAR[c] || INDIC_GLOSS[cls[c]]) + ". Part of the akshara it belongs to; no CV unit of its own." : "modifier character with no sound of its own; counts in length, no CV unit of its own."];
       return `<div style="display:flex;gap:10px;align-items:baseline;padding:2px 0"><span class="mono" style="font-weight:700;min-width:4em;color:var(--accent)">${esc(g[0])}</span><span>${esc(g[1])}</span></div>`; }).join("");
@@ -2305,7 +2341,7 @@ function renderAbout() {
   const L = S.L[S.code], m = L.manifest, c = m.counts, g = m.generation.results;
   const bands = m.bands_enabled === false ? `<li>No frequency bands: small corpus.</li>` : m.bands.map(b => `<li><b>${MODEL_LABEL[b.id]}</b>: ${(+c.band_sizes[b.id]).toLocaleString()} words</li>`).join("");
   $("#aboutBody").innerHTML = `
-  <div style="display:flex;align-items:center;gap:18px;margin:4px 0 18px"><img src="assets/logo.png" alt="Mimsy logo" style="width:150px;height:auto"><div><div style="font-size:20px;font-weight:600">Mimsy</div><div class="hint" style="margin:2px 0 0">Pseudowords in 180 languages · <i>methodical whimsy</i>. Named after the word in Lewis Carroll's <i>Jabberwocky</i> (1871): “All mimsy were the borogoves”.</div><div class="hint" style="margin:6px 0 0">Beta — feedback is welcome, especially from speakers of the smaller languages, which could not all be checked with native speakers. Questions and feedback: <a href="mailto:mimsy.pseudowords@gmail.com">mimsy.pseudowords@gmail.com</a> · bug reports: <a href="https://github.com/sarachilson/Mimsy/issues" target="_blank" rel="noopener">github.com/sarachilson/Mimsy/issues</a> · code and data: <a href="https://github.com/sarachilson/Mimsy" target="_blank" rel="noopener">github.com/sarachilson/Mimsy</a></div></div></div>
+  <div style="display:flex;align-items:center;gap:18px;margin:4px 0 18px"><img src="assets/logo.png" alt="Mimsy logo" style="width:150px;height:auto"><div><div style="font-size:20px;font-weight:600">Mimsy</div><div class="hint" style="margin:2px 0 0">Pseudowords in 182 languages · <i>methodical whimsy</i>. Named after the word in Lewis Carroll's <i>Jabberwocky</i> (1871): “All mimsy were the borogoves”.</div><div class="hint" style="margin:6px 0 0">Beta — feedback is welcome, especially from speakers of the smaller languages, which could not all be checked with native speakers. Questions and feedback: <a href="mailto:mimsy.pseudowords@gmail.com">mimsy.pseudowords@gmail.com</a> · bug reports: <a href="https://github.com/sarachilson/Mimsy/issues" target="_blank" rel="noopener">github.com/sarachilson/Mimsy/issues</a> · code and data: <a href="https://github.com/sarachilson/Mimsy" target="_blank" rel="noopener">github.com/sarachilson/Mimsy</a></div></div></div>
   <h2>${esc(m.name)}: data</h2>
   <div class="kv">
     <div>Corpus size</div><div>${m.corpus_tokens ? (m.corpus_tokens / 1e6).toLocaleString(undefined, { maximumFractionDigits: 1 }) + " million words" : "n/a"}</div>

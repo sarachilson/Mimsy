@@ -6,7 +6,7 @@
 > *And the mome raths outgrabe.*
 > — Lewis Carroll, *Jabberwocky* (1871)
 
-**Mimsy** is a browser tool for finding, generating and checking pseudowords — strings that look and sound like words of a language but are not — in 180 languages. It takes its name from *Jabberwocky*, the most famous pseudoword text in English. For each language it reports the measures that matter when a pseudoword stands in for a real word: length, CV structure, trigram wordlikeness, OLD20, Coltheart's N, embedded words and more.
+**Mimsy** is a browser tool for finding, generating and checking pseudowords — strings that look and sound like words of a language but are not — in 182 languages. It takes its name from *Jabberwocky*, the most famous pseudoword text in English. For each language it reports the measures that matter when a pseudoword stands in for a real word: length, CV structure, trigram wordlikeness, OLD20, Coltheart's N, embedded words and more.
 
 It is built from the FILMS/OPUS subtitle frequency lists and, for languages with small or unusable subtitle lists or none at all, word lists from the Leipzig Corpora Collection. Version 0.6-beta: about 20.8 million precomputed pseudowords (the main languages have 190,000–385,000 each; small-corpus languages 15,000–120,000).
 
@@ -100,6 +100,14 @@ These scripts leave most vowels unwritten, so two CV patterns are offered:
 - **CV (guessed):** a per-letter model learned from the words that have an IPA transcription (`pipeline/cvguess.py`), inferring where unwritten vowels fall. Its accuracy on held-out words is shown on the About tab (Arabic 47% exact / 64% right vowel count; Persian 51% / 68%; Urdu 52% / 66%). Languages with too few IPA words (Hebrew, Kurdish, Sindhi, Pashto, Punjabi (Shahmukhi), Gilaki, Mazanderani) use a syllable rule only.
 
 A "CV basis" switch on the bank tab chooses which pattern the CV filter and the matching use. Pseudowords themselves are generated, scored and matched on letters (unvocalized surface forms), as in the other languages; for abjads the attested-cluster filter is not applied, because runs of consonant letters are not clusters, and items without vowel letters are allowed.
+
+## Korean (Hangul): jamo as the unit
+
+Korean syllable blocks are decomposed into their jamo (Unicode NFD: initial consonant, vowel, optional final consonant — 19 + 21 + 27 letters), and the jamo are the pipeline's letters, as in Korean psycholinguistics: 한 is 3 letters, 안녕 is 6. Length, OLD20, Coltheart's N (one jamo exchanged, added or removed), the n-gram models and the trigram wordlikeness count jamo; a *Syllables* column gives the block count. Initial ㅇ is a silent place-holder, so it counts as a letter but not in the CV pattern (안 = VC, 한 = CVC); compound vowels (ㅘ, ㅢ) and double finals (ㄳ, ㄺ) are single jamo. Generated jamo strings are kept only if they recompose into syllable blocks (`hangul_ok`); the app shows them recomposed and decomposes typed Hangul. Data: the FILMS Korean subtitle list (1.88 M forms, 165 M tokens) plus the Leipzig kor_news_2022_1M list; Korean word forms are *eojeol* (stem + particles/endings), so the reference lexicon (405,000 forms) and the pseudowords carry real endings (-의, -을, -어요), exactly as the subtitle forms do. Cross-language sets work with Korean, with its own unit (jamo).
+
+## Thai: letters, vowel signs and tone marks
+
+Thai writes no spaces, so its word lists come from automatic segmentation (the FILMS subtitle list, 225,000 Thai-script forms, 289 M tokens, and the Leipzig tha_newscrawl_2011_100K list, which contains some phrases); 70,000 reference words. Letters are counted as written (consonants, vowel signs, tone marks). Letter classes: 44 consonants C (including อ ว ย, which also serve as vowels), vowel signs above/below and spacing vowels V, the pre-posed vowels เ แ โ ใ ไ a class of their own (`P`: written before the consonant, placed after it in the CV string), tone marks, maitaikhu and thanthakhat modifiers that are skipped in CV. Implied vowels (กด = /kot/) are unwritten, so, as for the abjads, consonant-only strings are legal and the attested-cluster filter is not applied; *CV (phon.)* comes from the IPA-trained table (`cvguess.py`, 8,600 words with IPA). Generated strings must follow the writing rules (`thai_ok`, mirrored in the app): marks sit on a consonant, at most one vowel sign and one tone mark per consonant with the vowel sign first, pre-posed vowels followed by a consonant, ั and ็ by a final consonant, no word starting with a mark or ending in a pre-posed vowel. Because Thai morphemes are mostly monosyllabic, many longer items are novel compounds of real syllables (the Embedded-words column shows them).
 
 ## Chinese (Mandarin, pinyin): syllables as the unit
 

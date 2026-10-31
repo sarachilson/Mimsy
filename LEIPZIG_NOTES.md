@@ -58,7 +58,7 @@ Rebuilt with FILMS + Leipzig (reference words before -> after):
 Not used although downloaded:
 - Sinhala and Welsh: FILMS lists are already good; the Leipzig lists are Wikipedia (names, formal vocabulary).
 - Icelandic and Vietnamese: main languages with full FILMS data.
-- Korean, Thai: need their own script handling (Hangul jamo decomposition; Thai vowel placement). Lists are in
+- Korean, Thai: added 2026-10-31 with their own script handling (Hangul jamo decomposition; Thai vowel placement). Lists are in
   `_leipzig/` ready for that work. (Amharic was added in the second batch, see below.)
 - Kurmanji Kurdish (`kur`): the `kur_newscrawl_2011_30K` list turned out to be Sorani in Arabic script (same language as
   the `ckb` list already used), so there is no Kurmanji list.
@@ -113,7 +113,7 @@ capitalised-only forms rejected, minimum counts, English-contamination filter fo
 - Kept under "if in doubt, add it" although some would call them regional: Sicilian, Venetian, Lombard, Piedmontese,
   Ligurian, Low German, Scots, Silesian, Kashubian, Võro, Zazaki, Rusyn, Mingrelian, the two Mari and two Komi
   languages (all have ISO 639-3 codes and their own Wikipedias).
-- Korean and Thai still need script rules; `kur` is Sorani (see above).
+- Korean and Thai were added on 2026-10-31 (jamo decomposition; Thai letter classes with pre-posed vowels), using kor_news_2022_1M and tha_newscrawl_2011_100K together with their FILMS lists; `kur` is Sorani (see above).
 
 ### Decisions worth checking (also listed in the TODO)
 - Scots: the English-contamination filter is off (`eng_filter=False`), otherwise most of the shared vocabulary would be

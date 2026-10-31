@@ -67,6 +67,7 @@ def letter_classes(cfg, alphabet):
     mods = set(cfg.get("mods", ""))
     cmods = set(cfg.get("cmods", ""))   # consonant-side modifier letters (Urdu ھ ں): C in the orthographic CV, never fill a slot in generation
     cons = set(cfg.get("consonants", ""))   # explicit consonants (e.g. Turkmen ý = /j/ while y is a vowel)
+    pre = set(cfg.get("preposed", ""))      # Thai: vowels written before the consonant they follow in speech (class P)
     ymode = cfg.get("y", "V")
     cls = {}
     for ch in alphabet:
@@ -74,6 +75,8 @@ def letter_classes(cfg, alphabet):
         cyr = "Ѐ" <= ch <= "ӿ"
         if ch in mods:
             cls[ch] = "M"
+        elif ch in pre:
+            cls[ch] = "P"
         elif ch in cmods:
             cls[ch] = "X"
         elif ch in cons:
@@ -101,16 +104,23 @@ def cv_of(word, cls):
         return syl.cv_of(word, cls)
     out = []
     n = len(word)
+    pend = 0   # pre-posed vowels waiting for their consonant
     for i, ch in enumerate(word):
         c = cls.get(ch, "C")
         if c == "M":
             continue
+        if c == "P":
+            pend += 1; continue
         if c == "X":
             c = "C"
         if c == "Y":
             nxt = word[i + 1] if i + 1 < n else ""
             c = "C" if nxt and cls.get(nxt) == "V" else "V"
         out.append(c)
+        if c == "C" and pend:
+            out.append("V" * pend); pend = 0
+    if pend:
+        out.append("V" * pend)
     return "".join(out)
 
 
@@ -141,6 +151,8 @@ def cv_aligned(word, cls):
         c = cls.get(ch, "C")
         if c in ("M", "X"):
             c = "C"
+        if c == "P":
+            c = "V"
         if c == "Y":
             nxt = word[i + 1] if i + 1 < len(word) else ""
             c = "C" if nxt and cls.get(nxt) == "V" else "V"
@@ -174,7 +186,50 @@ def clean_word(w, cfg):
         drop = cfg.get("strip", "")
         w = "".join(c for c in w if c not in drop and not (cfg.get("strip_marks") and unicodedata.category(c) == "Mn"))
         w = unicodedata.normalize("NFC", w)
+    if cfg.get("decompose"):   # Hangul: syllable blocks -> conjoining jamo (NFD); the pipeline's letters are the jamo
+        w = unicodedata.normalize("NFD", w)
     return w
+
+
+THAI_A = set("\u0e31\u0e34\u0e35\u0e36\u0e37\u0e38\u0e39")   # vowel signs above/below the consonant
+THAI_T = set("\u0e48\u0e49\u0e4a\u0e4b")                          # tone marks
+THAI_S = set("\u0e30\u0e32\u0e33\u0e45")                          # spacing vowels after the consonant
+THAI_NEED_FINAL = {"\u0e31", "\u0e47"}                             # mai han-akat and maitaikhu require a final consonant
+
+
+def thai_ok(w, cls):
+    """Orthographic well-formedness of a Thai string: marks sit on a consonant (at most one vowel sign above/below, at most one
+    tone mark, vowel sign before tone mark), pre-posed vowels are followed by a consonant, ั/็ by a final consonant, and
+    the word does not start with a mark or spacing vowel nor end with a pre-posed vowel."""
+    n = len(w)
+    for i, ch in enumerate(w):
+        k = cls.get(ch, "C")
+        prev = w[i - 1] if i else ""
+        pk = cls.get(prev, "C") if prev else ""
+        if ch in THAI_A:
+            if pk != "C": return False
+            if i + 1 < n and w[i + 1] in THAI_A: return False
+        elif ch in THAI_T:
+            if not (pk == "C" or prev in THAI_A or prev == "\u0e47"): return False
+            if i + 1 < n and (w[i + 1] in THAI_T or w[i + 1] in THAI_A): return False
+        elif ch == "\u0e47":          # maitaikhu: on a bare consonant
+            if pk != "C": return False
+        elif ch in ("\u0e4c", "\u0e4d", "\u0e3a", "\u0e4e"):   # thanthakhat, nikhahit, phinthu, yamakkan: on a consonant (thanthakhat also after a vowel sign)
+            if not (pk == "C" or (ch == "\u0e4c" and prev in THAI_A)): return False
+        elif k == "P":
+            if i + 1 >= n or cls.get(w[i + 1], "C") != "C": return False
+        elif ch in THAI_S:
+            if i == 0 or pk == "P": return False
+        if ch in THAI_NEED_FINAL:      # a consonant must follow, possibly after a tone mark
+            j = i + 1
+            while j < n and w[j] in THAI_T: j += 1
+            if j >= n or cls.get(w[j], "C") != "C": return False
+    return True
+
+
+def hangul_ok(w):
+    """A jamo string is well formed if it recomposes completely into syllable blocks (initial + vowel [+ final], repeated)."""
+    return not any("\u1100" <= c <= "\u11ff" for c in unicodedata.normalize("NFC", w))
 
 
 def load_leipzig(name, cfg, leipzig_dir):
@@ -587,7 +642,7 @@ def step_prepare(lang, cfg, args, outdir, work):
     state = {
         "alphabet": alphabet, "classes": cls, "corpus_tokens": corpus_tokens, "small_corpus": small, "bands_enabled": bands_enabled,
         "leipzig": lz, "reference_sources": src_counts, "parents": parents or None, "english_contamination_removed": {"count": len(eng_removed), "rule": f"Leipzig-only words of {ENG_FILTER_MINLEN}+ letters that are English words with Zipf >= {ENG_FILTER_ZIPF}", "words": sorted(eng_removed)},
-        "length_unit": ("fidel" if cfg.get("rules", {}).get("syllabary") else "aksharas") if indic.is_indic(cls) else ("syllables" if syl.is_syl(cls) else "letters"),
+        "length_unit": ("fidel" if cfg.get("rules", {}).get("syllabary") else "aksharas") if indic.is_indic(cls) else ("syllables" if syl.is_syl(cls) else ("jamo" if cfg.get("decompose") else "letters")),
         "inventory": {k: sorted(v) for k, v in inv.items()},
         "counts": {"corpus_forms": len(all_forms), "plain_forms": len(plain),
                    "reference_words": len(ref), "rare_words": len(rare),
@@ -604,6 +659,8 @@ def rule_violation(w, rules):
     """Language-specific spelling rules (see languages.py); returns a reason or ''."""
     if not rules:
         return ""
+    if rules.get("hangul") and not hangul_ok(w):
+        return "jamo do not form syllable blocks"
     if "max_stress" in rules and sum(c in rules["stress_marks"] for c in w) > rules["max_stress"]:
         return "more than one stress accent"
     if "harmony" in rules:
@@ -626,6 +683,8 @@ def legal(w, cls, inv, rules=None):
     if not (rules.get("min_len", MIN_LEN) <= wlen(w, cls) <= rules.get("max_len", MAX_LEN)):
         return False
     if rule_violation(w, rules):
+        return False
+    if rules.get("thai") and not thai_ok(w, cls):
         return False
     if indic.is_indic(cls) and not indic.sequence_ok(w, cls, rules):
         return False
@@ -923,7 +982,7 @@ def writing_system(alphabet):
               ("Hebrew", 0x590, 0x600), ("Arabic", 0x600, 0x700), ("Arabic", 0x750, 0x780), ("Thaana", 0x780, 0x7C0), ("Devanagari", 0x900, 0x980),
               ("Bengali", 0x980, 0xA00), ("Gurmukhi", 0xA00, 0xA80), ("Gujarati", 0xA80, 0xB00), ("Odia", 0xB00, 0xB80), ("Tamil", 0xB80, 0xC00),
               ("Telugu", 0xC00, 0xC80), ("Kannada", 0xC80, 0xD00), ("Malayalam", 0xD00, 0xD80), ("Sinhala", 0xD80, 0xE00), ("Georgian", 0x10A0, 0x1100),
-              ("Ethiopic", 0x1200, 0x1380), ("Pinyin syllables", 0xE000, 0xF900)]
+              ("Ethiopic", 0x1200, 0x1380), ("Pinyin syllables", 0xE000, 0xF900), ("Hangul", 0x1100, 0x1200), ("Thai", 0xE00, 0xE80)]
     counts = {}
     for ch in alphabet:
         o = ord(ch)
