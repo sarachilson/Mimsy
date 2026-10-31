@@ -2241,5 +2241,17 @@
    "bank_items_accepted": 198,
    "compounding": "off"
   }
+ },
+ "korean-ko": {
+  "hunspell": {
+   "dictionary": "libreoffice/ko_KR/ko_KR",
+   "licence": "see README_ko_KR.txt: name   :  Korean(ko_KR) spellcheck dictionary date   :  2024. 08. 21. License:  GPL-3.0  - The dictionary files (ko_KR.aff and ko_KR.dic) were built from the Ko",
+   "coverage_of_reference_words": 0.682,
+   "bank_items_accepted": 10303,
+   "compounding": "off"
+  },
+  "bible_skipped": {
+   "reason": "large corpus; Bible texts are used for small-corpus languages only"
+  }
  }
 }
