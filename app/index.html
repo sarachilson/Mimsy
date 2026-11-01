@@ -78,7 +78,7 @@ th:hover{color:var(--ink)}
 td.pw{font-family:var(--mono);font-size:14px;font-weight:600}
 td.pw,td.mono,textarea,input[type=text]{unicode-bidi:plaintext}
 td.pick{cursor:pointer;color:var(--accent,#1b5fb4)}td.pick:hover{text-decoration:underline}
-td.embpick,td.morphpick{cursor:pointer;color:var(--accent,#1b5fb4)}td.morphpick{text-decoration:underline dotted;text-underline-offset:3px}td.embpick:hover,td.morphpick:hover{text-decoration:underline solid}
+td.embpick,.morphmore{cursor:pointer;color:var(--accent,#1b5fb4)}.morphmore{font-family:inherit;font-size:.92em;white-space:nowrap;text-decoration:underline dotted;text-underline-offset:3px}td.embpick:hover,.morphmore:hover{text-decoration:underline solid}
 tr:hover td{background:var(--accent-soft)}
 .tag{display:inline-block;font-size:11.5px;border-radius:9px;padding:0 7px;background:var(--chip);color:var(--muted)}
 .tag.good{color:var(--good)} .tag.bad{color:var(--bad)} .tag.warn{color:var(--warn)}
@@ -764,7 +764,29 @@ async function loadMorph(L, code) {
     if (lt) { const LM = new Map(), ll = lt.split("\n"); for (let i = 1; i < ll.length; i++) { const p = ll[i].split("\t"); if (p.length < 5) continue; LM.set(p[0], { t: "word", stem: p[1], suf: p[2], tags: p[3], na: +p[4], pl: p.length > 5 && p[5] !== "" ? +p[5] : NaN, np: 1, mg: 99, alts: [] }); } L.lexMorph = LM; }
   } catch (e) { L.morph = null; }
 }
-const morphOf = (L, w) => L && L.morph ? (L.morph.get(w) || (L.lexMorph && L.lexMorph.get(w)) || null) : null;
+const morphBase = (L, w) => L && L.morph ? (L.morph.get(w) || (L.lexMorph && L.lexMorph.get(w)) || null) : null;
+// A reading other than the best one can be chosen per item (click "+n more parses"); it then labels the item in every column and filter.
+// Choices are a per-viewer convenience kept in localStorage.
+const NON_AFFIX = new Set(["n", "adj", "v", "tv", "iv", "vaux", "np", "subst", "attr", "advl", "nom", "p3", "sg"]);
+S.morphPick = (() => { try { return JSON.parse(localStorage.getItem("pw.morphPick") || "{}"); } catch (e) { return {}; } })();
+const morphPicked = new Map();
+function morphOf(L, w) {
+  const m = morphBase(L, w); if (!m || !m.alts || m.alts.length < 2) return m;
+  const i = ((S.morphPick[L.code] || {})[w]); if (!i || !m.alts[i]) return m;
+  const key = L.code + "\u0000" + w; let o = morphPicked.get(key);
+  if (!o || o._i !== i) {
+    const a = m.alts[i], tags = a.tags.replace(/^<|>$/g, "").split("><"), na = tags.filter(t => !NON_AFFIX.has(t)).length;
+    o = Object.assign({}, m, { stem: a.stem, suf: a.suf, tags: a.tags, na, pl: a.sc, att: a.att, t: !a.suf || na === 0 ? "bare" : (a.stem === m.stem ? m.t : "affixed"), _i: i, chosen: true });
+    morphPicked.set(key, o);
+  }
+  return o;
+}
+function morphCellHtml(L, r, m) {
+  m = m || (r && (r.mo !== undefined ? r.mo : morphOf(L, r.w)));
+  const txt = esc(morphText(m)); if (!m || !m.alts || m.alts.length < 2) return txt;
+  const n = m.alts.length - 1;
+  return `${txt}${m.chosen ? ' <span class="hint" style="display:inline" title="a reading you chose instead of the best one">(chosen)</span>' : ""} <span class="morphmore" data-w="${escRaw(r.w)}">+${n} more parse${n > 1 ? "s" : ""}</span>`;
+}
 const tagText = tags => tags ? tags.replace(/^<|>$/g, "").split("><").join(".") : "";
 function morphText(m) {
   if (!m) return "";
@@ -1482,7 +1504,7 @@ const TIPS = {
   homo: "Homophone density: how many distinct characters (morphemes) are read with each toned syllable in the reference words.",
   styp: "Real syllables = a novel compound of real morphemes; tonal gap = contains a legal syllable with a tone it never carries (no morpheme).",
   tones: "Tone of each syllable (1–4; 5 = neutral).",
-  mplaus: "Morphological plausibility: how probable the item is as stem + suffix chain (stem letter model × suffix-transition model, best parse), as a percentile among this language's pseudowords; 50 = typical. Mixed vowel harmony costs 20 points; 0 = no parse. Click the Morphology cell for all parses.",
+  mplaus: "Morphological plausibility: how probable the item is as stem + suffix chain (stem letter model × suffix-transition model, best parse), as a percentile among this language's pseudowords; 50 = typical. Mixed vowel harmony costs 20 points; 0 = no parse. Click “+n more parses” in the Morphology cell to see the other readings and choose one.",
   nparse: "Number of distinct parses (stem boundaries) the analyser validates; 1 = unambiguous. Click for the list.",
   blocks: "Number of syllable blocks (length is counted in jamo).",
   w: "The generated item. Click a header to sort; click again to reverse.",
@@ -1542,8 +1564,8 @@ const COLS = {
   len: ["Len", r => r.len, "num"], cv: [() => S.L[S.code] && (S.L[S.code].cvg || S.L[S.code].hasGraph) ? "CV (orth.)" : "CV", r => r.cv, "mono"], cvgr: ["CV (graph.)", r => r.cvgr || "", "mono"], ng: ["Graphemes", r => r.ng ?? "", "num"], cvg: ["CV (phon.)*", r => r.cvg || "", "mono"],
   like: ["Wordlike % (vs real words)", r => fmt(r.like, 0), "num"], tri: [() => S.L[S.code] && S.L[S.code].pinyin ? "Bigram freq." : "Trigram freq.", r => fmt(r.tri, 2), "num"],
   old: ["OLD20", r => fmt(r.old), "num"], oldp: ["OLD20 pct", r => fmt(r.oldP, 0), "num"], n1: ["Coltheart's N", r => r.n1, "num"], n1p: ["N pct", r => fmt(r.n1P, 0), "num"], n1h: ["High-freq. neighbours", r => r.n1h, "num"],
-  morph: ["Morphology", r => morphText(r.mo), "mono morphpick"], naff: ["Affixes", r => isNaN(r.naff) ? "" : r.naff, "num"], harm: ["Harmony", r => r.mo ? r.mo.h || "" : "", ""],
-  mplaus: ["Morph. plaus. %", r => isNaN(r.mplaus) ? "" : fmt(r.mplaus, 0), "num"], nparse: ["Parses", r => isNaN(r.nparse) ? "" : r.nparse, "num morphpick"],
+  morph: ["Morphology", r => morphText(r.mo), "mono", undefined, r => morphCellHtml(r._L || S.L[S.code], r)], naff: ["Affixes", r => isNaN(r.naff) ? "" : r.naff, "num"], harm: ["Harmony", r => r.mo ? r.mo.h || "" : "", ""],
+  mplaus: ["Morph. plaus. %", r => isNaN(r.mplaus) ? "" : fmt(r.mplaus, 0), "num"], nparse: ["Parses", r => isNaN(r.nparse) ? "" : r.nparse, "num"],
   blocks: ["Syllables", r => blocksOf(r._L || S.L[S.code], r.w), "num"],
   tones: ["Tones", r => tonesOf(r._L || S.L[S.code], r.w), "mono"], sylz: ["Syllable Zipf", r => sylZipfText(r._L || S.L[S.code], r.w), "num"], homo: ["Homophones", r => sylHomoText(r._L || S.L[S.code], r.w), "num"], styp: ["Item type", r => sylTypeText(r._L || S.L[S.code], r.w, r.gen), ""],
   near: ["Nearest word", r => nearDisp(r._L || S.L[S.code], r.near), "mono"], nd: ["Dist.", r => r.nd, "num"], nz: ["Nearest Zipf", r => fmt(r.nz), "num"],
@@ -1556,7 +1578,7 @@ const COLS = {
   xl: ["Word in", r => xlLabel(xlOf(r), r.w), ""],
 };
 const BANK_COLS = ["w", "model", "gen", "len", "cv", "like", "tri", "trimin", "old", "oldp", "n1", "n1p", "tl", "near", "nd", "nz", "embn", "oup", "lpa"];
-const bankCols = L => { let c = BANK_COLS.filter(k => SHOW_PROVENANCE || (k !== "model" && k !== "gen")); if (L.pinyin) { c = c.filter(k => !SYL_HIDE.has(k)); c.splice(c.indexOf("cv") + 1, 0, "tones", "sylz", "homo", "styp"); } if (L.hangul) c.splice(c.indexOf("len") + 1, 0, "blocks"); if (L.cvg) c.splice(c.indexOf("cv") + 1, 0, "cvg"); if (L.hasGraph && !L.indic) c.splice(c.indexOf("cv") + 1, 0, "cvgr", "ng"); if (L.morph) c.splice(c.indexOf("like"), 0, "morph", "naff", "harm", "mplaus", "nparse"); if (S.xlSig) c.splice(1, 0, "xl"); return c; };
+const bankCols = L => { let c = BANK_COLS.filter(k => SHOW_PROVENANCE || (k !== "model" && k !== "gen")); if (L.pinyin) { c = c.filter(k => !SYL_HIDE.has(k)); c.splice(c.indexOf("cv") + 1, 0, "tones", "sylz", "homo", "styp"); } if (L.hangul) c.splice(c.indexOf("len") + 1, 0, "blocks"); if (L.cvg) c.splice(c.indexOf("cv") + 1, 0, "cvg"); if (L.hasGraph && !L.indic) c.splice(c.indexOf("cv") + 1, 0, "cvgr", "ng"); if (L.morph) c.splice(c.indexOf("like"), 0, "morph", "naff", "harm", "mplaus"); if (S.xlSig) c.splice(1, 0, "xl"); return c; };
 const tableData = {};
 function renderTable(id, rows, colKeys, colDefs = COLS) {
   const box = $("#" + id);
@@ -1564,7 +1586,7 @@ function renderTable(id, rows, colKeys, colDefs = COLS) {
   if (!rows.length) { box.innerHTML = `<div class="empty">No items match these settings.</div>`; return; }
   const lbl = k => typeof colDefs[k][0] === "function" ? colDefs[k][0]() : colDefs[k][0];
   const head = colKeys.map((k, i) => { const tip = TIPS[k] || TIPS[lbl(k)] || colDefs[k][3]; return `<th class="${colDefs[k][2] === "num" ? "num" : ""}" data-i="${i}"${tip ? ` title="${esc(tip)}"` : ""}>${lbl(k)}</th>`; }).join("");
-  const body = rows.map(r => (xlRowHit(r) ? '<tr class="xlhit">' : "<tr>") + colKeys.map(k => { const d = colDefs[k]; return `<td class="${d[2]}">${esc(d[1](r))}</td>`; }).join("") + "</tr>").join("");
+  const body = rows.map(r => (xlRowHit(r) ? '<tr class="xlhit">' : "<tr>") + colKeys.map(k => { const d = colDefs[k]; return `<td class="${d[2]}">${d[4] ? d[4](r) : esc(d[1](r))}</td>`; }).join("") + "</tr>").join("");
   box.innerHTML = `<table><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table>`;
   $$("th", box).forEach(th => th.addEventListener("click", () => {
     const k = colKeys[+th.dataset.i], f = colDefs[k][1], dir = th.dataset.dir === "a" ? -1 : 1;
@@ -1700,20 +1722,36 @@ $("#sTable").addEventListener("click", async ev => {
   if (!pick) return;
   t.rows[i] = pick; renderTable("sTable", t.rows, t.colKeys, t.colDefs);
 });
-// Click a Morphology cell (or the Parses count) to list every validated parse of the item with its plausibility.
+// Click "+n more parses" in a Morphology cell: list every validated reading; choosing one makes it the item's label.
 document.addEventListener("click", async ev => {
-  const td = ev.target.closest("td.morphpick"); if (!td) return;
-  const box = td.closest(".tablewrap"); if (!box) return;
+  const sp = ev.target.closest(".morphmore"); if (!sp) return;
+  const box = sp.closest(".tablewrap"); if (!box) return;
   const t = tableData[box.id]; if (!t) return;
-  const tr = td.parentElement, row = t.rows[[...tr.parentElement.children].indexOf(tr)]; if (!row) return;
+  const td = sp.closest("td"), tr = td.parentElement, row = t.rows[[...tr.parentElement.children].indexOf(tr)]; if (!row) return;
   const it = box.id === "mTable" ? row.p : row; if (!it) return;
-  const L = it._L || S.L[S.code]; const m = morphOf(L, it.w); if (!m) return;
-  if (m.t === "word" || m.t === "real") { await askModal(`<b>${esc(it.w)}</b> is a real word form: ${esc(m.stem)}${m.suf ? "+" + esc(m.suf) : ""} ${esc(tagText(m.tags))}${isNaN(m.pl) ? "" : ` · morph. plausibility ${fmt(m.pl, 0)}%`}`, [["ok", "Close", true]]); return; }
-  const alts = m.alts && m.alts.length ? m.alts : [{ stem: m.stem, suf: m.suf, tags: m.tags, sc: m.pl, att: m.att }];
-  const lines = alts.map((a, i) => `<div style="display:flex;gap:12px;align-items:baseline;padding:3px 0;${i ? "" : "font-weight:600"}"><span class="mono" style="min-width:11em">${esc(a.stem)}${a.suf ? "<span style='color:var(--accent)'>+" + esc(a.suf) + "</span>" : ""}</span><span class="mono hint" style="margin:0;min-width:12em">${esc(tagText(a.tags)) || "no affixes"}</span><span class="hint" style="margin:0">plausibility ${fmt(a.sc, 0)}%${a.att ? ` · chain on ${a.att.toLocaleString()} real words` : " · chain unattested"}</span></div>`).join("");
-  await askModal(`<b>Parses of “${esc(it.w)}”</b> <span class="hint" style="display:inline">(${alts.length}, best first; the first one labels the item${m.mg !== undefined && alts.length > 1 ? `; it leads by ${fmt(m.mg, 0)} bits` : ""})</span>
-    <div style="max-height:55vh;overflow:auto;margin-top:10px;display:flex;flex-direction:column;gap:2px">${lines}</div>
-    <div class="hint" style="margin-top:10px">Plausibility: how probable the item is under a stem + suffix-chain model (stem letter model × suffix transitions), as a percentile among this language's pseudowords${isNaN(m.plr) ? "" : `; against real words this item is at ${fmt(m.plr, 0)}%`}${m.h === "mixed" ? "; mixed vowel harmony costs 20 points" : ""}. Stem ${fmt(m.sp, 0)}% · chain ${fmt(m.cp, 0)}% (each part alone).</div>`, [["ok", "Close", true]]);
+  const L = it._L || S.L[S.code]; const base = morphBase(L, it.w); if (!base || !base.alts) return;
+  const cur = ((S.morphPick[L.code] || {})[it.w]) || 0;
+  const lines = base.alts.map((a, i) => `<div style="display:flex;gap:12px;align-items:center;padding:4px 0;border-bottom:1px solid var(--line)">
+      <span class="mono" style="min-width:10em;${i === cur ? "font-weight:700" : ""}">${esc(a.stem)}${a.suf ? `<span style="color:var(--accent)">+${esc(a.suf)}</span>` : ""}</span>
+      <span class="mono hint" style="margin:0;flex:1">${esc(tagText(a.tags)) || "no affixes"}</span>
+      <span class="hint" style="margin:0;min-width:13em">plausibility ${fmt(a.sc, 0)}%${a.att ? ` · chain on ${a.att.toLocaleString()} real words` : " · chain unattested"}${i === 0 ? " · best" : ""}</span>
+      ${i === cur ? '<span class="hint" style="margin:0;min-width:6.5em">in use</span>' : `<button class="btn" data-v="${i}" style="min-width:6.5em">Use this</button>`}</div>`).join("");
+  const v = await askModal(`<b>Readings of “${esc(it.w)}”</b> <span class="hint" style="display:inline">(${base.alts.length}, most plausible first${base.mg !== undefined ? `; the best leads by ${fmt(base.mg, 0)} bits` : ""})</span>
+    <div style="max-height:55vh;overflow:auto;margin-top:10px">${lines}</div>
+    <div class="hint" style="margin-top:10px">The reading in use labels the item everywhere: Morphology, Affixes and Morph. plaus. % columns, the filters, Match and the downloads. A choice is remembered in this browser. Plausibility: how probable the reading is as stem + suffix chain, as a percentile among this language's pseudowords.</div>`,
+    [["close", "Close", true]].concat(cur ? [["0", "Back to the best reading"]] : []));
+  if (v === "close" || v === undefined) return;
+  const i = +v, P = S.morphPick[L.code] = S.morphPick[L.code] || {};
+  if (i) P[it.w] = i; else delete P[it.w];
+  try { localStorage.setItem("pw.morphPick", JSON.stringify(S.morphPick)); } catch (e) {}
+  morphPicked.delete(L.code + "\u0000" + it.w);
+  const clear = r => { if (r && r.w === it.w) for (const k of ["mo", "naff", "mplaus"]) if (Object.hasOwn(r, k)) delete r[k]; };
+  for (const r of L.bank) clear(r);
+  for (const id in tableData) for (const r of tableData[id].rows || []) {
+    clear(r); clear(r.p); clear(r.t);
+    if (id === "aTable" && r.w === it.w) { const m = morphOf(L, it.w); r.mo = m; r.naff = m && !isNaN(m.na) ? m.na : NaN; r.mplaus = m ? m.pl : NaN; }
+  }
+  renderTable(box.id, t.rows, t.colKeys, t.colDefs);
 });
 // Click an "Embedded words" count to list the real words inside the item.
 document.addEventListener("click", async ev => {
@@ -1789,8 +1827,8 @@ const A_COLS = {
   legal: ["Spelling check", r => r.note && r.note.startsWith("not analyzed") ? r.note : [r.note, r.bad ? (r.note ? "" : `letters not in alphabet: ${r.bad}`) : (r.legal || "ok")].filter(Boolean).join(" · "), ""],
   like: ["Wordlike %", r => isNaN(r.like) ? "" : fmt(r.like, 0), "num"], tri: [() => S.L[S.code] && S.L[S.code].pinyin ? "Bigram freq." : "Trigram freq.", r => isNaN(r.tri) ? "" : fmt(r.tri, 2), "num"],
   old: ["OLD20", r => fmt(r.old), "num"], oldp: ["OLD20 pct", r => fmt(r.oldP, 0), "num"], n1: ["Coltheart's N", r => r.n1, "num"], n1p: ["N pct", r => fmt(r.n1P, 0), "num"], n1h: ["High-freq. neighbours", r => r.n1h, "num"],
-  morph: ["Morphology", r => morphText(r.mo), "mono morphpick"], naff: ["Affixes", r => isNaN(r.naff) ? "" : r.naff, "num"], harm: ["Harmony", r => r.mo ? r.mo.h || "" : "", ""],
-  mplaus: ["Morph. plaus. %", r => isNaN(r.mplaus) ? "" : fmt(r.mplaus, 0), "num"], nparse: ["Parses", r => isNaN(r.nparse) ? "" : r.nparse, "num morphpick"],
+  morph: ["Morphology", r => morphText(r.mo), "mono", undefined, r => morphCellHtml(S.L[S.code], r, r.mo)], naff: ["Affixes", r => isNaN(r.naff) ? "" : r.naff, "num"], harm: ["Harmony", r => r.mo ? r.mo.h || "" : "", ""],
+  mplaus: ["Morph. plaus. %", r => isNaN(r.mplaus) ? "" : fmt(r.mplaus, 0), "num"], nparse: ["Parses", r => isNaN(r.nparse) ? "" : r.nparse, "num"],
   blocks: ["Syllables", r => blocksOf(S.L[S.code], r.w), "num"],
   tones: ["Tones", r => tonesOf(S.L[S.code], r.w), "mono"], sylz: ["Syllable Zipf", r => sylZipfText(S.L[S.code], r.w), "num"], homo: ["Homophones", r => sylHomoText(S.L[S.code], r.w), "num"], styp: ["Item type", r => sylTypeText(S.L[S.code], r.w, ""), ""],
   near: ["Nearest other word", r => nearDisp(S.L[S.code], r.near), "mono"], nd: ["Dist.", r => isNaN(r.nd) ? "" : r.nd, "num"],
@@ -1801,7 +1839,7 @@ const A_COLS = {
   ipa: [() => S.L[S.code] && S.L[S.code].syl ? (S.L[S.code].pinyin ? "Characters" : "Original spelling") : "IPA", r => r.ipa, ""],
   xl: ["Word in other languages", r => r.w ? xlLabel(xlOf(r), r.w) : "", ""],
 };
-const aColKeys = L => { const c = Object.keys(A_COLS).filter(k => k !== "xl" && !["tones", "sylz", "homo", "styp", "blocks"].includes(k) && (SHOW_PROVENANCE || k !== "band") && (!L.pinyin || !SYL_HIDE.has(k)) && (L.cvg || (k !== "cvg" && k !== "cvIpa")) && ((L.hasGraph && !L.indic) || (k !== "cvgr" && k !== "ng")) && (L.morph || !["morph", "naff", "harm", "mplaus", "nparse"].includes(k))); if (L.pinyin) c.splice(c.indexOf("cv") + 1, 0, "tones", "sylz", "homo", "styp"); if (L.hangul) c.splice(c.indexOf("len") + 1, 0, "blocks"); if (S.xlSig) c.splice(2, 0, "xl"); return c; };
+const aColKeys = L => { const c = Object.keys(A_COLS).filter(k => k !== "xl" && !["tones", "sylz", "homo", "styp", "blocks"].includes(k) && (SHOW_PROVENANCE || k !== "band") && (!L.pinyin || !SYL_HIDE.has(k)) && (L.cvg || (k !== "cvg" && k !== "cvIpa")) && ((L.hasGraph && !L.indic) || (k !== "cvgr" && k !== "ng")) && k !== "nparse" && (L.morph || !["morph", "naff", "harm", "mplaus"].includes(k))); if (L.pinyin) c.splice(c.indexOf("cv") + 1, 0, "tones", "sylz", "homo", "styp"); if (L.hangul) c.splice(c.indexOf("len") + 1, 0, "blocks"); if (S.xlSig) c.splice(2, 0, "xl"); return c; };
 $("#aGo").addEventListener("click", async () => {
   toTop();
   const L = S.L[S.code]; if (!L) return;
@@ -1835,7 +1873,7 @@ const M_COLS = {
   ptrimin: ["Pw rarest tri.", r => r.p && r.p.triMin && !isNaN(r.p.triMin.v) ? `${fmt(r.p.triMin.v)} (${r.p.triMin.g})` : "", "num"], poup: ["Pw OUP", r => r.p && !isNaN(r.p.oup) ? (r.p.oup > r.p.len ? `${r.p.len + 1}+` : r.p.oup) : "", "num"],
   ptl: ["Pw TL nb.", r => r.p && r.p.tl ? (r.p.tl.length ? `${r.p.tl.length} (${r.p.tl.slice(0, 2).join(", ")}${r.p.tl.length > 2 ? ", …" : ""})` : "0") : "", "num"],
   pnear: ["Pw nearest word", r => r.p ? r.p.near : "", "mono"],
-  tmorph: ["Morphology", r => morphText(r.t.mo), "mono"], tplaus: ["Morph. plaus. %", r => isNaN(r.t.mplaus) ? "" : fmt(r.t.mplaus, 0), "num"], pmorph: ["Pw morphology", r => r.p ? morphText(r.p.mo) : "", "mono morphpick"], pplaus: ["Pw morph. plaus. %", r => r.p && !isNaN(r.p.mplaus) ? fmt(r.p.mplaus, 0) : "", "num"],
+  tmorph: ["Morphology", r => morphText(r.t.mo), "mono"], tplaus: ["Morph. plaus. %", r => isNaN(r.t.mplaus) ? "" : fmt(r.t.mplaus, 0), "num"], pmorph: ["Pw morphology", r => r.p ? morphText(r.p.mo) : "", "mono", undefined, r => r.p ? morphCellHtml(r.p._L || S.L[S.code], r.p) : ""], pplaus: ["Pw morph. plaus. %", r => r.p && !isNaN(r.p.mplaus) ? fmt(r.p.mplaus, 0) : "", "num"],
   pemb: ["Pw emb. words", r => r.p ? (r.p.embN ?? "") : "", "num embpick"],
   src: ["Source", r => [r.p ? r.src : "", r.note].filter(Boolean).join(" · "), ""],
   pxl: ["Pseudoword is a word in", r => r.p ? xlLabel(xlOf(r.p), r.p.w) : "", ""],
@@ -2369,7 +2407,7 @@ function renderMorphAbout(L) {
   const name = esc(L.manifest.name);
   return `<h2>Morphology (${name})</h2>
   <p>${name} builds words by stacking suffixes, so a frequency list never contains every real form, and a letter model trained on it produces some items that are real words anyway (an imperative, a possessed plural). For ${name} every pseudoword was checked with a morphological analyser; the ${pct}% that turned out to be real word forms are not shown.</p>
-  <p>The analyser also labels what is left. The <b>Morphology</b> column splits an item into a pseudo-stem and its real suffixes with their tags (e.g. <i>дұғыр·лар·ының</i> n.pl.px3sp.gen), or says “no affixes” when it cannot be split, or “real stem” when the stem is a real word carrying a suffix chain the language does not allow. <b>Morph. plaus. %</b> is a morphological plausibility score: the item is read as stem + suffix chain under a generative model (how probable the stem is as a sequence of letters, times how probable the suffix chain is as a sequence of transitions among real words), the most probable reading labels it, and the result is a percentile among the language's pseudowords (50 = typical; mixed vowel harmony costs 20 points; 0 = no valid reading). Clicking a Morphology cell lists every validated reading with its score; <b>Parses</b> counts them, and the filter <i>Unambiguous parse only</i> keeps items with one reading or a clear best one. <b>Affixes</b> counts the suffixes and <b>Harmony</b> says whether the vowels are all front, all back or mixed. Use the <b>Morphology</b> filter in the bank to pick, say, bare stems only, or items with exactly one suffix. Harmony is reported rather than enforced because many real ${name} words (loanwords, compounds) mix front and back vowels.</p>
+  <p>The analyser also labels what is left. The <b>Morphology</b> column splits an item into a pseudo-stem and its real suffixes with their tags (e.g. <i>дұғыр·лар·ының</i> n.pl.px3sp.gen), or says “no affixes” when it cannot be split, or “real stem” when the stem is a real word carrying a suffix chain the language does not allow. <b>Morph. plaus. %</b> is a morphological plausibility score: the item is read as stem + suffix chain under a generative model (how probable the stem is as a sequence of letters, times how probable the suffix chain is as a sequence of transitions among real words), the most probable reading labels it, and the result is a percentile among the language's pseudowords (50 = typical; mixed vowel harmony costs 20 points; 0 = no valid reading). When an item has more than one reading, the Morphology cell says “+n more parses”; clicking it lists every validated reading with its score, and <i>Use this</i> makes another reading the item's label in every column, filter, match and download (remembered in your browser). The filter <i>Unambiguous parse only</i> keeps items with one reading or a clear best one. <b>Affixes</b> counts the suffixes and <b>Harmony</b> says whether the vowels are all front, all back or mixed. Use the <b>Morphology</b> filter in the bank to pick, say, bare stems only, or items with exactly one suffix. Harmony is reported rather than enforced because many real ${name} words (loanwords, compounds) mix front and back vowels.</p>
   <p>A second generator builds pseudowords the way the language does: an invented, vowel-harmonic stem is inflected by the analyser itself with a real suffix chain, so the suffix forms are always the right ones for the stem. Select them with the filter option <i>From the morphological generator</i>. In <i>Match my words</i>, tick <b>Same affix chain as the word</b> to get pseudowords that carry exactly the real word's suffixes (<i>кітаптарымыз</i> “our books” → a pseudoword with plural + our + nominative).</p>
   <p class="hint">Morphology: Apertium Kazakh transducer (<a href="https://github.com/apertium/apertium-kaz" target="_blank" rel="noopener">apertium-kaz</a>; Washington, Salimzyanov &amp; Tyers, 2014), run offline with HFST (Lindén et al., 2011).</p>`;
 }
