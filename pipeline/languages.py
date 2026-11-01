@@ -363,6 +363,9 @@ LANGS = {
                           drop_re=[r"(เ[ธน].?){2,}", r"เธ[^อ]", r"เน[\u0e31\u0e34-\u0e3a\u0e47-\u0e4e]"],   # UTF-8 mojibake in the subtitle list (Thai bytes read as another encoding give เธX/เนX groups: เธซเธฅเน); เธอ 'you' is real
                           rules={"min_len": 2, "max_len": 10, "max_chars": 12, "thai": True, "allow_no_vowel": True},
                           cv_note="Thai writes no spaces between words, so the word lists come from automatic segmentation (subtitles and a news corpus) and contain some phrases. Letters are counted as written (consonants, vowel signs and tone marks). CV (orthographic): consonant letters C (including อ ว ย, which also serve as vowels), vowel signs V — the pre-posed vowels เ แ โ ใ ไ are written before their consonant and placed after it in the CV string; tone marks, maitaikhu and thanthakhat are skipped; the implied vowels of consonant-only syllables (กด) are not shown, so CV (phonological), learned from the IPA transcriptions, is the better guide. Generated strings follow the writing rules: marks sit on a consonant, at most one vowel sign and one tone mark per consonant, pre-posed vowels followed by a consonant, ั by a final consonant."),
+    "japanese-ja":      dict(name="Japanese (katakana)", script="syllables", symbols="syllables_ja.json", alphabets=[], y="V",
+                          rules={"min_len": 2, "max_len": 6, "max_chars": 6},
+                          cv_note="Japanese pseudowords are katakana strings and the unit is the mora: a kana, or a kana with a small kana (キャ, ファ, ティ); ッ, ン and ー are morae of their own. Every word of the subtitle list (kanji, hiragana, katakana) was converted to katakana with pykakasi and split into 146 morae, and the pipeline's letters are these morae: length, OLD20, Coltheart's N (one mora exchanged, added or removed) and the n-gram models count morae. CV is the structure of each mora in turn: a vowel kana or ー = V, ン and ッ = C, every other mora = CV (so カン = CVC, キャット = CVCCV). Readings come from the KAKASI dictionary and can be wrong for rare kanji compounds; long vowels keep their kana spelling (オウ in native words, ー in loanwords)."),
     # ---- Hangul: syllable blocks are decomposed into jamo (NFD); the pipeline's letters are the 19 initial consonants, 21 vowels and 27 final consonants
     "korean-ko":       dict(name="Korean", decompose=True, y="V",
                           alphabets=["".join(chr(c) for c in range(0x1100, 0x1113)) + "".join(chr(c) for c in range(0x1161, 0x1176)) + "".join(chr(c) for c in range(0x11A8, 0x11C3))],
@@ -404,7 +407,7 @@ _FAM = {
     "Americas": "navajo-nv quechua-qu guarani-gn",
     "Creoles": "haitian-ht papiamento-pap",
     "Eskimo-Aleut": "greenlandic-kl",
-    "Isolates": "basque-eu korean-ko",
+    "Isolates": "basque-eu korean-ko japanese-ja",
     "Constructed": "esperanto-eo ido-io interlingua-ia interlingue-ie volapuk-vo",
 }
 FAMILY = {code: fam for fam, codes in _FAM.items() for code in codes.split()}

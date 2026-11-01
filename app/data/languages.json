@@ -1175,6 +1175,25 @@
    }
   },
   {
+   "code": "japanese-ja",
+   "name": "Japanese (katakana)",
+   "reference_words": 44447,
+   "small_corpus": true,
+   "corpus_tokens": 18433028,
+   "experimental": false,
+   "cv_approximate": true,
+   "family": "Isolates",
+   "writing": "Katakana morae",
+   "length_unit": "morae",
+   "script": "syllables",
+   "abjad": false,
+   "parents": null,
+   "films_file": {
+    "archive": "FILMS_data.zip",
+    "path": "japanese-ja/word/japanese.ja.word.raw.tsv"
+   }
+  },
+  {
    "code": "javanese-jv",
    "name": "Javanese",
    "reference_words": 31966,

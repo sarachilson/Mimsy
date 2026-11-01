@@ -1,0 +1,1199 @@
+{
+ "language": "japanese-ja",
+ "name": "Japanese (katakana)",
+ "version": "0.6-beta",
+ "cv_approximate": true,
+ "corpus_tokens": 18433028,
+ "small_corpus": true,
+ "bands_enabled": false,
+ "caution": "18.4 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 44,447 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. Japanese pseudowords are katakana strings and the unit is the mora: a kana, or a kana with a small kana (キャ, ファ, ティ); ッ, ン and ー are morae of their own. Every word of the subtitle list (kanji, hiragana, katakana) was converted to katakana with pykakasi and split into 146 morae, and the pipeline's letters are these morae: length, OLD20, Coltheart's N (one mora exchanged, added or removed) and the n-gram models count morae. CV is the structure of each mora in turn: a vowel kana or ー = V, ン and ッ = C, every other mora = CV (so カン = CVC, キャット = CVCCV). Readings come from the KAKASI dictionary and can be wrong for rare kanji compounds; long vowels keep their kana spelling (オウ in native words, ー in loanwords).",
+ "caution_items": [
+  {
+   "title": "Small corpus",
+   "text": "18.4 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 44,447 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages."
+  },
+  {
+   "title": "CV note",
+   "text": "Japanese pseudowords are katakana strings and the unit is the mora: a kana, or a kana with a small kana (キャ, ファ, ティ); ッ, ン and ー are morae of their own. Every word of the subtitle list (kanji, hiragana, katakana) was converted to katakana with pykakasi and split into 146 morae, and the pipeline's letters are these morae: length, OLD20, Coltheart's N (one mora exchanged, added or removed) and the n-gram models count morae. CV is the structure of each mora in turn: a vowel kana or ー = V, ン and ッ = C, every other mora = CV (so カン = CVC, キャット = CVCCV). Readings come from the KAKASI dictionary and can be wrong for rare kanji compounds; long vowels keep their kana spelling (オウ in native words, ー in loanwords)."
+  }
+ ],
+ "script": "syllables",
+ "length_unit": "morae",
+ "experimental": false,
+ "parents": null,
+ "parents_detail": null,
+ "created": "2026-11-01",
+ "source": "FILMS/OPUS subtitle frequency list: japanese-ja/word/japanese.ja.word.raw.tsv",
+ "sources_detail": {
+  "films": true,
+  "leipzig": null,
+  "reference_words_by_source": {
+   "films": 44447,
+   "leipzig": 0,
+   "both": 0,
+   "leipzig_name": 0,
+   "leipzig_eng": 0
+  },
+  "english_contamination_removed": {
+   "count": 0,
+   "rule": "Leipzig-only words of 5+ letters that are English words with Zipf >= 4.5",
+   "words": []
+  }
+ },
+ "alphabet": "",
+ "letter_classes": {
+  "": "S:CV",
+  "": "S:V",
+  "": "S:CV",
+  "": "S:V",
+  "": "S:CV",
+  "": "S:V",
+  "": "S:CV",
+  "": "S:V",
+  "": "S:CV",
+  "": "S:V",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:C",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:C",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:V",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV",
+  "": "S:CV"
+ },
+ "symbols": {
+  "language": "japanese-ja",
+  "unit": "mora",
+  "kind": "mora",
+  "length_unit": "morae",
+  "pua_start": 61440,
+  "count": 146,
+  "gaps": 0,
+  "source": "pykakasi (GPL-3, KAKASI dictionary) over the FILMS ja subtitle word list; katakana spelling; small kana join the preceding kana into one mora; ッ ン ー are morae",
+  "fields": {
+   "zipf": "Zipf of the mora's token frequency summed over all words containing it",
+   "words": "reference-eligible words containing the mora"
+  },
+  "symbols": {
+   "": {
+    "py": "ァ",
+    "cv": "CV",
+    "words": 114,
+    "zipf": 5.88
+   },
+   "": {
+    "py": "ア",
+    "cv": "V",
+    "words": 4165,
+    "zipf": 7.53
+   },
+   "": {
+    "py": "ィ",
+    "cv": "CV",
+    "words": 92,
+    "zipf": 4.89
+   },
+   "": {
+    "py": "イ",
+    "cv": "V",
+    "words": 9786,
+    "zipf": 8.1
+   },
+   "": {
+    "py": "ゥ",
+    "cv": "CV",
+    "words": 45,
+    "zipf": 4.89
+   },
+   "": {
+    "py": "ウ",
+    "cv": "V",
+    "words": 8813,
+    "zipf": 7.9
+   },
+   "": {
+    "py": "ェ",
+    "cv": "CV",
+    "words": 52,
+    "zipf": 5.5
+   },
+   "": {
+    "py": "エ",
+    "cv": "V",
+    "words": 2540,
+    "zipf": 7.32
+   },
+   "": {
+    "py": "ォ",
+    "cv": "CV",
+    "words": 32,
+    "zipf": 5.0
+   },
+   "": {
+    "py": "オ",
+    "cv": "V",
+    "words": 2815,
+    "zipf": 7.49
+   },
+   "": {
+    "py": "カ",
+    "cv": "CV",
+    "words": 6158,
+    "zipf": 7.87
+   },
+   "": {
+    "py": "ガ",
+    "cv": "CV",
+    "words": 2082,
+    "zipf": 7.57
+   },
+   "": {
+    "py": "キ",
+    "cv": "CV",
+    "words": 3639,
+    "zipf": 7.46
+   },
+   "": {
+    "py": "ギ",
+    "cv": "CV",
+    "words": 707,
+    "zipf": 6.54
+   },
+   "": {
+    "py": "ク",
+    "cv": "CV",
+    "words": 6707,
+    "zipf": 7.67
+   },
+   "": {
+    "py": "グ",
+    "cv": "CV",
+    "words": 1643,
+    "zipf": 6.62
+   },
+   "": {
+    "py": "ケ",
+    "cv": "CV",
+    "words": 2222,
+    "zipf": 7.33
+   },
+   "": {
+    "py": "ゲ",
+    "cv": "CV",
+    "words": 952,
+    "zipf": 6.7
+   },
+   "": {
+    "py": "コ",
+    "cv": "CV",
+    "words": 3786,
+    "zipf": 7.65
+   },
+   "": {
+    "py": "ゴ",
+    "cv": "CV",
+    "words": 1031,
+    "zipf": 6.83
+   },
+   "": {
+    "py": "サ",
+    "cv": "CV",
+    "words": 3120,
+    "zipf": 7.36
+   },
+   "": {
+    "py": "ザ",
+    "cv": "CV",
+    "words": 832,
+    "zipf": 6.43
+   },
+   "": {
+    "py": "シ",
+    "cv": "CV",
+    "words": 4879,
+    "zipf": 7.8
+   },
+   "": {
+    "py": "ジ",
+    "cv": "CV",
+    "words": 1737,
+    "zipf": 7.13
+   },
+   "": {
+    "py": "ス",
+    "cv": "CV",
+    "words": 5292,
+    "zipf": 7.56
+   },
+   "": {
+    "py": "ズ",
+    "cv": "CV",
+    "words": 1374,
+    "zipf": 6.71
+   },
+   "": {
+    "py": "セ",
+    "cv": "CV",
+    "words": 2497,
+    "zipf": 7.22
+   },
+   "": {
+    "py": "ゼ",
+    "cv": "CV",
+    "words": 481,
+    "zipf": 6.65
+   },
+   "": {
+    "py": "ソ",
+    "cv": "CV",
+    "words": 1728,
+    "zipf": 7.35
+   },
+   "": {
+    "py": "ゾ",
+    "cv": "CV",
+    "words": 462,
+    "zipf": 6.67
+   },
+   "": {
+    "py": "タ",
+    "cv": "CV",
+    "words": 4125,
+    "zipf": 7.87
+   },
+   "": {
+    "py": "ダ",
+    "cv": "CV",
+    "words": 1968,
+    "zipf": 7.68
+   },
+   "": {
+    "py": "チ",
+    "cv": "CV",
+    "words": 1910,
+    "zipf": 7.23
+   },
+   "": {
+    "py": "ヂ",
+    "cv": "CV",
+    "words": 25,
+    "zipf": 4.32
+   },
+   "": {
+    "py": "ッ",
+    "cv": "C",
+    "words": 5399,
+    "zipf": 7.69
+   },
+   "": {
+    "py": "ツ",
+    "cv": "CV",
+    "words": 3148,
+    "zipf": 7.43
+   },
+   "": {
+    "py": "ヅ",
+    "cv": "CV",
+    "words": 241,
+    "zipf": 6.02
+   },
+   "": {
+    "py": "テ",
+    "cv": "CV",
+    "words": 1808,
+    "zipf": 7.71
+   },
+   "": {
+    "py": "デ",
+    "cv": "CV",
+    "words": 953,
+    "zipf": 7.49
+   },
+   "": {
+    "py": "ト",
+    "cv": "CV",
+    "words": 4780,
+    "zipf": 7.71
+   },
+   "": {
+    "py": "ド",
+    "cv": "CV",
+    "words": 2643,
+    "zipf": 7.3
+   },
+   "": {
+    "py": "ナ",
+    "cv": "CV",
+    "words": 2769,
+    "zipf": 7.84
+   },
+   "": {
+    "py": "ニ",
+    "cv": "CV",
+    "words": 1401,
+    "zipf": 7.71
+   },
+   "": {
+    "py": "ヌ",
+    "cv": "CV",
+    "words": 336,
+    "zipf": 6.15
+   },
+   "": {
+    "py": "ネ",
+    "cv": "CV",
+    "words": 1086,
+    "zipf": 7.03
+   },
+   "": {
+    "py": "ノ",
+    "cv": "CV",
+    "words": 1506,
+    "zipf": 7.8
+   },
+   "": {
+    "py": "ハ",
+    "cv": "CV",
+    "words": 2159,
+    "zipf": 7.72
+   },
+   "": {
+    "py": "バ",
+    "cv": "CV",
+    "words": 2082,
+    "zipf": 7.0
+   },
+   "": {
+    "py": "パ",
+    "cv": "CV",
+    "words": 856,
+    "zipf": 6.57
+   },
+   "": {
+    "py": "ヒ",
+    "cv": "CV",
+    "words": 1155,
+    "zipf": 6.81
+   },
+   "": {
+    "py": "ビ",
+    "cv": "CV",
+    "words": 1150,
+    "zipf": 6.6
+   },
+   "": {
+    "py": "ピ",
+    "cv": "CV",
+    "words": 399,
+    "zipf": 5.91
+   },
+   "": {
+    "py": "フ",
+    "cv": "CV",
+    "words": 1757,
+    "zipf": 6.84
+   },
+   "": {
+    "py": "ブ",
+    "cv": "CV",
+    "words": 1677,
+    "zipf": 6.91
+   },
+   "": {
+    "py": "プ",
+    "cv": "CV",
+    "words": 883,
+    "zipf": 6.29
+   },
+   "": {
+    "py": "ヘ",
+    "cv": "CV",
+    "words": 601,
+    "zipf": 6.59
+   },
+   "": {
+    "py": "ベ",
+    "cv": "CV",
+    "words": 868,
+    "zipf": 6.66
+   },
+   "": {
+    "py": "ペ",
+    "cv": "CV",
+    "words": 358,
+    "zipf": 5.81
+   },
+   "": {
+    "py": "ホ",
+    "cv": "CV",
+    "words": 1072,
+    "zipf": 6.97
+   },
+   "": {
+    "py": "ボ",
+    "cv": "CV",
+    "words": 1049,
+    "zipf": 6.7
+   },
+   "": {
+    "py": "ポ",
+    "cv": "CV",
+    "words": 442,
+    "zipf": 6.02
+   },
+   "": {
+    "py": "マ",
+    "cv": "CV",
+    "words": 3807,
+    "zipf": 7.55
+   },
+   "": {
+    "py": "ミ",
+    "cv": "CV",
+    "words": 2112,
+    "zipf": 7.13
+   },
+   "": {
+    "py": "ム",
+    "cv": "CV",
+    "words": 1577,
+    "zipf": 6.85
+   },
+   "": {
+    "py": "メ",
+    "cv": "CV",
+    "words": 1998,
+    "zipf": 7.11
+   },
+   "": {
+    "py": "モ",
+    "cv": "CV",
+    "words": 1829,
+    "zipf": 7.52
+   },
+   "": {
+    "py": "ャ",
+    "cv": "CV",
+    "words": 12,
+    "zipf": 4.22
+   },
+   "": {
+    "py": "ヤ",
+    "cv": "CV",
+    "words": 1443,
+    "zipf": 7.13
+   },
+   "": {
+    "py": "ュ",
+    "cv": "CV",
+    "words": 16,
+    "zipf": 4.36
+   },
+   "": {
+    "py": "ユ",
+    "cv": "CV",
+    "words": 621,
+    "zipf": 6.53
+   },
+   "": {
+    "py": "ョ",
+    "cv": "CV",
+    "words": 4,
+    "zipf": 4.18
+   },
+   "": {
+    "py": "ヨ",
+    "cv": "CV",
+    "words": 1551,
+    "zipf": 7.38
+   },
+   "": {
+    "py": "ラ",
+    "cv": "CV",
+    "words": 4844,
+    "zipf": 7.53
+   },
+   "": {
+    "py": "リ",
+    "cv": "CV",
+    "words": 4926,
+    "zipf": 7.35
+   },
+   "": {
+    "py": "ル",
+    "cv": "CV",
+    "words": 5531,
+    "zipf": 7.67
+   },
+   "": {
+    "py": "レ",
+    "cv": "CV",
+    "words": 3163,
+    "zipf": 7.62
+   },
+   "": {
+    "py": "ロ",
+    "cv": "CV",
+    "words": 2925,
+    "zipf": 7.19
+   },
+   "": {
+    "py": "ワ",
+    "cv": "CV",
+    "words": 1987,
+    "zipf": 7.45
+   },
+   "": {
+    "py": "ヲ",
+    "cv": "CV",
+    "words": 8,
+    "zipf": 7.48
+   },
+   "": {
+    "py": "ン",
+    "cv": "C",
+    "words": 12766,
+    "zipf": 7.98
+   },
+   "": {
+    "py": "ヴ",
+    "cv": "CV",
+    "words": 65,
+    "zipf": 4.84
+   },
+   "": {
+    "py": "ヵ",
+    "cv": "CV",
+    "words": 6,
+    "zipf": 4.55
+   },
+   "": {
+    "py": "ヶ",
+    "cv": "CV",
+    "words": 7,
+    "zipf": 5.11
+   },
+   "": {
+    "py": "ー",
+    "cv": "V",
+    "words": 8243,
+    "zipf": 7.37
+   },
+   "": {
+    "py": "イェ",
+    "cv": "CV",
+    "words": 15,
+    "zipf": 4.48
+   },
+   "": {
+    "py": "ウィ",
+    "cv": "CV",
+    "words": 180,
+    "zipf": 5.56
+   },
+   "": {
+    "py": "ウェ",
+    "cv": "CV",
+    "words": 169,
+    "zipf": 5.42
+   },
+   "": {
+    "py": "ウォ",
+    "cv": "CV",
+    "words": 103,
+    "zipf": 5.5
+   },
+   "": {
+    "py": "キャ",
+    "cv": "CV",
+    "words": 243,
+    "zipf": 6.04
+   },
+   "": {
+    "py": "キュ",
+    "cv": "CV",
+    "words": 285,
+    "zipf": 6.15
+   },
+   "": {
+    "py": "キョ",
+    "cv": "CV",
+    "words": 462,
+    "zipf": 6.58
+   },
+   "": {
+    "py": "ギャ",
+    "cv": "CV",
+    "words": 88,
+    "zipf": 5.39
+   },
+   "": {
+    "py": "ギュ",
+    "cv": "CV",
+    "words": 26,
+    "zipf": 4.4
+   },
+   "": {
+    "py": "ギョ",
+    "cv": "CV",
+    "words": 116,
+    "zipf": 5.75
+   },
+   "": {
+    "py": "クィ",
+    "cv": "CV",
+    "words": 18,
+    "zipf": 4.25
+   },
+   "": {
+    "py": "クェ",
+    "cv": "CV",
+    "words": 5,
+    "zipf": 3.25
+   },
+   "": {
+    "py": "クォ",
+    "cv": "CV",
+    "words": 7,
+    "zipf": 3.81
+   },
+   "": {
+    "py": "シェ",
+    "cv": "CV",
+    "words": 84,
+    "zipf": 5.19
+   },
+   "": {
+    "py": "シャ",
+    "cv": "CV",
+    "words": 608,
+    "zipf": 6.37
+   },
+   "": {
+    "py": "シュ",
+    "cv": "CV",
+    "words": 898,
+    "zipf": 6.66
+   },
+   "": {
+    "py": "ショ",
+    "cv": "CV",
+    "words": 1061,
+    "zipf": 6.91
+   },
+   "": {
+    "py": "ジェ",
+    "cv": "CV",
+    "words": 213,
+    "zipf": 5.88
+   },
+   "": {
+    "py": "ジャ",
+    "cv": "CV",
+    "words": 370,
+    "zipf": 6.67
+   },
+   "": {
+    "py": "ジュ",
+    "cv": "CV",
+    "words": 497,
+    "zipf": 6.43
+   },
+   "": {
+    "py": "ジョ",
+    "cv": "CV",
+    "words": 608,
+    "zipf": 6.88
+   },
+   "": {
+    "py": "スィ",
+    "cv": "CV",
+    "words": 6,
+    "zipf": 3.59
+   },
+   "": {
+    "py": "チェ",
+    "cv": "CV",
+    "words": 116,
+    "zipf": 5.4
+   },
+   "": {
+    "py": "チャ",
+    "cv": "CV",
+    "words": 387,
+    "zipf": 6.32
+   },
+   "": {
+    "py": "チュ",
+    "cv": "CV",
+    "words": 303,
+    "zipf": 6.17
+   },
+   "": {
+    "py": "チョ",
+    "cv": "CV",
+    "words": 464,
+    "zipf": 6.48
+   },
+   "": {
+    "py": "ツァ",
+    "cv": "CV",
+    "words": 19,
+    "zipf": 3.97
+   },
+   "": {
+    "py": "ツィ",
+    "cv": "CV",
+    "words": 23,
+    "zipf": 4.14
+   },
+   "": {
+    "py": "ツェ",
+    "cv": "CV",
+    "words": 12,
+    "zipf": 3.84
+   },
+   "": {
+    "py": "ツォ",
+    "cv": "CV",
+    "words": 6,
+    "zipf": 3.68
+   },
+   "": {
+    "py": "ティ",
+    "cv": "CV",
+    "words": 545,
+    "zipf": 5.97
+   },
+   "": {
+    "py": "テュ",
+    "cv": "CV",
+    "words": 12,
+    "zipf": 4.21
+   },
+   "": {
+    "py": "ディ",
+    "cv": "CV",
+    "words": 541,
+    "zipf": 5.97
+   },
+   "": {
+    "py": "デュ",
+    "cv": "CV",
+    "words": 56,
+    "zipf": 4.83
+   },
+   "": {
+    "py": "トゥ",
+    "cv": "CV",
+    "words": 82,
+    "zipf": 4.97
+   },
+   "": {
+    "py": "ドゥ",
+    "cv": "CV",
+    "words": 65,
+    "zipf": 4.77
+   },
+   "": {
+    "py": "ニャ",
+    "cv": "CV",
+    "words": 37,
+    "zipf": 4.59
+   },
+   "": {
+    "py": "ニュ",
+    "cv": "CV",
+    "words": 147,
+    "zipf": 5.78
+   },
+   "": {
+    "py": "ニョ",
+    "cv": "CV",
+    "words": 24,
+    "zipf": 4.63
+   },
+   "": {
+    "py": "ヒャ",
+    "cv": "CV",
+    "words": 22,
+    "zipf": 4.91
+   },
+   "": {
+    "py": "ヒュ",
+    "cv": "CV",
+    "words": 17,
+    "zipf": 4.66
+   },
+   "": {
+    "py": "ヒョ",
+    "cv": "CV",
+    "words": 90,
+    "zipf": 5.65
+   },
+   "": {
+    "py": "ビャ",
+    "cv": "CV",
+    "words": 4,
+    "zipf": 4.46
+   },
+   "": {
+    "py": "ビュ",
+    "cv": "CV",
+    "words": 24,
+    "zipf": 4.64
+   },
+   "": {
+    "py": "ビョ",
+    "cv": "CV",
+    "words": 61,
+    "zipf": 5.69
+   },
+   "": {
+    "py": "ピュ",
+    "cv": "CV",
+    "words": 15,
+    "zipf": 4.84
+   },
+   "": {
+    "py": "ピョ",
+    "cv": "CV",
+    "words": 11,
+    "zipf": 4.65
+   },
+   "": {
+    "py": "ファ",
+    "cv": "CV",
+    "words": 276,
+    "zipf": 5.72
+   },
+   "": {
+    "py": "フィ",
+    "cv": "CV",
+    "words": 240,
+    "zipf": 5.78
+   },
+   "": {
+    "py": "フェ",
+    "cv": "CV",
+    "words": 165,
+    "zipf": 5.37
+   },
+   "": {
+    "py": "フォ",
+    "cv": "CV",
+    "words": 163,
+    "zipf": 5.5
+   },
+   "": {
+    "py": "ミャ",
+    "cv": "CV",
+    "words": 17,
+    "zipf": 4.64
+   },
+   "": {
+    "py": "ミュ",
+    "cv": "CV",
+    "words": 39,
+    "zipf": 4.83
+   },
+   "": {
+    "py": "ミョ",
+    "cv": "CV",
+    "words": 26,
+    "zipf": 5.16
+   },
+   "": {
+    "py": "リャ",
+    "cv": "CV",
+    "words": 82,
+    "zipf": 5.44
+   },
+   "": {
+    "py": "リュ",
+    "cv": "CV",
+    "words": 140,
+    "zipf": 5.43
+   },
+   "": {
+    "py": "リョ",
+    "cv": "CV",
+    "words": 296,
+    "zipf": 6.37
+   },
+   "": {
+    "py": "ヴァ",
+    "cv": "CV",
+    "words": 173,
+    "zipf": 5.34
+   },
+   "": {
+    "py": "ヴィ",
+    "cv": "CV",
+    "words": 152,
+    "zipf": 5.3
+   },
+   "": {
+    "py": "ヴェ",
+    "cv": "CV",
+    "words": 76,
+    "zipf": 4.79
+   },
+   "": {
+    "py": "ヴォ",
+    "cv": "CV",
+    "words": 45,
+    "zipf": 4.69
+   },
+   "": {
+    "py": "ヴュ",
+    "cv": "CV",
+    "words": 3,
+    "zipf": 3.08
+   }
+  }
+ },
+ "y_rule": "V",
+ "bands": [
+  {
+   "id": 1,
+   "label": "low",
+   "zipf_min": 2.0,
+   "zipf_max": 3.0
+  },
+  {
+   "id": 2,
+   "label": "mid-low",
+   "zipf_min": 3.0,
+   "zipf_max": 3.5
+  },
+  {
+   "id": 3,
+   "label": "mid-high",
+   "zipf_min": 3.5,
+   "zipf_max": 4.0
+  },
+  {
+   "id": 4,
+   "label": "high",
+   "zipf_min": 4.0,
+   "zipf_max": null
+  }
+ ],
+ "reference_lexicon": "plain words (alphabet only) with Zipf >= 2.0 and corpus count >= 3",
+ "generators": {
+  "kn4": "Kneser-Ney 4-gram (type counts)",
+  "tri_type": "plain trigram (type counts)",
+  "tri_token": "plain trigram (token counts)",
+  "gap": "tonal gap (syllable with an unattested tone) alone or with a real syllable"
+ },
+ "model": {
+  "type": "interpolated Kneser-Ney letter n-gram",
+  "order": 4,
+  "counts": "type-based (each word once)",
+  "boundary_markers": [
+   "^",
+   "$"
+  ],
+  "trigram_variants": "plain maximum-likelihood letter trigrams with two start markers and one end marker; type counts (each word once) or token counts (each word weighted by its per-million frequency)"
+ },
+ "filters": {
+  "length": [
+   2,
+   6
+  ],
+  "not_a_corpus_form": "rejected if it occurs anywhere in the corpus word list",
+  "phonotactic_legality": "initial, medial and final consonant clusters and vowel sequences must each occur in >= 3 reference words",
+  "no_triple_letters": true
+ },
+ "metrics": {
+  "old20": "mean Levenshtein distance to the 20 closest reference words",
+  "coltheart_n": "reference words at distance 1",
+  "n_high_freq_neighbors": "distance-1 neighbours with Zipf >= 4.0",
+  "logprob": "mean log2 probability per letter (incl. word end); model = generating model, all = all-words model"
+ },
+ "generation": {
+  "target_rule": "per generator and training set: number of training words, between 5000 and 40000",
+  "seed": 20261010,
+  "results": {
+   "kn4/all": {
+    "target": 40000,
+    "kept": 40000,
+    "tries": 98786
+   },
+   "tri_type/all": {
+    "target": 40000,
+    "kept": 40000,
+    "tries": 127033
+   },
+   "tri_token/all": {
+    "target": 40000,
+    "kept": 40000,
+    "tries": 1124621
+   },
+   "gap/all": {}
+  }
+ },
+ "counts": {
+  "corpus_forms": 74672,
+  "plain_forms": 74672,
+  "reference_words": 44447,
+  "rare_words": 30225,
+  "plain_token_share": 1.0,
+  "band_sizes": {
+   "1": 25230,
+   "2": 8681,
+   "3": 5371,
+   "4": 5165
+  }
+ },
+ "inventory_sizes": {
+  "onset": 1,
+  "medial": 0,
+  "coda": 1,
+  "vseq": 0
+ },
+ "inventory": {
+  "onset": [
+   ""
+  ],
+  "medial": [],
+  "coda": [
+   ""
+  ],
+  "vseq": []
+ },
+ "rules": {
+  "min_len": 2,
+  "max_len": 6,
+  "max_chars": 6
+ }
+}
