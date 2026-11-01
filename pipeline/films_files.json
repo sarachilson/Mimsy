@@ -338,5 +338,9 @@
  "thai-th": {
   "archive": "FILMS_data.zip",
   "path": "thai-th/word/thai.th.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
+ },
+ "japanese-ja": {
+  "archive": "FILMS_data.zip",
+  "path": "japanese-ja/word/japanese.ja.word.raw.tsv"
  }
 }

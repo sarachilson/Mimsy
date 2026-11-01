@@ -21,6 +21,8 @@ Zipf = log10(frequency per billion words). Used for: the continuous `zipf` colum
 
 **pypinyin (python-pinyin).** mozillazg, 2014–. https://github.com/mozillazg/python-pinyin (MIT). Used from 2026-10-30 by `pipeline/make_pinyin.py` to convert the FILMS Mandarin (zh_CN) subtitle word list to pinyin (phrase dictionary first, then per-character readings) for the Chinese (Mandarin, pinyin) language, whose units are toned syllables. Cite the repository.
 
+**pykakasi.** Miura, H. (2010–). pykakasi: Python port of KAKASI (kanji → kana/romaji). https://github.com/miurahr/pykakasi (GPL-3; dictionary data from KAKASI by Hironobu Takahashi, GPL). Used from 2026-11-01 by `pipeline/make_kana.py` to convert the FILMS Japanese word list to katakana for the Japanese (katakana) language, whose units are morae. The library was run from a source checkout with its dictionaries built locally; nothing of it is shipped in the app.
+
 **Chien, Y.-F., Sereno, J. A. & Zhang, J. (2015).** Priming the representation of Mandarin tone 3 sandhi words. *Language, Cognition and Neuroscience*. Example of the standard Mandarin auditory-lexical-decision nonword: disyllabic items of two legal monosyllables whose combination is not a word ("novel compounds"); the basis for Mimsy's real-syllable item type.
 
 **Sharma, B., Li, Q. & Maggu, A. R. (2025).** Unreal words, real competition: Mandarin recognition slows for syllable-matched tonal gaps. *Frontiers in Language Sciences, 4*, 1714072. Tonal gaps (legal syllable + unattested tone) as nonwords; the basis for Mimsy's tonal-gap item type. The gaps themselves are computed from the FILMS data.

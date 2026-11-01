@@ -650,7 +650,7 @@ def step_prepare(lang, cfg, args, outdir, work):
     state = {
         "alphabet": alphabet, "classes": cls, "corpus_tokens": corpus_tokens, "small_corpus": small, "bands_enabled": bands_enabled,
         "leipzig": lz, "reference_sources": src_counts, "parents": parents or None, "english_contamination_removed": {"count": len(eng_removed), "rule": f"Leipzig-only words of {ENG_FILTER_MINLEN}+ letters that are English words with Zipf >= {ENG_FILTER_ZIPF}", "words": sorted(eng_removed)},
-        "length_unit": ("fidel" if cfg.get("rules", {}).get("syllabary") else "aksharas") if indic.is_indic(cls) else ("syllables" if syl.is_syl(cls) else ("jamo" if cfg.get("decompose") else "letters")),
+        "length_unit": ("fidel" if cfg.get("rules", {}).get("syllabary") else "aksharas") if indic.is_indic(cls) else (syl.table(cfg).get("length_unit", "syllables") if syl.is_syl(cls) else ("jamo" if cfg.get("decompose") else "letters")),
         "inventory": {k: sorted(v) for k, v in inv.items()},
         "counts": {"corpus_forms": len(all_forms), "plain_forms": len(plain),
                    "reference_words": len(ref), "rare_words": len(rare),
@@ -990,7 +990,7 @@ def writing_system(alphabet):
               ("Hebrew", 0x590, 0x600), ("Arabic", 0x600, 0x700), ("Arabic", 0x750, 0x780), ("Thaana", 0x780, 0x7C0), ("Devanagari", 0x900, 0x980),
               ("Bengali", 0x980, 0xA00), ("Gurmukhi", 0xA00, 0xA80), ("Gujarati", 0xA80, 0xB00), ("Odia", 0xB00, 0xB80), ("Tamil", 0xB80, 0xC00),
               ("Telugu", 0xC00, 0xC80), ("Kannada", 0xC80, 0xD00), ("Malayalam", 0xD00, 0xD80), ("Sinhala", 0xD80, 0xE00), ("Georgian", 0x10A0, 0x1100),
-              ("Ethiopic", 0x1200, 0x1380), ("Pinyin syllables", 0xE000, 0xF900), ("Hangul", 0x1100, 0x1200), ("Thai", 0xE00, 0xE80)]
+              ("Ethiopic", 0x1200, 0x1380), ("Pinyin syllables", 0xE000, 0xF000), ("Katakana morae", 0xF000, 0xF900), ("Hangul", 0x1100, 0x1200), ("Thai", 0xE00, 0xE80)]
     counts = {}
     for ch in alphabet:
         o = ord(ch)
