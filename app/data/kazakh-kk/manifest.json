@@ -976,20 +976,61 @@
  ],
  "morphology": {
   "analyser": "apertium-kaz (Apertium Kazakh morphological transducer; HFST build)",
-  "date": "2026-10-29",
+  "date": "2026-11-01",
   "bank_items": 120000,
   "real_forms_removed": 7999,
   "labels": {
-   "affixed": 66515,
-   "realstem": 4708,
-   "bare": 40778
+   "affixed": 55796,
+   "bare": 52026,
+   "realstem": 4179
   },
   "generated": 20000,
   "generator": "pseudo-stem (Kneser-Ney letter 4-gram trained on the analysed stems of words with Zipf >= 3, vowel-harmonic, not a real stem) + a real affix chain drawn with its lexicon frequency, inflected by the transducer",
   "stems": 5833,
   "affix_chains": 1143,
   "lexicon_analysed": 87143,
-  "labelling": "guesser parses validated by the generator; shortest stem, then n > adj > v, then fewer tags; n_affixes counts tags other than POS/subcategory/zero-realised tags",
+  "labelling": "guesser parses validated by the generator; the parse with the highest plausibility score labels the item (ties: shorter stem, fewer tags); n_affixes counts tags other than POS/subcategory/zero-realised tags",
+  "plausibility": {
+   "method": "generative stem + affix-chain model: log2 P(item | parse) = log2 P(stem) under the stem letter model (total over letters) + log2 P(affix chain) as tag transitions POS -> tag -> ... -> end (add-0.5 smoothing); the parse with the highest total labels the item (longer stems cost letters, extra suffixes cost transitions); the score is the per-letter log-probability of that parse as a percentile (0-100) among the bank's items (plaus_vs_real: against the analysed real words), minus 20 for mixed vowel harmony; 0 when no parse is validated by the generator. chain_pct and stem_pct are the percentiles of the two parts on their own; margin is the total log-probability lead over the runner-up parse, in bits",
+   "scale": "plausibility = percentile among the bank's own items (50 = a typical pseudoword); plaus_vs_real = percentile against the analysed real words",
+   "real_words_mean_vs_bank": 81.2,
+   "bank_mean_vs_real": 12.1,
+   "bank_share_single_parse": 0.364,
+   "examples": {
+    "түлектесіміз": {
+     "score": 98,
+     "vs_real": 74,
+     "parse": "түлектес+іміз <n><px1pl><nom>",
+     "n_parses": 2
+    },
+    "дәстүрлеуі": {
+     "score": 96,
+     "vs_real": 66,
+     "parse": "дәстүрле+уі <v><tv><ger><px3sp><nom>",
+     "n_parses": 3
+    },
+    "полицейлюк": {
+     "score": 17,
+     "vs_real": 0,
+     "parse": "полицейлюк+ <n><attr>",
+     "n_parses": 1
+    },
+    "миллициясын": {
+     "score": 92,
+     "vs_real": 50,
+     "parse": "миллиция+сын <v><tv><opt><p3><pl>",
+     "n_parses": 2
+    },
+    "тіре": {
+     "score": 0,
+     "note": "no validated parse"
+    },
+    "қалалардың": {
+     "score": 100,
+     "real_word": true
+    }
+   }
+  },
   "harmony": {
    "front": "әөүіе",
    "back": "аоұы"
