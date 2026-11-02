@@ -2296,51 +2296,8 @@ function filmsFile(code, m) {
   const fm = (m.source || "").match(/FILMS[^:]*:\s*([^;]+)/);
   return fm ? fm[1].trim() : "";
 }
-function aboutSources(m) {
-  const src = m.source || "", lz = (m.sources_detail || {}).leipzig, out = [], ff = filmsFile(S.code, m);
-  if (ff || !/^Leipzig/.test(src)) out.push(`<div>FILMS (Chilson, Sineva &amp; Schmalz, 2024)</div>${ff ? `<div class="hint mono" style="margin:0 0 6px;word-break:break-all">${esc(ff)}</div>` : ""}`);
-  if (lz && lz.corpus) out.push(`<div>Leipzig Corpora Collection (Goldhahn, Eckart &amp; Quasthoff, 2012)</div><div class="hint mono" style="margin:0 0 6px">${esc(lz.corpus)} · CC BY</div>`);
-  return out.join("") || esc(src);
-}
 // Characters one by one, separated by spaces; combining marks (vowel signs, virama, nukta, fili …) on a dotted circle so they stay visible.
 const showChars = str => [...str].map(c => c === "\u200c" ? "ZWNJ" : c === "\u200d" ? "ZWJ" : /\p{M}/u.test(c) ? "\u25cc" + c : c).join(" ");
-function renderGraphemes(L) {
-  const m = L.manifest, g = (S.G || {})[L.code], name = esc(m.name);
-  const intro = `<h2>Graphemes</h2>
-  <p>A grapheme is the smallest group of letters that spells one sound; most are single letters, some are groups (English <span class="mono">sh</span>, <span class="mono">ea</span>). Reading research treats letters, graphemes and phonemes as separate levels: length in letters, grapheme complexity (how many sounds are spelled with several letters) and the sound pattern each have their own effects (Rey, Ziegler &amp; Jacobs 2000; Schmalz, Marinus, Coltheart &amp; Castles 2015; Borleffs et al. 2017). The <b>CV (graph.)</b> column and the <b>Graphemes</b> count split every item into graphemes by this rule: the longest listed multi-letter grapheme at each position wins; otherwise a doubled letter is one grapheme; otherwise one letter is one grapheme. Pseudowords have no morpheme boundaries, so longest match is applied without exceptions; for real words it can be wrong across a boundary (English <i>pothole</i>).</p>`;
-  if (L.indic) return intro + `<p>${name} is written in ${m.script === "ethiopic" ? "a syllabary: each fidel is one consonant-plus-vowel grapheme" : "an abugida: each consonant letter and each vowel sign (or inherent vowel) is one grapheme"}, so the graphemic level is the same as the orthographic one and no separate column is shown. Length is counted in ${esc(m.length_unit || "aksharas")}.</p>`;
-  if (!g) return intro + `<p>No grapheme inventory has been compiled for ${name} yet, so the graphemic columns are not shown.</p>`;
-  const src = (g.sources || []).map(x => x.url ? `<a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.title || x.url)}</a>` : esc(x.title)).join("; ");
-  const tail = `${g.ambiguities ? `<p><b>Known ambiguities:</b> ${esc(g.ambiguities)}</p>` : ""}${g.notes ? `<p>${esc(g.notes)}</p>` : ""}${src ? `<p class="pill">Sources: ${src}</p>` : ""}`;
-  if (g.status === "exclude") return intro + `<p><b>Graphemic CV is not offered for ${name}.</b> ${esc(g.notes || "")}</p>${src ? `<p class="pill">Sources: ${src}</p>` : ""}`;
-  const mg = g.multigraphs || [], C = mg.filter(x => x.cls === "C"), V = mg.filter(x => x.cls === "V");
-  const ctx = x => { const c = []; if (x.before) c.push(x.before === "V" ? "before a vowel" : x.before === "C" ? "before a consonant" : "before " + [...x.before.replace(/ /g, "")].join("/"));
-    if (x.not_before_class === "V" && x.not_before) c.push("not before a vowel or " + [...x.not_before].join("/")); else { if (x.not_before_class) c.push("not before a " + (x.not_before_class === "V" ? "vowel" : "consonant")); if (x.not_before) c.push("not before " + [...x.not_before].join("/")); }
-    if (x.final) c.push("word-final only"); if (x.not_final) c.push("not word-final"); if (x.initial) c.push("word-initial only"); return c.length ? ` <span class="pill">[${esc(c.join("; "))}]</span>` : ""; };
-  // Sound(s) of a multigraph. When the note lists the values one by one ("/ɡ/ initially (ghost); /f/ finally (laugh); …"),
-  // show each phoneme with its own example instead of all phonemes first and the note after.
-  const hasIpa = s => /\/[^/]+\/|\[[^\]]+\]|∅/.test(s);
-  const bold = s => esc(s).replace(/(\/[^/]+\/|\[[^\]]+\]|∅)/g, "<b>$1</b>");
-  const sounds = x => {
-    const phons = (x.phon || "").split(/\s+/).filter(Boolean), clauses = (x.note || "").split(/;\s*/).map(s => s.trim()).filter(Boolean);
-    const withIpa = clauses.filter(hasIpa);
-    if (phons.length > 1 && withIpa.length >= Math.min(2, phons.length)) {
-      const core = p => p.replace(/^[(/[]+|[,)/\]]+$/g, "");
-      const missing = phons.filter(p => hasIpa(p) && !clauses.some(c => c.includes(p) || c.includes("/" + core(p) + "/") || c.includes("[" + core(p) + "]")));
-      const parts = clauses.map(c => hasIpa(c) ? c : (missing.length ? missing.shift() + " " : "") + c);
-      return parts.concat(missing).map(bold).join(' <span class="hint" style="display:inline">·</span> ');
-    }
-    return `${x.phon ? `<b>${esc(x.phon)}</b>` : ""}${x.note ? ` <span class="pill">${esc(x.note)}</span>` : ""}`;
-  };
-  const item = x => `<div style="display:flex;gap:10px;align-items:baseline;padding:2px 0;border-bottom:1px solid var(--line)"><span class="mono" style="font-weight:700;font-size:16px;min-width:4.5em;color:var(--accent)">${esc(x.g)}</span><span>${sounds(x)}${ctx(x)}</span></div>`;
-  const dbl = g.doubles === "one" ? "A doubled letter counts as one grapheme." : g.doubles === "two" ? "Doubled letters count as two graphemes (each letter is pronounced)." : "";
-  const mods = Object.keys(L.cls).filter(k => L.cls[k] === "M" || L.cls[k] === "X");
-  const modTxt = mods.length ? ` Modifier letters (${esc(showChars(mods.join("")))}) join the grapheme before them.` : "";
-  if (g.status === "none" || !mg.length) return intro + `<p>${name} is written with one letter per sound: no multi-letter graphemes. ${dbl}${modTxt}</p>` + tail;
-  return intro + `<p>Multi-letter graphemes used for ${name} (${mg.length}):</p>
-  ${C.length ? `<h3 style="margin:10px 0 4px;font-size:14px">Consonants (${C.length})</h3><div>${C.map(item).join("")}</div>` : ""}${V.length ? `<h3 style="margin:14px 0 4px;font-size:14px">Vowels (${V.length})</h3><div>${V.map(item).join("")}</div>` : ""}
-  <p>${dbl}${modTxt}</p>` + tail;
-}
 // What the non-letter characters of an alphabet are and how the measures treat them (shown on the About tab).
 const CHAR_GLOSS = {
   "\u200c": ["ZWNJ", "zero-width non-joiner (Persian نیم‌فاصله, “half-space”): keeps the letters on either side from joining inside one word, as in می‌کنم. Counts as a character in length and trigrams; has no CV unit and no grapheme of its own."],
@@ -2357,134 +2314,190 @@ const CHAR_GLOSS = {
 const INDIC_GLOSS = { H: "virama (halant): suppresses the inherent vowel of the consonant it follows", N: "nukta: dot that turns a consonant letter into another sound (क़ ज़ ड़ …)", A: "anusvara: nasalisation, or a nasal consonant at the end of the syllable", B: "visarga: a breath-like /h/ at the end of the syllable", Z: "anusvara: nasal consonant at the end of the syllable" };
 const INDIC_GLOSS_BY_CHAR = { "ँ": "candrabindu: nasalises the vowel", "ঁ": "candrabindu: nasalises the vowel", "ઁ": "candrabindu: nasalises the vowel", "ଁ": "candrabindu: nasalises the vowel", "ఁ": "candrabindu: nasalises the vowel",
   "ਂ": "bindi: nasalises the vowel", "ੰ": "tippi: nasalises the vowel or marks a nasal consonant", "ੱ": "addak: doubles the consonant that follows" };
+/* ------------------------------------------------------------------ About tab
+   One order for every language: Mimsy and its tabs · the language (data, letters, rules, sources) · how the pseudowords are made ·
+   CV patterns · graphemes · morphology · measures · limitations · citation. */
+const UNIT1 = { letters: "letter", aksharas: "akshara", fidel: "fidel", syllables: "syllable", morae: "mora", jamo: "jamo" };
+function aboutSources(m) {
+  const lz = (m.sources_detail || {}).leipzig, ff = filmsFile(S.code, m), out = [];
+  if (m.symbols && /rime-cantonese/.test(m.symbols.source || "")) out.push("rime-cantonese word frequency list and Jyutping dictionary (CanCLID, CC BY 4.0)");
+  else if (ff || !/^Leipzig/.test(m.source || "")) out.push(`FILMS subtitle word list (Chilson, Sineva &amp; Schmalz, 2024)${ff ? `<div class="hint mono" style="margin:2px 0 6px;word-break:break-all">${esc(ff)}</div>` : ""}`);
+  if (lz && lz.corpus) out.push(`Leipzig Corpora Collection, <span class="mono">${esc(lz.corpus)}</span> (Goldhahn, Eckart &amp; Quasthoff, 2012; CC BY)`);
+  if (m.symbols && /pypinyin/.test(m.symbols.source || "")) out.push("Pinyin from pypinyin (MIT)");
+  if (m.symbols && /pykakasi/.test(m.symbols.source || "")) out.push("Katakana readings from pykakasi (GPL-3)");
+  return out.map(x => `<div>${x}</div>`).join("");
+}
 function alphabetRows(L, m) {
   const mono = `class="mono" style="word-spacing:.35em;line-height:1.9"`;
   if (L.syl && L.sym && !L.pinyin) {
     const vals = Object.values(L.sym), combos = vals.filter(v => v.py.length > 1).map(v => v.py), singles = vals.filter(v => v.py.length === 1).map(v => v.py);
-    return [`<div>Unit</div><div>Mora, written in katakana (${vals.length} morae attested in at least three reference words). A kana, or a kana with a small kana (キャ, ファ, ティ), is one mora; ッ, ン and ー are morae of their own. Length, OLD20, Coltheart's N (one mora exchanged, added or removed), the n-gram models and the trigram wordlikeness count morae. Analyze and Match accept katakana or hiragana, and kanji for words of the lexicon; the nearest word is shown with its original spelling.</div>`,
-      `<div>Single-kana morae (${singles.length})</div><div ${mono}>${escRaw(singles.join(" "))}</div>`,
-      `<div>Two-kana morae (${combos.length})</div><div ${mono}>${escRaw(combos.join(" "))}</div>`].join("\n    ");
+    return [`<div>Unit</div><div>Mora (${vals.length}), written in katakana: a kana, or a kana with a small kana (キャ). ッ, ン and ー are morae.</div>`,
+      `<div>One-kana morae</div><div ${mono}>${escRaw(singles.join(" "))}</div>`,
+      `<div>Two-kana morae</div><div ${mono}>${escRaw(combos.join(" "))}</div>`].join("\n    ");
   }
   if (L.syl && L.sym) {
-    const vals = Object.values(L.sym), att = vals.filter(v => !v.gap && !v.rare), bases = [...new Set(att.map(v => v.base))].sort(), J = L.jyut,
-      tones = (J ? [1, 2, 3, 4, 5, 6] : [1, 2, 3, 4, 5]).map(t => `${!J && t === 5 ? "neutral" : "tone " + t}: ${att.filter(v => v.tone === t).length}`).join(", "),
-      lang = J ? "Cantonese" : "Mandarin", rom = J ? "Jyutping" : "pinyin";
-    return [`<div>Unit</div><div>Toned syllable, written in ${rom} (${att.length.toLocaleString()} toned syllables attested in at least three reference words; ${tones}; ${vals.filter(v => v.rare).length} rarer readings are accepted as input but never generated). A pseudoword is a sequence of ${(m.rules || {}).min_len || 2}–${(m.rules || {}).max_len || 4} real syllables that is not a word, and every measure counts syllables: length, OLD20 and Coltheart's N (one syllable added, removed or exchanged), the n-gram models and the syllable-bigram wordlikeness. ${J ? "Analyze and Match accept Jyutping with tone numbers (gwong2 dung1 or gwong2dung1) and Chinese characters for words of the lexicon." : "Analyze and Match accept pinyin with tone marks (zhōngguó) or tone numbers (zhong1 guo2; 5 or no digit = neutral tone), and Chinese characters for words of the lexicon."}</div>`,
-      `<div>Two item types</div><div>Items made of real syllables are <i>novel compounds</i>, since every ${lang} syllable is a morpheme (the standard nonword type in Chinese auditory lexical decision). <i>Tonal-gap</i> items contain one of the ${vals.filter(v => v.gap).length} legal syllables that never carry a given tone (e.g. ${vals.filter(v => v.gap).slice(0, 4).map(v => v.py).join(", ")}): a syllable that is no morpheme at all${J ? " (syllables ending in -p, -t, -k can only carry tones 1, 3 and 6, so only those count as gaps for them)" : ""}, offered alone (length 1) or with one real syllable. The <i>Item type</i> filter on the bank tab separates them. Syllable Zipf is each syllable's token frequency over all words containing it; Homophones counts the distinct characters read with that syllable.</div>`,
+    const vals = Object.values(L.sym), att = vals.filter(v => !v.gap && !v.rare), bases = [...new Set(att.map(v => v.base))].sort(), J = L.jyut;
+    return [`<div>Unit</div><div>Toned syllable (${att.length.toLocaleString()}), written in ${J ? "Jyutping with tone numbers 1–6 (gwong2dung1)" : "pinyin with tone marks (zhōngguó)"}.</div>`,
       `<div>Base syllables (${bases.length})</div><div ${mono}>${escRaw(bases.join(" "))}</div>`].join("\n    ");
   }
   if (L.hangul) {
-    return [`<div>Unit</div><div>Jamo. Every syllable block is decomposed into its initial consonant, vowel and optional final consonant (한 = ㅎ ㅏ ㄴ, 3 jamo); length, OLD20, Coltheart's N and the n-gram models count jamo. Initial ㅇ is a silent place-holder: a letter for length and distances, no unit in the CV pattern (안 = VC). Only jamo strings that recompose into blocks are kept. Analyze and Match accept ordinary Hangul.</div>`,
-      `<div>Initial consonants (19)</div><div ${mono}>ㄱ ㄲ ㄴ ㄷ ㄸ ㄹ ㅁ ㅂ ㅃ ㅅ ㅆ ㅇ ㅈ ㅉ ㅊ ㅋ ㅌ ㅍ ㅎ</div>`,
-      `<div>Vowels (21)</div><div ${mono}>ㅏ ㅐ ㅑ ㅒ ㅓ ㅔ ㅕ ㅖ ㅗ ㅘ ㅙ ㅚ ㅛ ㅜ ㅝ ㅞ ㅟ ㅠ ㅡ ㅢ ㅣ</div>`,
-      `<div>Final consonants (27)</div><div ${mono}>ㄱ ㄲ ㄳ ㄴ ㄵ ㄶ ㄷ ㄹ ㄺ ㄻ ㄼ ㄽ ㄾ ㄿ ㅀ ㅁ ㅂ ㅄ ㅅ ㅆ ㅇ ㅈ ㅊ ㅋ ㅌ ㅍ ㅎ</div>`].join("\n    ");
+    return [`<div>Unit</div><div>Jamo: each syllable block is split into its letters (한 = ㅎ ㅏ ㄴ).</div>`,
+      `<div>Initial consonants</div><div ${mono}>ㄱ ㄲ ㄴ ㄷ ㄸ ㄹ ㅁ ㅂ ㅃ ㅅ ㅆ ㅇ ㅈ ㅉ ㅊ ㅋ ㅌ ㅍ ㅎ <span class="hint" style="display:inline">(initial ㅇ is silent: no CV unit)</span></div>`,
+      `<div>Vowels</div><div ${mono}>ㅏ ㅐ ㅑ ㅒ ㅓ ㅔ ㅕ ㅖ ㅗ ㅘ ㅙ ㅚ ㅛ ㅜ ㅝ ㅞ ㅟ ㅠ ㅡ ㅢ ㅣ</div>`,
+      `<div>Final consonants</div><div ${mono}>ㄱ ㄲ ㄳ ㄴ ㄵ ㄶ ㄷ ㄹ ㄺ ㄻ ㄼ ㄽ ㄾ ㄿ ㅀ ㅁ ㅂ ㅄ ㅅ ㅆ ㅇ ㅈ ㅊ ㅋ ㅌ ㅍ ㅎ</div>`].join("\n    ");
   }
   const cls = m.letter_classes, chars = [...m.alphabet];
   const of = (...k) => chars.filter(c => k.includes(cls[c] || "C")).join("");
   const cons = of("C", "X"), vow = of("V"), y = of("Y"), signs = of("D"), pre = of("P");
   const other = chars.filter(c => !["C", "V", "Y", "D", "P"].includes(cls[c] || "C"));
   const rows = [];
-  rows.push(`<div>Consonant letters</div><div ${mono}>${esc(showChars(cons))}${y ? ` <span class="hint" style="display:inline">(${esc(y)}: consonant or vowel by position, see below)</span>` : ""}</div>`);
-  rows.push(`<div>Vowel letters</div><div ${mono}>${esc(showChars(vow))}</div>`);
+  rows.push(`<div>Consonants</div><div ${mono}>${esc(showChars(cons))}</div>`);
+  rows.push(`<div>Vowels</div><div ${mono}>${esc(showChars(vow))}</div>`);
+  if (y) rows.push(`<div>&lt;y&gt;</div><div>Consonant before a vowel, otherwise vowel.</div>`);
   if (signs) rows.push(`<div>Vowel signs</div><div ${mono}>${esc(showChars(signs))}</div>`);
-  if (pre) rows.push(`<div>Pre-posed vowels</div><div ${mono}>${esc(showChars(pre))} <span class="hint" style="display:inline">(written before the consonant, pronounced after it: placed after the C in the CV pattern)</span></div>`);
+  if (pre) rows.push(`<div>Pre-posed vowels</div><div ${mono}>${esc(showChars(pre))} <span class="hint" style="display:inline">(written before the consonant, counted after it)</span></div>`);
   if (other.length) {
-    const items = other.map(c => { const g = CHAR_GLOSS[c] || [showChars(c), (INDIC_GLOSS_BY_CHAR[c] || INDIC_GLOSS[cls[c]]) ? (INDIC_GLOSS_BY_CHAR[c] || INDIC_GLOSS[cls[c]]) + ". Part of the akshara it belongs to; no CV unit of its own." : "modifier character with no sound of its own; counts in length, no CV unit of its own."];
-      return `<div style="display:flex;gap:10px;align-items:baseline;padding:2px 0"><span class="mono" style="font-weight:700;min-width:4em;color:var(--accent)">${esc(g[0])}</span><span>${esc(g[1])}</span></div>`; }).join("");
+    const items = other.map(c => { const g = CHAR_GLOSS[c] || [showChars(c), INDIC_GLOSS_BY_CHAR[c] || INDIC_GLOSS[cls[c]] || "modifier: no sound of its own, not counted in CV"];
+      return `<div style="display:flex;gap:10px;align-items:baseline;padding:2px 0"><span class="mono" style="font-weight:700;min-width:4em;color:var(--accent)">${esc(g[0])}</span><span>${esc(String(g[1]).replace(/\. Counts in length.*$|\. Part of the akshara.*$/, ""))}</span></div>`; }).join("");
     rows.push(`<div>Other characters</div><div>${items}</div>`);
   }
+  if (L.indic && chars.some(c => VOCALIC_R.has(c))) rows.push(`<div>Vocalic r</div><div>${esc(showChars(chars.filter(c => VOCALIC_R.has(c)).join("")))}: V in orthographic CV; ${(m.rules || {}).vocalic_r === "V" ? "also V in phonological CV" : "CV (r + vowel) in phonological CV"}.</div>`);
   return rows.join("\n    ");
 }
-function renderRealwordAbout(L) {
+function spellingRules(L, m) {
+  const r = m.rules || {}, out = [];
+  if (r.harmony) out.push(`front vowels (${esc(r.harmony.front)}) and back vowels (${esc(r.harmony.back)}) never mix`);
+  if (r.max_stress !== undefined) out.push(`at most ${r.max_stress} stress accent`);
+  if (r.final_only) out.push(`${esc(showChars(r.final_only))} only at the end of a word`);
+  if (r.not_final) out.push(`no word ends in ${esc(showChars(r.not_final))}`);
+  if (r.single_vowel_run) out.push("one syllable per item");
+  if (r.max_tones !== undefined) out.push(`at most ${r.max_tones} tone mark`);
+  if (r.hangul) out.push("jamo always form complete syllable blocks");
+  if (r.thai) out.push("marks sit on a consonant; pre-posed vowels are followed by a consonant");
+  return out.length ? `<div>Spelling rules</div><div>${out.join("; ")}.</div>` : "";
+}
+function renderRealwordAbout(L) {   // one sentence, used inside "How the pseudowords are made"
   const rf = L.manifest.realword_filter; if (!rf) return "";
-  const src = rf.sources || {}, parts = [];
-  if (src.hunspell) parts.push(`the <b>${esc(src.hunspell.dictionary.split("/")[1] || src.hunspell.dictionary)}</b> Hunspell spelling dictionary (affix rules on, compounding off; it recognises ${Math.round(100 * src.hunspell.coverage_of_reference_words)}% of the language's reference words)`);
-  for (const k in src) { const m = /^hunspell-(.+)$/.exec(k); if (m) parts.push(`the <b>${esc(realwordSrcName(k).replace(" spelling dictionary", ""))}</b> Hunspell spelling dictionary (${esc(L.manifest.name)} is a variety of ${esc(realwordSrcName(k).replace(" spelling dictionary", ""))}; affix rules on, compounding off)`); }
-  if (src.unimorph) parts.push(`the <b>UniMorph</b> inflection tables (${(+src.unimorph.forms).toLocaleString()} forms)`);
-  if (src.bible) parts.push(`${src.bible.texts.length === 1 ? "a Bible translation" : src.bible.texts.length + " Bible translations"} (${(+src.bible.word_types).toLocaleString()} word types; names left out)`);
-  if (!parts.length) return "";
-  const by = rf.by_source || {};
-  return `<h2>Real-word check</h2>
-  <p>A frequency list only has the forms that happened to occur in the corpus, so a letter model trained on it produces some items that are real words anyway: inflected forms the corpus missed, rarer words. Every item was therefore also checked against ${parts.join(", ")}. <b>${(+rf.removed).toLocaleString()}</b> of ${(+rf.bank_items).toLocaleString()} items (${rf.removed_pct}%) were real words by that test and are not shown${Object.keys(by).length > 1 ? ` (${Object.entries(by).map(([k, v]) => `${REALWORD_SRC[k] || k}: ${(+v).toLocaleString()}`).join(", ")}; an item can be found by more than one source)` : ""}. Typed items in <i>Analyze</i> are checked the same way. No dictionary is complete, so a native speaker's check of the final items is still advisable${src.hunspell_skipped ? `; the available Hunspell dictionary was not used because it recognises only ${Math.round(100 * src.hunspell_skipped.coverage_of_reference_words)}% of the language's own words` : ""}.</p>`;
+  const src = rf.sources || {}, names = [];
+  if (src.hunspell) names.push("a spelling dictionary");
+  for (const k in src) if (/^hunspell-/.test(k)) names.push(`the ${esc(realwordSrcName(k).replace(" spelling dictionary", ""))} spelling dictionary`);
+  if (src.unimorph) names.push("UniMorph inflection tables");
+  if (src.bible) names.push("Bible texts");
+  return names.length ? ` Items found in ${names.join(", ").replace(/, ([^,]*)$/, " or $1")} were also removed (${(+rf.removed).toLocaleString()}, ${rf.removed_pct}%).` : "";
 }
 function renderMorphAbout(L) {
   const mo = L.manifest.morphology; if (!mo) return "";
   const pct = mo.bank_items ? (100 * mo.real_forms_removed / mo.bank_items).toFixed(1) : "?";
-  const name = esc(L.manifest.name);
-  return `<h2>Morphology (${name})</h2>
-  <p>${name} builds words by stacking suffixes, so a frequency list never contains every real form, and a letter model trained on it produces some items that are real words anyway (an imperative, a possessed plural). For ${name} every pseudoword was checked with a morphological analyser; the ${pct}% that turned out to be real word forms are not shown.</p>
-  <p>The analyser also labels what is left. The <b>Morphology</b> column splits an item into a pseudo-stem and its real suffixes with their tags (e.g. <i>дұғыр·лар·ының</i> n.pl.px3sp.gen), or says “no affixes” when it cannot be split, or “real stem” when the stem is a real word carrying a suffix chain the language does not allow. <b>Morph. suffix %</b> rates only the suffixes: each step of the chain (noun → plural → genitive → end) is scored by how many real words contain that step, the steps are averaged, and the item is compared with real words that have the same number of suffixes (50 = as typical as an average real word with that many suffixes; items without suffixes stay blank). The Morphology cell also says how many real words end in exactly this suffix chain (“ending on 1,234 real words”). The stem is left to the Wordlike score, and vowel harmony has its own column and filter. When an item has more than one reading, the Morphology cell says “+n more parses”; the reading shown is the most likely one (stem and suffixes together), the link lists the others, and <i>Use this</i> makes another reading the item's label in every column, filter, match and download (remembered in your browser). The filter <i>Unambiguous parse only</i> keeps items with one reading or a clear best one. <b>Affixes</b> counts the suffixes and <b>Harmony</b> says whether the vowels are all front, all back or mixed. Use the <b>Morphology</b> filter in the bank to pick, say, bare stems only, or items with exactly one suffix. Harmony is reported rather than enforced because many real ${name} words (loanwords, compounds) mix front and back vowels.</p>
-  <p>A second generator builds pseudowords the way the language does: an invented, vowel-harmonic stem is inflected by the analyser itself with a real suffix chain, so the suffix forms are always the right ones for the stem. Select them with the filter option <i>From the morphological generator</i>. In <i>Match my words</i>, tick <b>Same affix chain as the word</b> to get pseudowords that carry exactly the real word's suffixes (<i>кітаптарымыз</i> “our books” → a pseudoword with plural + our + nominative).</p>
-  <p class="hint">Morphology: Apertium Kazakh transducer (<a href="https://github.com/apertium/apertium-kaz" target="_blank" rel="noopener">apertium-kaz</a>; Washington, Salimzyanov &amp; Tyers, 2014), run offline with HFST (Lindén et al., 2011).</p>`;
+  return `<h2>Morphology</h2>
+  <p>Every item was checked with a morphological analyser; real word forms (${pct}%) were removed.</p>
+  <ul>
+   <li><b>Morphology</b>: how the analyser splits the item: pseudo-stem + real suffixes with their tags (<i>дұғыр+ларының</i> n.pl.px3sp.gen), “no affixes”, or “real stem” (a real stem with a suffix chain the language does not allow). It ends with the number of real words that have the same ending. When there are other readings, click <i>+n more parses</i> to see them and choose one.</li>
+   <li><b>Affixes</b>: number of suffixes. <b>Harmony</b>: front, back or mixed vowels.</li>
+   <li><b>Morph. suffix %</b>: how typical the order of the suffixes is, compared with real words that have the same number of suffixes (50 = typical; blank = no suffixes).</li>
+   <li><b>Filters</b> in the bank: morphology type, number of affixes, Morph. suffix % minimum, vowel-harmonic only, unambiguous parse only, and <i>From the morphological generator</i> (an invented stem inflected with a real suffix chain).</li>
+   <li><b>Match my words</b>: <i>Same affix chain as the word</i> gives pseudowords with exactly the real word's suffixes.</li>
+  </ul>
+  <p class="hint">Analyser: Apertium Kazakh (<a href="https://github.com/apertium/apertium-kaz" target="_blank" rel="noopener">apertium-kaz</a>; Washington, Salimzyanov &amp; Tyers, 2014), run with HFST (Lindén et al., 2011).</p>`;
+}
+function renderGraphemes(L) {
+  const m = L.manifest, g = (S.G || {})[L.code], name = esc(m.name);
+  if (L.indic || L.syl || L.hangul || !L.hasGraph || !g || g.status === "exclude") return "";
+  const intro = `<h2>Graphemes</h2>
+  <p>A grapheme is a letter or letter group that spells one sound (English <span class="mono">sh</span>, <span class="mono">ea</span>). <b>CV (graph.)</b> and <b>Graphemes</b> split each item into graphemes: the longest listed grapheme wins, otherwise ${g.doubles === "two" ? "each letter is one grapheme" : "a doubled letter is one grapheme, otherwise each letter is one"}.</p>`;
+  const src = (g.sources || []).map(x => x.url ? `<a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.title || x.url)}</a>` : esc(x.title)).join("; ");
+  const tail = src ? `<p class="hint">Sources: ${src}</p>` : "";
+  const mg = g.multigraphs || [], C = mg.filter(x => x.cls === "C"), V = mg.filter(x => x.cls === "V");
+  const ctx = x => { const c = []; if (x.before) c.push(x.before === "V" ? "before a vowel" : x.before === "C" ? "before a consonant" : "before " + [...x.before.replace(/ /g, "")].join("/"));
+    if (x.not_before_class === "V" && x.not_before) c.push("not before a vowel or " + [...x.not_before].join("/")); else { if (x.not_before_class) c.push("not before a " + (x.not_before_class === "V" ? "vowel" : "consonant")); if (x.not_before) c.push("not before " + [...x.not_before].join("/")); }
+    if (x.final) c.push("word-final only"); if (x.not_final) c.push("not word-final"); if (x.initial) c.push("word-initial only"); return c.length ? ` <span class="pill">${esc(c.join("; "))}</span>` : ""; };
+  const item = x => `<div style="display:flex;gap:10px;align-items:baseline;padding:2px 0;border-bottom:1px solid var(--line)"><span class="mono" style="font-weight:700;min-width:4.5em;color:var(--accent)">${esc(x.g)}</span><span>${x.phon ? `<b>${esc(x.phon)}</b>` : ""}${ctx(x)}</span></div>`;
+  if (g.status === "none" || !mg.length) return intro.replace("</p>", ` ${name} has no multi-letter graphemes.</p>`) + tail;
+  const grid = `style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));column-gap:18px"`;
+  return intro + `${C.length ? `<h3 style="margin:10px 0 4px;font-size:14px">Consonants</h3><div ${grid}>${C.map(item).join("")}</div>` : ""}${V.length ? `<h3 style="margin:14px 0 4px;font-size:14px">Vowels</h3><div ${grid}>${V.map(item).join("")}</div>` : ""}` + tail;
 }
 function renderAbout() {
-  const L = S.L[S.code], m = L.manifest, c = m.counts, g = m.generation.results;
-  const bands = m.bands_enabled === false ? `<li>No frequency bands: small corpus.</li>` : m.bands.map(b => `<li><b>${MODEL_LABEL[b.id]}</b>: ${(+c.band_sizes[b.id]).toLocaleString()} words</li>`).join("");
+  const L = S.L[S.code], m = L.manifest, c = m.counts, rules = m.rules || {};
+  const unit = m.length_unit || "letters", u = UNIT1[unit] || "letter", us = unit;
+  const name = esc(m.name), abjad = !!rules.allow_no_vowel;
+  // ---- how the pseudowords are made
+  let made;
+  if (L.pinyin) made = `<p>Each pseudoword is a string of ${rules.min_len || 2}–${rules.max_len || 4} real syllables that is not a word. Because every ${L.jyut ? "Cantonese" : "Mandarin"} syllable is a morpheme, these are novel compounds. A second type, <b>tonal-gap</b> items, contains a syllable with a tone it never carries${L.jyut ? " (syllables ending in -p, -t, -k only take tones 1, 3 and 6)" : ""}, alone or with one real syllable. Use the <i>Item type</i> filter to choose. Type items in ${L.jyut ? "Jyutping (gwong2 dung1)" : "pinyin (zhōngguó or zhong1 guo2)"} or as characters.</p>`;
+  else if (L.syl) made = `<p>Each pseudoword is a string of ${rules.min_len || 2}–${rules.max_len || 6} morae generated by a model trained on the language's words, written in katakana and kept only if it is not a word. Type items in katakana or hiragana, or kanji for real words.</p>`;
+  else made = `<p>Each pseudoword was generated by ${/^[aeiou]/.test(u) ? "an" : "a"} ${u} model trained on the language's real words. It is kept only if it is not in the corpus word list${abjad ? " and" : ","} is ${m.filters.length[0]}–${m.filters.length[1]} ${us} long${abjad ? "" : ", and uses only consonant clusters and vowel sequences found in at least three real words"}.${renderRealwordAbout(L)}${L.hangul ? " Type items in ordinary Hangul." : ""}</p>`;
+  if (L.syl && renderRealwordAbout(L)) made += `<p>${renderRealwordAbout(L).trim()}</p>`;
+  if (m.parents && m.parents.length) { const pn = m.parents.map(langName).join(" and "); made += `<p>${name} is a variety of ${esc(pn)}: every ${esc(pn)} word was excluded too, and ${esc(pn)} is preselected under <i>Exclude real words of other languages</i>.</p>`; }
+  // ---- CV patterns
+  const cvItems = [];
+  cvItems.push(`<li><b>CV${L.cvg || L.hasGraph ? " (orth.)" : ""}</b>: ${L.pinyin ? "the letters of each syllable in turn (zh, ng = one C)" : L.syl ? "each mora as written: vowel = V, ン and ッ = C, others = CV" : L.indic ? "per akshara, with the inherent vowel counted as V" : L.hangul ? "per jamo; initial ㅇ is not counted" : abjad ? "vowel letters are V, all other letters C (short vowels are not written)" : "each letter as consonant (C) or vowel (V); modifiers are skipped"}.</li>`);
+  if (L.hasGraph && !L.indic && !L.syl && !L.hangul) cvItems.push(`<li><b>CV (graph.)</b>: per grapheme (see below).</li>`);
+  if (m.cv_guess) cvItems.push(`<li><b>CV (phon.)*</b>: the estimated spoken pattern${m.cv_guess.rule_based ? (L.indic ? ", from the schwa-deletion rule" : ", from a syllable rule") : `, learned from the language's IPA transcriptions`}${m.cv_guess.n_test ? `; it matches the real pattern for ${Math.round(m.cv_guess.exact_cv_match * 100)}% of test words` : ""}. The asterisk marks it as an estimate.</li>`);
+  cvItems.push(`<li>The <i>CV pattern basis</i> switch on the bank tab chooses which one the CV filter uses.</li>`);
+  // ---- measures (only those shown for this language)
+  const hide = L.pinyin ? SYL_HIDE : new Set();
+  const M = [
+    ["len", `<b>Len</b>: length in ${us}.`],
+    ["like", `<b>Wordlike %</b>: how typical the item's ${u} sequences are, as a percentile among real words of the same length (50 = typical). <b>${L.pinyin ? "Bigram" : "Trigram"} freq.</b> is the raw value behind it.`],
+    ["trimin", `<b>Rarest trigram</b>: the item's least common three-${u} sequence.`],
+    ["old", `<b>OLD20</b>: average number of ${u} changes to reach the 20 closest real words; lower means more neighbours (Yarkoni, Balota &amp; Yap, 2008).`],
+    ["oldp", `<b>OLD20 pct</b> and <b>N pct</b>: OLD20 and N as percentiles among this language's pseudowords of the same length. Use these to compare languages.`],
+    ["n1", `<b>Coltheart's N</b>: real words one ${u} change away (Coltheart et al., 1977). <b>High-freq. neighbours</b>: those with Zipf ≥ 4.`],
+    ["tl", `<b>TL neighbours</b>: real words made by swapping two adjacent ${us}.`],
+    ["near", `<b>Nearest word</b>, its distance and its Zipf frequency.`],
+    ["embn", `<b>Embedded words</b>: real words of 3+ ${us} inside the item (Zipf ≥ the threshold set in the filter). Click the number to list them.`],
+    ["oup", `<b>OUP</b>: the position at which the item stops being the beginning of any real word.`],
+    ["lpa", `<b>Model log₂ p</b>: how probable the ${u} sequence is under the language model (higher = more typical).`],
+    ["tones", `<b>Tones</b>: tone of each syllable${L.jyut ? " (1–6)" : " (1–4; 5 = neutral)"}. <b>Syllable Zipf</b>: frequency of each syllable across all words. <b>Homophones</b>: number of characters read with each syllable. <b>Item type</b>: real syllables or tonal gap.`],
+    ["zipf", `<b>Zipf</b>: log10 frequency per billion words; 3 = once per million (van Heuven et al., 2014).`],
+  ].filter(([k]) => !hide.has(k) && (k !== "tones" || L.pinyin) && (k !== "oup" || !L.pinyin)).map(([, t]) => `<li>${t}</li>`);
+  if (L.hangul) M.splice(1, 0, `<li><b>Syllables</b>: number of syllable blocks.</li>`);
+  // ---- limitations
+  const lim = [];
+  if (!L.syl && !L.pinyin) lim.push(`Pseudowords are generated ${u} by ${u}; grapheme and sound patterns are computed afterwards.`);
+  if (!m.morphology && !L.pinyin && !L.syl) lim.push("Pseudowords can contain real prefixes or suffixes (no morphology check for this language).");
+  if (m.small_corpus) lim.push("Small corpus: frequencies are less reliable and there are no frequency bands.");
+  lim.push("Neighbour measures use reference words (Zipf ≥ 2) only.");
+  // ---- citation
+  const cites = [];
+  const films = !/^Leipzig/.test(m.source || "") && !(m.symbols && /rime-cantonese/.test(m.symbols.source || ""));
+  if (films) cites.push(`Chilson, S., Sineva, E., &amp; Schmalz, X. (2024). <i>FILMS: A multilingual word frequency corpus based on film subtitles with IPA transcriptions.</i> OSF Preprints. <a href="https://doi.org/10.31219/osf.io/zy5qf" target="_blank" rel="noopener">doi.org/10.31219/osf.io/zy5qf</a>`);
+  if ((m.sources_detail || {}).leipzig) cites.push(`Goldhahn, D., Eckart, T., &amp; Quasthoff, U. (2012). Building large monolingual dictionaries at the Leipzig Corpora Collection: From 100 to 200 languages. <i>Proceedings of LREC 2012</i>, 759–765.`);
+  if (m.symbols && /rime-cantonese/.test(m.symbols.source || "")) cites.push(`CanCLID. <i>rime-cantonese</i>: Cantonese Jyutping dictionary and word frequencies. <a href="https://github.com/rime/rime-cantonese" target="_blank" rel="noopener">github.com/rime/rime-cantonese</a> (CC BY 4.0).`);
+  if (m.morphology) cites.push(`Washington, J., Salimzyanov, I., &amp; Tyers, F. (2014). Finite-state morphological transducers for three Kypchak languages. <i>Proceedings of LREC 2014</i>.`);
   $("#aboutBody").innerHTML = `
-  <div style="display:flex;align-items:center;gap:18px;margin:4px 0 18px"><img src="assets/logo.png" alt="Mimsy logo" style="width:150px;height:auto"><div><div style="font-size:20px;font-weight:600">Mimsy</div><div class="hint" style="margin:2px 0 0">Pseudowords in 184 languages. Named after the word in Lewis Carroll's <i>Jabberwocky</i> (1871): “All mimsy were the borogoves”.</div><div class="hint" style="margin:6px 0 0">Beta — feedback is welcome, especially from speakers of the smaller languages, which could not all be checked with native speakers. Questions and feedback: <a href="mailto:mimsy.pseudowords@gmail.com">mimsy.pseudowords@gmail.com</a> · code and data: <a href="https://github.com/sarachilson/Mimsy" target="_blank" rel="noopener">github.com/sarachilson/Mimsy</a></div></div></div>
-  <h2>${esc(m.name)}: data</h2>
+  <div style="display:flex;align-items:center;gap:18px;margin:4px 0 18px"><img src="assets/logo.png" alt="Mimsy logo" style="width:150px;height:auto"><div><div style="font-size:20px;font-weight:600">Mimsy</div><div class="hint" style="margin:2px 0 0">Pseudowords in 184 languages. Named after the word in Lewis Carroll's <i>Jabberwocky</i> (1871): “All mimsy were the borogoves”.</div><div class="hint" style="margin:6px 0 0">Beta — feedback is welcome, especially from speakers of the smaller languages. Questions and feedback: <a href="mailto:mimsy.pseudowords@gmail.com">mimsy.pseudowords@gmail.com</a> · code and data: <a href="https://github.com/sarachilson/Mimsy" target="_blank" rel="noopener">github.com/sarachilson/Mimsy</a></div></div></div>
+  <h2>Using Mimsy</h2>
   <div class="kv">
-    <div>Corpus size</div><div>${m.corpus_tokens ? (m.corpus_tokens / 1e6).toLocaleString(undefined, { maximumFractionDigits: 1 }) + " million words" : "n/a"}</div>
-    <div>Reference words (Zipf ≥ 2)</div><div>${c.reference_words.toLocaleString()}</div>
-    <div>Rarer words (avoid list only)</div><div>${c.rare_words.toLocaleString()}</div>
-    <div>Pseudowords in the bank</div><div>${L.bank.length.toLocaleString()}${L.realRemoved || L.morphRemoved ? ` <span class="hint">(${[L.realRemoved ? `${L.realRemoved.toLocaleString()} removed as real words by the dictionary check` : "", L.morphRemoved ? `${L.morphRemoved.toLocaleString()} removed as real forms by the morphological analyser` : ""].filter(Boolean).join("; ")})</span>` : ""}</div>
-    ${alphabetRows(L, m)}
-    ${L.indic && [...m.alphabet].some(c => VOCALIC_R.has(c)) ? `<div>Vocalic r</div><div>${esc(showChars([...m.alphabet].filter(c => VOCALIC_R.has(c)).join("")))}: written as a vowel, so orthographic CV counts it as V. ${(m.rules || {}).vocalic_r === "V" ? `In ${esc(m.name)} it is a syllabic r (the nucleus of its syllable), so it is a vowel in pronunciation too.` : `In ${esc(m.name)} it is pronounced r + vowel (e.g. Hindi ऋण /ɾɪɳ/, कृपा /kɾɪpɑː/), so phonological CV counts it as CV.`}</div>` : ""}
-    ${[...m.alphabet].includes("y") ? `<div>Rule for &lt;y&gt;</div><div>${esc(String(m.y_rule))}</div>` : ""}
-    <div>Sources</div><div>${aboutSources(m)}</div>
-    ${(() => { const r = (m.sources_detail || {}).reference_words_by_source; if (!r) return "";
-       const parts = [["films", "FILMS only"], ["leipzig", "Leipzig only"], ["both", "in both"]].filter(([k]) => r[k]).map(([k, l]) => `<b>${(+r[k]).toLocaleString()}</b> ${l}`);
-       return parts.length ? `<div>Reference words by source</div><div style="font-size:15px">${parts.join(" &nbsp;·&nbsp; ")}</div>` : ""; })()}
-    <div>Pipeline version</div><div>${esc(m.version)}, built ${esc(m.created)}</div>
+    <div>Pseudoword bank</div><div>Browse ready-made pseudowords and filter them by length, CV pattern and any measure. Click a pseudoword to swap it for a similar one.</div>
+    <div>Match my words</div><div>Type or upload your real words; each gets a pseudoword matched on the measures you tick.</div>
+    <div>Analyze words</div><div>Type or upload any items to get all measures for them.</div>
+    <div>Cross-language sets</div><div>Build sets of pseudowords that are matched across several languages.</div>
+    <div>Exclude real words of other languages</div><div>A setting in the bank, Match and Analyze tabs: flags or removes items that are real words in other languages you choose.</div>
   </div>
-  ${SHOW_PROVENANCE ? `<ul>${bands}</ul>` : ""}
+  <h2>${name}</h2>
+  <div class="kv">
+    ${(() => { const mw = n => (n / 1e6).toLocaleString(undefined, { maximumFractionDigits: 1 }) + " million words", lz = (m.sources_detail || {}).leipzig, both = lz && lz.tokens && m.sources_detail.films;
+      return both ? `<div>Corpus</div><div>${mw(m.corpus_tokens)} (subtitles) and ${mw(lz.tokens)} (Leipzig)</div>` : m.corpus_tokens ? `<div>Corpus</div><div>${mw(m.corpus_tokens)}</div>` : ""; })()}
+    <div>Real words</div><div>${c.reference_words.toLocaleString()} reference words (Zipf ≥ 2), ${c.rare_words.toLocaleString()} rarer words (only used to exclude real words)</div>
+    <div>Pseudowords</div><div>${L.bank.length.toLocaleString()}</div>
+    ${alphabetRows(L, m)}
+    ${spellingRules(L, m)}
+    <div>Sources</div><div>${aboutSources(m)}</div>
+  </div>
   <h2>How the pseudowords are made</h2>
-  ${SHOW_PROVENANCE ? `<p>Generators in this language's bank: ${esc(GEN_KEYS.filter(g => L.bank.some(r => r.gen === g)).map(g => GEN_LABEL[g]).join("; "))}. Plain trigram generators pick each letter from the two before it using raw trigram counts (two start markers, one end marker), either counting each word once (types) or weighting words by their frequency (tokens). The Kneser-Ney generator is described below. All generators go through the same filters.</p>
-  <p>Each generator is a letter model (interpolated Kneser-Ney, order ${m.model.order}: each letter is predicted from the three before it, with word-start and word-end markers). It is trained on the word types of one Zipf band, each word counted once, or on all reference words. Candidates are then rejected if they occur anywhere in the corpus word list, if they are shorter than ${m.filters.length[0]} or longer than ${m.filters.length[1]} letters, or if any initial, medial or final consonant cluster or vowel sequence occurs in fewer than three real words.</p>` : `<p>Each item was produced by a letter model trained on this language's reference words: it learns which letters follow which (with word-start and word-end markers) and strings new letter sequences together. Candidates are then rejected if they occur anywhere in the corpus word list, if they are shorter than ${m.filters.length[0]} or longer than ${m.filters.length[1]} letters, or if any initial, medial or final consonant cluster or vowel sequence occurs in fewer than three real words.</p>`}
-  ${(() => { const r = m.rules || {}, out = [];
-     if (r.max_stress !== undefined) out.push(`at most ${r.max_stress} stress accent (${esc(r.stress_marks)})`);
-     if (r.harmony) out.push(`vowel harmony: front ${esc(r.harmony.front)} and back ${esc(r.harmony.back)} vowels never mix`);
-     if (r.final_only) out.push(`“${esc(r.final_only)}” only at the end of a word`);
-     if (r.not_final) out.push(`no word ends in “${esc(r.not_final)}”`);
-     if (r.single_vowel_run) out.push("one syllable (a single vowel group) per item");
-     if (r.max_tones !== undefined) out.push(`at most ${r.max_tones} tone mark`);
-     return out.length ? `<p>Extra spelling rules for ${esc(m.name)}: ${out.join("; ")}.</p>` : ""; })()}
-  ${renderRealwordAbout(L)}
-  ${renderMorphAbout(L)}
-  ${m.cv_guess ? `<h2>${L.indic ? "Phonological CV" : "Guessed phonological CV"}</h2><p>${esc(m.cv_guess.method)}. ${m.cv_guess.rule_based ? (L.indic ? "This language has too few words with a pronunciation to learn corrections from, so the schwa-deletion rule is used on its own." : "This language has too few IPA-annotated words to learn from, so the guess uses the syllable rule only (a consonant letter is followed by an unwritten vowel unless a vowel letter follows or it ends the word).") : `Learned from ${m.cv_guess.n_train.toLocaleString()} words (${m.cv_guess.n_aligned.toLocaleString()} aligned).`} ${m.cv_guess.n_test ? `On ${m.cv_guess.n_test} held-out words the guessed CV matched the IPA pattern exactly in ${Math.round(m.cv_guess.exact_cv_match * 100)}% of cases and had the right number of vowels in ${Math.round(m.cv_guess.vowel_count_match * 100)}%.` : ""}</p>` : ""}
+  ${made}
+  <h2>CV patterns</h2>
+  <ul>${cvItems.join("")}</ul>
   ${renderGraphemes(L)}
+  ${renderMorphAbout(L)}
   <h2>Measures</h2>
-  <ul>
-   <li><b>OLD20</b>: mean Levenshtein distance to the 20 closest reference words (Yarkoni, Balota &amp; Yap, 2008).</li>
-   <li><b>OLD20 pct</b> and <b>N pct</b>: the same two measures as percentiles among this language's bank items (pseudowords) of the same length — 50 = a typically dense item of that length. Raw OLD20 and N depend on lexicon size, symbol inventory and typical word length (a 225,000-word Tamil lexicon is far denser than a 14,000-word Greenlandic one), so only the percentiles are comparable across languages.</li>
-   <li><b>Coltheart's N</b>: the number of reference words one letter change away. In Analyze words, <b>High-freq. neighbours</b> counts only those with Zipf ≥ 4. Note that with a minimum distance of 2 or more, N is always 0.</li>
-   <li><b>Nearest word</b>, its edit distance and its Zipf frequency.</li>
-   <li><b>Zipf frequency</b>: log10 of the word's frequency per billion words, so 3 = one per million and 4 = ten per million (van Heuven, Mandera, Keuleers &amp; Brysbaert 2014).</li>
-   <li><b>Wordlikeness %</b>: the item's mean trigram frequency, as a percentile among the language's real words (reference lexicon) of the same length: 60 means more typical letter sequences than 60% of real words of that length. It is a convenience scale for the raw value, not a rating; “wordlikeness” in the rating sense (Bailey &amp; Hahn 2001) is a different, subjective measure that trigram frequency predicts only in part. <b>Trigram freq.</b> is the raw value: the item is split into letter trigrams including a word-start and a word-end marker (e.g. <span class="mono">^ga gar ard rde den en$</span> for “garden”); each trigram's frequency is the number of reference words containing it; the score is the mean of log10(frequency + 1) across the item's trigrams (the summed bigram-frequency tradition of Rice &amp; Robinson 1975 and Gernsbacher 1984, extended here to trigrams; cf. the unconstrained trigram statistics of MCWord, Medler &amp; Binder 2005). It describes sublexical typicality for matching stimuli; it does not capture similarity to a specific word (see OLD20, nearest word and embedded word).</li>
-   <li><b>Model log₂ p</b>: mean log₂ probability per letter under the all-words Kneser-Ney letter model, a stricter sequence-legality score kept for reference.</li>
-   <li><b>Rarest trigram</b>: the lowest of the item's trigram values (same scale as Trigram freq.), with the trigram in brackets; a weakest-link measure that the mean hides.</li>
-   <li><b>OUP</b> (orthographic uniqueness point; Kwantes &amp; Mewhort 1999; Lindell, Nicholls &amp; Castles 2003): the first letter position, counting from the left, at which the item no longer matches the beginning of any real word; shown as “n+” when the whole item is the beginning of a real word.</li>
-   <li><b>TL neighbours</b> (transposed-letter neighbours; Andrews 1996; Perea &amp; Lupker 2003): real words formed by swapping two adjacent letters of the item.</li>
-   <li><b>Embedded words</b>: the number of distinct real words of 3+ letters contained in the item (Bowers, Davis &amp; Hanley 2005), counting only words at or above a Zipf threshold (default 3 = one per million, the usual low/high-frequency boundary of van Heuven et al. 2014; 2 or 4 can be chosen under the embedded-word filter); click the number to list them with their positions.</li>
-   <li><b>Embedded-word filters</b>: based on the longest reference word (3+ letters) contained in the item, with its position; “start”/“end” items look like affixed forms of a real word. The filters exclude items with an embedded word of at least N letters at the edges, or anywhere.</li>
-   <li><b>CV (orth.)</b> is letter-based: each letter is classed as a vowel or a consonant for the language (abugidas: akshara-based, with the inherent vowel counted). Modifier characters with no sound of their own (Cyrillic soft and hard signs, Catalan ·, apostrophes) are skipped; the Urdu-type aspiration letter ھ and nun ghunna ں count as consonant letters. <b>CV (graph.)</b> and <b>Graphemes</b> use the grapheme inventory above. <b>CV (phon.)*</b> is a best guess of the spoken pattern, made by a model learned from this language's existing IPA data (accuracy above); the asterisk marks it as an estimate rather than a measurement.</li>
-  </ul>
-  <h2>Beta limitations</h2>
-  <ul>
-   <li>The letter models that produced the pseudowords work on letters; the graphemic and phonological CV levels are applied afterwards (English “sh” is CC orthographically, C graphemically).</li>
-   <li>No morphology check yet: pseudowords can contain real prefixes or suffixes.</li>
-   <li>Distances are computed against reference words (Zipf ≥ 2) only.</li>
-  </ul>
-  <h2>Data resources and citation</h2>
-  <p>All word lists and frequencies in this tool come from two data resources. When you use pseudowords or measures from the tool, cite the resource(s) of the languages in your study:</p>
-  <ul>
-   <li><b>FILMS</b> (word frequencies from film subtitles, with IPA transcriptions): Chilson, S., Sineva, E., &amp; Schmalz, X. (2024). <i>FILMS: A multilingual word frequency corpus based on film subtitles with IPA transcriptions.</i> OSF Preprints. <a href="https://doi.org/10.31219/osf.io/zy5qf" target="_blank" rel="noopener">https://doi.org/10.31219/osf.io/zy5qf</a></li>
-   <li><b>Leipzig Corpora Collection</b> (word-frequency lists of news, web and Wikipedia corpora; the lists are released under CC BY, as stated on the collection's website): Goldhahn, D., Eckart, T., &amp; Quasthoff, U. (2012). Building large monolingual dictionaries at the Leipzig Corpora Collection: From 100 to 200 languages. In <i>Proceedings of the Eighth International Conference on Language Resources and Evaluation (LREC 2012)</i> (pp. 759–765). European Language Resources Association.</li>
-  </ul>
-  ${(() => { const sd = m.sources_detail || {}, lz = sd.leipzig && sd.leipzig.corpus, films = !/^Leipzig/.test(m.source || "FILMS");
-     const ff = filmsFile(S.code, m), fs = `FILMS${ff ? ` (file <span class="mono" style="word-break:break-all">${esc(ff)}</span>)` : ""}`;
-     return `<p><b>${esc(m.name)}</b> uses ${films && lz ? `both: ${fs} and the Leipzig corpus <span class="mono">${esc(lz)}</span>` : lz ? `the Leipzig corpus <span class="mono">${esc(lz)}</span>` : fs}.</p>`; })()}
-  <details><summary>Full manifest for ${esc(m.name)}</summary><pre class="mono" style="white-space:pre-wrap;font-size:12px">${esc(JSON.stringify(Object.assign({}, m, { inventory: undefined }), null, 1))}</pre></details>`;
+  <ul>${M.join("")}</ul>
+  <h2>Limitations</h2>
+  <ul>${lim.map(x => `<li>${x}</li>`).join("")}</ul>
+  <h2>Citation</h2>
+  <p>Please cite the data used for ${name}:</p>
+  <ul>${cites.map(x => `<li>${x}</li>`).join("")}</ul>
+  <p class="hint">Mimsy ${esc(m.version)}, data for ${name} built ${esc(m.created)}.</p>
+  <details><summary>Technical details (manifest)</summary><pre class="mono" style="white-space:pre-wrap;font-size:12px">${esc(JSON.stringify(Object.assign({}, m, { inventory: undefined, symbols: undefined }), null, 1))}</pre></details>`;
 }
 
 /* ------------------------------------------------------------------ real words of other languages
