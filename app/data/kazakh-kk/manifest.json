@@ -976,7 +976,7 @@
  ],
  "morphology": {
   "analyser": "apertium-kaz (Apertium Kazakh morphological transducer; HFST build)",
-  "date": "2026-11-01",
+  "date": "2026-11-02",
   "bank_items": 120000,
   "real_forms_removed": 7999,
   "labels": {
@@ -989,44 +989,58 @@
   "stems": 5833,
   "affix_chains": 1143,
   "lexicon_analysed": 87143,
-  "labelling": "guesser parses validated by the generator; the parse with the highest plausibility score labels the item (ties: shorter stem, fewer tags); n_affixes counts tags other than POS/subcategory/zero-realised tags",
-  "plausibility": {
-   "method": "generative stem + affix-chain model: log2 P(item | parse) = log2 P(stem) under the stem letter model (total over letters) + log2 P(affix chain) as tag transitions POS -> tag -> ... -> end (add-0.5 smoothing); the parse with the highest total labels the item (longer stems cost letters, extra suffixes cost transitions); the score is the per-letter log-probability of that parse as a percentile (0-100) among the bank's items (plaus_vs_real: against the analysed real words), minus 20 for mixed vowel harmony; 0 when no parse is validated by the generator. chain_pct and stem_pct are the percentiles of the two parts on their own; margin is the total log-probability lead over the runner-up parse, in bits",
-   "scale": "plausibility = percentile among the bank's own items (50 = a typical pseudoword); plaus_vs_real = percentile against the analysed real words",
-   "real_words_mean_vs_bank": 81.2,
-   "bank_mean_vs_real": 12.1,
-   "bank_share_single_parse": 0.364,
+  "labelling": "guesser parses validated by the generator; the most probable reading (stem letter model x suffix transitions) labels the item (ties: shorter stem, fewer tags); n_affixes counts tags other than POS/subcategory/zero-realised tags",
+  "suffix_order": {
+   "method": "each step of the suffix chain (POS -> suffix -> ... -> end) is scored by log10(1 + number of analysed real words containing that step); the steps are averaged and the item is ranked against real words with the same number of suffixes (1, 2, 3, 4+): 50 = as typical as an average real word with that many suffixes; blank for items without suffixes. same_ending = number of analysed real words with exactly this suffix chain. The stem is not scored (letters are covered by the Wordlike score); vowel harmony is not penalised (a separate column and filter).",
+   "reading_choice": "the reading that labels the item is the most probable under a stem letter model x suffix-transition model; others are listed as alternatives",
+   "real_words": {
+    "n": 80401,
+    "mean": 50.0,
+    "median": 49.5
+   },
+   "bank_letter_items": {
+    "n": 59975,
+    "mean": 51.8,
+    "median": 49.3
+   },
+   "bank_morph_generator_items": {
+    "n": 20000,
+    "mean": 45.2,
+    "median": 39.9
+   },
+   "bank_share_single_reading": 0.364,
    "examples": {
     "түлектесіміз": {
-     "score": 98,
-     "vs_real": 74,
-     "parse": "түлектес+іміз <n><px1pl><nom>",
-     "n_parses": 2
+     "suffix_order": 22,
+     "same_ending": 477,
+     "reading": "түлектес+іміз <n><px1pl><nom>",
+     "n_readings": 2
     },
     "дәстүрлеуі": {
-     "score": 96,
-     "vs_real": 66,
-     "parse": "дәстүрле+уі <v><tv><ger><px3sp><nom>",
-     "n_parses": 3
+     "suffix_order": 79,
+     "same_ending": 349,
+     "reading": "дәстүрле+уі <v><tv><ger><px3sp><nom>",
+     "n_readings": 3
     },
     "полицейлюк": {
-     "score": 17,
-     "vs_real": 0,
-     "parse": "полицейлюк+ <n><attr>",
-     "n_parses": 1
+     "suffix_order": null,
+     "same_ending": 5173,
+     "reading": "полицейлюк+ <n><attr>",
+     "n_readings": 1
     },
     "миллициясын": {
-     "score": 92,
-     "vs_real": 50,
-     "parse": "миллиция+сын <v><tv><opt><p3><pl>",
-     "n_parses": 2
+     "suffix_order": 23,
+     "same_ending": 36,
+     "reading": "миллиция+сын <v><tv><opt><p3><pl>",
+     "n_readings": 2
     },
     "тіре": {
      "score": 0,
      "note": "no validated parse"
     },
     "қалалардың": {
-     "score": 100,
+     "suffix_order": 73,
+     "same_ending": 1187,
      "real_word": true
     }
    }
@@ -1034,7 +1048,22 @@
   "harmony": {
    "front": "әөүіе",
    "back": "аоұы"
-  }
+  },
+  "non_affix": [
+   "adj",
+   "advl",
+   "attr",
+   "iv",
+   "n",
+   "nom",
+   "np",
+   "p3",
+   "sg",
+   "subst",
+   "tv",
+   "v",
+   "vaux"
+  ]
  },
  "realword_filter": {
   "date": "2026-10-29",

@@ -16,14 +16,15 @@ Outputs into <out>/<lang>/:
                     model "morph", generator "morph"; the app appends them to the bank
   manifest.json     a "morphology" block with the analyser used and the counts
 
-Labelling and morphological plausibility (from 2026-11-01): among the guesser's analyses without clitics, keep those the
-generator maps back to the item (this re-imposes the full phonology that the guesser lacks). Every surviving parse gets a
-plausibility score and the best-scoring parse is the label (parsimony replaces the earlier shortest-stem rule). The score has
-two parts, each a percentile against the analysed real words: the affix chain scored as a sequence of transitions
-(POS -> tag -> ... -> end; mean log10 count of each transition among real words, like the trigram wordlikeness) and the
-pseudo-stem scored by the stem letter model (mean log2 probability per letter, against real stems); mixed vowel harmony costs
-20 points; an item with no validated parse scores 0. morph.tsv.gz also lists every parse with its score, so the app can show
-the alternatives and an ambiguity count.
+Labelling and suffix order (from 2026-11-02): among the guesser's analyses without clitics, keep those the generator maps
+back to the item (this re-imposes the full phonology that the guesser lacks). The reading that labels the item is the most
+probable one under a stem letter model x suffix-transition model (parsimony; replaces the earlier shortest-stem rule).
+Displayed measures, both computed on the suffixes only (the letters are covered by the Wordlike score):
+  suffix order %  each step of the chain (POS -> suffix -> ... -> end) scored by how many real words contain that step
+                  (log10 count + 1), averaged over the steps, as a percentile against real words with the same number of
+                  suffixes (1, 2, 3, 4+); 50 = as typical as an average real word with that many suffixes; blank without suffixes
+  same ending     number of analysed real words with exactly this suffix chain
+morph.tsv.gz lists every reading with these two values, so the app can show the alternatives.
 """
 import argparse, collections, gzip, json, os, random, subprocess, sys, time
 import numpy as np
@@ -99,12 +100,10 @@ def valid_parses(w, parses, gen_map, cfg):
 
 
 class Plausibility:
-    """Morphological plausibility under a generative stem + affix-chain model.
+    """Reading choice and suffix order. Reading choice: a generative stem + affix-chain model.
     log P(item | parse) = log P(stem) [stem letter model, total over letters] + log P(chain) [tag transitions POS -> tag -> ... -> end];
     the best parse is the one with the highest total (longer stems cost more letters, extra suffixes cost transitions: parsimony);
-    the score is the per-letter log-probability of the best parse as a percentile among the bank's own items (a second value gives
-    the percentile against the analysed real words), minus 20 for mixed vowel harmony; 0 when no parse is validated."""
-    HARMONY_PENALTY = 20
+    It is used only to choose the reading; the displayed measure is the suffix order (setup_order / order)."""
     SMOOTH = 0.5
 
     def __init__(self, lex_analyses, stem_model, cfg):
@@ -116,10 +115,6 @@ class Plausibility:
                 self.trans[(a, b)] += 1; self.out[a] += 1; tagset.add(b)
             self.chains[tuple(tags)] += 1
         self.V = len(tagset)
-        self.chain_ref = np.sort(np.array([self.chain_lp(tags) for _, tags, _ in lex_analyses]))
-        stems = sorted({st for st, _, _ in lex_analyses})
-        self.stem_ref = np.sort(np.array([self.slp(st) for st in stems if all(ch in self.km.vidx for ch in st)]))
-        self.total_ref = np.sort(np.array([self.total_lp(st, tags) / max(n, 1) for st, tags, n in lex_analyses if all(ch in self.km.vidx for ch in st)]))
 
     def slp(self, stem):
         """Mean log2 probability per letter of a stem under the stem model; stems with letters outside the alphabet get -30."""
@@ -147,17 +142,31 @@ class Plausibility:
         return 100.0 * (lo + hi) / 2 / len(ref)
 
     def score(self, w, stem, tags):
-        """(per-letter log2 P (raw), chain percentile, stem percentile, exact-chain count, total log2 P)"""
-        tot = self.total_lp(stem, tags)
-        return tot / max(len(w), 1), self.pct(self.chain_ref, self.chain_lp(tags)), self.pct(self.stem_ref, self.slp(stem)), self.chains.get(tuple(tags), 0), tot
+        """(suffix order % or None, same-ending count, total log2 P used to choose the reading)"""
+        o, att = self.order(tags)
+        return o, att, self.total_lp(stem, tags)
 
-    def finish(self, bank_raw):
-        """Percentile scales: against the bank's own items (the main score) and against real words."""
-        self.bank_ref = np.sort(np.array(bank_raw))
+    # ---- suffix order: the displayed measure
+    def setup_order(self, lex_analyses):
+        na = lambda tg: sum(t not in self.cfg["non_affix"] for t in tg)
+        ref = collections.defaultdict(list)
+        for st, tags, _ in lex_analyses:
+            k = na(tags)
+            if k >= 1:
+                ref[min(k, 4)].append(self.order_raw(tags))
+        self.order_ref = {k: np.sort(np.array(v)) for k, v in ref.items()}
+        self.n_aff = na
 
-    def scaled(self, w, raw):
-        pen = self.HARMONY_PENALTY if harmony_of(w, self.cfg) == "mixed" else 0
-        return max(0.0, min(100.0, self.pct(self.bank_ref, raw) - pen)), max(0.0, min(100.0, self.pct(self.total_ref, raw) - pen))
+    def order_raw(self, tags):
+        return float(np.mean([np.log10(self.trans.get((a, b), 0) + 1) for a, b in zip(["^"] + tags, tags + ["$"])]))
+
+    def order(self, tags):
+        """Suffix order % (blank = None without suffixes) and the number of real words with exactly this chain."""
+        k = self.n_aff(tags)
+        att = self.chains.get(tuple(tags), 0)
+        if k == 0:
+            return None, att
+        return self.pct(self.order_ref[min(k, 4)], self.order_raw(tags)), att
 
 
 def run(lang, args):
@@ -227,9 +236,9 @@ def run(lang, args):
     stem_words = [s for s in stem_words if lo <= len(s) <= hi and all(ch in manifest["alphabet"] for ch in s)]
     km = bb.KN(stem_words, manifest["alphabet"])
     lex_tags = [(st, tg.strip("<>").split("><"), len(w)) for w, (st, suf, tg, na) in lex_morph.items() if st and tg]
-    PL = Plausibility(lex_tags, km, cfg)
-    lex_raw = {w: PL.score(w, st, tg.strip("<>").split("><"))[0] for w, (st, suf, tg, na) in lex_morph.items() if st and tg}
-    print(f"  plausibility model: {len(PL.trans)} tag transitions, {len(PL.chain_ref)} chain scores, {len(PL.stem_ref)} stem scores  [{time.time()-t0:.0f}s]", flush=True)
+    PL = Plausibility(lex_tags, km, cfg); PL.setup_order(lex_tags)
+    lex_order = {w: PL.order(tg.strip("<>").split("><")) for w, (st, suf, tg, na) in lex_morph.items() if st and tg}
+    print(f"  reading model: {len(PL.trans)} suffix transitions; suffix-order reference: { {k: len(v) for k, v in PL.order_ref.items()} } real words by number of suffixes  [{time.time()-t0:.0f}s]", flush=True)
 
     # ---- 3. labels for the rest: guesser parses validated by the generator, every parse scored, the best one labels the item
     rest = [w for w in words if w not in real]
@@ -244,17 +253,17 @@ def run(lang, args):
         vp = valid_parses(w, G.get(w, []), gen_map, cfg)
         scored = []
         for a, stem, tags in vp:
-            sc, cp, sp, att, tot = PL.score(w, stem, tags)
-            scored.append((sc, cp, sp, att, stem, tags, tot))
-        scored.sort(key=lambda x: (-x[6], len(x[4]), len(x[5])))   # best parse = highest total log-probability (parsimony)
+            o, att, tot = PL.score(w, stem, tags)
+            scored.append((o, att, stem, tags, tot))
+        scored.sort(key=lambda x: (-x[4], len(x[2]), len(x[3])))   # reading = highest total log-probability (parsimony)
         seen_st = set(); dedup = []
         for x in scored:   # one parse per stem boundary (tag variants such as tv/iv of the same split are the same reading)
-            if x[4] not in seen_st: seen_st.add(x[4]); dedup.append(x)
+            if x[2] not in seen_st: seen_st.add(x[2]); dedup.append(x)
         parses_of[w] = dedup
         if not scored:
             labels[w] = ("bare", w, "", "", 0)
             continue
-        sc, cp, sp, att, stem, tags, _tot = scored[0]
+        stem, tags = scored[0][2], scored[0][3]
         na = n_affixes(tags, cfg)
         if stem == w or na == 0:
             labels[w] = ("bare", w, "", "<" + "><".join(tags) + ">", 0)
@@ -268,15 +277,15 @@ def run(lang, args):
             labels[w] = ("realstem", stem, suf, tags, na)
     c = collections.Counter(v[0] for v in labels.values())
     print(f"  labels: {dict(c)}  [{time.time()-t0:.0f}s]", flush=True)
-    def plaus_cols(w):
-        """score (pct vs bank), pct vs real words, chain pct, stem pct, attested count, n parses, margin (bits), parses (stem|suffix|tags|score|attested; ...)"""
+    fo = lambda o: "" if o is None else f"{o:.0f}"
+    def order_cols(w):
+        """suffix order %, same-ending count, n readings, margin (bits), readings (stem|suffix|tags|order|count; ...)"""
         sc = parses_of.get(w, [])
         if not sc:
-            return "0\t0\t\t\t0\t0\t99\t"
-        best = sc[0]; margin = (best[6] - sc[1][6]) if len(sc) > 1 else 99.0   # lead in bits of total log-probability over the runner-up parse
-        b, r = PL.scaled(w, best[0])
-        alts = ";".join(f"{st}|{w[len(st):]}|<{'><'.join(tg)}>|{PL.scaled(w, raw)[0]:.0f}|{att}" for raw, cp, sp, att, st, tg, tot in sc[:12])
-        return f"{b:.0f}\t{r:.0f}\t{best[1]:.0f}\t{best[2]:.0f}\t{best[3]}\t{len(sc)}\t{margin:.0f}\t{alts}"
+            return "\t0\t0\t99\t"
+        best = sc[0]; margin = (best[4] - sc[1][4]) if len(sc) > 1 else 99.0   # lead in bits of total log-probability over the runner-up reading
+        alts = ";".join(f"{st}|{w[len(st):]}|<{'><'.join(tg)}>|{fo(o)}|{att}" for o, att, st, tg, tot in sc[:12])
+        return f"{fo(best[0])}\t{best[1]}\t{len(sc)}\t{margin:.0f}\t{alts}"
 
     # ---- 4. generation: pseudo-stem (stem-level KN model) + real affix chain, through the generator
     by_pos = collections.defaultdict(list)
@@ -321,14 +330,12 @@ def run(lang, args):
             continue
         seen.add(w)
         cand.append((w, s, w[len(s):], "<" + "><".join(tags) + ">", n_affixes(list(tags), cfg)))
-        sc, cp, sp, att, tot = PL.score(w, s, list(tags))
-        parses_of[w] = [(sc, cp, sp, att, s, list(tags), tot)]
+        o, att, tot = PL.score(w, s, list(tags))
+        parses_of[w] = [(o, att, s, list(tags), tot)]
     CA = lookup(ana, [c[0] for c in cand], tools)
     cand = [c for c in cand if not CA.get(c[0])][:args.n]
     print(f"  generated: {len(cand)} morphological pseudowords  [{time.time()-t0:.0f}s]", flush=True)
 
-    PL.finish([parses_of[w][0][0] for w in list(words) + [c[0] for c in cand] if w not in real and parses_of.get(w)])
-    lex_score = {w: PL.scaled(w, raw)[0] for w, raw in lex_raw.items()}
 
     # ---- 5. measures for the new items (same as the bank)
     lib = bb.load_lib()
@@ -349,45 +356,49 @@ def run(lang, args):
             f.write("\t".join(r) + "\n")
 
     with gzip.open(os.path.join(outdir, "lex_morph.tsv.gz"), "wt", encoding="utf-8") as f:
-        f.write("word\tstem\tsuffix\ttags\tn_affixes\tplausibility\n")
+        f.write("word\tstem\tsuffix\ttags\tn_affixes\tsuffix_order\tsame_ending\n")
         for w, (stem, suf, tags, na) in lex_morph.items():
-            f.write(f"{w}\t{stem}\t{suf}\t{tags}\t{na}\t{lex_score.get(w, 0):.0f}\n")
+            o, att = lex_order.get(w, (None, 0))
+            f.write(f"{w}\t{stem}\t{suf}\t{tags}\t{na}\t{fo(o)}\t{att}\n")
     print(f"  lexicon analyses written for {len(lex_morph)} of {len(lex)} reference words", flush=True)
 
     # ---- 6. labels file
     with gzip.open(os.path.join(outdir, "morph.tsv.gz"), "wt", encoding="utf-8") as f:
-        f.write("word\ttype\tstem\tsuffix\ttags\tn_affixes\tstem_real\tharmony\tplausibility\tplaus_vs_real\tchain_pct\tstem_pct\tchain_attested\tn_parses\tmargin\tparses\n")
+        f.write("word\ttype\tstem\tsuffix\ttags\tn_affixes\tstem_real\tharmony\tsuffix_order\tsame_ending\tn_parses\tmargin\tparses\n")
         for w in words:
             if w in real:
                 a = A[w][0]
-                f.write(f"{w}\treal\t{split_analysis(a)[0]}\t\t{a[a.find(SEP):] if SEP in a else ''}\t\t1\t{harmony_of(w, cfg)}\t\t\t\t\t\t\t\t\n")
+                f.write(f"{w}\treal\t{split_analysis(a)[0]}\t\t{a[a.find(SEP):] if SEP in a else ''}\t\t1\t{harmony_of(w, cfg)}\t\t\t\t\t\n")
             else:
                 typ, stem, suf, tags, na = labels[w]
-                f.write(f"{w}\t{typ}\t{stem}\t{suf}\t{tags}\t{na}\t{1 if typ == 'realstem' else 0}\t{harmony_of(w, cfg)}\t{plaus_cols(w)}\n")
+                f.write(f"{w}\t{typ}\t{stem}\t{suf}\t{tags}\t{na}\t{1 if typ == 'realstem' else 0}\t{harmony_of(w, cfg)}\t{order_cols(w)}\n")
         for w, s, suf, tags, na in cand:
-            f.write(f"{w}\taffixed\t{s}\t{suf}\t{tags}\t{na}\t0\t{harmony_of(w, cfg)}\t{plaus_cols(w)}\n")
+            f.write(f"{w}\taffixed\t{s}\t{suf}\t{tags}\t{na}\t0\t{harmony_of(w, cfg)}\t{order_cols(w)}\n")
     # sanity check on the examples from the Kazakh feedback
     chk = {}
     for w in ["түлектесіміз", "дәстүрлеуі", "полицейлюк", "миллициясын", "тіре", "қалалардың"]:
         if w in parses_of and parses_of[w]:
-            b, r = PL.scaled(w, parses_of[w][0][0]); chk[w] = {"score": round(b), "vs_real": round(r), "parse": parses_of[w][0][4] + "+" + w[len(parses_of[w][0][4]):] + " <" + "><".join(parses_of[w][0][5]) + ">", "n_parses": len(parses_of[w])}
-        elif w in lex_score:
-            chk[w] = {"score": round(lex_score[w]), "real_word": True}
+            o, att, st, tg, _ = parses_of[w][0]; chk[w] = {"suffix_order": None if o is None else round(o), "same_ending": att, "reading": st + "+" + w[len(st):] + " <" + "><".join(tg) + ">", "n_readings": len(parses_of[w])}
+        elif w in lex_order:
+            o, att = lex_order[w]; chk[w] = {"suffix_order": None if o is None else round(o), "same_ending": att, "real_word": True}
         else:
             chk[w] = {"score": 0, "note": "no validated parse" if w in words else "not in bank or lexicon"}
     print("  examples:", json.dumps(chk, ensure_ascii=False), flush=True)
-    bank_scores = [PL.scaled(w, parses_of[w][0][0])[1] if parses_of.get(w) else 0 for w in words if w not in real]
+    grp = lambda ws: [parses_of[w][0][0] for w in ws if parses_of.get(w) and parses_of[w][0][0] is not None]
+    letter_o = grp([w for w in words if w not in real]); gen_o = grp([c[0] for c in cand]); real_o = [o for o, _ in lex_order.values() if o is not None]
+    summ = lambda a: {"n": len(a), "mean": round(float(np.mean(a)), 1), "median": round(float(np.median(a)), 1)} if a else {}
     manifest["morphology"] = {
         "analyser": cfg["analyser"], "date": time.strftime("%Y-%m-%d"),
         "bank_items": len(words), "real_forms_removed": len(real), "labels": dict(c),
         "generated": len(cand), "generator": "pseudo-stem (Kneser-Ney letter 4-gram trained on the analysed stems of words with Zipf >= %.0f, vowel-harmonic, not a real stem) + a real affix chain drawn with its lexicon frequency, inflected by the transducer" % cfg["chain_min_zipf"],
         "stems": len(stem_words), "affix_chains": sum(len(v) for v in by_pos.values()), "lexicon_analysed": len(lex_morph),
-        "labelling": "guesser parses validated by the generator; the parse with the highest plausibility score labels the item (ties: shorter stem, fewer tags); n_affixes counts tags other than POS/subcategory/zero-realised tags",
-        "plausibility": {"method": "generative stem + affix-chain model: log2 P(item | parse) = log2 P(stem) under the stem letter model (total over letters) + log2 P(affix chain) as tag transitions POS -> tag -> ... -> end (add-0.5 smoothing); the parse with the highest total labels the item (longer stems cost letters, extra suffixes cost transitions); the score is the per-letter log-probability of that parse as a percentile (0-100) among the bank's items (plaus_vs_real: against the analysed real words), minus %d for mixed vowel harmony; 0 when no parse is validated by the generator. chain_pct and stem_pct are the percentiles of the two parts on their own; margin is the total log-probability lead over the runner-up parse, in bits" % Plausibility.HARMONY_PENALTY,
-                         "scale": "plausibility = percentile among the bank's own items (50 = a typical pseudoword); plaus_vs_real = percentile against the analysed real words", "real_words_mean_vs_bank": round(float(np.mean(list(lex_score.values()))), 1), "bank_mean_vs_real": round(float(np.mean(bank_scores)), 1),
-                         "bank_share_single_parse": round(float(np.mean([len(parses_of.get(w, [])) == 1 for w in words if w not in real])), 3),
+        "labelling": "guesser parses validated by the generator; the most probable reading (stem letter model x suffix transitions) labels the item (ties: shorter stem, fewer tags); n_affixes counts tags other than POS/subcategory/zero-realised tags",
+        "suffix_order": {"method": "each step of the suffix chain (POS -> suffix -> ... -> end) is scored by log10(1 + number of analysed real words containing that step); the steps are averaged and the item is ranked against real words with the same number of suffixes (1, 2, 3, 4+): 50 = as typical as an average real word with that many suffixes; blank for items without suffixes. same_ending = number of analysed real words with exactly this suffix chain. The stem is not scored (letters are covered by the Wordlike score); vowel harmony is not penalised (a separate column and filter).",
+                         "reading_choice": "the reading that labels the item is the most probable under a stem letter model x suffix-transition model; others are listed as alternatives",
+                         "real_words": summ(real_o), "bank_letter_items": summ(letter_o), "bank_morph_generator_items": summ(gen_o),
+                         "bank_share_single_reading": round(float(np.mean([len(parses_of.get(w, [])) == 1 for w in words if w not in real])), 3),
                          "examples": chk},
-        "harmony": cfg["harmony"],
+        "harmony": cfg["harmony"], "non_affix": sorted(cfg["non_affix"]),
     }
     json.dump(manifest, open(os.path.join(outdir, "manifest.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(f"  written morph.tsv.gz, bank_morph.tsv.gz, manifest  [{time.time()-t0:.0f}s]")
