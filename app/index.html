@@ -1740,7 +1740,7 @@ document.addEventListener("click", async ev => {
       <span class="mono hint" style="margin:0;flex:1">${esc(tagText(a.tags)) || "no affixes"}</span>
       <span class="hint" style="margin:0;min-width:13em">${isNaN(a.sc) ? "no suffixes" : `morph. suffix ${fmt(a.sc, 0)}% · ${a.att ? `same ending on ${a.att.toLocaleString()} real words` : "ending not found on real words"}`}${i === 0 ? " · most likely" : ""}</span>
       ${i === cur ? '<span class="hint" style="margin:0;min-width:6.5em">in use</span>' : `<button class="btn" data-v="${i}" style="min-width:6.5em">Use this</button>`}</div>`).join("");
-  const v = await askModal(`<b>Readings of “${esc(it.w)}”</b> <span class="hint" style="display:inline">(${base.alts.length}, most likely first${base.mg !== undefined ? `; the best leads by ${fmt(base.mg, 0)} bits` : ""})</span>
+  const v = await askModal(`<b>Readings of “${esc(it.w)}”</b> <span class="hint" style="display:inline;font-family:var(--sans,inherit);word-spacing:normal">(${base.alts.length}, most likely first${base.mg !== undefined ? `; the best leads by ${fmt(base.mg, 0)} bits` : ""})</span>
     <div style="max-height:55vh;overflow:auto;margin-top:10px">${lines}</div>
     <div class="hint" style="margin-top:10px">The reading in use labels the item everywhere: the Morphology (with its same-ending count), Affixes and Morph. suffix % columns, the filters, Match and the downloads. A choice is remembered in this browser. Readings are listed from the most likely (stem and suffixes together) down. Morph. suffix %: how typical each step of the suffix chain is among real words, compared with real words that have the same number of suffixes (50 = average); same ending: real words with exactly this suffix chain.</div>`,
     [["close", "Close", true]].concat(cur ? [["0", "Back to the best reading"]] : []));
@@ -1767,7 +1767,7 @@ document.addEventListener("click", async ev => {
   const L = it._L || (box.id === "xTable" && XS.result && XS.result.pools[row.xcode]) || S.L[S.code];
   if (!it.embList.length) { await askModal(`<b>${esc(it.w)}</b>: no real word of 3+ letters and Zipf ≥ ${S.embZipf} is contained in it.`, [["ok", "Close", true]]); return; }
   const lines = it.embList.map(e => { const i = L && L.lex.index.get(e.w); return `<div style="display:flex;gap:12px;align-items:baseline"><span class="mono" style="font-weight:600;min-width:8em">${esc(e.w)}</span><span class="hint" style="margin:0">${e.len} letters · ${e.pos} (position ${e.at})${i !== undefined ? ` · Zipf ${fmt(L.lex.zipf[i])}` : ""}</span></div>`; }).join("");
-  await askModal(`<b>Real words inside “${esc(it.w)}”</b> <span class="hint" style="display:inline">(${it.embList.length}, longest first; words of Zipf ≥ ${S.embZipf})</span><div style="max-height:55vh;overflow:auto;margin-top:10px;display:flex;flex-direction:column;gap:4px">${lines}</div>`, [["ok", "Close", true]]);
+  await askModal(`<b>Real words inside “${esc(it.w)}”</b> <span class="hint" style="display:inline;font-family:var(--sans,inherit);word-spacing:normal">(${it.embList.length}, longest first; words of Zipf ≥ ${S.embZipf})</span><div style="max-height:55vh;overflow:auto;margin-top:10px;display:flex;flex-direction:column;gap:4px">${lines}</div>`, [["ok", "Close", true]]);
 });
 $$(".embZipf").forEach(sel => sel.addEventListener("change", () => {
   S.embZipf = +sel.value; $$(".embZipf").forEach(x => x.value = sel.value);
@@ -2027,7 +2027,7 @@ async function pickerModal(title, hint, items, { cur = null, key = it => it.w, l
   const curKey = cur ? key(cur) : null, all = items.filter(it => key(it) !== curKey);
   if (!all.length) { await askModal(`${title}: no other candidate is available with the current settings.`, [["ok", "Close", true]]); return null; }
   const shown = all.slice(0, n);
-  const html = `<b>${title}</b>${hint ? ` <span class="hint" style="display:inline">(${hint})</span>` : ""}
+  const html = `<b>${title}</b>${hint ? ` <span class="hint" style="display:inline;font-family:var(--sans,inherit);word-spacing:normal">(${hint})</span>` : ""}
     <div class="hint">${shown.length < all.length ? `${shown.length} of ${all.length.toLocaleString()} alternatives shown; “Random pick” draws from all ${all.length.toLocaleString()}.` : `${all.length} alternative${all.length === 1 ? "" : "s"} available.`}</div>
     <div style="max-height:55vh;overflow:auto;margin-top:10px;display:flex;flex-direction:column;gap:4px">${shown.map(it => `<button class="btn" style="display:flex;gap:12px;align-items:baseline;text-align:left" data-v="${esc(key(it))}">${line(it)}</button>`).join("")}</div>`;
   const v = await askModal(html, [["__random", "Random pick", true], ["cancel", "Cancel"]]);
@@ -2338,11 +2338,11 @@ function alphabetRows(L, m) {
   if (L.syl && L.sym) {
     const vals = Object.values(L.sym), att = vals.filter(v => !v.gap && !v.rare), bases = [...new Set(att.map(v => v.base))].sort(), J = L.jyut;
     return [`<div>Unit</div><div>Toned syllable (${att.length.toLocaleString()}), written in ${J ? "Jyutping with tone numbers 1–6 (gwong2dung1)" : "pinyin with tone marks (zhōngguó)"}.</div>`,
-      `<div>Base syllables (${bases.length})</div><div ${mono}>${escRaw(bases.join(" "))}</div>`].join("\n    ");
+      `<div>Base syllables</div><div><details><summary>${bases.length} syllables (without tone)</summary><div ${mono}>${escRaw(bases.join(" "))}</div></details></div>`].join("\n    ");
   }
   if (L.hangul) {
     return [`<div>Unit</div><div>Jamo: each syllable block is split into its letters (한 = ㅎ ㅏ ㄴ).</div>`,
-      `<div>Initial consonants</div><div ${mono}>ㄱ ㄲ ㄴ ㄷ ㄸ ㄹ ㅁ ㅂ ㅃ ㅅ ㅆ ㅇ ㅈ ㅉ ㅊ ㅋ ㅌ ㅍ ㅎ <span class="hint" style="display:inline">(initial ㅇ is silent: no CV unit)</span></div>`,
+      `<div>Initial consonants</div><div ${mono}>ㄱ ㄲ ㄴ ㄷ ㄸ ㄹ ㅁ ㅂ ㅃ ㅅ ㅆ ㅇ ㅈ ㅉ ㅊ ㅋ ㅌ ㅍ ㅎ <span class="hint" style="display:inline;font-family:var(--sans,inherit);word-spacing:normal">(initial ㅇ is silent: no CV unit)</span></div>`,
       `<div>Vowels</div><div ${mono}>ㅏ ㅐ ㅑ ㅒ ㅓ ㅔ ㅕ ㅖ ㅗ ㅘ ㅙ ㅚ ㅛ ㅜ ㅝ ㅞ ㅟ ㅠ ㅡ ㅢ ㅣ</div>`,
       `<div>Final consonants</div><div ${mono}>ㄱ ㄲ ㄳ ㄴ ㄵ ㄶ ㄷ ㄹ ㄺ ㄻ ㄼ ㄽ ㄾ ㄿ ㅀ ㅁ ㅂ ㅄ ㅅ ㅆ ㅇ ㅈ ㅊ ㅋ ㅌ ㅍ ㅎ</div>`].join("\n    ");
   }
@@ -2351,14 +2351,22 @@ function alphabetRows(L, m) {
   const cons = of("C", "X"), vow = of("V"), y = of("Y"), signs = of("D"), pre = of("P");
   const other = chars.filter(c => !["C", "V", "Y", "D", "P"].includes(cls[c] || "C"));
   const rows = [];
-  rows.push(`<div>Consonants</div><div ${mono}>${esc(showChars(cons))}</div>`);
-  rows.push(`<div>Vowels</div><div ${mono}>${esc(showChars(vow))}</div>`);
+  if (m.script === "ethiopic") {
+    rows.push(`<div>Syllable characters</div><div ${mono}>${esc(showChars(chars.filter(c => (cls[c] || "C") === "C").join("")))} <span class="hint" style="display:inline;font-family:var(--sans,inherit);word-spacing:normal">(consonant + vowel: CV)</span></div>`);
+    rows.push(`<div>Consonant-only characters</div><div ${mono}>${esc(showChars(chars.filter(c => cls[c] === "K").join("")))} <span class="hint" style="display:inline;font-family:var(--sans,inherit);word-spacing:normal">(sixth order: C)</span></div>`);
+    const rest = chars.filter(c => !["C", "K"].includes(cls[c] || "C")); if (rest.length) rows.push(`<div>Other characters</div><div ${mono}>${esc(showChars(rest.join("")))}</div>`);
+    return rows.join("\n    ");
+  }
+  if (cons) rows.push(`<div>Consonants</div><div ${mono}>${esc(showChars(cons))}</div>`);
+  if (vow) rows.push(`<div>Vowels</div><div ${mono}>${esc(showChars(vow))}</div>`);
   if (y) rows.push(`<div>&lt;y&gt;</div><div>Consonant before a vowel, otherwise vowel.</div>`);
   if (signs) rows.push(`<div>Vowel signs</div><div ${mono}>${esc(showChars(signs))}</div>`);
-  if (pre) rows.push(`<div>Pre-posed vowels</div><div ${mono}>${esc(showChars(pre))} <span class="hint" style="display:inline">(written before the consonant, counted after it)</span></div>`);
+  if (pre) rows.push(`<div>Pre-posed vowels</div><div ${mono}>${esc(showChars(pre))} <span class="hint" style="display:inline;font-family:var(--sans,inherit);word-spacing:normal">(written before the consonant, counted after it)</span></div>`);
   if (other.length) {
-    const items = other.map(c => { const g = CHAR_GLOSS[c] || [showChars(c), INDIC_GLOSS_BY_CHAR[c] || INDIC_GLOSS[cls[c]] || "modifier: no sound of its own, not counted in CV"];
-      return `<div style="display:flex;gap:10px;align-items:baseline;padding:2px 0"><span class="mono" style="font-weight:700;min-width:4em;color:var(--accent)">${esc(g[0])}</span><span>${esc(String(g[1]).replace(/\. Counts in length.*$|\. Part of the akshara.*$/, ""))}</span></div>`; }).join("");
+    const groups = new Map();   // characters with the same description share one line
+    for (const c of other) { const g = CHAR_GLOSS[c] || [showChars(c), INDIC_GLOSS_BY_CHAR[c] || INDIC_GLOSS[cls[c]] || "marks with no sound of their own, not counted in CV"];
+      const d = String(g[1]).replace(/\. Counts in length.*$|\. Part of the akshara.*$/, ""); if (!groups.has(d)) groups.set(d, []); groups.get(d).push(g[0]); }
+    const items = [...groups].map(([d, cs]) => `<div style="display:flex;gap:10px;align-items:baseline;padding:2px 0"><span class="mono" style="font-weight:700;min-width:4em;color:var(--accent);word-spacing:.35em">${esc(cs.join(" "))}</span><span>${esc(d)}</span></div>`).join("");
     rows.push(`<div>Other characters</div><div>${items}</div>`);
   }
   if (L.indic && chars.some(c => VOCALIC_R.has(c))) rows.push(`<div>Vocalic r</div><div>${esc(showChars(chars.filter(c => VOCALIC_R.has(c)).join("")))}: V in orthographic CV; ${(m.rules || {}).vocalic_r === "V" ? "also V in phonological CV" : "CV (r + vowel) in phonological CV"}.</div>`);
@@ -2374,7 +2382,7 @@ function spellingRules(L, m) {
   if (r.max_tones !== undefined) out.push(`at most ${r.max_tones} tone mark`);
   if (r.hangul) out.push("jamo always form complete syllable blocks");
   if (r.thai) out.push("marks sit on a consonant; pre-posed vowels are followed by a consonant");
-  return out.length ? `<div>Spelling rules</div><div>${out.join("; ")}.</div>` : "";
+  return out.length ? `<div>Spelling rules</div><div>${out.join("; ").replace(/^./, c => c.toUpperCase())}.</div>` : "";
 }
 function renderRealwordAbout(L) {   // one sentence, used inside "How the pseudowords are made"
   const rf = L.manifest.realword_filter; if (!rf) return "";
@@ -2858,7 +2866,7 @@ function xRender() {
   $("#xDlXlsx").disabled = false;
 }
 function xSummary(R, F) {
-  const ms = (a, d) => { const v = a.filter(x => !Number.isNaN(x)); if (!v.length) return ""; const m = v.reduce((s, x) => s + x, 0) / v.length, sd = Math.sqrt(v.reduce((s, x) => s + (x - m) ** 2, 0) / Math.max(1, v.length - 1)); return `${m.toFixed(d)} <span class="hint" style="display:inline">(${sd.toFixed(d)})</span>`; };
+  const ms = (a, d) => { const v = a.filter(x => !Number.isNaN(x)); if (!v.length) return ""; const m = v.reduce((s, x) => s + x, 0) / v.length, sd = Math.sqrt(v.reduce((s, x) => s + (x - m) ** 2, 0) / Math.max(1, v.length - 1)); return `${m.toFixed(d)} <span class="hint" style="display:inline;font-family:var(--sans,inherit);word-spacing:normal">(${sd.toFixed(d)})</span>`; };
   const cols = [["len", "Length", 1], ["old", "OLD20", 2], ["oldP", "OLD20 pct", 0], ["like", "Wordlike %", 0], ["n1", "N", 1], ["n1P", "N pct", 0]]
     .concat([["trimin", "Rarest tri.", 2], ["oup", "OUP", 1], ["tln", "TL", 1], ["embN", "Embedded", 1]].filter(([k]) => F.meas.some(m => m.k === k)));
   const head = `<tr><th>Language</th><th class="num">Items</th>${cols.map(([, l]) => `<th class="num">${l}</th>`).join("")}${R.seedCode ? `<th class="num">Within tolerance of seed</th>` : ""}</tr>`;
@@ -2869,7 +2877,7 @@ function xSummary(R, F) {
       if (c === R.seedCode) tolCell = "<td class=\"num\">seed</td>";
       else { const okN = R.sets.filter(s => s.items[c] && F.meas.every(m => Math.abs(s.items[c][m.key] - s.items[R.seedCode][m.key]) <= m.tol) && Math.abs(s.items[c].len - s.items[R.seedCode].len) <= F.lenTol).length; tolCell = `<td class="num">${okN}/${R.sets.length}</td>`; }
     }
-    return `<tr><td>${esc(langName(c))}${R.units[c] !== "letters" ? ` <span class="hint" style="display:inline">(${esc(R.units[c])})</span>` : ""}</td><td class="num">${its.length}</td>${cols.map(([k, , d]) => `<td class="num">${ms(its.map(x => +x[k]), d)}</td>`).join("")}${tolCell}</tr>`;
+    return `<tr><td>${esc(langName(c))}${R.units[c] !== "letters" ? ` <span class="hint" style="display:inline;font-family:var(--sans,inherit);word-spacing:normal">(${esc(R.units[c])})</span>` : ""}</td><td class="num">${its.length}</td>${cols.map(([k, , d]) => `<td class="num">${ms(its.map(x => +x[k]), d)}</td>`).join("")}${tolCell}</tr>`;
   }).join("");
   return `<div class="sumtab"><table><caption>Mean (SD) per language${F.scale === "pct" ? "; percentiles are within each language and length" : ""}</caption>${head}${body}</table></div>`;
 }
