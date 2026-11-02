@@ -129,7 +129,7 @@ body.noprov .prov{display:none!important}
 <body>
 <header>
   <div class="wrap top">
-    <div class="brand" title="All mimsy were the borogoves — Lewis Carroll, Jabberwocky"><img src="assets/mark.png" alt=""><span>Mimsy <small>beta · pseudowords in 183 languages</small></span></div>
+    <div class="brand" title="All mimsy were the borogoves — Lewis Carroll, Jabberwocky"><img src="assets/mark.png" alt=""><span>Mimsy <small>beta · pseudowords in 184 languages</small></span></div>
     <div class="spacer"></div>
     <label class="status" for="lang" style="margin:0">Language</label>
     <select id="lang" style="width:auto;min-width:210px" disabled></select>
@@ -182,7 +182,7 @@ body.noprov .prov{display:none!important}
 
    <div class="field" id="sylBox" hidden><label for="sSylType">Item type</label>
      <select id="sSylType"><option value="">Any</option><option value="compound">Real syllables only (novel compound)</option><option value="gap">Contains a tonal gap (syllable with a tone it never carries)</option></select>
-     <div class="hint">Every Mandarin syllable is a morpheme, so items made of real syllables are novel compounds; tonal-gap items contain a syllable that is no morpheme at all. Monosyllabic gap items have length 1.</div></div>
+     <div class="hint">Every Chinese syllable is a morpheme, so items made of real syllables are novel compounds; tonal-gap items contain a syllable that is no morpheme at all. Monosyllabic gap items have length 1.</div></div>
    <div class="field" id="morphBox" hidden><span class="lbl">Morphology</span>
      <select id="sMorph"><option value="">Any</option><option value="affixed">Pseudo-stem + real affixes</option><option value="bare">No affixes (monomorphemic-looking)</option><option value="realstem">Real stem + affixes the analyser rejects</option><option value="gen">From the morphological generator</option></select>
      <div class="row" style="margin-top:6px"><div><label for="sAffMin">Affixes min</label><input type="text" inputmode="decimal" autocomplete="off" id="sAffMin" placeholder="min"></div><div><label for="sAffMax">max</label><input type="text" inputmode="decimal" autocomplete="off" id="sAffMax" placeholder="max"></div></div>
@@ -550,7 +550,7 @@ const esc = s => escRaw(disp(s));
 // Syllable-symbol languages (Mandarin pinyin): every toned syllable is one Private Use Area character in the data; SYM maps it back to pinyin for display.
 const SYM = new Map(), SYM_RE = /[\uE000-\uF8FF]+/g;
 let DISP_NFC = false;   // Korean: data holds conjoining jamo (NFD); shown recomposed into syllable blocks
-function disp(s) { s = String(s); if (DISP_NFC) s = s.normalize("NFC"); return SYM.size && SYM_RE.test(s) ? s.replace(SYM_RE, run => { let out = ""; for (const ch of run) { const py = SYM.get(ch) || "?"; out += (out && /^[aoeāáǎàōóǒòēéěè]/.test(py) ? "'" : "") + py; } return out; }) : s; }
+function disp(s) { s = String(s); if (DISP_NFC) s = s.normalize("NFC"); return SYM.size && SYM_RE.test(s) ? s.replace(SYM_RE, run => { let out = ""; for (const ch of run) { const py = SYM.get(ch) || "?"; out += (out && ch < "\uE700" && /^[aoeāáǎàōóǒòēéěè]/.test(py) ? "'" : "") + py; } return out; }) : s; }
 const isSyl = cls => { for (const k in cls) return String(cls[k]).startsWith("S:"); return false; };
 const fmt = (x, d = 2) => (x === null || x === undefined || Number.isNaN(x)) ? "" : (+x).toFixed(d);
 const norm = s => s.normalize("NFC").trim().toLowerCase();
@@ -671,7 +671,7 @@ async function selectLang(code) {
   S.recent = [code].concat((S.recent || []).filter(c => c !== code)).slice(0, 2);
   for (const c in S.L) if (!S.recent.includes(c)) delete S.L[c];   // keep memory bounded: two languages at a time
   const m = S.L[code].manifest, cb = $("#caution");
-  { const L = S.L[code], opts = [["orth", L.indic ? "Orthographic (akshara: inherent vowels counted)" : L.pinyin ? "Orthographic (pinyin letters of each syllable)" : L.syl ? "Orthographic (one mora = one unit)" : L.hangul ? "Orthographic (one jamo = one unit; initial ㅇ skipped)" : L.thai ? "Orthographic (letters and vowel signs; tone marks skipped)" : "Orthographic (one letter = one unit)"]];
+  { const L = S.L[code], opts = [["orth", L.indic ? "Orthographic (akshara: inherent vowels counted)" : L.jyut ? "Orthographic (Jyutping letters of each syllable)" : L.pinyin ? "Orthographic (pinyin letters of each syllable)" : L.syl ? "Orthographic (one mora = one unit)" : L.hangul ? "Orthographic (one jamo = one unit; initial ㅇ skipped)" : L.thai ? "Orthographic (letters and vowel signs; tone marks skipped)" : "Orthographic (one letter = one unit)"]];
     if (L.hasGraph && !L.indic) opts.push(["graph", "Graphemic (sh, ch, ea … = one unit)"]);
     if (L.cvg) opts.push(["guess", L.indic ? ((m.rules || {}).schwa_rule === false ? "Phonological* (learned from pronunciations)" : "Phonological* (schwa deletion applied)") : "Phonological* (unwritten vowels inferred)"]);
     $("#cvBasisSel").innerHTML = opts.map(([v, t]) => `<option value="${v}">${esc(t)}</option>`).join("");
@@ -711,7 +711,7 @@ async function loadLang(code) {
   L.indic = isIndic(L.cls);
   L.syl = isSyl(L.cls);
   L.hangul = !!(L.manifest.rules || {}).hangul; L.thai = !!(L.manifest.rules || {}).thai;
-  if (L.syl && L.manifest.symbols) { L.sym = L.manifest.symbols.symbols; L.symKind = L.manifest.symbols.kind || "pinyin"; L.pinyin = L.symKind === "pinyin"; for (const ch in L.sym) SYM.set(ch, L.sym[ch].py); L.symBy = buildSymIndex(L.sym); }
+  if (L.syl && L.manifest.symbols) { L.sym = L.manifest.symbols.symbols; L.symKind = L.manifest.symbols.kind || "pinyin"; L.pinyin = L.symKind === "pinyin" || L.symKind === "jyutping"; L.jyut = L.symKind === "jyutping";   // L.pinyin: tonal Chinese syllables (Mandarin pinyin or Cantonese Jyutping) for (const ch in L.sym) SYM.set(ch, L.sym[ch].py); L.symBy = buildSymIndex(L.sym); }
   await loadGraphemes(); L.gspec = gspecOf(code); L.hasGraph = hasGraphLevel(L.gspec, L.cls, L.indic) || L.indic;
   L.alphaSet = new Set([...L.manifest.alphabet]);
   L.inv = {}; for (const k in L.manifest.inventory) L.inv[k] = new Set(L.manifest.inventory[k]);
@@ -1247,7 +1247,7 @@ function thaiError(w, cls) {
   return "";
 }
 function legality(L, w) {
-  if (L.syl) return [...w].every(ch => ch in L.cls) ? ruleViolation(L, w) : (L.pinyin ? "not a sequence of Mandarin syllables" : "not a sequence of katakana morae");
+  if (L.syl) return [...w].every(ch => ch in L.cls) ? ruleViolation(L, w) : (L.jyut ? "not a sequence of Cantonese syllables" : L.pinyin ? "not a sequence of Mandarin syllables" : "not a sequence of katakana morae");
   let chars = w, al;
   if (L.indic) { const e = indicSeqError(w, L.cls, L.manifest.rules); if (e) return e; ({ chars, al } = indicAligned(w, L.cls)); } else al = cvAligned(w, L.cls);
   if (!al.includes("V") && !(L.manifest.rules || {}).allow_no_vowel) return "no vowel";
@@ -1505,7 +1505,7 @@ const TIPS = {
   sylz: "Mean Zipf of the item's syllables, each syllable's token frequency summed over all words containing it (per syllable in brackets). Gap syllables have none.",
   homo: "Homophone density: how many distinct characters (morphemes) are read with each toned syllable in the reference words.",
   styp: "Real syllables = a novel compound of real morphemes; tonal gap = contains a legal syllable with a tone it never carries (no morpheme).",
-  tones: "Tone of each syllable (1–4; 5 = neutral).",
+  tones: "Tone of each syllable (Mandarin 1–4, 5 = neutral; Cantonese 1–6).",
   mplaus: "Morph. suffix %: each step of the suffix chain (noun → plural → genitive → end) is scored by how many real words contain that step; the steps are averaged and compared with real words that have the same number of suffixes. 50 = as typical as an average real word; blank = no suffixes. The stem is not scored (see Wordlike %).",
   msame: "Number of real words with exactly this suffix chain (e.g. n.pl.gen). Blank = no suffixes.",
   nparse: "Number of distinct parses (stem boundaries) the analyser validates; 1 = unambiguous. Click for the list.",
@@ -2076,7 +2076,7 @@ function pinyinToSym(L, text) {   // "zhōngguó", "zhong1 guo2", "zhong1guo2", 
   if (!t) return null;
   if (/^[\uE000-\uF8FF]+$/.test(t)) return t;
   if (/\d/.test(t)) {   // numbered tones: each syllable ends with its digit
-    const parts = t.match(/[a-zü]+[0-5]/g); if (!parts || parts.join("") !== t.replace(/ /g, "")) return null;
+    const parts = t.match(/[a-zü]+[0-6]/g); if (!parts || parts.join("") !== t.replace(/ /g, "")) return null;
     let out = ""; for (const p of parts) { const ch = X.byNum.get(p) || X.byNum.get(p.replace(/0$/, "5")); if (!ch) return null; out += ch; } return out;
   }
   const seg = chunk => {   // longest-match segmentation into marked syllables (neutral tone = unmarked spelling)
@@ -2096,10 +2096,10 @@ function cleanPinyin(L, raw) {
     if (!L.lex.hzIndex) { L.lex.hzIndex = new Map(); L.lex.ipa.forEach((h, i) => { if (h) L.lex.hzIndex.set(h.replace(/ \+\d+$/, ""), L.lex.words[i]); }); }
     const w = L.lex.hzIndex.get(t);
     if (w) { out.w = w; out.note = "characters looked up as a word of the lexicon"; return out; }
-    out.unmatchable = L.pinyin ? "characters not in the lexicon: type the pinyin (zhong1 guo2 or zhōngguó)" : "kanji not in the lexicon: type the word in katakana or hiragana"; return out;
+    out.unmatchable = L.jyut ? "characters not in the lexicon: type the Jyutping (gwong2 dung1)" : L.pinyin ? "characters not in the lexicon: type the pinyin (zhong1 guo2 or zhōngguó)" : "kanji not in the lexicon: type the word in katakana or hiragana"; return out;
   }
   const w = pinyinToSym(L, t);
-  if (!w) { out.unmatchable = L.pinyin ? "not a sequence of Mandarin syllables (type pinyin with tone marks or tone numbers, e.g. zhong1guo2)" : "not a sequence of katakana morae (type katakana or hiragana)"; return out; }
+  if (!w) { out.unmatchable = L.jyut ? "not a sequence of Cantonese syllables (type Jyutping with tone numbers, e.g. gwong2dung1)" : L.pinyin ? "not a sequence of Mandarin syllables (type pinyin with tone marks or tone numbers, e.g. zhong1guo2)" : "not a sequence of katakana morae (type katakana or hiragana)"; return out; }
   out.w = w; return out;
 }
 function fallbackClass(L, ch) {
@@ -2365,9 +2365,11 @@ function alphabetRows(L, m) {
       `<div>Two-kana morae (${combos.length})</div><div ${mono}>${escRaw(combos.join(" "))}</div>`].join("\n    ");
   }
   if (L.syl && L.sym) {
-    const vals = Object.values(L.sym), att = vals.filter(v => !v.gap && !v.rare), bases = [...new Set(att.map(v => v.base))].sort(), tones = [1, 2, 3, 4, 5].map(t => `${t === 5 ? "neutral" : "tone " + t}: ${att.filter(v => v.tone === t).length}`).join(", ");
-    return [`<div>Unit</div><div>Toned syllable, written in pinyin (${att.length.toLocaleString()} toned syllables attested in at least three reference words; ${tones}; ${vals.filter(v => v.rare).length} rarer readings are accepted as input but never generated). A pseudoword is a sequence of ${(m.rules || {}).min_len || 2}–${(m.rules || {}).max_len || 4} real syllables that is not a word, and every measure counts syllables: length, OLD20 and Coltheart's N (one syllable added, removed or exchanged), the n-gram models and the trigram wordlikeness. Analyze and Match accept pinyin with tone marks (zhōngguó) or tone numbers (zhong1 guo2; 5 or no digit = neutral tone), and Chinese characters for words of the lexicon.</div>`,
-      `<div>Two item types</div><div>Items made of real syllables are <i>novel compounds</i>, since every Mandarin syllable is a morpheme (the standard nonword type in Mandarin auditory lexical decision). <i>Tonal-gap</i> items contain one of the ${vals.filter(v => v.gap).length} legal syllables that never carry a given tone (e.g. ${vals.filter(v => v.gap).slice(0, 4).map(v => v.py).join(", ")}): a syllable that is no morpheme at all, offered alone (length 1) or with one real syllable. The <i>Item type</i> filter on the bank tab separates them. Syllable Zipf is each syllable's token frequency over all words containing it; Homophones counts the distinct characters read with that syllable.</div>`,
+    const vals = Object.values(L.sym), att = vals.filter(v => !v.gap && !v.rare), bases = [...new Set(att.map(v => v.base))].sort(), J = L.jyut,
+      tones = (J ? [1, 2, 3, 4, 5, 6] : [1, 2, 3, 4, 5]).map(t => `${!J && t === 5 ? "neutral" : "tone " + t}: ${att.filter(v => v.tone === t).length}`).join(", "),
+      lang = J ? "Cantonese" : "Mandarin", rom = J ? "Jyutping" : "pinyin";
+    return [`<div>Unit</div><div>Toned syllable, written in ${rom} (${att.length.toLocaleString()} toned syllables attested in at least three reference words; ${tones}; ${vals.filter(v => v.rare).length} rarer readings are accepted as input but never generated). A pseudoword is a sequence of ${(m.rules || {}).min_len || 2}–${(m.rules || {}).max_len || 4} real syllables that is not a word, and every measure counts syllables: length, OLD20 and Coltheart's N (one syllable added, removed or exchanged), the n-gram models and the syllable-bigram wordlikeness. ${J ? "Analyze and Match accept Jyutping with tone numbers (gwong2 dung1 or gwong2dung1) and Chinese characters for words of the lexicon." : "Analyze and Match accept pinyin with tone marks (zhōngguó) or tone numbers (zhong1 guo2; 5 or no digit = neutral tone), and Chinese characters for words of the lexicon."}</div>`,
+      `<div>Two item types</div><div>Items made of real syllables are <i>novel compounds</i>, since every ${lang} syllable is a morpheme (the standard nonword type in Chinese auditory lexical decision). <i>Tonal-gap</i> items contain one of the ${vals.filter(v => v.gap).length} legal syllables that never carry a given tone (e.g. ${vals.filter(v => v.gap).slice(0, 4).map(v => v.py).join(", ")}): a syllable that is no morpheme at all${J ? " (syllables ending in -p, -t, -k can only carry tones 1, 3 and 6, so only those count as gaps for them)" : ""}, offered alone (length 1) or with one real syllable. The <i>Item type</i> filter on the bank tab separates them. Syllable Zipf is each syllable's token frequency over all words containing it; Homophones counts the distinct characters read with that syllable.</div>`,
       `<div>Base syllables (${bases.length})</div><div ${mono}>${escRaw(bases.join(" "))}</div>`].join("\n    ");
   }
   if (L.hangul) {
@@ -2418,7 +2420,7 @@ function renderAbout() {
   const L = S.L[S.code], m = L.manifest, c = m.counts, g = m.generation.results;
   const bands = m.bands_enabled === false ? `<li>No frequency bands: small corpus.</li>` : m.bands.map(b => `<li><b>${MODEL_LABEL[b.id]}</b>: ${(+c.band_sizes[b.id]).toLocaleString()} words</li>`).join("");
   $("#aboutBody").innerHTML = `
-  <div style="display:flex;align-items:center;gap:18px;margin:4px 0 18px"><img src="assets/logo.png" alt="Mimsy logo" style="width:150px;height:auto"><div><div style="font-size:20px;font-weight:600">Mimsy</div><div class="hint" style="margin:2px 0 0">Pseudowords in 183 languages. Named after the word in Lewis Carroll's <i>Jabberwocky</i> (1871): “All mimsy were the borogoves”.</div><div class="hint" style="margin:6px 0 0">Beta — feedback is welcome, especially from speakers of the smaller languages, which could not all be checked with native speakers. Questions and feedback: <a href="mailto:mimsy.pseudowords@gmail.com">mimsy.pseudowords@gmail.com</a> · code and data: <a href="https://github.com/sarachilson/Mimsy" target="_blank" rel="noopener">github.com/sarachilson/Mimsy</a></div></div></div>
+  <div style="display:flex;align-items:center;gap:18px;margin:4px 0 18px"><img src="assets/logo.png" alt="Mimsy logo" style="width:150px;height:auto"><div><div style="font-size:20px;font-weight:600">Mimsy</div><div class="hint" style="margin:2px 0 0">Pseudowords in 184 languages. Named after the word in Lewis Carroll's <i>Jabberwocky</i> (1871): “All mimsy were the borogoves”.</div><div class="hint" style="margin:6px 0 0">Beta — feedback is welcome, especially from speakers of the smaller languages, which could not all be checked with native speakers. Questions and feedback: <a href="mailto:mimsy.pseudowords@gmail.com">mimsy.pseudowords@gmail.com</a> · code and data: <a href="https://github.com/sarachilson/Mimsy" target="_blank" rel="noopener">github.com/sarachilson/Mimsy</a></div></div></div>
   <h2>${esc(m.name)}: data</h2>
   <div class="kv">
     <div>Corpus size</div><div>${m.corpus_tokens ? (m.corpus_tokens / 1e6).toLocaleString(undefined, { maximumFractionDigits: 1 }) + " million words" : "n/a"}</div>
