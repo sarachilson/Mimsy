@@ -398,6 +398,22 @@
    "films_file": null
   },
   {
+   "code": "cantonese_jyutping-yue",
+   "name": "Cantonese (Jyutping)",
+   "reference_words": 213464,
+   "small_corpus": false,
+   "corpus_tokens": 409746736,
+   "experimental": false,
+   "cv_approximate": true,
+   "family": "Sino-Tibetan",
+   "writing": "Jyutping syllables",
+   "length_unit": "syllables",
+   "script": "syllables",
+   "abjad": false,
+   "parents": null,
+   "films_file": null
+  },
+  {
    "code": "catalan-ca",
    "name": "Catalan",
    "reference_words": 73790,

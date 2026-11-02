@@ -711,7 +711,8 @@ async function loadLang(code) {
   L.indic = isIndic(L.cls);
   L.syl = isSyl(L.cls);
   L.hangul = !!(L.manifest.rules || {}).hangul; L.thai = !!(L.manifest.rules || {}).thai;
-  if (L.syl && L.manifest.symbols) { L.sym = L.manifest.symbols.symbols; L.symKind = L.manifest.symbols.kind || "pinyin"; L.pinyin = L.symKind === "pinyin" || L.symKind === "jyutping"; L.jyut = L.symKind === "jyutping";   // L.pinyin: tonal Chinese syllables (Mandarin pinyin or Cantonese Jyutping) for (const ch in L.sym) SYM.set(ch, L.sym[ch].py); L.symBy = buildSymIndex(L.sym); }
+  // L.pinyin: tonal Chinese syllables (Mandarin pinyin or Cantonese Jyutping); L.jyut: Cantonese specifics
+  if (L.syl && L.manifest.symbols) { L.sym = L.manifest.symbols.symbols; L.symKind = L.manifest.symbols.kind || "pinyin"; L.pinyin = L.symKind === "pinyin" || L.symKind === "jyutping"; L.jyut = L.symKind === "jyutping"; for (const ch in L.sym) SYM.set(ch, L.sym[ch].py); L.symBy = buildSymIndex(L.sym); }
   await loadGraphemes(); L.gspec = gspecOf(code); L.hasGraph = hasGraphLevel(L.gspec, L.cls, L.indic) || L.indic;
   L.alphaSet = new Set([...L.manifest.alphabet]);
   L.inv = {}; for (const k in L.manifest.inventory) L.inv[k] = new Set(L.manifest.inventory[k]);
