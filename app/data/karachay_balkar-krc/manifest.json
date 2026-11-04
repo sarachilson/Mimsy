@@ -583,5 +583,94 @@
    "ё"
   ]
  },
- "rules": {}
+ "rules": {},
+ "morphology": {
+  "analyser": "apertium-krc (Apertium Karachay-Balkar morphological transducer; HFST build)",
+  "date": "2026-11-03",
+  "reading_source": "suffix_strings",
+  "bank_items": 23820,
+  "real_forms_removed": 1417,
+  "labels": {
+   "affixed": 15460,
+   "bare": 5344,
+   "realstem": 995,
+   "disharm": 604
+  },
+  "generated": 3970,
+  "generator": "pseudo-stem (Kneser-Ney letter 4-gram trained on the analysed stems of words with Zipf >= 3, vowel-harmonic, not a real stem) + a real affix chain drawn with its lexicon frequency, inflected by the transducer",
+  "stems": 1450,
+  "affix_chains": 337,
+  "lexicon_analysed": 6387,
+  "labelling": "guesser parses validated by the generator; the most probable reading (stem letter model x suffix transitions) labels the item (ties: shorter stem, fewer tags); n_affixes counts tags other than POS/subcategory/zero-realised tags",
+  "suffix_order": {
+   "method": "each step of the suffix chain (POS -> suffix -> ... -> end) is scored by log10(1 + number of analysed real words containing that step); the steps are averaged and the item is ranked against real words with the same number of suffixes (1, 2, 3, 4+): 50 = as typical as an average real word with that many suffixes; blank for items without suffixes. same_ending = number of analysed real words with exactly this suffix chain. The stem is not scored (letters are covered by the Wordlike score); vowel harmony is not penalised (a separate column and filter).",
+   "reading_choice": "the reading that labels the item is the most probable under a stem letter model x suffix-transition model; others are listed as alternatives",
+   "real_words": {
+    "n": 5035,
+    "mean": 50.0,
+    "median": 50.3
+   },
+   "bank_letter_items": {
+    "n": 16455,
+    "mean": 46.0,
+    "median": 41.2
+   },
+   "bank_morph_generator_items": {
+    "n": 3970,
+    "mean": 48.6,
+    "median": 50.3
+   },
+   "bank_share_single_reading": 0.284,
+   "examples": {
+    "түлектесіміз": {
+     "score": 0,
+     "note": "not in bank or lexicon"
+    },
+    "дәстүрлеуі": {
+     "score": 0,
+     "note": "not in bank or lexicon"
+    },
+    "полицейлюк": {
+     "score": 0,
+     "note": "not in bank or lexicon"
+    },
+    "миллициясын": {
+     "score": 0,
+     "note": "not in bank or lexicon"
+    },
+    "тіре": {
+     "score": 0,
+     "note": "not in bank or lexicon"
+    },
+    "қалалардың": {
+     "score": 0,
+     "note": "not in bank or lexicon"
+    }
+   }
+  },
+  "harmony": {
+   "front": "эеи",
+   "back": "аыоу"
+  },
+  "non_affix": [
+   "adj",
+   "advl",
+   "attr",
+   "iv",
+   "n",
+   "nom",
+   "np",
+   "p3",
+   "sg",
+   "subst",
+   "tv",
+   "v",
+   "vaux"
+  ],
+  "coverage": {
+   "reference_words": 0.852,
+   "top_10000": 0.852,
+   "note": "share of reference words to which the analyser gives any analysis"
+  }
+ }
 }

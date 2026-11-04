@@ -252,7 +252,6 @@
    "х",
    "хл",
    "хр",
-   "хь",
    "ц",
    "ч",
    "ш",
@@ -303,7 +302,6 @@
    "вн",
    "вр",
    "врл",
-   "вск",
    "встр",
    "вт",
    "втл",
@@ -312,7 +310,6 @@
    "вщ",
    "г",
    "гб",
-   "гг",
    "гз",
    "гк",
    "гл",
@@ -323,7 +320,6 @@
    "гъв",
    "гъд",
    "гъз",
-   "гък",
    "гъл",
    "гъм",
    "гън",
@@ -339,7 +335,6 @@
    "джл",
    "джм",
    "джн",
-   "дз",
    "дк",
    "дл",
    "дм",
@@ -409,7 +404,6 @@
    "йлл",
    "йльл",
    "йм",
-   "ймд",
    "ймм",
    "ймн",
    "йн",
@@ -437,7 +431,6 @@
    "йтк",
    "йтл",
    "йтм",
-   "йтн",
    "йтс",
    "йтт",
    "йтьл",
@@ -488,7 +481,6 @@
    "ктт",
    "ктч",
    "кф",
-   "кфл",
    "кх",
    "кц",
    "кч",
@@ -554,11 +546,9 @@
    "льтт",
    "льтф",
    "льф",
-   "льц",
    "льч",
    "льш",
    "льщ",
-   "лҗ",
    "лһ",
    "м",
    "мб",
@@ -606,7 +596,6 @@
    "нгр",
    "нгт",
    "нд",
-   "ндж",
    "ндк",
    "ндл",
    "ндн",
@@ -640,7 +629,6 @@
    "нст",
    "нств",
    "нстр",
-   "нстрл",
    "нсф",
    "нсц",
    "нт",
@@ -756,7 +744,6 @@
    "с",
    "сб",
    "св",
-   "сг",
    "ск",
    "скв",
    "скк",
@@ -960,7 +947,6 @@
    "йс",
    "йт",
    "к",
-   "кк",
    "кл",
    "кль",
    "кс",
@@ -968,7 +954,6 @@
    "ктр",
    "къ",
    "л",
-   "лк",
    "лл",
    "лт",
    "ль",
@@ -997,7 +982,6 @@
    "рк",
    "рм",
    "рн",
-   "рп",
    "рс",
    "рт",
    "рф",
@@ -1012,13 +996,11 @@
    "сь",
    "т",
    "тр",
-   "тт",
    "тч",
    "тъ",
    "ть",
    "ф",
    "фт",
-   "фф",
    "х",
    "ц",
    "ч",
@@ -1090,7 +1072,6 @@
    "уа",
    "уе",
    "уи",
-   "уо",
    "уу",
    "ууы",
    "уы",
@@ -1168,5 +1149,166 @@
    }
   },
   "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ },
+ "patches": [
+  {
+   "date": "2026-11-03",
+   "patch": "trusted_inventory",
+   "rule": "cluster inventory from reference words that have a FILMS pronunciation or occur in the Leipzig list; bank items whose clusters lose their licence removed",
+   "trusted_words": 86872,
+   "reference_words": 88218,
+   "bank_removed": 274,
+   "bank_before": 120000,
+   "lost": {
+    "onset": [
+     "хь"
+    ],
+    "medial": [
+     "вск",
+     "гг",
+     "гък",
+     "дз",
+     "ймд",
+     "йтн",
+     "кфл",
+     "льц",
+     "лҗ",
+     "ндж",
+     "нстрл",
+     "сг"
+    ],
+    "coda": [
+     "кк",
+     "лк",
+     "рп",
+     "тт",
+     "фф"
+    ],
+    "vseq": [
+     "уо"
+    ]
+   },
+   "examples_removed": [
+    "пакетадиоэтт",
+    "цифф",
+    "больцетыннар",
+    "инстрлылып",
+    "конкодифф",
+    "уотрыксаннан",
+    "хьюготизләне",
+    "профф",
+    "корполк",
+    "тролейтны",
+    "көлҗив",
+    "алк",
+    "йокк",
+    "дифф",
+    "уортлар",
+    "сюрп",
+    "вакфләнгә",
+    "душатт",
+    "өсгарәчәк",
+    "тидзё",
+    "уотлаларале",
+    "асгазеологы",
+    "кузовскихның",
+    "кузовский",
+    "кайтның",
+    "эконстрлар",
+    "кайтны",
+    "күрсәтеррифф",
+    "хокк",
+    "компегги"
+   ]
+  }
+ ],
+ "morphology": {
+  "analyser": "apertium-tat (Apertium Tatar morphological transducer; HFST build)",
+  "date": "2026-11-03",
+  "reading_source": "suffix_strings",
+  "bank_items": 119726,
+  "real_forms_removed": 7249,
+  "labels": {
+   "affixed": 74108,
+   "bare": 21944,
+   "disharm": 11641,
+   "realstem": 4784
+  },
+  "generated": 19954,
+  "generator": "pseudo-stem (Kneser-Ney letter 4-gram trained on the analysed stems of words with Zipf >= 3, vowel-harmonic, not a real stem) + a real affix chain drawn with its lexicon frequency, inflected by the transducer",
+  "stems": 5086,
+  "affix_chains": 849,
+  "lexicon_analysed": 74772,
+  "labelling": "guesser parses validated by the generator; the most probable reading (stem letter model x suffix transitions) labels the item (ties: shorter stem, fewer tags); n_affixes counts tags other than POS/subcategory/zero-realised tags",
+  "suffix_order": {
+   "method": "each step of the suffix chain (POS -> suffix -> ... -> end) is scored by log10(1 + number of analysed real words containing that step); the steps are averaged and the item is ranked against real words with the same number of suffixes (1, 2, 3, 4+): 50 = as typical as an average real word with that many suffixes; blank for items without suffixes. same_ending = number of analysed real words with exactly this suffix chain. The stem is not scored (letters are covered by the Wordlike score); vowel harmony is not penalised (a separate column and filter).",
+   "reading_choice": "the reading that labels the item is the most probable under a stem letter model x suffix-transition model; others are listed as alternatives",
+   "real_words": {
+    "n": 66968,
+    "mean": 50.0,
+    "median": 50.5
+   },
+   "bank_letter_items": {
+    "n": 78892,
+    "mean": 47.6,
+    "median": 45.0
+   },
+   "bank_morph_generator_items": {
+    "n": 19954,
+    "mean": 39.2,
+    "median": 29.4
+   },
+   "bank_share_single_reading": 0.266,
+   "examples": {
+    "түлектесіміз": {
+     "score": 0,
+     "note": "not in bank or lexicon"
+    },
+    "дәстүрлеуі": {
+     "score": 0,
+     "note": "not in bank or lexicon"
+    },
+    "полицейлюк": {
+     "score": 0,
+     "note": "not in bank or lexicon"
+    },
+    "миллициясын": {
+     "score": 0,
+     "note": "not in bank or lexicon"
+    },
+    "тіре": {
+     "score": 0,
+     "note": "not in bank or lexicon"
+    },
+    "қалалардың": {
+     "score": 0,
+     "note": "not in bank or lexicon"
+    }
+   }
+  },
+  "harmony": {
+   "front": "әеиөү",
+   "back": "аыоу"
+  },
+  "non_affix": [
+   "adj",
+   "advl",
+   "attr",
+   "iv",
+   "n",
+   "nom",
+   "np",
+   "p3",
+   "sg",
+   "subst",
+   "tv",
+   "v",
+   "vaux"
+  ],
+  "coverage": {
+   "reference_words": 0.878,
+   "top_10000": 0.921,
+   "note": "share of reference words to which the analyser gives any analysis"
+  }
  }
 }

@@ -43,6 +43,27 @@ MORPH = {
         harmony={"front": "әөүіе", "back": "аоұы"},
         chain_min_zipf=3.0, stem_len=(2, 8), seed=7),
 }
+# Further Turkic languages (2026-11-03): Apertium analysers compiled with HFST (pipeline/_morph/README.md); no guesser exists for
+# them, so candidate readings come from the real suffix chains of the analysed lexicon (guess=None, see run()), validated by a
+# free-stem generator (stem classes listed in _morph/README.md). Harmony classes are the language's front/back vowel letters;
+# None where vowel harmony is largely lost (Uzbek), which also turns off the "disharmonic ending" label.
+_TURKIC_NONAFFIX = {"n", "adj", "v", "tv", "iv", "vaux", "np", "subst", "attr", "advl", "nom", "p3", "sg"}
+def _turkic(iso, name, harmony):
+    return dict(ana=f"{iso}.automorf.hfstol", guess=None, gen=f"{iso}.guesser.gen.hfstol",
+                analyser=f"apertium-{iso} (Apertium {name} morphological transducer; HFST build)",
+                pos_order=["n", "adj", "v"], clitic="+", non_affix=set(_TURKIC_NONAFFIX), harmony=harmony,
+                chain_min_zipf=3.0, stem_len=(2, 8), seed=7)
+MORPH.update({
+    "turkish-tr": _turkic("tur", "Turkish", {"front": "eiöü", "back": "aıou"}),
+    "kyrgyz-ky": _turkic("kir", "Kyrgyz", {"front": "еэиөү", "back": "аыоу"}),
+    "tatar-tt": _turkic("tat", "Tatar", {"front": "әеиөү", "back": "аыоу"}),
+    "uzbek-uz": _turkic("uzb", "Uzbek", None),
+    "uyghur-ug": _turkic("uig", "Uyghur", {"front": "ەۆۈ", "back": "اوۇ"}),
+    "yakut-sah": _turkic("sah", "Sakha", {"front": "эиөү", "back": "аыоу"}),
+    "tuvan-tyv": _turkic("tyv", "Tuvan", {"front": "эеиөү", "back": "аыоу"}),
+    "karachay_balkar-krc": _turkic("krc", "Karachay-Balkar", {"front": "эеи", "back": "аыоу"}),
+    "bashkir-ba": _turkic("bak", "Bashkir", {"front": "әеиөүэ", "back": "аыоу"}),
+})
 SEP = "<"
 
 
@@ -82,7 +103,10 @@ def n_affixes(tags, cfg):
 
 
 def harmony_of(w, cfg):
-    h = cfg["harmony"]; f = any(c in h["front"] for c in w); b = any(c in h["back"] for c in w)
+    h = cfg["harmony"]
+    if not h:
+        return "none"
+    f = any(c in h["front"] for c in w); b = any(c in h["back"] for c in w)
     return "mixed" if f and b else "front" if f else "back" if b else "none"
 
 
@@ -173,7 +197,7 @@ def run(lang, args):
     cfg = MORPH[lang]
     tools = args.tools
     tdir = os.path.join(args.transducers, lang)
-    ana, guess, gen = (os.path.join(tdir, cfg[k]) for k in ("ana", "guess", "gen"))
+    ana, guess, gen = (os.path.join(tdir, cfg[k]) if cfg[k] else None for k in ("ana", "guess", "gen"))
     outdir = os.path.join(args.out, lang)
     manifest = json.load(open(os.path.join(outdir, "manifest.json"), encoding="utf-8"))
     cls = manifest["letter_classes"]; inv = {k: set(v) for k, v in manifest["inventory"].items()}
@@ -242,7 +266,26 @@ def run(lang, args):
 
     # ---- 3. labels for the rest: guesser parses validated by the generator, every parse scored, the best one labels the item
     rest = [w for w in words if w not in real]
-    G = lookup(guess, rest, tools)
+    # candidate readings: a split of the item into a free stem (>= 2 letters) and a suffix string that ends real words, with each
+    # of the (up to 8 most frequent) tag chains it has there; plus, where the language has one, the guesser's analyses. The
+    # generator check below keeps the readings whose phonology reproduces the item exactly. (The Kazakh guesser alone misses
+    # parses such as сусыл+дар+ы+нан, so it is combined with the suffix strings from 3 Nov 2026.)
+    sfx_tags = collections.defaultdict(collections.Counter)
+    for st, suf, tg, na in lex_morph.values():
+        if suf and na >= 1:
+            sfx_tags[suf][tg.strip("<>")] += 1
+    sfx_top = {s: [t for t, _ in c.most_common(8)] for s, c in sfx_tags.items()}
+    maxs = max((len(s) for s in sfx_top), default=0)
+    G = lookup(guess, rest, tools) if guess else {}
+    n_sfx = 0
+    for w in rest:
+        cands = []
+        for k in range(max(2, len(w) - maxs), len(w)):
+            for t in sfx_top.get(w[k:], ()):
+                cands.append(w[:k] + "<" + t + ">")
+        n_sfx += len(cands)
+        G[w] = list(G.get(w, [])) + cands
+    print(f"  candidate readings: {n_sfx} from {len(sfx_top)} real suffix strings{' + guesser analyses' if guess else ''}  [{time.time()-t0:.0f}s]", flush=True)
     cand_an = sorted({a for w in rest for a in G.get(w, []) if cfg["clitic"] not in a})
     gen_map = {}
     for s in range(0, len(cand_an), 50000):
@@ -275,6 +318,27 @@ def run(lang, args):
     for w, (typ, stem, suf, tags, na) in labels.items():
         if typ == "affixed" and stem in stem_real:
             labels[w] = ("realstem", stem, suf, tags, na)
+    # bare items that end in a common real suffix in a form the stem does not take: the wrong vowel-harmony variant (беруда,
+    # тосуді) or, for suffixes of 3+ letters, the wrong consonant (the generator makes another form from the same stem and tags).
+    # The analyser rejects them, but readers see stem + ending (feedback 3 Nov 2026) -> own type "disharm"; the tags column
+    # says which: "harmony" or "form"
+    if cfg.get("disharm", True):
+        sfx = collections.Counter(suf for st, suf, tg, na in lex_morph.values() if suf and na >= 1)
+        common_sfx = sorted((x for x, n in sfx.items() if n >= 20 and len(x) >= 2), key=len, reverse=True)
+        for w, (typ, stem, suf, tags, na) in list(labels.items()):
+            if typ != "bare":
+                continue
+            for x in common_sfx:
+                if not (w.endswith(x) and len(w) - len(x) >= 2):
+                    continue
+                st = w[:-len(x)]; hs, hx = harmony_of(st, cfg), harmony_of(x, cfg)
+                if hs in ("front", "back") and hx in ("front", "back") and hs != hx:
+                    labels[w] = ("disharm", st, x, "harmony", 0)
+                elif len(x) >= 3:
+                    outs = [o for t in sfx_top.get(x, ())[:3] for o in gen_map.get(st + "<" + t + ">", [])]
+                    if outs and w not in outs:
+                        labels[w] = ("disharm", st, x, "form", 0)
+                break
     c = collections.Counter(v[0] for v in labels.values())
     print(f"  labels: {dict(c)}  [{time.time()-t0:.0f}s]", flush=True)
     fo = lambda o: "" if o is None else f"{o:.0f}"
@@ -388,7 +452,7 @@ def run(lang, args):
     letter_o = grp([w for w in words if w not in real]); gen_o = grp([c[0] for c in cand]); real_o = [o for o, _ in lex_order.values() if o is not None]
     summ = lambda a: {"n": len(a), "mean": round(float(np.mean(a)), 1), "median": round(float(np.median(a)), 1)} if a else {}
     manifest["morphology"] = {
-        "analyser": cfg["analyser"], "date": time.strftime("%Y-%m-%d"),
+        "analyser": cfg["analyser"], "date": time.strftime("%Y-%m-%d"), "reading_source": "guesser" if guess else "suffix_strings",
         "bank_items": len(words), "real_forms_removed": len(real), "labels": dict(c),
         "generated": len(cand), "generator": "pseudo-stem (Kneser-Ney letter 4-gram trained on the analysed stems of words with Zipf >= %.0f, vowel-harmonic, not a real stem) + a real affix chain drawn with its lexicon frequency, inflected by the transducer" % cfg["chain_min_zipf"],
         "stems": len(stem_words), "affix_chains": sum(len(v) for v in by_pos.values()), "lexicon_analysed": len(lex_morph),
@@ -398,6 +462,9 @@ def run(lang, args):
                          "real_words": summ(real_o), "bank_letter_items": summ(letter_o), "bank_morph_generator_items": summ(gen_o),
                          "bank_share_single_reading": round(float(np.mean([len(parses_of.get(w, [])) == 1 for w in words if w not in real])), 3),
                          "examples": chk},
+        "coverage": {"reference_words": round(sum(1 for w in lex_words if LA.get(w)) / len(lex_words), 3),
+                     "top_10000": round(sum(1 for w in lex_words[:10000] if LA.get(w)) / min(10000, len(lex_words)), 3),
+                     "note": "share of reference words to which the analyser gives any analysis"},
         "harmony": cfg["harmony"], "non_affix": sorted(cfg["non_affix"]),
     }
     json.dump(manifest, open(os.path.join(outdir, "manifest.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)

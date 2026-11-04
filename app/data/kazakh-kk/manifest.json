@@ -210,7 +210,6 @@
    "кс",
    "л",
    "м",
-   "мрпс",
    "н",
    "п",
    "пл",
@@ -309,7 +308,6 @@
    "джд",
    "джл",
    "джм",
-   "дз",
    "дк",
    "дм",
    "дн",
@@ -356,7 +354,6 @@
    "йв",
    "йг",
    "йд",
-   "йдз",
    "йдт",
    "йж",
    "йз",
@@ -365,7 +362,6 @@
    "йлд",
    "йм",
    "ймд",
-   "ймл",
    "йн",
    "йнд",
    "йнн",
@@ -412,7 +408,6 @@
    "кст",
    "кстр",
    "ксш",
-   "ксқ",
    "кт",
    "ктр",
    "ктрл",
@@ -428,7 +423,6 @@
    "лк",
    "лл",
    "ллд",
-   "лльд",
    "лм",
    "лн",
    "лп",
@@ -452,7 +446,6 @@
    "льд",
    "льдш",
    "льз",
-   "льк",
    "лькл",
    "льм",
    "льмд",
@@ -512,7 +505,6 @@
    "нд",
    "ндб",
    "ндж",
-   "ндз",
    "ндр",
    "ндт",
    "нж",
@@ -664,7 +656,6 @@
    "сц",
    "сш",
    "сшт",
-   "сь",
    "сьт",
    "сқ",
    "т",
@@ -686,7 +677,6 @@
    "тст",
    "тт",
    "ттр",
-   "ттсф",
    "ттт",
    "тф",
    "тх",
@@ -761,7 +751,6 @@
    "ңж",
    "ңз",
    "ңк",
-   "ңкт",
    "ңл",
    "ңм",
    "ңн",
@@ -775,7 +764,6 @@
   "coda": [
    "",
    "б",
-   "бл",
    "в",
    "вр",
    "вт",
@@ -789,10 +777,8 @@
    "й",
    "йд",
    "йк",
-   "йл",
    "йм",
    "йн",
-   "йс",
    "йт",
    "йх",
    "к",
@@ -801,7 +787,6 @@
    "кт",
    "кшн",
    "л",
-   "лд",
    "лк",
    "лл",
    "лп",
@@ -811,24 +796,19 @@
    "льт",
    "лқ",
    "м",
-   "мб",
    "мм",
    "мп",
    "н",
-   "нб",
    "нг",
    "нд",
    "нк",
    "нкт",
-   "нн",
    "нс",
    "нт",
    "нь",
    "п",
    "пс",
-   "пт",
    "р",
-   "рв",
    "рг",
    "рд",
    "рк",
@@ -840,8 +820,6 @@
    "рь",
    "рқ",
    "с",
-   "сб",
-   "ск",
    "сс",
    "ст",
    "стр",
@@ -849,16 +827,12 @@
    "сь",
    "т",
    "тр",
-   "тт",
    "тч",
    "ть",
    "ф",
-   "фб",
    "х",
    "ц",
-   "ч",
    "ш",
-   "щ",
    "қ",
    "ң",
    "ңқ",
@@ -946,7 +920,6 @@
    "юа",
    "я",
    "ё",
-   "ёе",
    "і",
    "іұ",
    "ү",
@@ -976,15 +949,17 @@
  ],
  "morphology": {
   "analyser": "apertium-kaz (Apertium Kazakh morphological transducer; HFST build)",
-  "date": "2026-11-02",
-  "bank_items": 120000,
-  "real_forms_removed": 7999,
+  "date": "2026-11-03",
+  "reading_source": "guesser",
+  "bank_items": 119662,
+  "real_forms_removed": 7998,
   "labels": {
-   "affixed": 55796,
-   "bare": 52026,
-   "realstem": 4179
+   "affixed": 67474,
+   "bare": 27144,
+   "disharm": 11863,
+   "realstem": 5183
   },
-  "generated": 20000,
+  "generated": 19943,
   "generator": "pseudo-stem (Kneser-Ney letter 4-gram trained on the analysed stems of words with Zipf >= 3, vowel-harmonic, not a real stem) + a real affix chain drawn with its lexicon frequency, inflected by the transducer",
   "stems": 5833,
   "affix_chains": 1143,
@@ -999,22 +974,22 @@
     "median": 49.5
    },
    "bank_letter_items": {
-    "n": 59975,
-    "mean": 51.8,
-    "median": 49.3
+    "n": 72657,
+    "mean": 53.8,
+    "median": 51.0
    },
    "bank_morph_generator_items": {
-    "n": 20000,
-    "mean": 45.2,
+    "n": 19943,
+    "mean": 44.6,
     "median": 39.9
    },
-   "bank_share_single_reading": 0.364,
+   "bank_share_single_reading": 0.221,
    "examples": {
     "түлектесіміз": {
      "suffix_order": 22,
      "same_ending": 477,
      "reading": "түлектес+іміз <n><px1pl><nom>",
-     "n_readings": 2
+     "n_readings": 3
     },
     "дәстүрлеуі": {
      "suffix_order": 79,
@@ -1029,10 +1004,10 @@
      "n_readings": 1
     },
     "миллициясын": {
-     "suffix_order": 23,
-     "same_ending": 36,
-     "reading": "миллиция+сын <v><tv><opt><p3><pl>",
-     "n_readings": 2
+     "suffix_order": 97,
+     "same_ending": 2166,
+     "reading": "миллиция+сын <n><px3sp><acc>",
+     "n_readings": 3
     },
     "тіре": {
      "score": 0,
@@ -1063,7 +1038,12 @@
    "tv",
    "v",
    "vaux"
-  ]
+  ],
+  "coverage": {
+   "reference_words": 0.836,
+   "top_10000": 0.863,
+   "note": "share of reference words to which the analyser gives any analysis"
+  }
  },
  "realword_filter": {
   "date": "2026-10-29",
@@ -1088,5 +1068,85 @@
    }
   },
   "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
- }
+ },
+ "patches": [
+  {
+   "date": "2026-11-03",
+   "patch": "trusted_inventory",
+   "rule": "cluster inventory from reference words that have a FILMS pronunciation or occur in the Leipzig list; bank items whose clusters lose their licence removed",
+   "trusted_words": 104031,
+   "reference_words": 106571,
+   "bank_removed": 338,
+   "bank_before": 120000,
+   "lost": {
+    "onset": [
+     "мрпс"
+    ],
+    "medial": [
+     "дз",
+     "йдз",
+     "ймл",
+     "ксқ",
+     "лльд",
+     "льк",
+     "ндз",
+     "сь",
+     "ттсф",
+     "ңкт"
+    ],
+    "coda": [
+     "бл",
+     "йл",
+     "йс",
+     "лд",
+     "мб",
+     "нб",
+     "нн",
+     "пт",
+     "рв",
+     "сб",
+     "ск",
+     "тт",
+     "фб",
+     "ч",
+     "щ"
+    ],
+    "vseq": [
+     "ёе"
+    ]
+   },
+   "examples_removed": [
+    "ілтексқан",
+    "әрігәрв",
+    "шығармедейс",
+    "буряфб",
+    "эмб",
+    "үмб",
+    "криншотт",
+    "ёежеде",
+    "дәмб",
+    "талич",
+    "баянатт",
+    "контациямб",
+    "хякудзауға",
+    "биотт",
+    "белермеленб",
+    "бущ",
+    "себеревнясб",
+    "экстридзуы",
+    "олихатт",
+    "либл",
+    "епискудзәт",
+    "сыйл",
+    "миссейс",
+    "айқұсб",
+    "зинн",
+    "мрпсе",
+    "типт",
+    "сайл",
+    "атт",
+    "жолд"
+   ]
+  }
+ ]
 }

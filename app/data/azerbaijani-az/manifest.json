@@ -275,7 +275,6 @@
    "fl",
    "fr",
    "g",
-   "gr",
    "h",
    "j",
    "k",
@@ -315,7 +314,6 @@
    "sv",
    "sx",
    "t",
-   "th",
    "tr",
    "v",
    "x",
@@ -460,7 +458,6 @@
    "j",
    "jd",
    "jl",
-   "jn",
    "k",
    "kb",
    "kc",
@@ -985,7 +982,6 @@
    "ğs",
    "ğt",
    "ğv",
-   "ğy",
    "ğz",
    "ğç",
    "ş",
@@ -1056,7 +1052,6 @@
    "lm",
    "lp",
    "lq",
-   "ls",
    "lt",
    "m",
    "mp",
@@ -1232,5 +1227,62 @@
    }
   },
   "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
- }
+ },
+ "patches": [
+  {
+   "date": "2026-11-03",
+   "patch": "trusted_inventory",
+   "rule": "cluster inventory from reference words that have a FILMS pronunciation or occur in the Leipzig list; bank items whose clusters lose their licence removed",
+   "trusted_words": 124391,
+   "reference_words": 124876,
+   "bank_removed": 39,
+   "bank_before": 120000,
+   "lost": {
+    "onset": [
+     "gr",
+     "th"
+    ],
+    "medial": [
+     "jn",
+     "ğy"
+    ],
+    "coda": [
+     "ls"
+    ],
+    "vseq": []
+   },
+   "examples_removed": [
+    "gruduq",
+    "şels",
+    "groavtomanı",
+    "grultim",
+    "kədarels",
+    "baxıls",
+    "thimiləşma",
+    "nəls",
+    "thali",
+    "vəls",
+    "axtirlarıls",
+    "şüals",
+    "gruylaş",
+    "apməls",
+    "müğyarlaşma",
+    "theç",
+    "həramüğyub",
+    "müğyun",
+    "thazı",
+    "thoticə",
+    "grur",
+    "thotan",
+    "ols",
+    "olduğyunda",
+    "thektəçir",
+    "thiş",
+    "theçiraraş",
+    "grordək",
+    "kols",
+    "evijnını"
+   ]
+  }
+ ]
 }

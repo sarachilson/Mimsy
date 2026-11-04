@@ -615,7 +615,9 @@ def step_prepare(lang, cfg, args, outdir, work):
     invc = {"onset": {}, "medial": {}, "coda": {}, "vseq": {}}
     def bump(k, s):
         invc[k][s] = invc[k].get(s, 0) + 1
-    for w, _ in ref:
+    for w, v in ref:
+        if cfg.get("trusted_inventory") and v[3] == "films" and not v[2]:
+            continue  # subtitle-only word without a pronunciation: not trusted to license clusters (junk such as фпхт, гэснб in small subtitle lists)
         chars, al = shape(w, cls)
         if "V" not in al and not cfg.get("allow_no_vowel"):
             continue  # abbreviations, interjections
