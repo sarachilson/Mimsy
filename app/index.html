@@ -124,6 +124,15 @@ tr.xlhit td{background:var(--bg-warn)}
 .sumtab caption{caption-side:top;text-align:left;padding:8px 10px 0;font-size:13px;color:var(--muted)}
 .caution.xhide{display:none!important}
 body.noprov .prov{display:none!important}
+/* Loading screen while a language's files download and are prepared: the previous language's content is hidden at once. */
+#app.loading > :not(#langLoading){display:none!important}
+.langloading{padding:80px 16px;text-align:center;color:var(--muted)}
+.langloading h2{color:var(--ink);margin:16px 0 6px;font-size:20px}
+.langloading p{margin:0;font-size:14px}
+.langloading .err{color:var(--bad)}
+.spin{width:36px;height:36px;margin:0 auto;border-radius:50%;border:3px solid var(--line2);border-top-color:var(--accent);animation:spin .9s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.spin{animation-duration:3s}}
 </style>
 </head>
 <body>
@@ -158,6 +167,7 @@ body.noprov .prov{display:none!important}
 </div>
 
 <main id="app" hidden>
+<div id="langLoading" class="langloading" hidden role="status" aria-live="polite"><div class="spin" aria-hidden="true"></div><h2 id="langLoadingName"></h2><p id="langLoadingStage"></p></div>
 <div id="caution" class="caution" hidden></div>
 
 <!-- SEARCH -->
@@ -578,6 +588,10 @@ async function getBytes(path) {
   if (!f) throw new Error(`Missing file in the selected folder: ${path}`);
   return new Uint8Array(await f.arrayBuffer());
 }
+// pref(path) starts a download early; take(path) returns it (or starts it now) and forgets it, so that nothing is held twice.
+const PREF = new Map();
+function pref(path) { if (!PREF.has(path)) { const q = getText(path); q.catch(() => {}); PREF.set(path, q); } }
+function take(path) { const p = PREF.get(path); PREF.delete(path); return p || getText(path); }
 async function getText(path) {
   const b = await getBytes(path);
   if (b[0] === 0x1f && b[1] === 0x8b) {
@@ -662,12 +676,25 @@ async function selectLang(code) {
   if (S.L[code] && S.L[code].triModeUsed !== S.triMode) rescoreBank(S.L[code]);
   $("#lang").value = code; $$(".langSel").forEach(x => x.value = code);
   try { localStorage.setItem("pw.lang", code); } catch (e) {}
+  const fresh = !S.L[code];
+  if (fresh) {   // switch away from the previous language at once
+    const nm = (S.index.languages.find(l => l.code === code) || {}).name || code;
+    $("#langLoadingName").textContent = `Loading ${nm}…`;
+    loadStage(code, "Downloading the word lists. Languages with large corpora can take a few seconds.");
+    $("#app").classList.add("loading"); $("#langLoading").hidden = false;
+  }
   $("#langStatus").textContent = "Loading…";
   try {
     await loadLang(code);
-    $("#langStatus").textContent = "";
-  } catch (e) { $("#langStatus").textContent = e.message; return; }
+    if (S.code === code) $("#langStatus").textContent = "";
+  } catch (e) {
+    if (S.code !== code) return;
+    $("#langStatus").textContent = e.message;
+    if (fresh) { $(".spin", $("#langLoading")).hidden = true; $("#langLoadingStage").innerHTML = `<span class="err">${esc(e.message)}</span><br>Please try again, or choose another language.`; }
+    return;
+  }
   if (S.code !== code) return;
+  $(".spin", $("#langLoading")).hidden = false;
   S.recent = [code].concat((S.recent || []).filter(c => c !== code)).slice(0, 2);
   for (const c in S.L) if (!S.recent.includes(c)) delete S.L[c];   // keep memory bounded: two languages at a time
   const m = S.L[code].manifest, cb = $("#caution");
@@ -699,14 +726,23 @@ async function selectLang(code) {
     if (add.length) { S.xl.codes = S.xl.codes.concat(add); try { sessionStorage.setItem("pw.xl", JSON.stringify(S.xl)); } catch (e) {} }
   }
   await xlSync(); if (S.code !== code) return;
+  $("#app").classList.remove("loading"); $("#langLoading").hidden = true;
   runSearch();
 }
+function loadStage(code, txt) { if (S.code === code) $("#langLoadingStage").textContent = txt; }
 
 async function loadLang(code) {
   if (S.L[code]) return S.L[code];
-  const [mtxt, ltxt, btxt] = await Promise.all([getText(code + "/manifest.json"), getText(code + "/lexicon.tsv.gz"), getText(code + "/bank.tsv.gz")]);
-  const L = { code, manifest: JSON.parse(mtxt), models: null, rare: null, custom: {} };
-  if (L.manifest.cv_guess) { try { L.cvg = JSON.parse(await getText(code + "/cvguess.json.gz")); } catch (e) { L.cvg = null; } }
+  // Every file the language needs is requested at once (the manifest says which), rather than one after another.
+  const lexP = getText(code + "/lexicon.tsv.gz"), bankP = getText(code + "/bank.tsv.gz"), gP = loadGraphemes();
+  const man = JSON.parse(await getText(code + "/manifest.json"));
+  if (man.morphology) for (const f of ["morph.tsv.gz", "bank_morph.tsv.gz", "lex_morph.tsv.gz"]) pref(code + "/" + f);
+  if (man.realword_filter) pref(code + "/realwords.tsv.gz");
+  if (man.cv_guess) pref(code + "/cvguess.json.gz");
+  const [ltxt, btxt] = await Promise.all([lexP, bankP, gP]);
+  loadStage(code, "Preparing the word lists…"); await new Promise(r => setTimeout(r, 0));   // let the loading screen repaint
+  const L = { code, manifest: man, models: null, rare: null, custom: {} };
+  if (L.manifest.cv_guess) { try { L.cvg = JSON.parse(await take(code + "/cvguess.json.gz")); } catch (e) { L.cvg = null; } }
   L.cls = L.manifest.letter_classes;
   L.indic = isIndic(L.cls);
   L.syl = isSyl(L.cls);
@@ -735,7 +771,7 @@ async function loadRealwords(L, code) {
   L.realwords = null; L.realRemoved = 0;
   if (!L.manifest.realword_filter) return;
   try {
-    const M = new Map(), lines = (await getText(code + "/realwords.tsv.gz")).split("\n");
+    const M = new Map(), lines = (await take(code + "/realwords.tsv.gz")).split("\n");
     for (let i = 1; i < lines.length; i++) { const p = lines[i].split("\t"); if (p.length >= 2 && p[0]) M.set(p[0], p[1]); }
     L.realwords = M;
     const before = L.bank.length;
@@ -750,20 +786,35 @@ async function loadMorph(L, code) {
   L.morph = null; L.lexMorph = null; L.morphRemoved = 0; L.morphGen = 0;
   if (!L.manifest.morphology) return;
   try {
-    const [mt, bt, lt] = await Promise.all([getText(code + "/morph.tsv.gz"), getText(code + "/bank_morph.tsv.gz").catch(() => ""), getText(code + "/lex_morph.tsv.gz").catch(() => "")]);
-    const M = new Map(), lines = mt.split("\n");
-    for (let i = 1; i < lines.length; i++) { const p = lines[i].split("\t"); if (p.length < 8) continue;
-      const m = { t: p[1], stem: p[2], suf: p[3], tags: p[4], na: p[5] === "" ? NaN : +p[5], sr: p[6] === "1", h: p[7] };
-      if (p.length >= 13) { m.pl = p[8] === "" ? NaN : +p[8]; m.att = p[8] === "" ? NaN : +p[9]; m.np = +p[10]; m.mg = +p[11];   // pl = suffix order %, att = same-ending count (blank without suffixes)
-        m.alts = p[12] ? p[12].split(";").map(x => { const q = x.split("|"); return { stem: q[0], suf: q[1], tags: q[2], sc: q[3] === "" ? NaN : +q[3], att: q[3] === "" ? NaN : +q[4] }; }) : []; }
-      M.set(p[0], m); }
+    const [mt, bt, lt] = await Promise.all([take(code + "/morph.tsv.gz"), take(code + "/bank_morph.tsv.gz").catch(() => ""), take(code + "/lex_morph.tsv.gz").catch(() => "")]);
+    // Lines are kept as text and parsed on first use (most items are never looked at); only the type is read up front,
+    // to remove the real forms.
+    const M = new LazyMorph(), lines = mt.split("\n"), real = new Set();
+    for (let i = 1; i < lines.length; i++) { const s = lines[i], a = s.indexOf("\t"); if (a < 1) continue;
+      const w = s.slice(0, a); M.raw.set(w, s);
+      if (s.startsWith("real\t", a + 1)) real.add(w); }
     L.morph = M;
     const before = L.bank.length;
-    L.bank = L.bank.filter(r => { const m = M.get(r.w); return !(m && m.t === "real"); });
+    L.bank = L.bank.filter(r => !real.has(r.w));
     L.morphRemoved = before - L.bank.length;
     if (bt) { const extra = bindRows(L, parseBank(bt)); L.bank = L.bank.concat(extra); L.morphGen = extra.length; }
     if (lt) { const LM = new Map(), ll = lt.split("\n"); for (let i = 1; i < ll.length; i++) { const p = ll[i].split("\t"); if (p.length < 5) continue; LM.set(p[0], { t: "word", stem: p[1], suf: p[2], tags: p[3], na: +p[4], pl: p.length > 5 && p[5] !== "" ? +p[5] : NaN, att: p.length > 6 && p[5] !== "" ? +p[6] : NaN, np: 1, mg: 99, alts: [] }); } L.lexMorph = LM; }
   } catch (e) { L.morph = null; }
+}
+class LazyMorph {
+  constructor() { this.raw = new Map(); this.done = new Map(); }
+  get(w) {
+    let m = this.done.get(w); if (m !== undefined) return m;
+    const s = this.raw.get(w); if (s === undefined) return undefined;
+    const p = s.split("\t"); m = null;
+    if (p.length >= 8) {
+      m = { t: p[1], stem: p[2], suf: p[3], tags: p[4], na: p[5] === "" ? NaN : +p[5], sr: p[6] === "1", h: p[7] };
+      if (p.length >= 13) { m.pl = p[8] === "" ? NaN : +p[8]; m.att = p[8] === "" ? NaN : +p[9]; m.np = +p[10]; m.mg = +p[11];   // pl = suffix order %, att = same-ending count (blank without suffixes)
+        m.alts = p[12] ? p[12].split(";").map(x => { const q = x.split("|"); return { stem: q[0], suf: q[1], tags: q[2], sc: q[3] === "" ? NaN : +q[3], att: q[3] === "" ? NaN : +q[4] }; }) : []; }
+    }
+    this.done.set(w, m); return m || undefined;
+  }
+  has(w) { return this.raw.has(w); }
 }
 const morphBase = (L, w) => L && L.morph ? (L.morph.get(w) || (L.lexMorph && L.lexMorph.get(w)) || null) : null;
 // A reading other than the best one can be chosen per item (click "+n more parses"); it then labels the item in every column and filter.
@@ -1686,7 +1737,8 @@ function runSearch() {
   const embKeep = embFilter("s");
   const genSel = $("#sGen").value;
   const mSel = L.morph ? $("#sMorph").value : "", affMin = L.morph ? num("#sAffMin") : null, affMax = L.morph ? num("#sAffMax") : null, harmOnly = L.morph && $("#sHarm").checked, plMin = L.morph ? num("#sPlausMin") : null, unamb = L.morph && $("#sUnamb").checked;
-  const morphOk = r => { if (!L.morph) return true; const m = r.mo;
+  const morphOn = L.morph && (mSel || affMin !== null || affMax !== null || harmOnly || plMin !== null || unamb);   // no morphology filter set: skip the (lazily parsed) readings
+  const morphOk = r => { if (!morphOn) return true; const m = r.mo;
     if (mSel === "gen") { if (r.model !== "morph") return false; } else if (mSel && (!m || m.t !== mSel)) return false;
     if (affMin !== null && !(m && m.na >= affMin)) return false; if (affMax !== null && !(!m || isNaN(m.na) || m.na <= affMax)) return false;
     if (harmOnly && m && m.h === "mixed") return false;
