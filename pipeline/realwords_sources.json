@@ -914,16 +914,11 @@
   }
  },
  "kazakh-kk": {
-  "hunspell_skipped": {
-   "dictionary": "elastic/kk/kk",
-   "coverage_of_reference_words": 0.424,
-   "reason": "accepts fewer than 50% of the language's reference words"
-  },
   "unimorph": {
    "repository": "https://github.com/unimorph/kaz",
    "licence": "CC BY-SA 3.0",
    "forms": 35239,
-   "bank_items_accepted": 305
+   "bank_items_accepted": 45
   }
  },
  "kurdish-ku": {

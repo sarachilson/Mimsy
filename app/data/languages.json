@@ -1295,9 +1295,9 @@
   {
    "code": "kazakh-kk",
    "name": "Kazakh",
-   "reference_words": 106571,
-   "small_corpus": true,
-   "corpus_tokens": 430094,
+   "reference_words": 257464,
+   "small_corpus": false,
+   "corpus_tokens": 220189736,
    "experimental": false,
    "cv_approximate": false,
    "family": "Turkic",

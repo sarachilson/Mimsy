@@ -40,7 +40,7 @@ MORPH = {
         pos_order=["n", "adj", "v"], clitic="+",
         # tags that are not affixes (POS, subcategory, zero-realised nominative/3rd person)
         non_affix={"n", "adj", "v", "tv", "iv", "vaux", "np", "subst", "attr", "advl", "nom", "p3", "sg"},
-        harmony={"front": "әөүіе", "back": "аоұы"},
+        harmony={"front": "әөүіе", "back": "аоұы"}, stem_loan_letters="вфцчщъьёэ",
         chain_min_zipf=3.0, stem_len=(2, 8), seed=7),
 }
 # Further Turkic languages (2026-11-03): Apertium analysers compiled with HFST (pipeline/_morph/README.md); no guesser exists for
@@ -258,6 +258,10 @@ def run(lang, args):
     stem_words = [s for (s, p) in stems]
     lo, hi = cfg["stem_len"]
     stem_words = [s for s in stem_words if lo <= len(s) <= hi and all(ch in manifest["alphabet"] for ch in s)]
+    tf = (manifest.get("training") or {})
+    if tf and cfg.get("stem_loan_letters"):   # same Russian-loan rule as the letter model's training words (Kazakh, 12 Nov 2026)
+        ll = set(cfg["stem_loan_letters"])
+        stem_words = [s for s in stem_words if not (set(s) & ll) and not (len(s) > 1 and bb.cv_of(s[:2], cls) == "CC")]
     km = bb.KN(stem_words, manifest["alphabet"])
     lex_tags = [(st, tg.strip("<>").split("><"), len(w)) for w, (st, suf, tg, na) in lex_morph.items() if st and tg]
     PL = Plausibility(lex_tags, km, cfg); PL.setup_order(lex_tags)

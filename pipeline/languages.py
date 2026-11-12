@@ -2,6 +2,7 @@
 vowel letters, how to treat <y>, and 'modifier' letters that carry no segment of their own
 (Cyrillic soft/hard signs). CV classification is letter based (beta)."""
 
+import os
 import indic
 
 LATIN = "abcdefghijklmnopqrstuvwxyz"
@@ -85,7 +86,10 @@ LANGS = {
     "esperanto-eo":  dict(leipzig="epo_newscrawl_2017_1M", name="Esperanto", alphabets=[latin("ĉĝĥĵŝŭ", "qwxy")], y="V"),
     "igbo-ig":       dict(leipzig="ibo_wikipedia_2021_10K", name="Igbo", alphabets=[latin("ịọụṅ")], vowels="ịọụ", y="C"),
     "irish-ga":      dict(leipzig="gle_newscrawl_2014_300K", name="Irish", alphabets=[latin("áéíóú")], y="V"),
-    "kazakh-kk":     dict(leipzig="kaz_newscrawl_2016_1M", name="Kazakh", alphabets=["аәбвгғдеёжзийкқлмнңоөпрстуұүфхһцчшщъыіьэюя"], vowels="аәеёиоөуұүыіэюя", mods="ъь", trusted_inventory=True),
+    "kazakh-kk":     dict(leipzig="kaz_newscrawl_2016_1M", leipzig_extra=["kaz_mkd_books_news"], zipf_source="leipzig", no_bands=True, films_only_need_ipa=True,
+                     train_filter=dict(analysed=os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "_work", "kazakh-kk", "analysed.txt"), own_letters="әғқңөұүһі", foreign=["russian-ru"],
+                                       stems=os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "_work", "kazakh-kk", "stems.tsv"), loan_letters="вфцчщъьёэ", no_initial_cluster=True),
+                     name="Kazakh", alphabets=["аәбвгғдеёжзийкқлмнңоөпрстуұүфхһцчшщъыіьэюя"], vowels="аәеёиоөуұүыіэюя", mods="ъь", trusted_inventory=True),
     "luxembourgish-lb": dict(leipzig="ltz_newscrawl_2016_300K", name="Luxembourgish", alphabets=[latin("äëéèöüâêîôû")], y="V"),
     "mongolian-mn":  dict(leipzig="mon_news_2020_100K", name="Mongolian", alphabets=["абвгдеёжзийклмноөпрстуүфхцчшщъыьэюя"], vowels="аеёиоөуүыэюя", mods="ъь"),
     "northern_sami-se": dict(leipzig="sme_wikipedia_2021_10K", name="Northern Sami", alphabets=[latin("áčđŋšŧž")], y="V"),

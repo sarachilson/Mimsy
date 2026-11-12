@@ -10,7 +10,7 @@ Reads one slim word list per language (word, freq, zipf, ipa) and writes, per la
 The work is split into resumable steps so it can run in short sessions:
   python3 build_bank.py --lang english-en --budget 160
 """
-import argparse, ctypes, gzip, json, math, os, random, sys, time, unicodedata
+import argparse, collections, ctypes, gzip, json, math, os, random, sys, time, unicodedata
 import numpy as np
 from languages import LANGS, BASE_V, FAMILY
 import indic
@@ -237,10 +237,10 @@ def load_leipzig(name, cfg, leipzig_dir):
     Returns ({lowercased word: (count, zipf)}, total tokens, stats). Words are lowercased; in cased scripts a word is
     kept only if it occurs in lowercase at least LEIPZIG_MIN_LOWER times (forms seen only capitalised are names,
     acronyms or sentence-initial fragments), and its count then includes the capitalised occurrences."""
-    path = os.path.join(leipzig_dir, name + "-words.txt")
     raw = {}
     total = 0
-    with open(path, encoding="utf-8", errors="replace") as f:
+    for nm in (name if isinstance(name, (list, tuple)) else [name]):
+      with open(os.path.join(leipzig_dir, nm + "-words.txt"), encoding="utf-8", errors="replace") as f:
         for line in f:
             p = line.rstrip("\n").split("\t")
             if len(p) < 3:
@@ -316,13 +316,17 @@ def load_words(lang, cfg, slim_dir, leipzig_dir=None):
     leipzig_info = None
     if cfg.get("leipzig"):
         name = cfg["leipzig"]
-        lz, lz_names, lz_tokens, lz_stats = load_leipzig(name, cfg, leipzig_dir or os.path.join(HERE, "..", "_leipzig"))
+        names = [name] + list(cfg.get("leipzig_extra", []))   # further word lists in the Leipzig format, counted together (Kazakh: MKD books + news)
+        lz, lz_names, lz_tokens, lz_stats = load_leipzig(names, cfg, leipzig_dir or os.path.join(HERE, "..", "_leipzig"))
         minc = leipzig_min_count(name)
         added = 0
         for w, (c, z) in lz.items():
             if w in rows:
                 fr, z0, ipa, _ = rows[w]
-                rows[w] = (max(fr, c), z0, ipa, "both")       # FILMS Zipf kept; count = the larger of the two
+                if cfg.get("zipf_source") == "leipzig":         # the text corpus is far larger than the subtitle list: its Zipf is the better estimate
+                    rows[w] = (c, z, ipa, "both")
+                else:
+                    rows[w] = (max(fr, c), z0, ipa, "both")       # FILMS Zipf kept; count = the larger of the two
             else:
                 rows[w] = (c, z, "", "leipzig")                 # below minc it stays a corpus form (reject list) without becoming a reference word
                 if c >= minc:
@@ -330,9 +334,9 @@ def load_words(lang, cfg, slim_dir, leipzig_dir=None):
         for w, (c, z) in lz_names.items():                      # capitalised-only forms: never reference words, but still rejected as pseudowords
             if w not in rows:
                 rows[w] = (c, z, "", "leipzig_name")
-        if corpus_tokens is None:
+        if corpus_tokens is None or cfg.get("zipf_source") == "leipzig":
             corpus_tokens = lz_tokens
-        leipzig_info = {"corpus": name, "tokens": lz_tokens, "min_count": minc, "reference_candidates_added": added, **lz_stats}
+        leipzig_info = {"corpus": name, "extra": cfg.get("leipzig_extra") or None, "tokens": lz_tokens, "min_count": minc, "reference_candidates_added": added, **lz_stats}
     # choose alphabet with most token mass
     best = None
     for alpha in ([syl.alphabet(cfg)] if cfg.get("script") == "syllables" else cfg["alphabets"]):
@@ -594,7 +598,7 @@ def step_prepare(lang, cfg, args, outdir, work):
             return False
         if z < REF_MIN_ZIPF or fr < REF_MIN_COUNT:
             return False
-        if cfg.get("ipa_only") and not ipa and src != "both":   # FILMS-only forms without a pronunciation are mostly corrupted
+        if (cfg.get("ipa_only") or cfg.get("films_only_need_ipa")) and not ipa and src != "both":   # FILMS-only forms without a pronunciation are mostly corrupted (Kazakh: junk, names; the text corpus is 500 x larger)
             return False
         if cfg.get("rules", {}).get("thai") and not thai_ok(w, cls):   # Thai: segmentation fragments (a lone pre-posed vowel, a stray mark) are not reference words
             return False
@@ -611,11 +615,53 @@ def step_prepare(lang, cfg, args, outdir, work):
             if lo <= z < hi:
                 return b
         return 0
-    # legality inventories from the whole reference lexicon
+    # training words: by default the whole reference lexicon; with train_filter, Russian words and names are kept out (Kazakh, 12 Nov 2026)
+    train = None; train_info = None
+    tf = cfg.get("train_filter")
+    if tf:
+        analysed = set(open(tf["analysed"], encoding="utf-8").read().split()) if tf.get("analysed") and os.path.exists(tf["analysed"]) else set()
+        own = set(tf.get("own_letters", ""))
+        foreign = {}
+        for fc in tf.get("foreign", []):   # reference words of another language (Russian): out unless the language's own analyser recognises them
+            with gzip.open(os.path.join(args.out, fc, "lexicon.tsv.gz"), "rt", encoding="utf-8") as fl:
+                next(fl)
+                for l in fl:
+                    p_ = l.split("\t"); foreign[p_[0]] = max(foreign.get(p_[0], 0.0), float(p_[1]))
+        stems = {}
+        if tf.get("stems") and os.path.exists(tf["stems"]):
+            for l in open(tf["stems"], encoding="utf-8"):
+                p_ = l.rstrip("\n").split("\t")
+                if len(p_) == 2: stems[p_[0]] = p_[1]
+        loan = set(tf.get("loan_letters", ""))
+        why = collections.Counter(); train = set()
+        for w, v in ref:
+            if v[3] == "films" and not v[2]:
+                why["subtitle-only, no pronunciation"] += 1; continue
+            if w in foreign and w not in analysed:
+                why["word of " + "/".join(tf.get("foreign", [])) + " not recognised by the analyser"] += 1; continue
+            if own and not (set(w) & own) and w not in analysed:
+                why["no letter specific to the language and not recognised by the analyser"] += 1; continue
+            if loan and set(w) & loan:
+                why["letters found almost only in Russian loans (" + "".join(sorted(loan)) + ")"] += 1; continue
+            st_ = stems.get(w)
+            if st_ and len(st_) >= 5 and foreign.get(st_, 0) >= 3 and not (set(st_) & own):   # президент-, республика-, материал-: common Russian words of 5+ letters as stems
+                why["stem is a common Russian word (президент-type loans)"] += 1; continue
+            if tf.get("no_initial_cluster"):
+                chars, al = shape(w, cls)
+                if len(chars) > 1 and al[0] == "C" and al[1] == "C":
+                    why["word-initial consonant cluster (loans)"] += 1; continue
+            train.add(w)
+        train_info = {"train_words": len(train), "reference_words": len(ref), "excluded": dict(why),
+                      "rule": "names: forms seen only capitalised are not reference words; Russian: words of the Russian reference lexicon are excluded unless the Kazakh analyser recognises them, words without a Kazakh-specific letter must be recognised by the analyser, and words with letters found almost only in Russian loans, with a Russian stem or with a word-initial consonant cluster are excluded; subtitle-only words need a pronunciation"}
+        with open(os.path.join(work, "train.txt"), "w", encoding="utf-8") as f:
+            f.write("\n".join(sorted(train)))
+    # legality inventories from the whole reference lexicon (or the training words)
     invc = {"onset": {}, "medial": {}, "coda": {}, "vseq": {}}
     def bump(k, s):
         invc[k][s] = invc[k].get(s, 0) + 1
     for w, v in ref:
+        if train is not None and w not in train:
+            continue
         if cfg.get("trusted_inventory") and v[3] == "films" and not v[2]:
             continue  # subtitle-only word without a pronunciation: not trusted to license clusters (junk such as фпхт, гэснб in small subtitle lists)
         chars, al = shape(w, cls)
@@ -653,7 +699,7 @@ def step_prepare(lang, cfg, args, outdir, work):
         "alphabet": alphabet, "classes": cls, "corpus_tokens": corpus_tokens, "small_corpus": small, "bands_enabled": bands_enabled,
         "leipzig": lz, "reference_sources": src_counts, "parents": parents or None, "english_contamination_removed": {"count": len(eng_removed), "rule": f"Leipzig-only words of {ENG_FILTER_MINLEN}+ letters that are English words with Zipf >= {ENG_FILTER_ZIPF}", "words": sorted(eng_removed)},
         "length_unit": ("fidel" if cfg.get("rules", {}).get("syllabary") else "aksharas") if indic.is_indic(cls) else (syl.table(cfg).get("length_unit", "syllables") if syl.is_syl(cls) else ("jamo" if cfg.get("decompose") else "letters")),
-        "inventory": {k: sorted(v) for k, v in inv.items()},
+        "inventory": {k: sorted(v) for k, v in inv.items()}, "training": train_info,
         "counts": {"corpus_forms": len(all_forms), "plain_forms": len(plain),
                    "reference_words": len(ref), "rare_words": len(rare),
                    "plain_token_share": round(plain_mass / total_mass, 4) if total_mass else 0,
@@ -728,6 +774,10 @@ def build_models(lang, work, outdir):
             p = line.rstrip("\n").split("\t")
             lex.append((p[0], float(p[1]), int(p[2])))
     vocab = st["alphabet"]
+    tp = os.path.join(work, "train.txt")
+    if st.get("training") and os.path.exists(tp):
+        tw = set(open(tp, encoding="utf-8").read().split("\n"))
+        lex = [r for r in lex if r[0] in tw]
     sets = {"all": lex}
     if st.get("bands_enabled", not st.get("small_corpus")):
         for b, *_ in BANDS:
@@ -831,6 +881,9 @@ def step_metrics(lang, cfg, args, outdir, work, deadline):
     return True
 
 
+EXTRA_DESC = {"kaz_mkd_books_news": "and the books and news of the Multi-Domain Kazakh Dataset"}
+
+
 def caution_items(cfg, st):
     """Caution banner as a list of short items (title + text); the app shows the titles in one line and the texts on request.
     st needs: counts.reference_words, corpus_tokens, small_corpus, leipzig (corpus, tokens), reference_sources, english_contamination_removed."""
@@ -848,8 +901,9 @@ def caution_items(cfg, st):
         kind_txt = {"news": "newspaper", "newscrawl": "newspaper", "news-typical": "newspaper", "wikipedia": "Wikipedia", "web": "web", "web-public": "web", "community": "community web", "mixed": "mixed web/news"}.get(src_kind, src_kind)
         has_films = rs.get("films", 0) + rs.get("both", 0)
         eng = (st.get("english_contamination_removed") or {}).get("count")
-        items.append({"title": f"{kind_txt[0].upper() + kind_txt[1:]} vocabulary {'added' if has_films else 'only'}",
-                      "text": (f"{rs.get('leipzig', 0):,} of the reference words come from a {kind_txt} corpus (Leipzig Corpora Collection, {L['corpus']}, {L['tokens'] / 1e6:.1f} million words)"
+        kt = "Book and news" if L.get("extra") else kind_txt[0].upper() + kind_txt[1:]
+        items.append({"title": f"{kt} vocabulary {'added' if has_films else 'only'}",
+                      "text": (f"{rs.get('leipzig', 0):,} of the reference words come from {'written text' if L.get('extra') else 'a ' + kind_txt + ' corpus'} (Leipzig Corpora Collection, {L['corpus']}{''.join(', ' + EXTRA_DESC.get(x, x) for x in (L.get('extra') or []))}{'; ' if L.get('extra') else ', '}{L['tokens'] / 1e6:.1f} million words{' in all' if L.get('extra') else ''})"
                                + (f"; {has_films:,} come from the subtitle list." if has_films else "; no subtitle list exists for this language.")
                                + " Written sources are more formal than subtitles and contain more names and foreign words"
                                + (f" ({eng} probable English words were removed)." if eng else ".")
@@ -943,7 +997,7 @@ def step_write(lang, cfg, args, outdir, work):
         "generation": {"target_rule": f"per generator and training set: number of training words, between {PER_MODEL_MIN} and {PER_MODEL_MAX}", "seed": SEED, "results": gstats},
         "counts": st["counts"],
         "inventory_sizes": {k: len(v) for k, v in st["inventory"].items()},
-        "inventory": st["inventory"],
+        "inventory": st["inventory"], "training": st.get("training"),
         "rules": cfg.get("rules", {}),
     }
     mp = os.path.join(outdir, "manifest.json")

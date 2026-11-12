@@ -2297,10 +2297,18 @@ function filmsFile(code, m) {
   const fm = (m.source || "").match(/FILMS[^:]*:\s*([^;]+)/);
   return fm ? fm[1].trim() : "";
 }
+// Further word lists counted together with a language's Leipzig list (manifest sources_detail.leipzig.extra)
+const EXTRA_SOURCES = {
+  kaz_mkd_books_news: {
+    name: "Multi-Domain Kazakh Dataset (kz-transformers): books and news",
+    bullets: ["4,481 books and 333,459 news articles", "Kazakh sentences only (mostly-Russian sentences removed): 205 million words"],
+    cite: `kz-transformers (n.d.). <i>Multi-Domain Kazakh Dataset (MKD)</i> [Data set]. Hugging Face. <a href="https://huggingface.co/datasets/kz-transformers/multidomain-kazakh-dataset" target="_blank" rel="noopener">huggingface.co/datasets/kz-transformers/multidomain-kazakh-dataset</a> (Apache-2.0)` } };
+const extraSources = m => (((m.sources_detail || {}).leipzig || {}).extra || []).map(k => EXTRA_SOURCES[k]).filter(Boolean);
 function aboutSources(m) {
   const src = m.source || "", lz = (m.sources_detail || {}).leipzig, out = [], ff = filmsFile(S.code, m);
   if (ff || !/^Leipzig/.test(src)) out.push(`<div>FILMS (Chilson, Sineva &amp; Schmalz, 2024)</div>${ff ? `<div class="hint mono" style="margin:0 0 6px;word-break:break-all">${esc(ff)}</div>` : ""}`);
   if (lz && lz.corpus) out.push(`<div>Leipzig Corpora Collection (Goldhahn, Eckart &amp; Quasthoff, 2012)</div><div class="hint mono" style="margin:0 0 6px">${esc(lz.corpus)} · CC BY</div>`);
+  for (const x of extraSources(m)) out.push(`<div>${esc(x.name)}</div><ul class="hint" style="margin:0 0 6px;padding-left:18px">${x.bullets.map(b => `<li>${esc(b)}</li>`).join("")}</ul>`);
   return out.join("") || esc(src);
 }
 // Characters one by one, separated by spaces; combining marks (vowel signs, virama, nukta, fili …) on a dotted circle so they stay visible.
@@ -2443,7 +2451,7 @@ function renderAbout() {
     ${[...m.alphabet].includes("y") ? `<div>Rule for &lt;y&gt;</div><div>${esc(String(m.y_rule))}</div>` : ""}
     <div>Sources</div><div>${aboutSources(m)}</div>
     ${(() => { const r = (m.sources_detail || {}).reference_words_by_source; if (!r) return "";
-       const parts = [["films", "FILMS only"], ["leipzig", "Leipzig only"], ["both", "in both"]].filter(([k]) => r[k]).map(([k, l]) => `<b>${(+r[k]).toLocaleString()}</b> ${l}`);
+       const parts = [["films", "FILMS only"], ["leipzig", extraSources(m).length ? "written text only (Leipzig + " + extraSources(m).map(x => x.name.split(" (")[0]).join(", ") + ")" : "Leipzig only"], ["both", "in both"]].filter(([k]) => r[k]).map(([k, l]) => `<b>${(+r[k]).toLocaleString()}</b> ${l}`);
        return parts.length ? `<div>Reference words by source</div><div style="font-size:15px">${parts.join(" &nbsp;·&nbsp; ")}</div>` : ""; })()}
     <div>Pipeline version</div><div>${esc(m.version)}, built ${esc(m.created)}</div>
   </div>
@@ -2486,14 +2494,15 @@ function renderAbout() {
    <li>Distances are computed against reference words (Zipf ≥ 2) only.</li>
   </ul>
   <h2>Data resources and citation</h2>
-  <p>All word lists and frequencies in this tool come from two data resources. When you use pseudowords or measures from the tool, cite the resource(s) of the languages in your study:</p>
+  <p>All word lists and frequencies in this tool come from the data resources below. When you use pseudowords or measures from the tool, cite the resource(s) of the languages in your study:</p>
   <ul>
    <li><b>FILMS</b> (word frequencies from film subtitles, with IPA transcriptions): Chilson, S., Sineva, E., &amp; Schmalz, X. (2024). <i>FILMS: A multilingual word frequency corpus based on film subtitles with IPA transcriptions.</i> OSF Preprints. <a href="https://doi.org/10.31219/osf.io/zy5qf" target="_blank" rel="noopener">https://doi.org/10.31219/osf.io/zy5qf</a></li>
+   ${extraSources(m).map(x => `<li>${x.cite}</li>`).join("")}
    <li><b>Leipzig Corpora Collection</b> (word-frequency lists of news, web and Wikipedia corpora; the lists are released under CC BY, as stated on the collection's website): Goldhahn, D., Eckart, T., &amp; Quasthoff, U. (2012). Building large monolingual dictionaries at the Leipzig Corpora Collection: From 100 to 200 languages. In <i>Proceedings of the Eighth International Conference on Language Resources and Evaluation (LREC 2012)</i> (pp. 759–765). European Language Resources Association.</li>
   </ul>
   ${(() => { const sd = m.sources_detail || {}, lz = sd.leipzig && sd.leipzig.corpus, films = !/^Leipzig/.test(m.source || "FILMS");
      const ff = filmsFile(S.code, m), fs = `FILMS${ff ? ` (file <span class="mono" style="word-break:break-all">${esc(ff)}</span>)` : ""}`;
-     return `<p><b>${esc(m.name)}</b> uses ${films && lz ? `both: ${fs} and the Leipzig corpus <span class="mono">${esc(lz)}</span>` : lz ? `the Leipzig corpus <span class="mono">${esc(lz)}</span>` : fs}.</p>`; })()}
+     return `<p><b>${esc(m.name)}</b> uses ${films && lz ? `${extraSources(m).length ? "" : "both: "}${fs}${extraSources(m).length ? ", the" : " and the"} Leipzig corpus <span class="mono">${esc(lz)}</span>` : lz ? `the Leipzig corpus <span class="mono">${esc(lz)}</span>` : fs}${extraSources(m).map(x => `, and the ${esc(x.name)}`).join("")}.</p>`; })()}
   <details><summary>Full manifest for ${esc(m.name)}</summary><pre class="mono" style="white-space:pre-wrap;font-size:12px">${esc(JSON.stringify(Object.assign({}, m, { inventory: undefined }), null, 1))}</pre></details>`;
 }
 
