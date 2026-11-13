@@ -3,7 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mimsy</title>
+<title>Mimsy: a multilingual pseudoword generator</title>
+<meta name="description" content="Mimsy is a free pseudoword (nonword) generator for almost 200 languages. Browse a large bank of pseudowords, filter by length, CV pattern, neighbourhood (OLD20, Coltheart&#x27;s N) and wordlikeness, match pseudowords to your own words, and analyse items, all in the browser.">
+<link rel="canonical" href="https://sarachilson.github.io/Mimsy/app/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Mimsy: a multilingual pseudoword generator">
+<meta property="og:description" content="Mimsy is a free pseudoword (nonword) generator for almost 200 languages. Browse a large bank of pseudowords, filter by length, CV pattern, neighbourhood (OLD20, Coltheart&#x27;s N) and wordlikeness, match pseudowords to your own words, and analyse items, all in the browser.">
+<meta property="og:url" content="https://sarachilson.github.io/Mimsy/app/">
+<meta property="og:image" content="https://sarachilson.github.io/Mimsy/app/assets/logo.png">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Mimsy", "url": "https://sarachilson.github.io/Mimsy/app/", "description": "Mimsy is a free pseudoword (nonword) generator for almost 200 languages. Browse a large bank of pseudowords, filter by length, CV pattern, neighbourhood (OLD20, Coltheart's N) and wordlikeness, match pseudowords to your own words, and analyse items, all in the browser.", "applicationCategory": "EducationalApplication", "operatingSystem": "Any (web browser)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "author": {"@type": "Person", "name": "Sara Chilson"}, "codeRepository": "https://github.com/sarachilson/Mimsy"}</script>
 <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/mark.png">
 <style>
@@ -166,6 +175,7 @@ body.noprov .prov{display:none!important}
   <div id="loaderErr" class="err"></div>
 </div>
 
+<noscript><div class="wrap" style="padding:24px 16px"><h1>Mimsy: a multilingual pseudoword generator</h1><p>Mimsy is a pseudoword generator. For each language, a model of letter sequences (letter n-grams, learned from the language&#x27;s real words) produces a large bank of new letter strings, which are then filtered against the corpus and, where available, against dictionaries and inflection tables. No automatic check is perfect: some items will look unrealistic for the language, and now and then a real word or a real inflected form slips through. The bank is deliberately large so that you can filter it on your own criteria, such as length, CV pattern, neighbourhood or wordlikeness, and pick the items that suit your study, rather than rely on the generator&#x27;s choice.</p><p>Mimsy runs in the browser and needs JavaScript. Code and data: <a href="https://github.com/sarachilson/Mimsy">github.com/sarachilson/Mimsy</a></p></div></noscript>
 <main id="app" hidden>
 <div id="langLoading" class="langloading" hidden role="status" aria-live="polite"><div class="spin" aria-hidden="true"></div><h2 id="langLoadingName"></h2><p id="langLoadingStage"></p></div>
 <div id="caution" class="caution" hidden></div>
