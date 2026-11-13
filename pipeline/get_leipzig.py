@@ -166,11 +166,12 @@ def fetch_words(name, out_dir, verbose):
         with tarfile.open(fileobj=io.BufferedReader(Counting(), 1 << 20), mode="r|gz") as tf:
             for m in tf:
                 if m.isfile() and m.name.endswith("-words.txt"):
-                    with tf.extractfile(m) as src, open(dest, "wb") as f:
-                        while True:
+                    with tf.extractfile(m) as src, open(dest + ".part", "wb") as f:   # renamed when complete, so an
+                        while True:                                                 # interrupted download is never kept
                             b = src.read(1 << 20)
                             if not b: break
                             f.write(b)
+                    os.replace(dest + ".part", dest)
                     return dest, got
     return None, got
 
