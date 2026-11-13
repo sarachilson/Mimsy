@@ -45,6 +45,7 @@ def english_lexicon(out_dir):
                     q = line.split("\t")
                     _ENG[q[0]] = float(q[1])
     return _ENG  # below this, frequency bands are unreliable: only the all-words generator is built
+MS_EXPECT = 3                   # multi-source training rule: expected occurrences in the other sources
 HIGH_ZIPF = 4.0                 # neighbours at/above this count as higher-frequency neighbours
 PER_MODEL_MIN, PER_MODEL_MAX = 5000, 40000   # target per (generator, training set) = number of training words, clamped
 MIN_LEN, MAX_LEN = 3, 12
@@ -232,6 +233,10 @@ def hangul_ok(w):
     return not any("\u1100" <= c <= "\u11ff" for c in unicodedata.normalize("NFC", w))
 
 
+LAST_NSRC = [None]
+SOURCES = [None, None]   # [0] (number of lists, Counter word -> lists it occurs in) of the language being prepared
+
+
 def load_leipzig(name, cfg, leipzig_dir):
     """Read a Leipzig Corpora Collection word list (<name>-words.txt: id, word, count).
     Returns ({lowercased word: (count, zipf)}, total tokens, stats). Words are lowercased; in cased scripts a word is
@@ -239,7 +244,11 @@ def load_leipzig(name, cfg, leipzig_dir):
     acronyms or sentence-initial fragments), and its count then includes the capitalised occurrences."""
     raw = {}
     total = 0
-    for nm in (name if isinstance(name, (list, tuple)) else [name]):
+    nsrc = collections.Counter()   # number of lists a (lowercased) word occurs in, for the multi-source training rule
+    first, ltok = {}, []           # list index of each word's first list; tokens per list
+    lists = name if isinstance(name, (list, tuple)) else [name]
+    for li, nm in enumerate(lists):
+      here = set(); t0 = total
       with open(os.path.join(leipzig_dir, nm + "-words.txt"), encoding="utf-8", errors="replace") as f:
         for line in f:
             p = line.rstrip("\n").split("\t")
@@ -256,6 +265,11 @@ def load_leipzig(name, cfg, leipzig_dir):
             if not w:
                 continue
             raw[w] = raw.get(w, 0) + c
+            here.add(w.lower())
+      nsrc.update(here); ltok.append(total - t0)
+      for w in here:
+          first.setdefault(w, li)
+    LAST_NSRC[0] = (len(lists), nsrc, first, ltok)
     lower, upper = {}, {}
     for w, c in raw.items():
         lw = w.lower()
@@ -330,6 +344,7 @@ def load_words(lang, cfg, slim_dir, leipzig_dir=None):
     rows[w] = (count, zipf, ipa, src) with src in {"films", "leipzig", "both"}.
     FILMS supplies Zipf and IPA where it has the word; Leipzig-only words get a Zipf from the Leipzig corpus."""
     path = os.path.join(slim_dir, lang + ".tsv.gz")
+    SOURCES[0] = SOURCES[1] = None
     rows = {}
     corpus_tokens = None
     if not os.path.exists(path) and not cfg.get("no_films"):
@@ -362,6 +377,7 @@ def load_words(lang, cfg, slim_dir, leipzig_dir=None):
         name = cfg["leipzig"]
         names = [name] + list(cfg.get("leipzig_extra", []))   # further word lists in the Leipzig format, counted together (Kazakh: MKD books + news)
         lz, lz_names, lz_tokens, lz_stats = load_leipzig(names, cfg, leipzig_dir or os.path.join(HERE, "..", "_leipzig"))
+        SOURCES[0] = LAST_NSRC[0]; SOURCES[1] = corpus_tokens   # subtitle corpus size (before it is replaced by the text corpus size)
         minc = leipzig_min_count(name)
         added = 0
         for w, (c, z) in lz.items():
@@ -378,6 +394,11 @@ def load_words(lang, cfg, slim_dir, leipzig_dir=None):
         for w, (c, z) in lz_names.items():                      # capitalised-only forms: never reference words, but still rejected as pseudowords
             if w not in rows:
                 rows[w] = (c, z, "", "leipzig_name")
+        for rn in cfg.get("leipzig_reject", []):   # lists used only to reject real words (wrong counts, other language, x-system spelling)
+            rz, rnames, _, _ = load_leipzig(rn, cfg, leipzig_dir or os.path.join(HERE, "..", "_leipzig"))
+            for w, (c, z) in list(rz.items()) + list(rnames.items()):
+                if w not in rows:
+                    rows[w] = (c, z, "", "leipzig_name")
         if corpus_tokens is None or cfg.get("zipf_source") == "leipzig":
             corpus_tokens = lz_tokens
         leipzig_info = {"corpus": name, "extra": cfg.get("leipzig_extra") or None, "tokens": lz_tokens, "min_count": minc, "reference_candidates_added": added, **lz_stats}
@@ -631,6 +652,16 @@ def step_prepare(lang, cfg, args, outdir, work):
         for w, v in plain.items():
             if v[3] == "leipzig" and len(w) >= ENG_FILTER_MINLEN and ENG.get(w, 0) >= ENG_FILTER_ZIPF:
                 plain[w] = (v[0], v[1], v[2], "leipzig_eng"); eng_removed.append(w)
+    uncased_found = []
+    if cfg.get("uncased_names"):   # scripts without capitals: foreign names found through romanisation (translit.py, 13 Nov 2026)
+        import translit
+        nkeys = translit.name_keys(args.leipzig)
+        for w, v in plain.items():
+            if v[3] not in ("leipzig_name", "leipzig_eng"):
+                nm = translit.foreign_name(w, nkeys)
+                if nm:
+                    plain[w] = (v[0], v[1], v[2], "leipzig_name"); uncased_found.append((v[1], w, nm))
+        uncased_found.sort(reverse=True)
     minc_lz = leipzig_min_count(cfg["leipzig"]) if cfg.get("leipzig") else REF_MIN_COUNT
     import re as _re
     drop_re = [_re.compile(x) for x in cfg.get("drop_re", [])]
@@ -699,6 +730,39 @@ def step_prepare(lang, cfg, args, outdir, work):
                       "rule": "names: forms seen only capitalised are not reference words; Russian: words of the Russian reference lexicon are excluded unless the Kazakh analyser recognises them, words without a Kazakh-specific letter must be recognised by the analyser, and words with letters found almost only in Russian loans, with a Russian stem or with a word-initial consonant cluster are excluded; subtitle-only words need a pronunciation"}
         with open(os.path.join(work, "train.txt"), "w", encoding="utf-8") as f:
             f.write("\n".join(sorted(train)))
+    # several corpora (13 Nov 2026): a word found in only one source although, at its frequency there, it should have
+    # turned up at least MS_EXPECT times in the others is source-specific (one site's boilerplate, one bot's templates,
+    # a systematic misspelling) and does not train the generators. The subtitle list counts as a source. Reference
+    # words and the reject list are not affected.
+    if cfg.get("multi_source_train") and SOURCES[0]:
+        nl, nsrc, first, ltok = SOURCES[0]
+        films_tok = SOURCES[1] or 0
+        has_films = any(v[3] in ("films", "both") for _, v in ref)
+        nsources = nl + (1 if has_films else 0)
+        all_tok = sum(ltok) + (films_tok if has_films else 0)
+        if nsources >= 2 and all_tok:
+            base = train if train is not None else {w for w, _ in ref}
+            kept = set(); dropped = []
+            for w, v in ref:
+                if w not in base:
+                    continue
+                inf = 1 if v[3] in ("films", "both") else 0
+                k = nsrc.get(w, 0) + inf
+                if k >= 2:
+                    kept.add(w); continue
+                t_l = films_tok if inf else ltok[first.get(w, 0)]
+                expected = v[0] / t_l * (all_tok - t_l) if t_l else 0
+                if expected >= MS_EXPECT:
+                    dropped.append((expected, w))
+                else:
+                    kept.add(w)
+            dropped.sort(reverse=True)
+            train = kept
+            train_info = dict(train_info or {}, train_words=len(train), reference_words=len(ref),
+                              multi_source={"sources": nsources, "dropped": len(dropped), "examples": [w for _, w in dropped[:40]],
+                                            "rule": f"a word found in only one of the {nsources} sources although {MS_EXPECT}+ occurrences were expected in the others (from its frequency) does not train the generators"})
+            with open(os.path.join(work, "train.txt"), "w", encoding="utf-8") as f:
+                f.write("\n".join(sorted(train)))
     # legality inventories from the whole reference lexicon (or the training words)
     invc = {"onset": {}, "medial": {}, "coda": {}, "vseq": {}}
     def bump(k, s):
@@ -744,6 +808,8 @@ def step_prepare(lang, cfg, args, outdir, work):
         "leipzig": lz, "reference_sources": src_counts, "parents": parents or None, "english_contamination_removed": {"count": len(eng_removed), "rule": f"Leipzig-only words of {ENG_FILTER_MINLEN}+ letters that are English words with Zipf >= {ENG_FILTER_ZIPF}", "words": sorted(eng_removed)},
         "length_unit": ("fidel" if cfg.get("rules", {}).get("syllabary") else "aksharas") if indic.is_indic(cls) else (syl.table(cfg).get("length_unit", "syllables") if syl.is_syl(cls) else ("jamo" if cfg.get("decompose") else "letters")),
         "inventory": {k: sorted(v) for k, v in inv.items()}, "training": train_info,
+        "uncased_names": {"removed": len(uncased_found), "rule": "word romanised and matched with a name found capitalised-only in at least 12 other corpora (translit.py)",
+                          "examples": [f"{w} ({nm})" for _, w, nm in uncased_found[:40]]} if cfg.get("uncased_names") else None,
         "counts": {"corpus_forms": len(all_forms), "plain_forms": len(plain),
                    "reference_words": len(ref), "rare_words": len(rare),
                    "plain_token_share": round(plain_mass / total_mass, 4) if total_mass else 0,
@@ -827,7 +893,9 @@ def build_models(lang, work, outdir):
         for b, *_ in BANDS:
             sets[str(b)] = [r for r in lex if r[2] == b]
     models = {}
-    targets = {name: min(PER_MODEL_MAX, max(PER_MODEL_MIN, len(rows))) for name, rows in sets.items()}
+    fac, mx = LANGS[lang].get("bank_scale", (1, PER_MODEL_MAX))   # languages rebuilt with more data (13 Nov 2026): 2 x training words, up to 100,000
+    targets = {name: (min(mx, max(PER_MODEL_MIN, fac * len(rows))) if name == "all" else min(PER_MODEL_MAX, max(PER_MODEL_MIN, len(rows))))
+               for name, rows in sets.items()}   # frequency-band generators keep the usual size
     for name, rows in sets.items():
         words = [w for w, _, _ in rows]
         tokens = [10 ** (z - 3) for _, z, _ in rows]   # per-million frequency from Zipf
@@ -856,12 +924,17 @@ def step_generate(lang, cfg, args, outdir, work):
         for name in set_names:
             m = models[(gen_name, name)]
             kept = 0; tries = 0; target = targets[name]
+            win_t = win_k = 0
             while kept < target and tries < target * 40:
-                tries += 1
+                tries += 1; win_t += 1
+                if win_t == 20000:   # saturation: fewer than 1 in 20 recent samples is new and legal -> stop this generator
+                    if win_k < 1000 and LANGS[lang].get("bank_scale"):
+                        break
+                    win_t = win_k = 0
                 w = m.sample(rng, maxlen=cfg.get("rules", {}).get("max_chars", MAX_LEN) + 3)
                 if not w or w in seen or w in reject or not legal(w, cls, inv, cfg.get("rules")):
                     continue
-                seen.add(w); kept += 1
+                seen.add(w); kept += 1; win_k += 1
                 rows.append((w, name, round(m.logprob(w), 4), round(all_kn.logprob(w), 4), gen_name))
             stats[f"{gen_name}/{name}"] = {"target": target, "kept": kept, "tries": tries}
             # Oversampling of under-represented lengths (rules["oversample"] = {length: minimum share of target}).
@@ -1038,10 +1111,10 @@ def step_write(lang, cfg, args, outdir, work):
                     "coltheart_n": "reference words at distance 1",
                     "n_high_freq_neighbors": f"distance-1 neighbours with Zipf >= {HIGH_ZIPF}",
                     "logprob": "mean log2 probability per letter (incl. word end); model = generating model, all = all-words model"},
-        "generation": {"target_rule": f"per generator and training set: number of training words, between {PER_MODEL_MIN} and {PER_MODEL_MAX}", "seed": SEED, "results": gstats},
+        "generation": {"target_rule": (f"per generator and training set: {LANGS[lang]['bank_scale'][0]} x the number of training words, between {PER_MODEL_MIN} and {LANGS[lang]['bank_scale'][1]}; a generator stops early when fewer than 1 in 20 recent samples is new and legal" if LANGS[lang].get("bank_scale") else f"per generator and training set: number of training words, between {PER_MODEL_MIN} and {PER_MODEL_MAX}"), "seed": SEED, "results": gstats},
         "counts": st["counts"],
         "inventory_sizes": {k: len(v) for k, v in st["inventory"].items()},
-        "inventory": st["inventory"], "training": st.get("training"),
+        "inventory": st["inventory"], "training": st.get("training"), "uncased_names": st.get("uncased_names"),
         "rules": cfg.get("rules", {}),
     }
     mp = os.path.join(outdir, "manifest.json")
