@@ -90,7 +90,7 @@ LANGS = {
                      train_filter=dict(analysed=os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "_work", "kazakh-kk", "analysed.txt"), own_letters="әғқңөұүһі", foreign=["russian-ru"],
                                        stems=os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "_work", "kazakh-kk", "stems.tsv"), loan_letters="вфцчщъьёэ", no_initial_cluster=True),
                      name="Kazakh", alphabets=["аәбвгғдеёжзийкқлмнңоөпрстуұүфхһцчшщъыіьэюя"], vowels="аәеёиоөуұүыіэюя", mods="ъь", trusted_inventory=True),
-    "luxembourgish-lb": dict(leipzig="ltz_newscrawl_2016_300K", name="Luxembourgish", alphabets=[latin("äëéèöüâêîôû")], y="V"),
+    "luxembourgish-lb": dict(noun_caps=True, leipzig="ltz_newscrawl_2016_300K", name="Luxembourgish", alphabets=[latin("äëéèöüâêîôû")], y="V"),
     "mongolian-mn":  dict(leipzig="mon_news_2020_100K", name="Mongolian", alphabets=["абвгдеёжзийклмноөпрстуүфхцчшщъыьэюя"], vowels="аеёиоөуүыэюя", mods="ъь"),
     "northern_sami-se": dict(leipzig="sme_wikipedia_2021_10K", name="Northern Sami", alphabets=[latin("áčđŋšŧž")], y="V"),
     "norwegian_nynorsk-nn": dict(leipzig="nno_wikipedia_2021_300K", name="Norwegian Nynorsk", alphabets=[latin("æøåé")], vowels="æø", y="V"),
@@ -105,9 +105,9 @@ LANGS = {
     # ---- Dialects / regional varieties (added 30 Oct 2026): Wikipedia lists; every form of the parent language(s) goes into the
     #      reject list, the parent's spelling dictionary is run over the bank (realwords.py), and the app pre-selects the parent
     #      under "Exclude real words of other languages". Spelling is not standardised in these Wikipedias. ----
-    "swiss_german-gsw": dict(name="Swiss German", alphabets=[latin("äöüèàéìùôò")], y="V", no_films=True, no_bands=True, leipzig="gsw_wikipedia_2021_100K",
+    "swiss_german-gsw": dict(noun_caps=True, name="Swiss German", alphabets=[latin("äöüèàéìùôò")], y="V", no_films=True, no_bands=True, leipzig="gsw_wikipedia_2021_100K",
                           parents=["german-de"], cv_note="Swiss German has no standard orthography; the Wikipedia mixes Dieth-style spellings and ad-hoc ones, so the same word occurs in several spellings. ß (Standard German quotations) was left out."),
-    "bavarian-bar":  dict(name="Bavarian", alphabets=[latin("äöüßåéó")], y="V", no_films=True, no_bands=True, leipzig="bar_wikipedia_2021_100K",
+    "bavarian-bar":  dict(noun_caps=True, name="Bavarian", alphabets=[latin("äöüßåéó")], y="V", no_films=True, no_bands=True, leipzig="bar_wikipedia_2021_100K",
                           parents=["german-de"], cv_note="Bavarian spelling is not standardised (the Wikipedia follows several conventions); å marks the dark a."),
     "limburgish-lim": dict(name="Limburgish", alphabets=[latin("èöóëäé")], y="auto", no_films=True, no_bands=True, leipzig="lim_wikipedia_2021_100K",
                           parents=["dutch-nl", "german-de"], cv_note="Limburgish spelling follows the Veldeke conventions loosely; tone and vowel length marks vary between authors."),
@@ -258,7 +258,7 @@ LANGS = {
     "navajo-nv":     dict(name="Navajo", alphabets=["abcdeghijklłmnostwxyzʼąęįǫ"], y="C", strip_nfd="\u0301", normalize={"'": "ʼ", "’": "ʼ"},
                           no_films=True, no_bands=True, leipzig="nav_wikipedia_2021_10K",
                           cv_note="High-tone marks (acute accents) were removed, so tone is not represented; nasal vowels (ą ę į ǫ) are vowels; the glottal stop / ejective mark (ʼ) counts as a consonant."),
-    "low_german-nds": dict(name="Low German", alphabets=[latin("öüä")], y="V", no_films=True, no_bands=True, leipzig="nds_wikipedia_2021_100K"),
+    "low_german-nds": dict(noun_caps=True, name="Low German", alphabets=[latin("öüä")], y="V", no_films=True, no_bands=True, leipzig="nds_wikipedia_2021_100K"),
     "northern_sotho-nso": dict(name="Northern Sotho (Sepedi)", alphabets=[latin("šêô")], y="C", no_films=True, no_bands=True, leipzig="nso_mixed_2013_10K"),
     "oromo-om":      dict(name="Oromo", alphabets=[latin("'")], y="C", normalize={"’": "'", "ʼ": "'"}, no_films=True, no_bands=True, leipzig="orm_wikipedia_2021_10K",
                           cv_note="The hudhaa (') marks the glottal stop and counts as a consonant."),

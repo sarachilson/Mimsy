@@ -239,7 +239,7 @@
   {
    "code": "bavarian-bar",
    "name": "Bavarian",
-   "reference_words": 24062,
+   "reference_words": 59061,
    "small_corpus": true,
    "corpus_tokens": 1758132,
    "experimental": false,
@@ -1553,7 +1553,7 @@
   {
    "code": "low_german-nds",
    "name": "Low German",
-   "reference_words": 13274,
+   "reference_words": 40597,
    "small_corpus": true,
    "corpus_tokens": 1783755,
    "experimental": false,
@@ -1585,7 +1585,7 @@
   {
    "code": "luxembourgish-lb",
    "name": "Luxembourgish",
-   "reference_words": 20379,
+   "reference_words": 51599,
    "small_corpus": true,
    "corpus_tokens": 28296,
    "experimental": false,
@@ -2638,7 +2638,7 @@
   {
    "code": "swiss_german-gsw",
    "name": "Swiss German",
-   "reference_words": 24276,
+   "reference_words": 62128,
    "small_corpus": true,
    "corpus_tokens": 1875269,
    "experimental": false,

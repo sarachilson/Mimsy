@@ -264,16 +264,60 @@ def load_leipzig(name, cfg, leipzig_dir):
         else:
             upper[lw] = upper.get(lw, 0) + c
     cased = any(w != w.lower() for w in raw)
+    acro = {}
+    for w, c in raw.items():
+        if len(w) > 1 and w == w.upper() and w != w.lower():
+            acro[w.lower()] = acro.get(w.lower(), 0) + c
+    nc = name_check(leipzig_dir) if cfg.get("noun_caps") else None
     out, names = {}, {}
+    nouns_kept = 0
     for lw in set(lower) | set(upper):
         lc = lower.get(lw, 0); uc = upper.get(lw, 0)
         c = lc + uc
         z = math.log10(c / total * 1e9) if total else 0.0
         if cased and lc < LEIPZIG_MIN_LOWER and uc > 0 and uc >= lc:
-            names[lw] = (c, z)          # seen (almost) only capitalised: name, acronym or sentence-initial fragment
+            # seen (almost) only capitalised: name, acronym or sentence-initial fragment; in languages that capitalise
+            # every noun only when other evidence says it is a name (see name_check)
+            if nc and acro.get(lw, 0) * 2 < uc and not nc(lw):
+                out[lw] = (c, z); nouns_kept += 1
+            else:
+                names[lw] = (c, z)
         else:
             out[lw] = (c, z)
-    return out, names, total, {"types_raw": len(raw), "types_kept": len(out), "capitalised_only": len(names), "cased_script": cased}
+    st = {"types_raw": len(raw), "types_kept": len(out), "capitalised_only": len(names), "cased_script": cased}
+    if nc:
+        st["capitalised_kept_as_nouns"] = nouns_kept
+    return out, names, total, st
+
+
+_NAME_CHECK = {}
+def name_check(leipzig_dir):
+    """For languages that capitalise every noun (cfg noun_caps): is a capitalised-only word a name?
+    A name if it is a proper noun in the Apertium German/English/Dutch/French dictionaries, or is capitalised-only in at
+    least 4 other languages' corpora (10 for words of up to 4 letters, which collide with short names elsewhere), unless
+    it (or it minus a plural/case ending) is a common noun in those dictionaries. Files from build_name_evidence.py and
+    the Apertium extract (_leipzig/name_evidence.tsv.gz, _leipzig/apertium_nouns.tsv.gz)."""
+    if leipzig_dir in _NAME_CHECK:
+        return _NAME_CHECK[leipzig_dir]
+    ev = {}
+    with gzip.open(os.path.join(leipzig_dir, "name_evidence.tsv.gz"), "rt", encoding="utf-8") as f:
+        next(f)
+        for line in f:
+            p = line.rstrip("\n").split("\t")
+            ev[p[0]] = int(p[1])
+    n, np_ = set(), set()
+    with gzip.open(os.path.join(leipzig_dir, "apertium_nouns.tsv.gz"), "rt", encoding="utf-8") as f:
+        for line in f:
+            _, t, w = line.rstrip("\n").split("\t")
+            (n if t == "n" else np_).add(w)
+    def common(w):
+        return w in n or any(w.endswith(e) and w[:-len(e)] in n for e in ("e", "en", "n", "er", "s", "es"))
+    def is_name(w):
+        if common(w):
+            return False
+        return w in np_ or ev.get(w, 0) >= (10 if len(w) <= 4 else 4)
+    _NAME_CHECK[leipzig_dir] = is_name
+    return is_name
 
 
 def leipzig_min_count(name):

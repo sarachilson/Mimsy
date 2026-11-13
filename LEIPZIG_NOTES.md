@@ -166,3 +166,17 @@ cross-language check; parent's Hunspell dictionary used in the real-word check; 
 
 Not added (lists too small, parent vocabulary would dominate): Kölsch (ksh), Palatine German (pfl), Zeelandic (zea),
 Extremaduran (ext), Samogitian (sgs), Fiji Hindi (hif). Pontic Greek has no Leipzig list.
+
+## 6. Languages that capitalise every noun (13 Nov 2026)
+The names rule (a form seen only capitalised is not a reference word) also removed most nouns in Luxembourgish,
+Swiss German, Bavarian and Low German (Wikipedia writes Low German nouns capitalised too): 60-70% of their word forms
+were capitalised-only. Found by checking, for every Leipzig list, how many of the 250 most frequent words are
+capitalised-only (ltz, bar, gsw, nds, ksh, pfl stand out; ksh and pfl are not in the app).
+These languages now have `noun_caps=True`: a capitalised-only form is a name only if it is (a) mostly written in
+capitals (acronym), (b) a proper noun in the Apertium German/English/Dutch/French dictionaries, or (c) capitalised-only
+in at least 4 other Leipzig corpora (10 for words of up to 4 letters), and in cases (b) and (c) only if it is not a
+common noun in those dictionaries (alone or minus -e, -en, -n, -er, -s, -es). Files: `_leipzig/name_evidence.tsv.gz`
+and `_leipzig/apertium_nouns.tsv.gz` from `pipeline/build_name_evidence.py --apertium <clones>`.
+Reference words: Luxembourgish 20,379 -> 51,599; Swiss German 24,276 -> 62,128; Bavarian 24,062 -> 59,061;
+Low German 13,274 -> 40,597. Known misses: dialect words that are names elsewhere (Lux. Fra 'woman', Etapp; Bav. Kini,
+Septemba; nds Fru, Kopp) are treated as names; native place and family names found in no other corpus stay words.
