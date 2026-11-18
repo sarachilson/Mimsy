@@ -923,14 +923,17 @@ const SOUND_ALIKE = {
   "urdu-ur": {
     sets: "ز = ذ ض ظ, س = ص ث, ت = ط, ہ = ح",
     key: w => w.replace(/[ذضظ]/g, "ز").replace(/[صث]/g, "س").replace(/ط/g, "ت").replace(/ح/g, "ہ") },
+  "persian-fa": {   // also the half-space: the same word is written with and without it
+    sets: "ز = ذ ض ظ, س = ص ث, ت = ط, ه = ح, ق = غ, ا = أ إ, و = ؤ; half-space ignored",
+    key: w => w.replace(/[ذضظ]/g, "ز").replace(/[صث]/g, "س").replace(/ط/g, "ت").replace(/ح/g, "ه").replace(/غ/g, "ق").replace(/[أإ]/g, "ا").replace(/ؤ/g, "و").replace(/\u200c/g, "") },
 };
 // Words run together: in Urdu the space after a letter that does not join to the next one is often left out. An item
 // that is two or more frequent real words written together is not offered (pipeline: run_together; same thresholds).
-const RUN_TOGETHER = { "urdu-ur": new Set([..."اآدڈذرڑزژوےؤ"]) };
+const RUN_TOGETHER = { "urdu-ur": new Set([..."اآدڈذرڑزژوےؤ"]), "persian-fa": "*" };   // "*": joined at any letter
 function runTogether(L, w) {
   const nj = L && RUN_TOGETHER[L.code]; if (!nj || !L.lex) return false;
   const part = x => { const i = L.lex.index.get(x); return i !== undefined && L.lex.zipf[i] >= (x.length <= 2 ? 5.5 : 4); };
-  const joined = (x, top) => (!top && part(x)) || [...Array(Math.max(x.length - 1, 0)).keys()].some(k => nj.has(x[k]) && part(x.slice(0, k + 1)) && joined(x.slice(k + 1), false));
+  const joined = (x, top) => (!top && part(x)) || [...Array(Math.max(x.length - 1, 0)).keys()].some(k => (nj === "*" || nj.has(x[k])) && part(x.slice(0, k + 1)) && joined(x.slice(k + 1), false));
   return joined(w, true);
 }
 // The most frequent real word with the same merged spelling as w (other than w itself), or "".

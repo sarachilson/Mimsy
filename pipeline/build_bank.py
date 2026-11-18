@@ -794,6 +794,15 @@ def step_prepare(lang, cfg, args, outdir, work):
                                             "rule": f"a word found in only one of the {nsources} sources although {MS_EXPECT}+ occurrences were expected in the others (from its frequency) does not train the generators"})
             with open(os.path.join(work, "train.txt"), "w", encoding="utf-8") as f:
                 f.write("\n".join(sorted(train)))
+    # Words with certain characters do not train the generators (cfg train_exclude_chars; Persian half-space, 18 Nov 2026:
+    # the same word is written with a half-space, joined or with a space, so no item is generated with one)
+    if cfg.get("train_exclude_chars"):
+        base = train if train is not None else {w for w, _ in ref}
+        kept = {w for w in base if not any(ch in cfg["train_exclude_chars"] for ch in w)}
+        train_info = dict(train_info or {}, train_words=len(kept), reference_words=len(ref), excluded_chars={"chars": [hex(ord(c)) for c in cfg["train_exclude_chars"]], "dropped": len(base) - len(kept)})
+        train = kept
+        with open(os.path.join(work, "train.txt"), "w", encoding="utf-8") as f:
+            f.write("\n".join(sorted(train)))
     # Edited corpus as the gate for training (cfg train_edited_min = n; Urdu, 18 Nov 2026): only words that occur at
     # least n times in the edited corpus train the generators. The other sources (news, subtitles) are full of names,
     # transliterated English, misspellings and words run together; they still supply reference words and frequencies.
@@ -966,8 +975,10 @@ def step_generate(lang, cfg, args, outdir, work):
         skey = translit.SOUND_KEYS[cfg["sound_alike"]]
         skeys = frozenset(skey(x) for x in reject)
         preds.append(lambda w: skey(w) in skeys)
-    if cfg.get("run_together"):   # no item may be real words run together (after a non-joining letter; any number of words)
-        nonjoin = set(cfg["run_together"])
+    if cfg.get("run_together") or cfg.get("joined_items"):   # no item may be real words run together (any number of words):
+        # after a non-joining letter (run_together = those letters) or anywhere (joined_items = "*", Persian)
+        nonjoin = set(cfg.get("run_together") or "")
+        anywhere = cfg.get("joined_items") == "*"
         parts = set()
         with gzip.open(os.path.join(outdir, "lexicon.tsv.gz"), "rt", encoding="utf-8") as f:
             next(f)
@@ -978,7 +989,7 @@ def step_generate(lang, cfg, args, outdir, work):
         def joined(w, top=True):
             if not top and w in parts:
                 return True
-            return any(w[i - 1] in nonjoin and w[:i] in parts and joined(w[i:], False) for i in range(1, len(w)))
+            return any((anywhere or w[i - 1] in nonjoin) and w[:i] in parts and joined(w[i:], False) for i in range(1, len(w)))
         preds.append(joined)
     if preds:
         class _Reject(set):

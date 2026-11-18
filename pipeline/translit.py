@@ -178,4 +178,9 @@ def _eth_key(w):
 _URD = str.maketrans("ذضظصثطح", "زززسستہ")
 
 
-SOUND_KEYS = {"ethiopic": _eth_key, "urdu": lambda w: w.translate(_URD)}
+# Persian: the same sets, plus غ = ق (standard Tehran pronunciation), hamza carriers أ إ = ا and ؤ = و, and the half-space
+# (zero-width non-joiner) removed, because the same word is written with and without it (می‌کنم = میکنم)
+_FAS = str.maketrans({"ذ": "ز", "ض": "ز", "ظ": "ز", "ص": "س", "ث": "س", "ط": "ت", "ح": "ه", "غ": "ق", "أ": "ا", "إ": "ا", "ؤ": "و", "\u200c": None})
+
+
+SOUND_KEYS = {"ethiopic": _eth_key, "urdu": lambda w: w.translate(_URD), "persian": lambda w: w.translate(_FAS)}

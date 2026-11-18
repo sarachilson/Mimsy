@@ -223,3 +223,13 @@ Basque, Amharic, Urdu) were live without the dictionary / UniMorph / Bible filte
 `realwords.py` was rerun for them (sources cloned from GitHub: wooorm/dictionaries, elastic/hunspell, unimorph/<iso3>,
 BibleNLP/ebible (sparse), christos-c/bible-corpus). Removed now: Basque 20,305, Faroese 8,154, Amharic 3,712,
 Armenian 2,158, Luxembourgish 1,272, Bashkir 238, Urdu 131, Low German 98, Swiss German 70, Bavarian 45.
+
+## 10. Persian: joined words, half-space, same-sounding letters (18 Nov 2026)
+Persian keeps its subtitle list (704 M words; 28,666 reference words) and its frequency bands. New rules:
+- `joined_items="*"`: no bank item may be two or more frequent real words (Zipf >= 4; 5.5 for 1-2 letters) written
+  together, joined at any letter (old bank: about 6% after a non-joining letter, up to 18% anywhere).
+- Half-space (zero-width non-joiner): words containing one do not train the generators (`train_exclude_chars`,
+  2,347 words), so no item has one (old bank: 16,309 items); the real-word check ignores it (می‌کنم = میکنم).
+- `sound_alike="persian"`: ز = ذ ض ظ, س = ص ث, ت = ط, ه = ح, ق = غ, ا = أ إ, و = ؤ.
+- Bank 176,991 -> 164,202 (fewer training words per generator); the dictionary filter then removes 7,044 at load.
+- Waiting: a written corpus (Leipzig) for more reference words; names (no capitals).

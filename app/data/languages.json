@@ -2113,7 +2113,7 @@
    "writing": "Arabic",
    "length_unit": "letters",
    "script": "alphabet",
-   "abjad": false,
+   "abjad": true,
    "parents": null,
    "films_file": {
     "archive": "FILMS_data.zip",

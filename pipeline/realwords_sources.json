@@ -1332,14 +1332,14 @@
    "dictionary": "wooorm/fa/index",
    "licence": "Apache-2.0",
    "coverage_of_reference_words": 0.894,
-   "bank_items_accepted": 8711,
+   "bank_items_accepted": 6914,
    "compounding": "off"
   },
   "unimorph": {
    "repository": "https://github.com/unimorph/fas",
    "licence": "CC BY-SA 3.0",
    "forms": 3598,
-   "bank_items_accepted": 224
+   "bank_items_accepted": 178
   },
   "bible_skipped": {
    "reason": "large corpus; Bible texts are used for small-corpus languages only"
