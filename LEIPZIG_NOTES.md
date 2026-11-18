@@ -232,4 +232,9 @@ Persian keeps its subtitle list (704 M words; 28,666 reference words) and its fr
   2,347 words), so no item has one (old bank: 16,309 items); the real-word check ignores it (می‌کنم = میکنم).
 - `sound_alike="persian"`: ز = ذ ض ظ, س = ص ث, ت = ط, ه = ح, ق = غ, ا = أ إ, و = ؤ.
 - Bank 176,991 -> 164,202 (fewer training words per generator); the dictionary filter then removes 7,044 at load.
-- Waiting: a written corpus (Leipzig) for more reference words; names (no capitals).
+- Written corpus added the same day: fas_news_2024_1M, fas_news_2023_1M, fas_news_2022_1M (72.6 M words; news only,
+  three newest years). Reference words 28,666 -> 73,498. `train_sources=("films", "both")`: the generators still
+  learn from the subtitle words only (26,319); the news words serve the real-word check and the neighbourhood
+  measures. Bank 164,202; the dictionary filter now removes 4,609 (7,044 before the news lists).
+- Known: Leipzig's Persian lists have no half-space (suffixes are joined: ظرفیتهای), and contain names and some
+  run-together forms (درروز); these are reference words. Names are not filtered (no capitals).

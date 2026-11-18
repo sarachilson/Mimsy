@@ -128,7 +128,7 @@ LANGS = {
                           strip_marks=True, strip="\u200e\u200f\u202a\u202b\u202c",
                           rules={"final_only": "ךםןףץ", "not_final": "כמנפצ", "allow_no_vowel": True}, allow_no_vowel=True,
                           cv_note="Hebrew is written without most vowels. CV here is orthographic: alef, he, waw and yod (א ה ו י) count as V; all other letters as C. Vowel points were removed."),
-    "persian-fa":    dict(sound_alike="persian", joined_items="*", train_exclude_chars="\u200c", name="Persian", alphabets=["ابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی" + "آأإءؤئ\u200c"], vowels="اآأإوىیئؤ", mods="\u200c",
+    "persian-fa":    dict(sound_alike="persian", joined_items="*", train_exclude_chars="\u200c", leipzig="fas_news_2024_1M", leipzig_extra=["fas_news_2023_1M", "fas_news_2022_1M"], train_sources=("films", "both"), name="Persian", alphabets=["ابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی" + "آأإءؤئ\u200c"], vowels="اآأإوىیئؤ", mods="\u200c",
                           strip_marks=True, strip="ـ\u200e\u200f\u202a\u202b\u202c", normalize={"ك": "ک", "ي": "ی", "ى": "ی"},
                           rules={"allow_no_vowel": True}, allow_no_vowel=True,
                           cv_note="Persian is written without short vowels. CV here is orthographic: alef (ا آ أ إ), waw (و) and ye (ی) count as V; he (ه) and all other letters as C. The half-space (ZWNJ) is kept as a modifier. Diacritics were removed."),

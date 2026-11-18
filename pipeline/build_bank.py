@@ -794,6 +794,16 @@ def step_prepare(lang, cfg, args, outdir, work):
                                             "rule": f"a word found in only one of the {nsources} sources although {MS_EXPECT}+ occurrences were expected in the others (from its frequency) does not train the generators"})
             with open(os.path.join(work, "train.txt"), "w", encoding="utf-8") as f:
                 f.write("\n".join(sorted(train)))
+    # Only words from certain sources train the generators (cfg train_sources, e.g. ("films", "both"): Persian, 18 Nov 2026:
+    # the news lists add reference words for the real-word check and the neighbourhood measures, but the generators
+    # keep learning from the spell-checked subtitle words)
+    if cfg.get("train_sources"):
+        base = train if train is not None else {w for w, _ in ref}
+        kept = {w for w, v in ref if w in base and v[3] in cfg["train_sources"]}
+        train_info = dict(train_info or {}, train_words=len(kept), reference_words=len(ref), sources_only={"sources": list(cfg["train_sources"]), "dropped": len(base) - len(kept)})
+        train = kept
+        with open(os.path.join(work, "train.txt"), "w", encoding="utf-8") as f:
+            f.write("\n".join(sorted(train)))
     # Words with certain characters do not train the generators (cfg train_exclude_chars; Persian half-space, 18 Nov 2026:
     # the same word is written with a half-space, joined or with a space, so no item is generated with one)
     if cfg.get("train_exclude_chars"):

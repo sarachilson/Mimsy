@@ -1331,15 +1331,15 @@
   "hunspell": {
    "dictionary": "wooorm/fa/index",
    "licence": "Apache-2.0",
-   "coverage_of_reference_words": 0.894,
-   "bank_items_accepted": 6914,
+   "coverage_of_reference_words": 0.591,
+   "bank_items_accepted": 4547,
    "compounding": "off"
   },
   "unimorph": {
    "repository": "https://github.com/unimorph/fas",
    "licence": "CC BY-SA 3.0",
    "forms": 3598,
-   "bank_items_accepted": 178
+   "bank_items_accepted": 78
   },
   "bible_skipped": {
    "reason": "large corpus; Bible texts are used for small-corpus languages only"

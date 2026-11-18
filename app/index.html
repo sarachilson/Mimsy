@@ -2411,7 +2411,7 @@ const extraSources = m => (((m.sources_detail || {}).leipzig || {}).extra || [])
 function aboutSources(m) {
   const src = m.source || "", lz = (m.sources_detail || {}).leipzig, out = [], ff = filmsFile(S.code, m);
   if (ff || !/^Leipzig/.test(src)) out.push(`<div>FILMS (Chilson, Sineva &amp; Schmalz, 2024)</div>${ff ? `<div class="hint mono" style="margin:0 0 6px;word-break:break-all">${esc(ff)}</div>` : ""}`);
-  if (lz && lz.corpus) out.push(`<div>Leipzig Corpora Collection (Goldhahn, Eckart &amp; Quasthoff, 2012)</div><div class="hint mono" style="margin:0 0 6px">${esc(lz.corpus)} · CC BY</div>`);
+  if (lz && lz.corpus) out.push(`<div>Leipzig Corpora Collection (Goldhahn, Eckart &amp; Quasthoff, 2012)</div><div class="hint mono" style="margin:0 0 6px">${esc([lz.corpus, ...(lz.extra || []).filter(k => !EXTRA_SOURCES[k])].join(", "))} · CC BY</div>`);
   for (const x of extraSources(m)) out.push(`<div>${esc(x.name)}</div><ul class="hint" style="margin:0 0 6px;padding-left:18px">${x.bullets.map(b => `<li>${esc(b)}</li>`).join("")}</ul>`);
   return out.join("") || esc(src);
 }

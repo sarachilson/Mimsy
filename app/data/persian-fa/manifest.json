@@ -6,9 +6,13 @@
  "corpus_tokens": 704307392,
  "small_corpus": false,
  "bands_enabled": true,
- "text_tokens": null,
- "caution": "Persian is written without short vowels. CV here is orthographic: alef (ا آ أ إ), waw (و) and ye (ی) count as V; he (ه) and all other letters as C. The half-space (ZWNJ) is kept as a modifier. Diacritics were removed.",
+ "text_tokens": 782224864.6392765,
+ "caution": "44,832 of the reference words come from written text (Leipzig Corpora Collection, fas_news_2024_1M, fas_news_2023_1M, fas_news_2022_1M; 77.9 million words in all); 28,666 come from the subtitle list. Written sources are more formal than subtitles and contain more names and foreign words. Frequencies of the corpus-only words come from that corpus and are not comparable with subtitle frequencies. Persian is written without short vowels. CV here is orthographic: alef (ا آ أ إ), waw (و) and ye (ی) count as V; he (ه) and all other letters as C. The half-space (ZWNJ) is kept as a modifier. Diacritics were removed.",
  "caution_items": [
+  {
+   "title": "Written-text vocabulary added",
+   "text": "44,832 of the reference words come from written text (Leipzig Corpora Collection, fas_news_2024_1M, fas_news_2023_1M, fas_news_2022_1M; 77.9 million words in all); 28,666 come from the subtitle list. Written sources are more formal than subtitles and contain more names and foreign words. Frequencies of the corpus-only words come from that corpus and are not comparable with subtitle frequencies."
+  },
   {
    "title": "Abjad: CV is orthographic",
    "text": "Persian is written without short vowels. CV here is orthographic: alef (ا آ أ إ), waw (و) and ye (ی) count as V; he (ه) and all other letters as C. The half-space (ZWNJ) is kept as a modifier. Diacritics were removed."
@@ -20,14 +24,27 @@
  "parents": null,
  "parents_detail": null,
  "created": "2026-11-18",
- "source": "FILMS/OPUS subtitle frequency list: persian-fa/word/persian.fa.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv",
+ "source": "FILMS/OPUS subtitle frequency list: persian-fa/word/persian.fa.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv; Leipzig Corpora Collection word list fas_news_2024_1M (CC BY; Goldhahn, Eckart & Quasthoff 2012)",
  "sources_detail": {
   "films": true,
-  "leipzig": null,
+  "leipzig": {
+   "corpus": "fas_news_2024_1M",
+   "extra": [
+    "fas_news_2023_1M",
+    "fas_news_2022_1M"
+   ],
+   "tokens": 77917472,
+   "min_count": 3,
+   "reference_candidates_added": 185888,
+   "types_raw": 613701,
+   "types_kept": 585460,
+   "capitalised_only": 25592,
+   "cased_script": true
+  },
   "reference_words_by_source": {
-   "films": 28666,
-   "leipzig": 0,
-   "both": 0,
+   "films": 4508,
+   "leipzig": 44832,
+   "both": 24158,
    "leipzig_name": 0,
    "leipzig_eng": 0
   },
@@ -145,91 +162,91 @@
    "kn4/1": {
     "target": 12740,
     "kept": 12740,
-    "tries": 25914
+    "tries": 29085
    },
    "kn4/2": {
     "target": 5000,
     "kept": 5000,
-    "tries": 10917
+    "tries": 12480
    },
    "kn4/3": {
     "target": 5000,
     "kept": 5000,
-    "tries": 11663
+    "tries": 13414
    },
    "kn4/4": {
     "target": 5675,
     "kept": 5675,
-    "tries": 20313
+    "tries": 24770
    },
    "kn4/all": {
     "target": 26319,
     "kept": 26319,
-    "tries": 72859
+    "tries": 80390
    },
    "tri_type/1": {
     "target": 12740,
     "kept": 12740,
-    "tries": 28428
+    "tries": 29850
    },
    "tri_type/2": {
     "target": 5000,
     "kept": 5000,
-    "tries": 12057
+    "tries": 13151
    },
    "tri_type/3": {
     "target": 5000,
     "kept": 5000,
-    "tries": 13005
+    "tries": 13973
    },
    "tri_type/4": {
     "target": 5675,
     "kept": 5675,
-    "tries": 19402
+    "tries": 21264
    },
    "tri_type/all": {
     "target": 26319,
     "kept": 26319,
-    "tries": 67067
+    "tries": 70975
    },
    "tri_token/1": {
     "target": 12740,
     "kept": 12740,
-    "tries": 30825
+    "tries": 32557
    },
    "tri_token/2": {
     "target": 5000,
     "kept": 5000,
-    "tries": 13234
+    "tries": 13920
    },
    "tri_token/3": {
     "target": 5000,
     "kept": 5000,
-    "tries": 14240
+    "tries": 14993
    },
    "tri_token/4": {
     "target": 5675,
     "kept": 5675,
-    "tries": 56856
+    "tries": 61779
    },
    "tri_token/all": {
     "target": 26319,
     "kept": 26319,
-    "tries": 284871
+    "tries": 303858
    }
   }
  },
  "counts": {
-  "corpus_forms": 73739,
-  "plain_forms": 72097,
-  "reference_words": 28666,
-  "rare_words": 43431,
-  "plain_token_share": 0.9977,
+  "corpus_forms": 643210,
+  "plain_forms": 358139,
+  "reference_words": 73498,
+  "rare_words": 284641,
+  "plain_token_share": 0.9825,
   "band_sizes": {
-   "1": 14491,
-   "2": 4963,
-   "3": 3372,
-   "4": 5840
+   "1": 50870,
+   "2": 10230,
+   "3": 5515,
+   "4": 6883
   }
  },
  "inventory_sizes": {
@@ -2158,7 +2175,14 @@
  },
  "training": {
   "train_words": 26319,
-  "reference_words": 28666,
+  "reference_words": 73498,
+  "sources_only": {
+   "sources": [
+    "films",
+    "both"
+   ],
+   "dropped": 44832
+  },
   "excluded_chars": {
    "chars": [
     "0x200c"
@@ -2183,26 +2207,26 @@
  "realword_filter": {
   "date": "2026-11-18",
   "bank_items": 164202,
-  "removed": 7044,
-  "removed_pct": 4.29,
+  "removed": 4609,
+  "removed_pct": 2.81,
   "by_source": {
-   "hunspell": 6914,
-   "unimorph": 178
+   "hunspell": 4547,
+   "unimorph": 78
   },
   "extra_bible_forms": 0,
   "sources": {
    "hunspell": {
     "dictionary": "wooorm/fa/index",
     "licence": "Apache-2.0",
-    "coverage_of_reference_words": 0.894,
-    "bank_items_accepted": 6914,
+    "coverage_of_reference_words": 0.591,
+    "bank_items_accepted": 4547,
     "compounding": "off"
    },
    "unimorph": {
     "repository": "https://github.com/unimorph/fas",
     "licence": "CC BY-SA 3.0",
     "forms": 3598,
-    "bank_items_accepted": 178
+    "bank_items_accepted": 78
    },
    "bible_skipped": {
     "reason": "large corpus; Bible texts are used for small-corpus languages only"
