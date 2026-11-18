@@ -1531,5 +1531,32 @@
    "date": "2026-10-11",
    "what": "removed 2007 bank items that occur as a form (any count or capitalisation) in the Leipzig list fao_web_2013_300K"
   }
- ]
+ ],
+ "realword_filter": {
+  "date": "2026-11-18",
+  "bank_items": 300000,
+  "removed": 8154,
+  "removed_pct": 2.72,
+  "by_source": {
+   "hunspell": 7862,
+   "unimorph": 1392
+  },
+  "extra_bible_forms": 0,
+  "sources": {
+   "hunspell": {
+    "dictionary": "wooorm/fo/index",
+    "licence": "(GPL-2.0 OR LGPL-2.1 OR MPL-1.1)",
+    "coverage_of_reference_words": 0.785,
+    "bank_items_accepted": 7862,
+    "compounding": "off"
+   },
+   "unimorph": {
+    "repository": "https://github.com/unimorph/fao",
+    "licence": "CC BY-SA 3.0",
+    "forms": 31366,
+    "bank_items_accepted": 1392
+   }
+  },
+  "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ }
 }

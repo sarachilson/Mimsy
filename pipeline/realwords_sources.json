@@ -47,15 +47,15 @@
   "hunspell": {
    "dictionary": "elastic/am_ET/am_ET",
    "licence": "see Copyright: The contents of this package are provided \"as is\" into the public domain by the Ge'ez Frontier Foundation (GFF).  The GFF makes no representations or warranties",
-   "coverage_of_reference_words": 0.788,
-   "bank_items_accepted": 5943,
+   "coverage_of_reference_words": 0.542,
+   "bank_items_accepted": 2865,
    "compounding": "off"
   },
   "unimorph": {
    "repository": "https://github.com/unimorph/amh",
    "licence": "CC BY-SA 3.0",
    "forms": 42929,
-   "bank_items_accepted": 819
+   "bank_items_accepted": 1018
   },
   "bible": {
    "texts": [
@@ -65,8 +65,8 @@
     }
    ],
    "word_types": 28504,
-   "new_forms_not_in_lists": 18329,
-   "bank_items_accepted": 977
+   "new_forms_not_in_lists": 11435,
+   "bank_items_accepted": 610
   }
  },
  "arabic-ar": {
@@ -99,14 +99,14 @@
  "armenian-hy": {
   "hunspell_skipped": {
    "dictionary": "wooorm/hy/index",
-   "coverage_of_reference_words": 0.283,
+   "coverage_of_reference_words": 0.256,
    "reason": "accepts fewer than 50% of the language's reference words"
   },
   "unimorph": {
    "repository": "https://github.com/unimorph/hye",
    "licence": "CC BY-SA 3.0",
    "forms": 243870,
-   "bank_items_accepted": 2258
+   "bank_items_accepted": 2146
   },
   "bible": {
    "texts": [
@@ -116,8 +116,8 @@
     }
    ],
    "word_types": 6036,
-   "new_forms_not_in_lists": 2170,
-   "bank_items_accepted": 91
+   "new_forms_not_in_lists": 1733,
+   "bank_items_accepted": 18
   }
  },
  "assamese-as": {
@@ -170,22 +170,22 @@
    "repository": "https://github.com/unimorph/bak",
    "licence": "CC BY-SA 3.0",
    "forms": 10723,
-   "bank_items_accepted": 83
+   "bank_items_accepted": 238
   }
  },
  "basque-eu": {
   "hunspell": {
    "dictionary": "wooorm/eu/index",
    "licence": "GPL-2.0",
-   "coverage_of_reference_words": 0.953,
-   "bank_items_accepted": 10262,
+   "coverage_of_reference_words": 0.928,
+   "bank_items_accepted": 20170,
    "compounding": "off"
   },
   "unimorph": {
    "repository": "https://github.com/unimorph/eus",
    "licence": "CC BY-SA 3.0",
    "forms": 10401,
-   "bank_items_accepted": 131
+   "bank_items_accepted": 172
   },
   "bible": {
    "texts": [
@@ -195,8 +195,8 @@
     }
    ],
    "word_types": 5905,
-   "new_forms_not_in_lists": 4433,
-   "bank_items_accepted": 64
+   "new_forms_not_in_lists": 4334,
+   "bank_items_accepted": 82
   }
  },
  "belarusian-be": {
@@ -476,15 +476,15 @@
   "hunspell": {
    "dictionary": "wooorm/fo/index",
    "licence": "(GPL-2.0 OR LGPL-2.1 OR MPL-1.1)",
-   "coverage_of_reference_words": 0.781,
-   "bank_items_accepted": 4456,
+   "coverage_of_reference_words": 0.785,
+   "bank_items_accepted": 7862,
    "compounding": "off"
   },
   "unimorph": {
    "repository": "https://github.com/unimorph/fao",
    "licence": "CC BY-SA 3.0",
    "forms": 31366,
-   "bank_items_accepted": 929
+   "bank_items_accepted": 1392
   }
  },
  "finnish-fi": {
@@ -1009,14 +1009,14 @@
  "low_german-nds": {
   "hunspell_skipped": {
    "dictionary": "wooorm/nds/index",
-   "coverage_of_reference_words": 0.307,
+   "coverage_of_reference_words": 0.183,
    "reason": "accepts fewer than 50% of the language's reference words"
   },
   "unimorph": {
    "repository": "https://github.com/unimorph/nds",
    "licence": "CC BY-SA 3.0",
    "forms": 2495,
-   "bank_items_accepted": 57
+   "bank_items_accepted": 98
   }
  },
  "lower_sorbian-dsb": {
@@ -1038,8 +1038,8 @@
   "hunspell": {
    "dictionary": "wooorm/lb/index",
    "licence": "EUPL-1.1",
-   "coverage_of_reference_words": 0.761,
-   "bank_items_accepted": 947,
+   "coverage_of_reference_words": 0.634,
+   "bank_items_accepted": 1272,
    "compounding": "off"
   }
  },
@@ -1985,7 +1985,7 @@
    "repository": "https://github.com/unimorph/urd",
    "licence": "CC BY-SA 3.0",
    "forms": 890,
-   "bank_items_accepted": 9
+   "bank_items_accepted": 20
   },
   "bible": {
    "texts": [
@@ -2007,8 +2007,8 @@
     }
    ],
    "word_types": 8042,
-   "new_forms_not_in_lists": 1343,
-   "bank_items_accepted": 103
+   "new_forms_not_in_lists": 1082,
+   "bank_items_accepted": 111
   }
  },
  "uyghur-ug": {
@@ -2180,8 +2180,8 @@
   "hunspell-de": {
    "dictionary": "wooorm/de/index",
    "licence": "(GPL-2.0 OR GPL-3.0)",
-   "coverage_of_reference_words": 0.14,
-   "bank_items_accepted": 32,
+   "coverage_of_reference_words": 0.149,
+   "bank_items_accepted": 45,
    "compounding": "off"
   }
  },
@@ -2223,8 +2223,8 @@
   "hunspell-de": {
    "dictionary": "wooorm/de/index",
    "licence": "(GPL-2.0 OR GPL-3.0)",
-   "coverage_of_reference_words": 0.197,
-   "bank_items_accepted": 71,
+   "coverage_of_reference_words": 0.16,
+   "bank_items_accepted": 70,
    "compounding": "off"
   }
  },

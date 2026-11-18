@@ -2675,5 +2675,25 @@
   ]
  },
  "training": null,
- "rules": {}
+ "rules": {},
+ "realword_filter": {
+  "date": "2026-11-18",
+  "bank_items": 120000,
+  "removed": 70,
+  "removed_pct": 0.06,
+  "by_source": {
+   "hunspell-de": 70
+  },
+  "extra_bible_forms": 0,
+  "sources": {
+   "hunspell-de": {
+    "dictionary": "wooorm/de/index",
+    "licence": "(GPL-2.0 OR GPL-3.0)",
+    "coverage_of_reference_words": 0.16,
+    "bank_items_accepted": 70,
+    "compounding": "off"
+   }
+  },
+  "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ }
 }

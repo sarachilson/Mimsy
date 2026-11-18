@@ -215,3 +215,11 @@ text: دنیاکی, کہاکہ; items like گرگئےہیں), transliterated Eng
   corpora; other languages keep their caution until they are rebuilt).
 - Not done: names (no capitals; translit.py has no Arabic-script table). Long items (10-12 letters) still often look
   like several word pieces.
+
+## 9. Reminder: run realwords.py after every rebuild (18 Nov 2026)
+build_bank rewrites the manifest without the `realword_filter` block, so the app stops loading realwords.tsv.gz. The
+languages rebuilt on 13 and 18 Nov (Luxembourgish, Swiss German, Bavarian, Low German, Faroese, Armenian, Bashkir,
+Basque, Amharic, Urdu) were live without the dictionary / UniMorph / Bible filter until this was noticed on 18 Nov and
+`realwords.py` was rerun for them (sources cloned from GitHub: wooorm/dictionaries, elastic/hunspell, unimorph/<iso3>,
+BibleNLP/ebible (sparse), christos-c/bible-corpus). Removed now: Basque 20,305, Faroese 8,154, Amharic 3,712,
+Armenian 2,158, Luxembourgish 1,272, Bashkir 238, Urdu 131, Low German 98, Swiss German 70, Bavarian 45.
