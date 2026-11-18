@@ -42,9 +42,9 @@
   {
    "code": "amharic-am",
    "name": "Amharic",
-   "reference_words": 24541,
+   "reference_words": 170299,
    "small_corpus": true,
-   "corpus_tokens": 391013,
+   "corpus_tokens": 13459457,
    "experimental": false,
    "cv_approximate": true,
    "family": "Semitic",

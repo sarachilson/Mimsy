@@ -180,3 +180,13 @@ and `_leipzig/apertium_nouns.tsv.gz` from `pipeline/build_name_evidence.py --ape
 Reference words: Luxembourgish 20,379 -> 51,599; Swiss German 24,276 -> 62,128; Bavarian 24,062 -> 59,061;
 Low German 13,274 -> 40,597. Known misses: dialect words that are names elsewhere (Lux. Fra 'woman', Etapp; Bav. Kini,
 Septemba; nds Fru, Kopp) are treated as names; native place and family names found in no other corpus stay words.
+
+## 7. Amharic: news corpus (18 Nov 2026)
+Leipzig has only small Wikipedia lists for Amharic (0.39 M words). Added the Amharic News Text Classification Dataset
+(Azime & Mohammed, 2021; CC BY 4.0; Hugging Face rasyosef/amharic-news-category-classification, the version with
+punctuation): 49,862 articles, 13.07 M words, counted with `pipeline/count_amharic_news.py` ->
+`_leipzig/amh_news_azime-words.txt` (`leipzig_extra`, minimum count 3). Reference words 24,541 -> 170,299; 165,178
+train the generators (5,121 found only in one source although expected in the other are left out); bank 281,891.
+Names: no capitals in Ethiopic script; `uncased_names` (translit.py, Ethiopic romanisation added) removes 1,220 forms
+that match international names (America, Samuel, Donald, Tanzania...). Known misses: Ethiopian names stay; a few
+loanwords and chance matches are removed (ፌዴራል 'federal', ግሎባል 'global', ቀኙን).

@@ -64,7 +64,25 @@ def _indic(word):
     return "".join(x.rstrip("*") for x in out)
 
 
+# Ethiopic: rows of 8 from U+1200 (consonant), column = vowel order
+_ETH = ["h", "l", "h", "m", "s", "r", "s", "sh", "q", "qw", "q", "qw", "b", "v", "t", "ch", "h", "hw", "n", "ny", "", "k",
+        "kw", "kh", "khw", "w", "", "z", "zh", "y", "d", "d", "j", "g", "gw", "ng", "t", "ch", "p", "ts", "ts", "f", "p"]
+_ETHV = ["e", "u", "i", "a", "e", "", "o", "wa"]
+
+
+def _ethiopic(word):
+    out = []
+    for ch in word:
+        cp = ord(ch) - 0x1200
+        if 0 <= cp < len(_ETH) * 8:
+            c = _ETH[cp // 8]; o = cp % 8
+            out.append(c + ("a" if o == 0 and c in ("h", "") else _ETHV[o]))
+    return "".join(out)
+
+
 def romanise(word):
+    if any("\u1200" <= c <= "\u135a" for c in word):
+        return _ethiopic(word)
     if any(0x0900 <= ord(c) < 0x0D80 for c in word):
         return _indic(word)
     if any("ა" <= c <= "ჿ" for c in word):

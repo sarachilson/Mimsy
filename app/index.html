@@ -2364,7 +2364,11 @@ const EXTRA_SOURCES = {
   kaz_mkd_books_news: {
     name: "Multi-Domain Kazakh Dataset (kz-transformers): books and news",
     bullets: ["4,481 books and 333,459 news articles", "Kazakh sentences only (mostly-Russian sentences removed): 205 million words"],
-    cite: `kz-transformers (n.d.). <i>Multi-Domain Kazakh Dataset (MKD)</i> [Data set]. Hugging Face. <a href="https://huggingface.co/datasets/kz-transformers/multidomain-kazakh-dataset" target="_blank" rel="noopener">huggingface.co/datasets/kz-transformers/multidomain-kazakh-dataset</a> (Apache-2.0)` } };
+    cite: `kz-transformers (n.d.). <i>Multi-Domain Kazakh Dataset (MKD)</i> [Data set]. Hugging Face. <a href="https://huggingface.co/datasets/kz-transformers/multidomain-kazakh-dataset" target="_blank" rel="noopener">huggingface.co/datasets/kz-transformers/multidomain-kazakh-dataset</a> (Apache-2.0)` },
+  amh_news_azime: {
+    name: "Amharic News Text Classification Dataset (Azime & Mohammed, 2021)",
+    bullets: ["49,862 news articles from Ethiopian and international Amharic news outlets", "13 million words"],
+    cite: `Azime, I. A., &amp; Mohammed, N. (2021). <i>An Amharic news text classification dataset</i>. arXiv. <a href="https://arxiv.org/abs/2103.05639" target="_blank" rel="noopener">arxiv.org/abs/2103.05639</a> (data: <a href="https://huggingface.co/datasets/rasyosef/amharic-news-category-classification" target="_blank" rel="noopener">huggingface.co/datasets/rasyosef/amharic-news-category-classification</a>, CC BY 4.0)` } };
 const extraSources = m => (((m.sources_detail || {}).leipzig || {}).extra || []).map(k => EXTRA_SOURCES[k]).filter(Boolean);
 function aboutSources(m) {
   const src = m.source || "", lz = (m.sources_detail || {}).leipzig, out = [], ff = filmsFile(S.code, m);

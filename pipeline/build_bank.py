@@ -378,7 +378,7 @@ def load_words(lang, cfg, slim_dir, leipzig_dir=None):
         names = [name] + list(cfg.get("leipzig_extra", []))   # further word lists in the Leipzig format, counted together (Kazakh: MKD books + news)
         lz, lz_names, lz_tokens, lz_stats = load_leipzig(names, cfg, leipzig_dir or os.path.join(HERE, "..", "_leipzig"))
         SOURCES[0] = LAST_NSRC[0]; SOURCES[1] = corpus_tokens   # subtitle corpus size (before it is replaced by the text corpus size)
-        minc = leipzig_min_count(name)
+        minc = cfg.get("leipzig_min_count") or leipzig_min_count(name)
         added = 0
         for w, (c, z) in lz.items():
             if w in rows:
@@ -662,7 +662,7 @@ def step_prepare(lang, cfg, args, outdir, work):
                 if nm:
                     plain[w] = (v[0], v[1], v[2], "leipzig_name"); uncased_found.append((v[1], w, nm))
         uncased_found.sort(reverse=True)
-    minc_lz = leipzig_min_count(cfg["leipzig"]) if cfg.get("leipzig") else REF_MIN_COUNT
+    minc_lz = (cfg.get("leipzig_min_count") or leipzig_min_count(cfg["leipzig"])) if cfg.get("leipzig") else REF_MIN_COUNT
     import re as _re
     drop_re = [_re.compile(x) for x in cfg.get("drop_re", [])]
     def keep(w, v):
@@ -998,7 +998,8 @@ def step_metrics(lang, cfg, args, outdir, work, deadline):
     return True
 
 
-EXTRA_DESC = {"kaz_mkd_books_news": "and the books and news of the Multi-Domain Kazakh Dataset"}
+EXTRA_DESC = {"kaz_mkd_books_news": "and the books and news of the Multi-Domain Kazakh Dataset",
+              "amh_news_azime": "and the Amharic News Text Classification Dataset"}
 
 
 def caution_items(cfg, st):
