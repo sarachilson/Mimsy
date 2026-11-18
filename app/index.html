@@ -920,7 +920,19 @@ const SOUND_ALIKE = {
     sets: "ሀ = ሐ = ኀ (and ሀ = ሃ), ሰ = ሠ, አ = ዐ (and አ = ኣ), ጸ = ፀ, in every vowel form",
     key: w => { let o = ""; for (const ch of w) { let x = ethRow(ch, 0x1210, 0x1200) || ethRow(ch, 0x1280, 0x1200) || ethRow(ch, 0x1220, 0x1230) || ethRow(ch, 0x12D0, 0x12A0) || ethRow(ch, 0x1340, 0x1338) || ch;
       if (x === "\u1200") x = "\u1203"; else if (x === "\u12A0") x = "\u12A3"; o += x; } return o; } },
+  "urdu-ur": {
+    sets: "ز = ذ ض ظ, س = ص ث, ت = ط, ہ = ح",
+    key: w => w.replace(/[ذضظ]/g, "ز").replace(/[صث]/g, "س").replace(/ط/g, "ت").replace(/ح/g, "ہ") },
 };
+// Words run together: in Urdu the space after a letter that does not join to the next one is often left out. An item
+// that is two or more frequent real words written together is not offered (pipeline: run_together; same thresholds).
+const RUN_TOGETHER = { "urdu-ur": new Set([..."اآدڈذرڑزژوےؤ"]) };
+function runTogether(L, w) {
+  const nj = L && RUN_TOGETHER[L.code]; if (!nj || !L.lex) return false;
+  const part = x => { const i = L.lex.index.get(x); return i !== undefined && L.lex.zipf[i] >= (x.length <= 2 ? 5.5 : 4); };
+  const joined = (x, top) => (!top && part(x)) || [...Array(Math.max(x.length - 1, 0)).keys()].some(k => nj.has(x[k]) && part(x.slice(0, k + 1)) && joined(x.slice(k + 1), false));
+  return joined(w, true);
+}
 // The most frequent real word with the same merged spelling as w (other than w itself), or "".
 function soundOf(L, w) {
   const sa = L && SOUND_ALIKE[L.code]; if (!sa || !L.lex) return "";
@@ -1058,7 +1070,7 @@ async function getRare(L) {
   return L.rare;
 }
 function isRealWord(L, w) {
-  return L.lex.index.has(w) || !!(L.rare && L.rare.has(w)) || !!(L.realwords && L.realwords.has(w)) || !!soundOf(L, w);
+  return L.lex.index.has(w) || !!(L.rare && L.rare.has(w)) || !!(L.realwords && L.realwords.has(w)) || !!soundOf(L, w) || runTogether(L, w);
 }
 // Wordlikeness: mean log10 trigram type frequency (word boundaries included), from the reference lexicon.
 // Trigram tables keyed by a numeric code (char index × 1024² …) rather than by string slices: several times faster to score.
@@ -2387,7 +2399,11 @@ const EXTRA_SOURCES = {
   amh_news_azime: {
     name: "Amharic News Text Classification Dataset (Azime & Mohammed, 2021)",
     bullets: ["49,862 news articles from Ethiopian and international Amharic news outlets", "13 million words"],
-    cite: `Azime, I. A., &amp; Mohammed, N. (2021). <i>An Amharic news text classification dataset</i>. arXiv. <a href="https://arxiv.org/abs/2103.05639" target="_blank" rel="noopener">arxiv.org/abs/2103.05639</a> (data: <a href="https://huggingface.co/datasets/rasyosef/amharic-news-category-classification" target="_blank" rel="noopener">huggingface.co/datasets/rasyosef/amharic-news-category-classification</a>, CC BY 4.0)` } };
+    cite: `Azime, I. A., &amp; Mohammed, N. (2021). <i>An Amharic news text classification dataset</i>. arXiv. <a href="https://arxiv.org/abs/2103.05639" target="_blank" rel="noopener">arxiv.org/abs/2103.05639</a> (data: <a href="https://huggingface.co/datasets/rasyosef/amharic-news-category-classification" target="_blank" rel="noopener">huggingface.co/datasets/rasyosef/amharic-news-category-classification</a>, CC BY 4.0)` },
+  urd_makhzan: {
+    name: "Makhzan (Matnsaz): edited Urdu text",
+    bullets: ["6,315 documents of edited Urdu writing", "6.2 million words"],
+    cite: `Ahmed, Z., et al. (n.d.). <i>Maḵẖzan</i> [Data set]. <a href="https://github.com/zeerakahmed/makhzan" target="_blank" rel="noopener">github.com/zeerakahmed/makhzan</a>` } };
 const extraSources = m => (((m.sources_detail || {}).leipzig || {}).extra || []).map(k => EXTRA_SOURCES[k]).filter(Boolean);
 function aboutSources(m) {
   const src = m.source || "", lz = (m.sources_detail || {}).leipzig, out = [], ff = filmsFile(S.code, m);

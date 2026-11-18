@@ -45,6 +45,7 @@ def english_lexicon(out_dir):
                     q = line.split("\t")
                     _ENG[q[0]] = float(q[1])
     return _ENG  # below this, frequency bands are unreliable: only the all-words generator is built
+RT_ZIPF, RT_ZIPF_SHORT = 4.0, 5.5   # run-together words: minimum Zipf of each part (parts of 1-2 letters: the higher value)
 MS_EXPECT = 3                   # multi-source training rule: expected occurrences in the other sources
 HIGH_ZIPF = 4.0                 # neighbours at/above this count as higher-frequency neighbours
 PER_MODEL_MIN, PER_MODEL_MAX = 5000, 40000   # target per (generator, training set) = number of training words, clamped
@@ -652,6 +653,36 @@ def step_prepare(lang, cfg, args, outdir, work):
         for w, v in plain.items():
             if v[3] == "leipzig" and len(w) >= ENG_FILTER_MINLEN and ENG.get(w, 0) >= ENG_FILTER_ZIPF:
                 plain[w] = (v[0], v[1], v[2], "leipzig_eng"); eng_removed.append(w)
+    # Words run together (cfg run_together = letters that do not join to the next letter; 18 Nov 2026). In Urdu the space
+    # after a non-joining letter is often left out (دنیاکی = دنیا کی). A corpus form is treated as run-together when it
+    # splits after such a letter into two frequent words (Zipf >= RT_ZIPF, or RT_ZIPF_SHORT for parts of 1-2 letters),
+    # both at least 10 times as frequent as the form itself, unless the edited corpus (cfg edited_list) has the form
+    # about as often as expected. Such forms stay in the reject list but are not reference words.
+    rt_found = []
+    if cfg.get("run_together"):
+        nonjoin = set(cfg["run_together"])
+        ed, ed_names, ed_tok, _ = load_leipzig(cfg["edited_list"], cfg, args.leipzig)
+        allc, _, all_tok, _ = load_leipzig([cfg["leipzig"]] + cfg.get("leipzig_extra", []), cfg, args.leipzig)
+        zz = {w: v[1] for w, v in plain.items() if v[3] not in ("leipzig_name", "leipzig_eng")}
+        def part_ok(x):
+            return zz.get(x, 0) >= (RT_ZIPF_SHORT if len(x) <= 2 else RT_ZIPF)
+        for w, v in list(plain.items()):
+            if len(w) < 4 or v[3] in ("leipzig_name", "leipzig_eng"):
+                continue
+            best = None
+            for i in range(2, len(w) - 1):
+                a, b = w[:i], w[i:]
+                if a[-1] in nonjoin and part_ok(a) and part_ok(b):
+                    m = min(zz[a], zz[b])
+                    if m - v[1] >= 1.0 and (best is None or m > best[0]):
+                        best = (m, a, b)
+            if not best:
+                continue
+            ec = ed.get(w, (0, 0))[0]; oc = max(allc.get(w, (0, 0))[0] - ec, 0)
+            if ec >= max(2, 0.2 * oc / max(all_tok - ed_tok, 1) * ed_tok):
+                continue
+            plain[w] = (v[0], v[1], v[2], "leipzig_name"); rt_found.append((v[1], w, best[1], best[2]))
+        rt_found.sort(reverse=True)
     uncased_found = []
     if cfg.get("uncased_names"):   # scripts without capitals: foreign names found through romanisation (translit.py, 13 Nov 2026)
         import translit
@@ -763,6 +794,18 @@ def step_prepare(lang, cfg, args, outdir, work):
                                             "rule": f"a word found in only one of the {nsources} sources although {MS_EXPECT}+ occurrences were expected in the others (from its frequency) does not train the generators"})
             with open(os.path.join(work, "train.txt"), "w", encoding="utf-8") as f:
                 f.write("\n".join(sorted(train)))
+    # Edited corpus as the gate for training (cfg train_edited_min = n; Urdu, 18 Nov 2026): only words that occur at
+    # least n times in the edited corpus train the generators. The other sources (news, subtitles) are full of names,
+    # transliterated English, misspellings and words run together; they still supply reference words and frequencies.
+    if cfg.get("train_edited_min"):
+        ed2, _, _, _ = load_leipzig(cfg["edited_list"], cfg, args.leipzig)
+        base = train if train is not None else {w for w, _ in ref}
+        kept = {w for w in base if ed2.get(w, (0, 0))[0] >= cfg["train_edited_min"]}
+        train_info = dict(train_info or {}, train_words=len(kept), reference_words=len(ref),
+                          edited_only={"list": cfg["edited_list"], "min_count": cfg["train_edited_min"], "dropped": len(base) - len(kept)})
+        train = kept
+        with open(os.path.join(work, "train.txt"), "w", encoding="utf-8") as f:
+            f.write("\n".join(sorted(train)))
     # legality inventories from the whole reference lexicon (or the training words)
     invc = {"onset": {}, "medial": {}, "coda": {}, "vseq": {}}
     def bump(k, s):
@@ -808,6 +851,9 @@ def step_prepare(lang, cfg, args, outdir, work):
         "leipzig": lz, "reference_sources": src_counts, "parents": parents or None, "english_contamination_removed": {"count": len(eng_removed), "rule": f"Leipzig-only words of {ENG_FILTER_MINLEN}+ letters that are English words with Zipf >= {ENG_FILTER_ZIPF}", "words": sorted(eng_removed)},
         "length_unit": ("fidel" if cfg.get("rules", {}).get("syllabary") else "aksharas") if indic.is_indic(cls) else (syl.table(cfg).get("length_unit", "syllables") if syl.is_syl(cls) else ("jamo" if cfg.get("decompose") else "letters")),
         "inventory": {k: sorted(v) for k, v in inv.items()}, "training": train_info,
+        "text_tokens": ((SOURCES[1] or 0) + sum(SOURCES[0][3])) if SOURCES[0] else None,
+        "run_together": {"removed": len(rt_found), "rule": f"corpus form that splits, after a letter that does not join, into two words with Zipf >= {RT_ZIPF} ({RT_ZIPF_SHORT} for parts of 1-2 letters), each at least 10 times as frequent as the form, and that the edited corpus does not have about as often as expected",
+                         "examples": [f"{w} = {a} + {b}" for _, w, a, b in rt_found[:40]]} if cfg.get("run_together") else None,
         "uncased_names": {"removed": len(uncased_found), "rule": "word romanised and matched with a name found capitalised-only in at least 12 other corpora (translit.py)",
                           "examples": [f"{w} ({nm})" for _, w, nm in uncased_found[:40]]} if cfg.get("uncased_names") else None,
         "counts": {"corpus_forms": len(all_forms), "plain_forms": len(plain),
@@ -914,12 +960,30 @@ def gens(lang):
 def step_generate(lang, cfg, args, outdir, work):
     st, lex, models, targets = build_models(lang, work, outdir)
     reject = set(open(os.path.join(work, "reject.txt"), encoding="utf-8").read().split("\n"))
+    preds = []
     if cfg.get("sound_alike"):   # same-sounding letters merged: no item may sound like a real word (see translit.SOUND_KEYS)
         import translit
         skey = translit.SOUND_KEYS[cfg["sound_alike"]]
-        class _SoundReject(set):
-            def __contains__(self, w, _k=frozenset(skey(x) for x in reject), _f=skey): return _f(w) in _k
-        reject = _SoundReject(reject)
+        skeys = frozenset(skey(x) for x in reject)
+        preds.append(lambda w: skey(w) in skeys)
+    if cfg.get("run_together"):   # no item may be real words run together (after a non-joining letter; any number of words)
+        nonjoin = set(cfg["run_together"])
+        parts = set()
+        with gzip.open(os.path.join(outdir, "lexicon.tsv.gz"), "rt", encoding="utf-8") as f:
+            next(f)
+            for line in f:
+                q = line.split("\t")
+                if float(q[1]) >= (RT_ZIPF_SHORT if len(q[0]) <= 2 else RT_ZIPF):
+                    parts.add(q[0])
+        def joined(w, top=True):
+            if not top and w in parts:
+                return True
+            return any(w[i - 1] in nonjoin and w[:i] in parts and joined(w[i:], False) for i in range(1, len(w)))
+        preds.append(joined)
+    if preds:
+        class _Reject(set):
+            def __contains__(self, w): return set.__contains__(self, w) or any(p(w) for p in preds)
+        reject = _Reject(reject)
     cls = st["classes"]; inv = {k: set(v) for k, v in st["inventory"].items()}
     rng = random.Random(SEED)
     seen = set(); rows = []
@@ -1005,7 +1069,7 @@ def step_metrics(lang, cfg, args, outdir, work, deadline):
 
 
 EXTRA_DESC = {"kaz_mkd_books_news": "and the books and news of the Multi-Domain Kazakh Dataset",
-              "amh_news_azime": "and the Amharic News Text Classification Dataset"}
+              "amh_news_azime": "and the Amharic News Text Classification Dataset", "urd_makhzan": "and the Makhzan corpus of edited Urdu text"}
 
 
 def caution_items(cfg, st):
@@ -1013,7 +1077,7 @@ def caution_items(cfg, st):
     st needs: counts.reference_words, corpus_tokens, small_corpus, leipzig (corpus, tokens), reference_sources, english_contamination_removed."""
     items = []
     nref = st["counts"]["reference_words"]
-    if st.get("small_corpus"):
+    if st.get("small_corpus") and not (st.get("text_tokens") or 0) >= SMALL_CORPUS_TOKENS:   # text_tokens: subtitles + text corpora (builds from 18 Nov 2026)
         mt = st["corpus_tokens"] / 1e6
         if nref < EXPERIMENTAL_WORDS:
             items.append({"title": "Experimental", "text": f"Very small lexicon ({nref:,} reference words). The generators mostly recombine fragments of existing words, the attested-cluster filter is very restrictive, and neighbourhood measures are coarse; treat results as illustrative."})
@@ -1052,7 +1116,7 @@ def rewrite_cautions(out):
             continue
         m = json.load(open(mp, encoding="utf-8"))
         sd = m.get("sources_detail") or {}
-        st = {"counts": m["counts"], "corpus_tokens": m.get("corpus_tokens"), "small_corpus": m.get("small_corpus"),
+        st = {"counts": m["counts"], "corpus_tokens": m.get("corpus_tokens"), "small_corpus": m.get("small_corpus"), "text_tokens": m.get("text_tokens"),
               "leipzig": sd.get("leipzig"), "reference_sources": sd.get("reference_words_by_source"),
               "english_contamination_removed": sd.get("english_contamination_removed"), "parents": m.get("parents_detail")}
         items = caution_items(cfg, st)
@@ -1091,7 +1155,7 @@ def step_write(lang, cfg, args, outdir, work):
         "language": lang, "name": cfg["name"], "version": VERSION,
         "cv_approximate": bool(cfg.get("cv_note")),
         "corpus_tokens": None if st.get("corpus_tokens") is None else int(st["corpus_tokens"]),
-        "small_corpus": small, "bands_enabled": st.get("bands_enabled", not small), "caution": caution, "caution_items": items,
+        "small_corpus": small and not (st.get("text_tokens") or 0) >= SMALL_CORPUS_TOKENS, "bands_enabled": st.get("bands_enabled", not small), "text_tokens": None if st.get("text_tokens") is None else int(st["text_tokens"]), "caution": caution, "caution_items": items,
         "script": cfg.get("script", "alphabet"), "length_unit": st.get("length_unit", "letters"),
         "experimental": st["counts"]["reference_words"] < EXPERIMENTAL_WORDS,
         "parents": list((st.get("parents") or {}).keys()) or None, "parents_detail": st.get("parents"),
@@ -1121,7 +1185,7 @@ def step_write(lang, cfg, args, outdir, work):
         "generation": {"target_rule": (f"per generator and training set: {LANGS[lang]['bank_scale'][0]} x the number of training words, between {PER_MODEL_MIN} and {LANGS[lang]['bank_scale'][1]}; a generator stops early when fewer than 1 in 20 recent samples is new and legal" if LANGS[lang].get("bank_scale") else f"per generator and training set: number of training words, between {PER_MODEL_MIN} and {PER_MODEL_MAX}"), "seed": SEED, "results": gstats},
         "counts": st["counts"],
         "inventory_sizes": {k: len(v) for k, v in st["inventory"].items()},
-        "inventory": st["inventory"], "training": st.get("training"), "uncased_names": st.get("uncased_names"),
+        "inventory": st["inventory"], "training": st.get("training"), "uncased_names": st.get("uncased_names"), "run_together": st.get("run_together"), "text_tokens": st.get("text_tokens"),
         "rules": cfg.get("rules", {}),
     }
     mp = os.path.join(outdir, "manifest.json")

@@ -132,7 +132,7 @@ LANGS = {
                           strip_marks=True, strip="ـ\u200e\u200f\u202a\u202b\u202c", normalize={"ك": "ک", "ي": "ی", "ى": "ی"},
                           rules={"allow_no_vowel": True}, allow_no_vowel=True,
                           cv_note="Persian is written without short vowels. CV here is orthographic: alef (ا آ أ إ), waw (و) and ye (ی) count as V; he (ه) and all other letters as C. The half-space (ZWNJ) is kept as a modifier. Diacritics were removed."),
-    "urdu-ur":       dict(leipzig="urd_newscrawl_2016_1M", name="Urdu", alphabets=["ابپتٹثجچحخدڈذرڑزژسشصضطظعغفقکگلمنںوہھءیےئؤآ"], vowels="اآوئؤیے", cmods="ھں",
+    "urdu-ur":       dict(leipzig_extra=["urd_makhzan"], edited_list="urd_makhzan", train_edited_min=2, run_together="اآدڈذرڑزژوےؤ", sound_alike="urdu", multi_source_train=True, bank_scale=(2, 100000), no_bands=True, leipzig="urd_newscrawl_2016_1M", name="Urdu", alphabets=["ابپتٹثجچحخدڈذرڑزژسشصضطظعغفقکگلمنںوہھءیےئؤآ"], vowels="اآوئؤیے", cmods="ھں",
                           strip_marks=True, strip="ـ\u200c\u200e\u200f\u202a\u202b\u202c", normalize={"ك": "ک", "ي": "ی", "ه": "ہ"},
                           rules={"allow_no_vowel": True}, allow_no_vowel=True,
                           cv_note="Urdu is written without short vowels. CV here is orthographic: alif, waw, ye and bari ye (ا آ و ی ے) count as V; the aspiration letter (ھ) and nun ghunna (ں) count as consonant letters (at the grapheme level ھ joins the consonant before it). Diacritics were removed."),

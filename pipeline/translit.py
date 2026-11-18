@@ -174,4 +174,8 @@ def _eth_key(w):
     return "".join(out)
 
 
-SOUND_KEYS = {"ethiopic": _eth_key}
+# Urdu: letters kept from Arabic spelling that are pronounced like another letter (ز = ذ ض ظ, س = ص ث, ت = ط, ہ = ح)
+_URD = str.maketrans("ذضظصثطح", "زززسستہ")
+
+
+SOUND_KEYS = {"ethiopic": _eth_key, "urdu": lambda w: w.translate(_URD)}

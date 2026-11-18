@@ -2885,8 +2885,8 @@
   {
    "code": "urdu-ur",
    "name": "Urdu",
-   "reference_words": 64318,
-   "small_corpus": true,
+   "reference_words": 58008,
+   "small_corpus": false,
    "corpus_tokens": 9881599,
    "experimental": false,
    "cv_approximate": true,

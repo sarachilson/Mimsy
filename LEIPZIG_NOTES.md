@@ -196,3 +196,22 @@ word, so it is not generated (`sound_alike="ethiopic"`, translit.SOUND_KEYS; 2,1
 `patch_sound_alike.py`, bank now 279,774). The app applies the same merge when it generates items live. A column and
 filter for these items existed for an hour and were removed on the user's decision (too small a category).
 Open: the reference lexicon still holds 7,245 words in more than one spelling (split frequencies, extra neighbours).
+
+## 8. Urdu: edited corpus, run-together words, same-sounding letters (18 Nov 2026)
+Problems seen in the old bank: words run together (the space after a non-joining letter is often left out in Urdu news
+text: دنیاکی, کہاکہ; items like گرگئےہیں), transliterated English and names, no check for same-sounding letters.
+- Added Makhzan (github.com/zeerakahmed/makhzan; edited text; free to use, raw text not to be republished, so only
+  the word counts are kept): 6,315 documents, 6.22 M words, `pipeline/count_makhzan.py` ->
+  `_leipzig/urd_makhzan-words.txt` (`leipzig_extra`, `edited_list`).
+- `run_together` (non-joining letters اآدڈذرڑزژوےؤ): a corpus form that splits after such a letter into two words with
+  Zipf >= 4 (5.5 for parts of 1-2 letters), each 10 times as frequent as the form, is not a reference word unless
+  Makhzan has it about as often as expected (>= 2 and >= 20% of the expected count): 47,011 forms. No bank item may be
+  such real words written together (any number of parts). The app applies the same check to items generated live.
+- `train_edited_min=2`: only words that occur at least twice in Makhzan train the generators (36,070 words). The
+  news-only and subtitle-only words were mostly names, transliterated English, typos and run-together forms.
+- `sound_alike="urdu"`: ز = ذ ض ظ, س = ص ث, ت = ط, ہ = ح; an item equal to a corpus form after merging is not generated.
+- Result: reference words 64,318 -> 58,008 (run-together forms out, Makhzan words in); bank 120,000 -> 216,420;
+  42 M words of text in all, so the "Small corpus" caution is gone (new manifest field `text_tokens` = subtitles + text
+  corpora; other languages keep their caution until they are rebuilt).
+- Not done: names (no capitals; translit.py has no Arabic-script table). Long items (10-12 letters) still often look
+  like several word pieces.
