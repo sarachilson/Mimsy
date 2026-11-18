@@ -13,6 +13,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from get_leipzig import fetch_words
 
 CORPORA = {
+    "persian-fa": ["fas_news_2024_1M", "fas_news_2023_1M", "fas_news_2022_1M"],   # added 18 Nov 2026: news only, the three newest years
     "afrikaans-af": ["afr_news_2017_300K", "afr_news_2016_300K", "afr_newscrawl_2012_300K", "afr_newscrawl_2011_300K", "afr_web_2013_300K", "afr_wikipedia_2021_300K", "afr_newscrawl_2013_100K", "afr_web_2012_100K", "afr_web_2011_100K", "afr_news_2020_30K", "afr_news_2019_10K"],
     "armenian-hy": ["hye_wikipedia_2021_1M", "hye_news_2021_30K", "hye_news_2020_30K", "hye_news_2019_10K"],
     "azerbaijani-az": ["aze_wikipedia_2021_1M", "aze_news_2020_30K", "aze_news_2019_30K"],
