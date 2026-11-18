@@ -5671,5 +5671,11 @@
   "schwa_rule": false,
   "final_virama": false,
   "syllabary": true
- }
+ },
+ "patches": [
+  {
+   "date": "2026-11-18",
+   "what": "removed 2117 bank items that sound like a real word (same-sounding letters merged)"
+  }
+ ]
 }

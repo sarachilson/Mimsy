@@ -190,3 +190,9 @@ train the generators (5,121 found only in one source although expected in the ot
 Names: no capitals in Ethiopic script; `uncased_names` (translit.py, Ethiopic romanisation added) removes 1,220 forms
 that match international names (America, Samuel, Donald, Tanzania...). Known misses: Ethiopian names stay; a few
 loanwords and chance matches are removed (ፌዴራል 'federal', ግሎባል 'global', ቀኙን).
+Same-sounding letters (18 Nov): Amharic writes some sounds with several letters (ሀ = ሐ = ኀ, also ሀ = ሃ; ሰ = ሠ; አ = ዐ, also
+አ = ኣ; ጸ = ፀ; every vowel form). An item that equals any corpus form once these are merged would be read as a real
+word, so it is not generated (`sound_alike="ethiopic"`, translit.SOUND_KEYS; 2,117 items removed from the bank with
+`patch_sound_alike.py`, bank now 279,774). The app applies the same merge when it generates items live. A column and
+filter for these items existed for an hour and were removed on the user's decision (too small a category).
+Open: the reference lexicon still holds 7,245 words in more than one spelling (split frequencies, extra neighbours).

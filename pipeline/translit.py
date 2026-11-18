@@ -157,3 +157,21 @@ def name_keys(leipzig_dir, devoice=False):
 def foreign_name(word, keys, devoice=False):
     """The name a word of an uncased script matches, or None."""
     return keys.get(key(romanise(word), devoice))
+
+
+# Letters pronounced the same (cfg `sound_alike`): an item that equals a real word once these are merged is a
+# pseudohomophone and is kept out of the bank (18 Nov 2026). Same table as SOUND_ALIKE in app/index.html.
+def _eth_key(w):
+    out = []
+    for ch in w:
+        c = ord(ch)
+        for a, b in ((0x1210, 0x1200), (0x1280, 0x1200), (0x1220, 0x1230), (0x12D0, 0x12A0), (0x1340, 0x1338)):
+            if a <= c < a + 8:
+                c = b + (c - a); break
+        if c == 0x1200: c = 0x1203      # ሀ = ሃ
+        elif c == 0x12A0: c = 0x12A3    # አ = ኣ
+        out.append(chr(c))
+    return "".join(out)
+
+
+SOUND_KEYS = {"ethiopic": _eth_key}

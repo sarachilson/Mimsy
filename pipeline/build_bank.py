@@ -914,6 +914,12 @@ def gens(lang):
 def step_generate(lang, cfg, args, outdir, work):
     st, lex, models, targets = build_models(lang, work, outdir)
     reject = set(open(os.path.join(work, "reject.txt"), encoding="utf-8").read().split("\n"))
+    if cfg.get("sound_alike"):   # same-sounding letters merged: no item may sound like a real word (see translit.SOUND_KEYS)
+        import translit
+        skey = translit.SOUND_KEYS[cfg["sound_alike"]]
+        class _SoundReject(set):
+            def __contains__(self, w, _k=frozenset(skey(x) for x in reject), _f=skey): return _f(w) in _k
+        reject = _SoundReject(reject)
     cls = st["classes"]; inv = {k: set(v) for k, v in st["inventory"].items()}
     rng = random.Random(SEED)
     seen = set(); rows = []

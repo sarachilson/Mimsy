@@ -203,9 +203,6 @@ body.noprov .prov{display:none!important}
    <div class="field" id="sylBox" hidden><label for="sSylType">Item type</label>
      <select id="sSylType"><option value="">Any</option><option value="compound">Real syllables only (novel compound)</option><option value="gap">Contains a tonal gap (syllable with a tone it never carries)</option></select>
      <div class="hint">Every Chinese syllable is a morpheme, so items made of real syllables are novel compounds; tonal-gap items contain a syllable that is no morpheme at all. Monosyllabic gap items have length 1.</div></div>
-   <div class="field" id="sndBox" hidden><label for="sSnd">Sounds like a real word</label>
-     <select id="sSnd"><option value="">Any</option><option value="no">Exclude items that sound like a real word</option><option value="yes">Only items that sound like a real word (pseudohomophones)</option></select>
-     <div class="hint" id="sndHint"></div></div>
    <div class="field" id="morphBox" hidden><span class="lbl">Morphology</span>
      <select id="sMorph"><option value="">Any</option><option value="affixed">Pseudo-stem + real affixes</option><option value="bare">No affixes (monomorphemic-looking)</option><option value="disharm">No valid affixes, but an ending that looks like a suffix in the wrong form</option><option value="realstem">Real stem + affixes the analyser rejects</option><option value="gen">From the morphological generator</option></select>
      <div class="row" style="margin-top:6px"><div><label for="sAffMin">Affixes min</label><input type="text" inputmode="decimal" autocomplete="off" id="sAffMin" placeholder="min"></div><div><label for="sAffMax">max</label><input type="text" inputmode="decimal" autocomplete="off" id="sAffMax" placeholder="max"></div></div>
@@ -722,7 +719,6 @@ async function selectLang(code) {
     $("#sLenLbl").textContent = `Length (${unit})`;
     if (S.lenUnit !== unit) { $("#sLenMin").value = $("#sLenMin").defaultValue = d[0]; $("#sLenMax").value = $("#sLenMax").defaultValue = d[1]; S.lenUnit = unit; } }
   $("#mWords").placeholder = exampleWords(S.L[code], 3).map(disp).join("\n") || "one word per line";
-  { const sa = SOUND_ALIKE[code]; $("#sndBox").hidden = !sa; if (!sa) $("#sSnd").value = ""; $("#sndHint").textContent = sa ? `Letters treated as the same sound: ${sa.sets}.` : ""; }
   $("#morphBox").hidden = !S.L[code].morph; $("#mcMorphBox").hidden = !S.L[code].morph; $("#mcPlausBox").hidden = !S.L[code].morph; $("#sylBox").hidden = !S.L[code].pinyin;
   if (S.gMissing) { $("#cvBasisBox").hidden = false; setHint("#cvBasisHint", "data/graphemes.json was not found, so the graphemic CV is unavailable (copy the file into the data folder and reload).", ""); }
   else if ($("#cvBasisBox").hidden) setHint("#cvBasisHint", "", "");
@@ -916,7 +912,8 @@ function embFilter(prefix) {
 const BankRow = {};
 const lazy = (name, f) => Object.defineProperty(BankRow, name, { configurable: true, get() { const v = f(this._L, this); Object.defineProperty(this, name, { value: v, writable: true, configurable: true }); return v; } });
 // Letters that are pronounced the same (per language): an item that becomes a real word when these are merged is a
-// pseudohomophone. SOUND_ALIKE[code] = { key(word) -> merged spelling, sets: description shown under the filter }.
+// pseudohomophone. Such items are not in the bank (pipeline: sound_alike) and are not generated live (isRealWord).
+// SOUND_ALIKE[code] = { key(word) -> merged spelling, sets: the merged letters }.
 const ethRow = (ch, from, to) => { const c = ch.charCodeAt(0); return c >= from && c < from + 8 ? String.fromCharCode(to + (c - from)) : null; };
 const SOUND_ALIKE = {
   "amharic-am": {
@@ -933,7 +930,6 @@ function soundOf(L, w) {
   for (const i of a) if (L.lex.words[i] !== w) return L.lex.words[i];
   return "";
 }
-lazy("snd", (L, r) => soundOf(L, r.w));
 lazy("emb", (L, r) => L && L.lex ? embedded(L, r.w) : null);
 lazy("cvg", (L, r) => L && L.cvg ? cvGuess(L, r.w) : "");
 lazy("cvgr", (L, r) => { if (!L || !L.hasGraph) return ""; const g = graphOf(L, r.w); Object.defineProperty(r, "ng", { value: g.ng, writable: true, configurable: true }); return g.cvgr; });
@@ -1062,7 +1058,7 @@ async function getRare(L) {
   return L.rare;
 }
 function isRealWord(L, w) {
-  return L.lex.index.has(w) || !!(L.rare && L.rare.has(w)) || !!(L.realwords && L.realwords.has(w));
+  return L.lex.index.has(w) || !!(L.rare && L.rare.has(w)) || !!(L.realwords && L.realwords.has(w)) || !!soundOf(L, w);
 }
 // Wordlikeness: mean log10 trigram type frequency (word boundaries included), from the reference lexicon.
 // Trigram tables keyed by a numeric code (char index × 1024² …) rather than by string slices: several times faster to score.
@@ -1630,7 +1626,6 @@ const TIPS = {
   legal: "Spelling check: are the item's clusters and vowel sequences attested in real words, and are language rules respected?",
   ipa: "Pronunciation from the source dictionary, where available.",
   t: "The real word you entered.", tz: "Zipf frequency of the real word.",
-  snd: "A real word that is pronounced like this item: the two differ only in letters that sound the same (the merged letters are listed under the filter). Such items are pseudohomophones. The most frequent matching reference word is shown.",
   morph: "Morphological analysis (Apertium transducer): pseudo-stem+affixes with the affix tags (e.g. n.pl.gen), 'no affixes' when no legal affix chain can be split off, '(real stem)' when the stem is a real word but the analyser rejects the combination. Real forms were removed from the bank. The count at the end ('ending on n real words') is the number of real words with exactly this suffix chain.",
   naff: "Number of affixes in the morphological analysis (tags other than part of speech and zero-realised tags).",
   harm: "Vowel harmony of the item: front, back, mixed (front and back vowels together, as in many loanwords and compounds) or none.",
@@ -1654,7 +1649,6 @@ const COLS = {
   len: ["Len", r => r.len, "num"], cv: [() => S.L[S.code] && (S.L[S.code].cvg || S.L[S.code].hasGraph) ? "CV (orth.)" : "CV", r => r.cv, "mono"], cvgr: ["CV (graph.)", r => r.cvgr || "", "mono"], ng: ["Graphemes", r => r.ng ?? "", "num"], cvg: ["CV (phon.)*", r => r.cvg || "", "mono"],
   like: ["Wordlike % (vs real words)", r => fmt(r.like, 0), "num"], tri: [() => S.L[S.code] && S.L[S.code].pinyin ? "Bigram freq." : "Trigram freq.", r => fmt(r.tri, 2), "num"],
   old: ["OLD20", r => fmt(r.old), "num"], oldp: ["OLD20 pct", r => fmt(r.oldP, 0), "num"], n1: ["Coltheart's N", r => r.n1, "num"], n1p: ["N pct", r => fmt(r.n1P, 0), "num"], n1h: ["High-freq. neighbours", r => r.n1h, "num"],
-  snd: ["Sounds like", r => r.snd || "", "mono"],
   morph: ["Morphology", r => morphText(r.mo), "mono", undefined, r => morphCellHtml(r._L || S.L[S.code], r)], naff: ["Affixes", r => isNaN(r.naff) ? "" : r.naff, "num"], harm: ["Harmony", r => r.mo ? r.mo.h || "" : "", ""],
   mplaus: ["Morph. suffix %", r => isNaN(r.mplaus) ? "" : fmt(r.mplaus, 0), "num"], msame: ["Same ending", r => isNaN(r.msame) ? "" : r.msame, "num"], nparse: ["Parses", r => isNaN(r.nparse) ? "" : r.nparse, "num"],
   blocks: ["Syllables", r => blocksOf(r._L || S.L[S.code], r.w), "num"],
@@ -1669,7 +1663,7 @@ const COLS = {
   xl: ["Word in", r => xlLabel(xlOf(r), r.w), ""],
 };
 const BANK_COLS = ["w", "model", "gen", "len", "cv", "like", "tri", "trimin", "old", "oldp", "n1", "n1p", "tl", "near", "nd", "nz", "embn", "oup", "lpa"];
-const bankCols = L => { let c = BANK_COLS.filter(k => SHOW_PROVENANCE || (k !== "model" && k !== "gen")); if (L.pinyin) { c = c.filter(k => !SYL_HIDE.has(k)); c.splice(c.indexOf("cv") + 1, 0, "tones", "sylz", "homo", "styp"); } if (L.hangul) c.splice(c.indexOf("len") + 1, 0, "blocks"); if (L.cvg) c.splice(c.indexOf("cv") + 1, 0, "cvg"); if (L.hasGraph && !L.indic) c.splice(c.indexOf("cv") + 1, 0, "cvgr", "ng"); if (L.morph) c.splice(c.indexOf("like"), 0, "morph", "naff", "harm", "mplaus"); if (SOUND_ALIKE[L.code]) c.splice(c.indexOf("like"), 0, "snd"); if (S.xlSig) c.splice(1, 0, "xl"); return c; };
+const bankCols = L => { let c = BANK_COLS.filter(k => SHOW_PROVENANCE || (k !== "model" && k !== "gen")); if (L.pinyin) { c = c.filter(k => !SYL_HIDE.has(k)); c.splice(c.indexOf("cv") + 1, 0, "tones", "sylz", "homo", "styp"); } if (L.hangul) c.splice(c.indexOf("len") + 1, 0, "blocks"); if (L.cvg) c.splice(c.indexOf("cv") + 1, 0, "cvg"); if (L.hasGraph && !L.indic) c.splice(c.indexOf("cv") + 1, 0, "cvgr", "ng"); if (L.morph) c.splice(c.indexOf("like"), 0, "morph", "naff", "harm", "mplaus"); if (S.xlSig) c.splice(1, 0, "xl"); return c; };
 const tableData = {};
 function renderTable(id, rows, colKeys, colDefs = COLS) {
   const box = $("#" + id);
@@ -1779,9 +1773,8 @@ function runSearch() {
     if (harmOnly && m && m.h === "mixed") return false;
     if (plMin !== null && !(m && m.pl >= plMin)) return false;
     if (unamb && !(m && (m.np <= 1 || m.mg >= 3))) return false; return true; };
-  const sndSel = SOUND_ALIKE[L.code] ? $("#sSnd").value : "", sndOk = r => !sndSel || (sndSel === "yes") === !!r.snd;
   const sylSel = L.pinyin ? $("#sSylType").value : "", sylOk = r => !sylSel || (sylSel === "gap") === (r.gen === "gap");
-  let rows = L.bank.filter(r => (!modelSel || r.model === modelSel) && (!genSel || r.gen === genSel) && r.nd >= md && (!embKeep || embKeep(L, r)) && morphOk(r) && sylOk(r) && sndOk(r)
+  let rows = L.bank.filter(r => (!modelSel || r.model === modelSel) && (!genSel || r.gen === genSel) && r.nd >= md && (!embKeep || embKeep(L, r)) && morphOk(r) && sylOk(r)
     && (lmin === null || r.len >= lmin) && (lmax === null || r.len <= lmax)
     && (!re || re.test(r[cvBasis()] || r.cv)) && (!st || r.w.startsWith(st)) && (!en || r.w.endsWith(en)) && (!has || r.w.includes(has))
     && (!avoid.size || ![...r.w].some(c => avoid.has(c)))
@@ -1920,7 +1913,6 @@ const A_COLS = {
   legal: ["Spelling check", r => r.note && r.note.startsWith("not analyzed") ? r.note : [r.note, r.bad ? (r.note ? "" : `letters not in alphabet: ${r.bad}`) : (r.legal || "ok")].filter(Boolean).join(" · "), ""],
   like: ["Wordlike %", r => isNaN(r.like) ? "" : fmt(r.like, 0), "num"], tri: [() => S.L[S.code] && S.L[S.code].pinyin ? "Bigram freq." : "Trigram freq.", r => isNaN(r.tri) ? "" : fmt(r.tri, 2), "num"],
   old: ["OLD20", r => fmt(r.old), "num"], oldp: ["OLD20 pct", r => fmt(r.oldP, 0), "num"], n1: ["Coltheart's N", r => r.n1, "num"], n1p: ["N pct", r => fmt(r.n1P, 0), "num"], n1h: ["High-freq. neighbours", r => r.n1h, "num"],
-  snd: ["Sounds like", r => soundOf(S.L[S.code], r.w), "mono"],
   morph: ["Morphology", r => morphText(r.mo), "mono", undefined, r => morphCellHtml(S.L[S.code], r, r.mo)], naff: ["Affixes", r => isNaN(r.naff) ? "" : r.naff, "num"], harm: ["Harmony", r => r.mo ? r.mo.h || "" : "", ""],
   mplaus: ["Morph. suffix %", r => isNaN(r.mplaus) ? "" : fmt(r.mplaus, 0), "num"], msame: ["Same ending", r => isNaN(r.msame) ? "" : r.msame, "num"], nparse: ["Parses", r => isNaN(r.nparse) ? "" : r.nparse, "num"],
   blocks: ["Syllables", r => blocksOf(S.L[S.code], r.w), "num"],
@@ -1933,7 +1925,7 @@ const A_COLS = {
   ipa: [() => S.L[S.code] && S.L[S.code].syl ? (S.L[S.code].pinyin ? "Characters" : "Original spelling") : "IPA", r => r.ipa, ""],
   xl: ["Word in other languages", r => r.w ? xlLabel(xlOf(r), r.w) : "", ""],
 };
-const aColKeys = L => { const c = Object.keys(A_COLS).filter(k => k !== "xl" && !["tones", "sylz", "homo", "styp", "blocks"].includes(k) && (SHOW_PROVENANCE || k !== "band") && (!L.pinyin || !SYL_HIDE.has(k)) && (L.cvg || (k !== "cvg" && k !== "cvIpa")) && ((L.hasGraph && !L.indic) || (k !== "cvgr" && k !== "ng")) && k !== "nparse" && (L.morph || !["morph", "naff", "harm", "mplaus"].includes(k)) && k !== "msame" && (SOUND_ALIKE[L.code] || k !== "snd")); if (L.pinyin) c.splice(c.indexOf("cv") + 1, 0, "tones", "sylz", "homo", "styp"); if (L.hangul) c.splice(c.indexOf("len") + 1, 0, "blocks"); if (S.xlSig) c.splice(2, 0, "xl"); return c; };
+const aColKeys = L => { const c = Object.keys(A_COLS).filter(k => k !== "xl" && !["tones", "sylz", "homo", "styp", "blocks"].includes(k) && (SHOW_PROVENANCE || k !== "band") && (!L.pinyin || !SYL_HIDE.has(k)) && (L.cvg || (k !== "cvg" && k !== "cvIpa")) && ((L.hasGraph && !L.indic) || (k !== "cvgr" && k !== "ng")) && k !== "nparse" && (L.morph || !["morph", "naff", "harm", "mplaus"].includes(k)) && k !== "msame"); if (L.pinyin) c.splice(c.indexOf("cv") + 1, 0, "tones", "sylz", "homo", "styp"); if (L.hangul) c.splice(c.indexOf("len") + 1, 0, "blocks"); if (S.xlSig) c.splice(2, 0, "xl"); return c; };
 $("#aGo").addEventListener("click", async () => {
   toTop();
   const L = S.L[S.code]; if (!L) return;
