@@ -238,3 +238,25 @@ Persian keeps its subtitle list (704 M words; 28,666 reference words) and its fr
   measures. Bank 164,202; the dictionary filter now removes 4,609 (7,044 before the news lists).
 - Known: Leipzig's Persian lists have no half-space (suffixes are joined: ظرفیتهای), and contain names and some
   run-together forms (درروز); these are reference words. Names are not filtered (no capitals).
+
+## 11. Maltese: web corpus, missing special letters (18 Nov 2026)
+- Problem in the old data (one 2012 web list, 5.9 M words): text typed without ċ ġ ħ ż (cirka, jinghatalu). 5,277 of
+  41,857 reference words were plain-letter copies of a properly spelled word; bank items had plain "gh" (3.5%) and
+  plain "c" (3.1%).
+- New source: MaCoCu-mt 2.0 (CLARIN.SI, hdl.handle.net/11356/1803, CC0; crawl of 2021), `pipeline/count_macocu.py`.
+  The file holds 388 M words in Maltese paragraphs of good quality, but 309 M of them come from machine-translated
+  content farms (sites whose address starts with "mt.": mt.delachieve.com, mt.birmiss.com, mt.unansea.com ...): left
+  out. EU sites (europarl, eur-lex; 37.6 M words) go to a separate list used only to reject real words
+  (`leipzig_reject`). Kept: 41.4 M words (news sites, church and community sites, blogs) -> `mlt_macocu-words.txt`.
+  mlt_newscrawl_2011_10K is rejection-only too (almost no special letters).
+- `diacritic_twins`: a form without special letters that has a properly spelled twin at least as frequent is not a
+  reference word (18,288 forms). No blanket rule against plain c or gh (user's decision): they go only as twins,
+  English or names.
+- `sound_alike="maltese"`: no item may equal a corpus form once ċ ġ ħ ż are replaced by c g h z.
+- Training only: English words out (`train_eng_zipf=3.0`, 4+ letters: 4,061), words written with a capital in 90%+
+  of their occurrences out (`train_no_caps`: 1,351; in a large corpus names also occur in lower case a few times),
+  multi-source rule (4,876).
+- Result: 50 M words of text; reference words 41,857 -> 78,697; 68,409 train; bank 300,000 with plain "gh" in 0.05%
+  and plain "c" in 0.84% of items (from foreign words still in training: carers, vouchers, Latin and Italian quotes).
+- Not used: Korpus Malti (CC BY-NC-SA: licence question), JRC-Acquis (legal text only). Ġabra lexicon could strengthen
+  the dictionary check (UniMorph alone removes 10 items).

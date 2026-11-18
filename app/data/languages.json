@@ -1693,9 +1693,9 @@
   {
    "code": "maltese-mt",
    "name": "Maltese",
-   "reference_words": 41857,
-   "small_corpus": true,
-   "corpus_tokens": 5902617,
+   "reference_words": 78697,
+   "small_corpus": false,
+   "corpus_tokens": 50324998,
    "experimental": false,
    "cv_approximate": false,
    "family": "Semitic",

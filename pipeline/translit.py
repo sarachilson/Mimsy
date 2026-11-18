@@ -183,4 +183,8 @@ _URD = str.maketrans("ذضظصثطح", "زززسستہ")
 _FAS = str.maketrans({"ذ": "ز", "ض": "ز", "ظ": "ز", "ص": "س", "ث": "س", "ط": "ت", "ح": "ه", "غ": "ق", "أ": "ا", "إ": "ا", "ؤ": "و", "\u200c": None})
 
 
-SOUND_KEYS = {"ethiopic": _eth_key, "urdu": lambda w: w.translate(_URD), "persian": lambda w: w.translate(_FAS)}
+# Maltese: an item that is a real word with its special letters left out (or put in) reads as that word
+_MLT = str.maketrans("ċġħż", "cghz")
+
+
+SOUND_KEYS = {"maltese": lambda w: w.translate(_MLT), "ethiopic": _eth_key, "urdu": lambda w: w.translate(_URD), "persian": lambda w: w.translate(_FAS)}

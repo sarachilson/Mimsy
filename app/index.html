@@ -923,6 +923,9 @@ const SOUND_ALIKE = {
   "urdu-ur": {
     sets: "ز = ذ ض ظ, س = ص ث, ت = ط, ہ = ح",
     key: w => w.replace(/[ذضظ]/g, "ز").replace(/[صث]/g, "س").replace(/ط/g, "ت").replace(/ح/g, "ہ") },
+  "maltese-mt": {   // special letters left out or put in: the item reads as the real word
+    sets: "ċ = c, ġ = g, ħ = h, ż = z",
+    key: w => w.replace(/ċ/g, "c").replace(/ġ/g, "g").replace(/ħ/g, "h").replace(/ż/g, "z") },
   "persian-fa": {   // also the half-space: the same word is written with and without it
     sets: "ز = ذ ض ظ, س = ص ث, ت = ط, ه = ح, ق = غ, ا = أ إ, و = ؤ; half-space ignored",
     key: w => w.replace(/[ذضظ]/g, "ز").replace(/[صث]/g, "س").replace(/ط/g, "ت").replace(/ح/g, "ه").replace(/غ/g, "ق").replace(/[أإ]/g, "ا").replace(/ؤ/g, "و").replace(/\u200c/g, "") },
@@ -2403,6 +2406,10 @@ const EXTRA_SOURCES = {
     name: "Amharic News Text Classification Dataset (Azime & Mohammed, 2021)",
     bullets: ["49,862 news articles from Ethiopian and international Amharic news outlets", "13 million words"],
     cite: `Azime, I. A., &amp; Mohammed, N. (2021). <i>An Amharic news text classification dataset</i>. arXiv. <a href="https://arxiv.org/abs/2103.05639" target="_blank" rel="noopener">arxiv.org/abs/2103.05639</a> (data: <a href="https://huggingface.co/datasets/rasyosef/amharic-news-category-classification" target="_blank" rel="noopener">huggingface.co/datasets/rasyosef/amharic-news-category-classification</a>, CC BY 4.0)` },
+  mlt_macocu: {
+    name: "MaCoCu-mt 2.0: Maltese web corpus",
+    bullets: ["Maltese websites crawled in 2021: news, blogs, church and community sites", "41 million words (machine-translated sites and EU documents left out)"],
+    cite: `Bañón, M., et al. (2023). <i>Maltese web corpus MaCoCu-mt 2.0</i> [Data set]. Slovenian language resource repository CLARIN.SI. <a href="http://hdl.handle.net/11356/1803" target="_blank" rel="noopener">hdl.handle.net/11356/1803</a> (CC0)` },
   urd_makhzan: {
     name: "Makhzan (Matnsaz): edited Urdu text",
     bullets: ["6,315 documents of edited Urdu writing", "6.2 million words"],

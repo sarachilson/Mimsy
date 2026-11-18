@@ -235,7 +235,8 @@ def hangul_ok(w):
 
 
 LAST_NSRC = [None]
-SOURCES = [None, None]   # [0] (number of lists, Counter word -> lists it occurs in) of the language being prepared
+LAST_CAPS = [None]
+SOURCES = [None, None, None]   # [0] (number of lists, Counter word -> lists it occurs in) of the language being prepared
 
 
 def load_leipzig(name, cfg, leipzig_dir):
@@ -279,6 +280,7 @@ def load_leipzig(name, cfg, leipzig_dir):
         else:
             upper[lw] = upper.get(lw, 0) + c
     cased = any(w != w.lower() for w in raw)
+    LAST_CAPS[0] = {w: u / (u + lower.get(w, 0)) for w, u in upper.items() if u >= 9 * lower.get(w, 0)}   # written with a capital in 90%+ of occurrences
     acro = {}
     for w, c in raw.items():
         if len(w) > 1 and w == w.upper() and w != w.lower():
@@ -345,7 +347,7 @@ def load_words(lang, cfg, slim_dir, leipzig_dir=None):
     rows[w] = (count, zipf, ipa, src) with src in {"films", "leipzig", "both"}.
     FILMS supplies Zipf and IPA where it has the word; Leipzig-only words get a Zipf from the Leipzig corpus."""
     path = os.path.join(slim_dir, lang + ".tsv.gz")
-    SOURCES[0] = SOURCES[1] = None
+    SOURCES[0] = SOURCES[1] = SOURCES[2] = None
     rows = {}
     corpus_tokens = None
     if not os.path.exists(path) and not cfg.get("no_films"):
@@ -378,7 +380,7 @@ def load_words(lang, cfg, slim_dir, leipzig_dir=None):
         name = cfg["leipzig"]
         names = [name] + list(cfg.get("leipzig_extra", []))   # further word lists in the Leipzig format, counted together (Kazakh: MKD books + news)
         lz, lz_names, lz_tokens, lz_stats = load_leipzig(names, cfg, leipzig_dir or os.path.join(HERE, "..", "_leipzig"))
-        SOURCES[0] = LAST_NSRC[0]; SOURCES[1] = corpus_tokens   # subtitle corpus size (before it is replaced by the text corpus size)
+        SOURCES[0] = LAST_NSRC[0]; SOURCES[2] = LAST_CAPS[0]; SOURCES[1] = corpus_tokens   # subtitle corpus size (before it is replaced by the text corpus size)
         minc = cfg.get("leipzig_min_count") or leipzig_min_count(name)
         added = 0
         for w, (c, z) in lz.items():
@@ -653,6 +655,26 @@ def step_prepare(lang, cfg, args, outdir, work):
         for w, v in plain.items():
             if v[3] == "leipzig" and len(w) >= ENG_FILTER_MINLEN and ENG.get(w, 0) >= ENG_FILTER_ZIPF:
                 plain[w] = (v[0], v[1], v[2], "leipzig_eng"); eng_removed.append(w)
+    # Special letters left out (cfg diacritic_twins = {special letter: plain letter}; Maltese, 18 Nov 2026). Web text is
+    # often typed without ċ ġ ħ ż (cirka for ċirka, jinghatalu for jingħatalu). A form without special letters that has a
+    # properly spelled twin at least as frequent as itself is a misspelling: it stays in the reject list but is not
+    # a reference word. Plain c, g, h, z are not removed as such: only forms with such a twin.
+    twin_found = []
+    if cfg.get("diacritic_twins"):
+        tmap = str.maketrans(cfg["diacritic_twins"]); special = set(cfg["diacritic_twins"])
+        best = {}
+        for w, v in plain.items():
+            if v[3] not in ("leipzig_name", "leipzig_eng") and any(ch in special for ch in w):
+                k = w.translate(tmap)
+                if k not in best or v[0] > best[k][0]:
+                    best[k] = (v[0], w)
+        for w, v in list(plain.items()):
+            if v[3] in ("leipzig_name", "leipzig_eng") or any(ch in special for ch in w):
+                continue
+            t = best.get(w)
+            if t and t[0] >= v[0]:
+                plain[w] = (v[0], v[1], v[2], "leipzig_name"); twin_found.append((v[1], w, t[1]))
+        twin_found.sort(reverse=True)
     # Words run together (cfg run_together = letters that do not join to the next letter; 18 Nov 2026). In Urdu the space
     # after a non-joining letter is often left out (دنیاکی = دنیا کی). A corpus form is treated as run-together when it
     # splits after such a letter into two frequent words (Zipf >= RT_ZIPF, or RT_ZIPF_SHORT for parts of 1-2 letters),
@@ -794,6 +816,29 @@ def step_prepare(lang, cfg, args, outdir, work):
                                             "rule": f"a word found in only one of the {nsources} sources although {MS_EXPECT}+ occurrences were expected in the others (from its frequency) does not train the generators"})
             with open(os.path.join(work, "train.txt"), "w", encoding="utf-8") as f:
                 f.write("\n".join(sorted(train)))
+    # Words nearly always written with a capital do not train the generators (cfg train_no_caps; Maltese, 18 Nov 2026).
+    # In tens of millions of words even names turn up in lower case a few times (web addresses, careless typing), so
+    # the capitalised-only rule lets them through (muscat, fenech, hsbc). Words capitalised by convention (Alla,
+    # Ministru, Jannar) are caught too: they stay reference words, they only do not train.
+    if cfg.get("train_no_caps") and SOURCES[2]:
+        base = train if train is not None else {w for w, _ in ref}
+        kept = {w for w in base if w not in SOURCES[2]}
+        train_info = dict(train_info or {}, train_words=len(kept), reference_words=len(ref), capitalised_out={"share": 0.9, "dropped": len(base) - len(kept)})
+        train = kept
+        with open(os.path.join(work, "train.txt"), "w", encoding="utf-8") as f:
+            f.write("\n".join(sorted(train)))
+    # English words do not train the generators (cfg train_eng_zipf = z; Maltese, 18 Nov 2026): a word of 4+ letters that is
+    # an English reference word with Zipf >= z. Stricter than the reference-word filter (Zipf >= 4.5, 5+ letters),
+    # because bilingual web text quotes a lot of English; loanwords spelled as in English (film, bank) go too, which
+    # costs the generators nothing.
+    if cfg.get("train_eng_zipf"):
+        ENG2 = english_lexicon(args.out)
+        base = train if train is not None else {w for w, _ in ref}
+        kept = {w for w in base if not (len(w) >= 4 and ENG2.get(w, 0) >= cfg["train_eng_zipf"])}
+        train_info = dict(train_info or {}, train_words=len(kept), reference_words=len(ref), english_out={"zipf": cfg["train_eng_zipf"], "dropped": len(base) - len(kept)})
+        train = kept
+        with open(os.path.join(work, "train.txt"), "w", encoding="utf-8") as f:
+            f.write("\n".join(sorted(train)))
     # Only words from certain sources train the generators (cfg train_sources, e.g. ("films", "both"): Persian, 18 Nov 2026:
     # the news lists add reference words for the real-word check and the neighbourhood measures, but the generators
     # keep learning from the spell-checked subtitle words)
@@ -871,6 +916,8 @@ def step_prepare(lang, cfg, args, outdir, work):
         "length_unit": ("fidel" if cfg.get("rules", {}).get("syllabary") else "aksharas") if indic.is_indic(cls) else (syl.table(cfg).get("length_unit", "syllables") if syl.is_syl(cls) else ("jamo" if cfg.get("decompose") else "letters")),
         "inventory": {k: sorted(v) for k, v in inv.items()}, "training": train_info,
         "text_tokens": ((SOURCES[1] or 0) + sum(SOURCES[0][3])) if SOURCES[0] else None,
+        "diacritic_twins": {"removed": len(twin_found), "rule": "form without the language's special letters that has a properly spelled twin at least as frequent: treated as a misspelling (not a reference word)",
+                            "examples": [f"{w} ({t})" for _, w, t in twin_found[:40]]} if cfg.get("diacritic_twins") else None,
         "run_together": {"removed": len(rt_found), "rule": f"corpus form that splits, after a letter that does not join, into two words with Zipf >= {RT_ZIPF} ({RT_ZIPF_SHORT} for parts of 1-2 letters), each at least 10 times as frequent as the form, and that the edited corpus does not have about as often as expected",
                          "examples": [f"{w} = {a} + {b}" for _, w, a, b in rt_found[:40]]} if cfg.get("run_together") else None,
         "uncased_names": {"removed": len(uncased_found), "rule": "word romanised and matched with a name found capitalised-only in at least 12 other corpora (translit.py)",
@@ -1090,7 +1137,8 @@ def step_metrics(lang, cfg, args, outdir, work, deadline):
 
 
 EXTRA_DESC = {"kaz_mkd_books_news": "and the books and news of the Multi-Domain Kazakh Dataset",
-              "amh_news_azime": "and the Amharic News Text Classification Dataset", "urd_makhzan": "and the Makhzan corpus of edited Urdu text"}
+              "amh_news_azime": "and the Amharic News Text Classification Dataset", "urd_makhzan": "and the Makhzan corpus of edited Urdu text",
+              "mlt_macocu": "and the Maltese web corpus MaCoCu-mt 2.0"}
 
 
 def caution_items(cfg, st):
@@ -1206,7 +1254,7 @@ def step_write(lang, cfg, args, outdir, work):
         "generation": {"target_rule": (f"per generator and training set: {LANGS[lang]['bank_scale'][0]} x the number of training words, between {PER_MODEL_MIN} and {LANGS[lang]['bank_scale'][1]}; a generator stops early when fewer than 1 in 20 recent samples is new and legal" if LANGS[lang].get("bank_scale") else f"per generator and training set: number of training words, between {PER_MODEL_MIN} and {PER_MODEL_MAX}"), "seed": SEED, "results": gstats},
         "counts": st["counts"],
         "inventory_sizes": {k: len(v) for k, v in st["inventory"].items()},
-        "inventory": st["inventory"], "training": st.get("training"), "uncased_names": st.get("uncased_names"), "run_together": st.get("run_together"), "text_tokens": st.get("text_tokens"),
+        "inventory": st["inventory"], "training": st.get("training"), "uncased_names": st.get("uncased_names"), "run_together": st.get("run_together"), "diacritic_twins": st.get("diacritic_twins"), "text_tokens": st.get("text_tokens"),
         "rules": cfg.get("rules", {}),
     }
     mp = os.path.join(outdir, "manifest.json")
