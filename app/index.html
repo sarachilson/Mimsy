@@ -2482,6 +2482,11 @@ function alphabetRows(L, m) {
       `<div>Final consonants (27)</div><div ${mono}>ㄱ ㄲ ㄳ ㄴ ㄵ ㄶ ㄷ ㄹ ㄺ ㄻ ㄼ ㄽ ㄾ ㄿ ㅀ ㅁ ㅂ ㅄ ㅅ ㅆ ㅇ ㅈ ㅊ ㅋ ㅌ ㅍ ㅎ</div>`].join("\n    ");
   }
   const cls = m.letter_classes, chars = [...m.alphabet];
+  if (m.script === "ethiopic") {   // syllabary: every character is consonant + vowel, except the sixth order (class K)
+    const cv = chars.filter(c => cls[c] !== "K").sort(), six = chars.filter(c => cls[c] === "K").sort();   // script order
+    return [`<div>Consonant + vowel characters (${cv.length})</div><div ${mono}>${esc(cv.join(" "))} <span class="hint" style="display:inline">(each counts as CV)</span></div>`,
+      `<div>Sixth-order characters (${six.length})</div><div ${mono}>${esc(six.join(" "))} <span class="hint" style="display:inline">(a consonant alone, or with a short vowel that is not written: each counts as C and as one character in length)</span></div>`].join("\n    ");
+  }
   const of = (...k) => chars.filter(c => k.includes(cls[c] || "C")).join("");
   const cons = of("C", "X"), vow = of("V"), y = of("Y"), signs = of("D"), pre = of("P");
   const other = chars.filter(c => !["C", "V", "Y", "D", "P"].includes(cls[c] || "C"));
@@ -2491,8 +2496,11 @@ function alphabetRows(L, m) {
   if (signs) rows.push(`<div>Vowel signs</div><div ${mono}>${esc(showChars(signs))}</div>`);
   if (pre) rows.push(`<div>Pre-posed vowels</div><div ${mono}>${esc(showChars(pre))} <span class="hint" style="display:inline">(written before the consonant, pronounced after it: placed after the C in the CV pattern)</span></div>`);
   if (other.length) {
-    const items = other.map(c => { const g = CHAR_GLOSS[c] || [showChars(c), (INDIC_GLOSS_BY_CHAR[c] || INDIC_GLOSS[cls[c]]) ? (INDIC_GLOSS_BY_CHAR[c] || INDIC_GLOSS[cls[c]]) + ". Part of the akshara it belongs to; no CV unit of its own." : "modifier character with no sound of its own; counts in length, no CV unit of its own."];
-      return `<div style="display:flex;gap:10px;align-items:baseline;padding:2px 0"><span class="mono" style="font-weight:700;min-width:4em;color:var(--accent)">${esc(g[0])}</span><span>${esc(g[1])}</span></div>`; }).join("");
+    // characters with the same description share one line
+    const groups = new Map();
+    for (const c of other) { const g = CHAR_GLOSS[c] || [showChars(c), (INDIC_GLOSS_BY_CHAR[c] || INDIC_GLOSS[cls[c]]) ? (INDIC_GLOSS_BY_CHAR[c] || INDIC_GLOSS[cls[c]]) + ". Part of the akshara it belongs to; no CV unit of its own." : "modifier character with no sound of its own; counts in length, no CV unit of its own."];
+      if (!groups.has(g[1])) groups.set(g[1], []); groups.get(g[1]).push(g[0]); }
+    const items = [...groups].map(([txt, cs]) => `<div style="display:flex;gap:10px;align-items:baseline;padding:2px 0"><span class="mono" style="font-weight:700;min-width:4em;color:var(--accent)">${esc(cs.join(" "))}</span><span>${esc(txt)}</span></div>`).join("");
     rows.push(`<div>Other characters</div><div>${items}</div>`);
   }
   return rows.join("\n    ");
