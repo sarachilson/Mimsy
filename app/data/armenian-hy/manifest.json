@@ -13,7 +13,7 @@
    "text": "16.4 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 118,204 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages."
   },
   {
-   "title": "Book and news vocabulary added",
+   "title": "Written-text vocabulary added",
    "text": "107,064 of the reference words come from written text (Leipzig Corpora Collection, hye_wikipedia_2021_1M, hye_news_2021_30K, hye_news_2020_30K, hye_news_2019_10K; 16.4 million words in all); 11,140 come from the subtitle list. Written sources are more formal than subtitles and contain more names and foreign words. Frequencies of the corpus-only words come from that corpus and are not comparable with subtitle frequencies."
   }
  ],
