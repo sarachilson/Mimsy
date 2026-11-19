@@ -2576,18 +2576,12 @@ function renderAbout() {
   </div>
   <h2>${esc(m.name)}: data</h2>
   <div class="kv">
-    <div>Corpus size</div><div>${m.corpus_tokens ? (m.corpus_tokens / 1e6).toLocaleString(undefined, { maximumFractionDigits: 1 }) + " million words" : "n/a"}</div>
-    <div>Reference words (Zipf ≥ 2)</div><div>${c.reference_words.toLocaleString()}</div>
-    <div>Rarer words (avoid list only)</div><div>${c.rare_words.toLocaleString()}</div>
+    <div>Corpus size</div><div>${(() => { const st = m.source_tokens || {}, n = (st.films || 0) + Object.values(st.lists || {}).reduce((a, b) => a + b, 0) || m.corpus_tokens; return n ? fmtWords(n) + (extraSources(m).length + (st.films ? 1 : 0) + (Object.keys(st.lists || {}).some(k => !EXTRA_SOURCES[k] && !/_hplt$/.test(k)) ? 1 : 0) > 1 ? " (all sources together)" : "") : "n/a"; })()}</div>
     <div>Pseudowords in the bank</div><div>${L.bank.length.toLocaleString()}${L.realRemoved || L.morphRemoved ? ` <span class="hint">(${[L.realRemoved ? `${L.realRemoved.toLocaleString()} removed as real words by the dictionary check` : "", L.morphRemoved ? `${L.morphRemoved.toLocaleString()} removed as real forms by the morphological analyser` : ""].filter(Boolean).join("; ")})</span>` : ""}</div>
     ${alphabetRows(L, m)}
     ${L.indic && [...m.alphabet].some(c => VOCALIC_R.has(c)) ? `<div>Vocalic r</div><div>${esc(showChars([...m.alphabet].filter(c => VOCALIC_R.has(c)).join("")))}: written as a vowel, so orthographic CV counts it as V. ${(m.rules || {}).vocalic_r === "V" ? `In ${esc(m.name)} it is a syllabic r (the nucleus of its syllable), so it is a vowel in pronunciation too.` : `In ${esc(m.name)} it is pronounced r + vowel (e.g. Hindi ऋण /ɾɪɳ/, कृपा /kɾɪpɑː/), so phonological CV counts it as CV.`}</div>` : ""}
-    ${[...m.alphabet].includes("y") ? `<div>Rule for &lt;y&gt;</div><div>${esc(String(m.y_rule))}</div>` : ""}
+    ${[...m.alphabet].includes("y") ? `<div>Letter y</div><div>${/^auto/.test(String(m.y_rule)) ? "Counted as a consonant before a vowel, otherwise as a vowel" : m.y_rule === "V" ? "Counted as a vowel" : "Counted as a consonant"}</div>` : ""}
     <div>Sources</div><div>${aboutSources(m)}</div>
-    ${(() => { const r = (m.sources_detail || {}).reference_words_by_source; if (!r) return "";
-       const parts = [["films", "FILMS only"], ["leipzig", extraSources(m).length ? "written text only (Leipzig + " + extraSources(m).map(x => x.name.split(" (")[0]).join(", ") + ")" : "Leipzig only"], ["both", "in both"]].filter(([k]) => r[k]).map(([k, l]) => `<b>${(+r[k]).toLocaleString()}</b> ${l}`);
-       return parts.length ? `<div>Reference words by source</div><div style="font-size:15px">${parts.join(" &nbsp;·&nbsp; ")}</div>` : ""; })()}
-    <div>Pipeline version</div><div>${esc(m.version)}, built ${esc(m.created)}</div>
   </div>
   ${SHOW_PROVENANCE ? `<ul>${bands}</ul>` : ""}
   <h2>How the pseudowords are made</h2>
