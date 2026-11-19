@@ -28,6 +28,10 @@ LANG, CODES, OUT = sys.argv[1], sys.argv[2].split(","), sys.argv[3]
 MT_MAX = float(sys.argv[4]) if len(sys.argv) > 4 else 0.3
 # optional 5th argument: file of web sites to leave out (first column), see hplt_farms.py
 FARMS = {l.split("\t")[0].strip() for l in open(sys.argv[5], encoding="utf-8")} if len(sys.argv) > 5 else set()
+# Environment variable HPLT_ONLY: a pattern the site address must match. Used for Western Frisian, which HPLT files
+# under Limburgish (lim_Latn) together with Limburgish, Low Saxon and Dutch pages; see LEIPZIG_NOTES.md section 12.
+import os
+ONLY = re.compile(os.environ["HPLT_ONLY"]) if os.environ.get("HPLT_ONLY") else None
 NORM = re.compile(r"^(?:www\d?|m|mobile|amp)\.")
 MIN_LINE = 5
 MIN_SITES = 3
@@ -84,6 +88,8 @@ for line in itertools.chain(head, sys.stdin.buffer):
         words.extend(w.rstrip("\u200c\u200d") for w in ws)
     n = len(words); st["words_in_wanted_language"] += n; st["words_other_language_lines"] += other; st["words_short_lines"] += short
     mt_hist[int(mt * 10)] += n
+    if ONLY and not ONLY.search(host):
+        st["pages_other_sites"] += 1; st["words_other_sites"] += n; drop_dom[host] += n; continue
     if (farm.match(host) and not host.endswith(WIKI)) or NORM.sub("", host) in FARMS:
         st["pages_farm"] += 1; st["words_farm"] += n; drop_dom[host] += n; continue
     if mt >= MT_MAX:

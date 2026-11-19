@@ -2414,11 +2414,18 @@ const EXTRA_SOURCES = {
     name: "Makhzan (Matnsaz): edited Urdu text",
     bullets: ["6,315 documents of edited Urdu writing", "6.2 million words"],
     cite: `Ahmed, Z., et al. (n.d.). <i>Maḵẖzan</i> [Data set]. <a href="https://github.com/zeerakahmed/makhzan" target="_blank" rel="noopener">github.com/zeerakahmed/makhzan</a>` } };
-const extraSources = m => (((m.sources_detail || {}).leipzig || {}).extra || []).map(k => EXTRA_SOURCES[k]).filter(Boolean);
+// HPLT 3.0 web text (pipeline/count_hplt.py): one generic entry; millions of words kept per language.
+const HPLT_WORDS = { cym: 56, gle: 19, ltz: 30, glg: 77, fry: 22 };
+const hpltSource = k => ({
+  name: "HPLT 3.0: web text",
+  bullets: [k === "fry_hplt" ? "Pages from Frisian websites, collected 2012–2024" : "Web pages collected 2012–2024, best-rated pages only",
+    `${HPLT_WORDS[k.slice(0, 3)] || "Several"} million words (machine-translated pages left out)`],
+  cite: `Oepen, S., et al. (2025). <i>HPLT 3.0: Very large-scale multilingual resources for LLMs and MT</i>. arXiv. <a href="https://arxiv.org/abs/2511.01066" target="_blank" rel="noopener">arxiv.org/abs/2511.01066</a> (data: <a href="https://hplt-project.org/datasets/v3.0" target="_blank" rel="noopener">hplt-project.org/datasets/v3.0</a>, CC0)` });
+const extraSources = m => (((m.sources_detail || {}).leipzig || {}).extra || []).map(k => EXTRA_SOURCES[k] || (/_hplt$/.test(k) ? hpltSource(k) : null)).filter(Boolean);
 function aboutSources(m) {
   const src = m.source || "", lz = (m.sources_detail || {}).leipzig, out = [], ff = filmsFile(S.code, m);
   if (ff || !/^Leipzig/.test(src)) out.push(`<div>FILMS (Chilson, Sineva &amp; Schmalz, 2024)</div>${ff ? `<div class="hint mono" style="margin:0 0 6px;word-break:break-all">${esc(ff)}</div>` : ""}`);
-  if (lz && lz.corpus) out.push(`<div>Leipzig Corpora Collection (Goldhahn, Eckart &amp; Quasthoff, 2012)</div><div class="hint mono" style="margin:0 0 6px">${esc([lz.corpus, ...(lz.extra || []).filter(k => !EXTRA_SOURCES[k])].join(", "))} · CC BY</div>`);
+  if (lz && lz.corpus) out.push(`<div>Leipzig Corpora Collection (Goldhahn, Eckart &amp; Quasthoff, 2012)</div><div class="hint mono" style="margin:0 0 6px">${esc([lz.corpus, ...(lz.extra || []).filter(k => !EXTRA_SOURCES[k] && !/_hplt$/.test(k))].join(", "))} · CC BY</div>`);
   for (const x of extraSources(m)) out.push(`<div>${esc(x.name)}</div><ul class="hint" style="margin:0 0 6px;padding-left:18px">${x.bullets.map(b => `<li>${esc(b)}</li>`).join("")}</ul>`);
   return out.join("") || esc(src);
 }

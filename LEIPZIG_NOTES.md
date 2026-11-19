@@ -260,3 +260,36 @@ Persian keeps its subtitle list (704 M words; 28,666 reference words) and its fr
   and plain "c" in 0.84% of items (from foreign words still in training: carers, vouchers, Latin and Italian quotes).
 - Not used: Korpus Malti (CC BY-NC-SA: licence question), JRC-Acquis (legal text only). Ġabra lexicon could strengthen
   the dictionary check (UniMorph alone removes 10 items).
+
+## 12. HPLT 3.0 web text as an extra source (18 Nov 2026)
+- Source: HPLT 3.0 monolingual data (Oepen et al. 2025, arXiv 2511.01066; hplt-project.org/datasets/v3.0; packaging
+  CC0), 199 languages, web pages from Common Crawl and the Internet Archive, sorted by a quality score into files
+  `<code>_<Script>/<tier>_<shard>.jsonl.zst` (tier 10 best, 5 lowest). The server is not reachable from the workspace;
+  `pipeline/get_hplt.py` runs on the user's PC: best files first, 200 MB per language (last file cut off), into
+  `_hplt/`. 91 languages downloaded on 18 Nov (62 Mimsy languages under 20 M words, 29 new ones); Welsh by hand.
+- `pipeline/count_hplt.py` (run on the PC, about a minute per language) writes `_leipzig/<iso3>_hplt-words.txt`,
+  used through `leipzig_extra`. Left out: pages with machine-translation score >= 0.3; sites whose address starts
+  with the language code ("cy.", "ga."; Wikimedia exempt); sites in `_hplt/farms.tsv`; lines labelled as another
+  language; lines under 5 words; words seen on fewer than 3 sites. Words keep combining marks (the first version
+  split Indic words at vowel signs). Line labels can use another code than the folder (fas_Arab in prs_Arab): the
+  commonest label of the first 3,000 pages is accepted too.
+- `pipeline/hplt_farms.py`: HPLT has no machine-translation score for many smaller languages (Igbo, Yoruba, Sesotho,
+  Maori, Luxembourgish ...). A site with 5+ pages in 6 or more of the 92 downloaded languages is treated as a
+  translation farm unless it is on the list of human-translated or institutional sites (jw.org, Bible sites, BBC,
+  Wikimedia, government sites ...): 941 sites. Share of text removed as farm: Xhosa 81%, Igbo 79%, Sesotho 77%,
+  Chichewa 75%, Yoruba 74%, Cebuano 72%, Luxembourgish 61%.
+- Findings per language (user informed): HPLT "lim_Latn" is mostly Western Frisian plus Limburgish, Low Saxon and
+  Dutch; "lmo" is mixed with Romansh, "scn" with Corsican; Awadhi, Bhojpuri, Chhattisgarhi, Magahi contain much
+  Hindi; "prs" (Dari) lines are labelled Persian. 65-80% religious text (jw.org, Bible sites): Ewe, Luo, Northern
+  Sotho, Quechua, Swati, Tok Pisin, Tswana, Tsonga, Twi; about half: Fijian, Kikuyu. Decision (user, 18 Nov): the
+  new religious-heavy languages are not added; Northern Sotho and Quechua lists may serve the real-word check only.
+- Western Frisian: counted from lim_Latn with `HPLT_ONLY` = Frisian sites only (.frl addresses, names with frysk /
+  frysl, fy.wikipedia, demoanne.nl, ensafh.nl, skriuwersboun.nl ...): 21.9 M words from 291 sites
+  (`fry_hplt-words.txt`).
+- Group 1 rebuilt 18 Nov with the new lists (words of text; reference words before -> after): Welsh 65 M
+  (17,469 -> 62,416), Galician 91 M (62,151 -> 125,568), Luxembourgish 38 M (51,599 -> 120,102), Irish 27 M
+  (35,736 -> 59,960), Western Frisian 30 M (22,745 -> 64,281); without new data: Afrikaans 65 M (76,655 -> 90,491),
+  Esperanto 48 M (124,201 -> 153,176), Upper Sorbian 5.5 M (70,369 -> 74,815; no open data found). Banks 300,000
+  each; realwords.py rerun. Open: Irish items with "y" or two accented vowels in a row.
+- App: any `*_hplt` list is shown on the About page as "HPLT 3.0: web text" (index.html `hpltSource`, words per
+  language in `HPLT_WORDS`); the caution text says "and web text from HPLT 3.0".

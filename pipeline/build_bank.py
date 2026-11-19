@@ -1160,7 +1160,7 @@ def caution_items(cfg, st):
         eng = (st.get("english_contamination_removed") or {}).get("count")
         kt = "Book and news" if "kaz_mkd_books_news" in (L.get("extra") or []) else "Written-text" if L.get("extra") else kind_txt[0].upper() + kind_txt[1:]
         items.append({"title": f"{kt} vocabulary {'added' if has_films else 'only'}",
-                      "text": (f"{rs.get('leipzig', 0):,} of the reference words come from {'written text' if L.get('extra') else 'a ' + kind_txt + ' corpus'} (Leipzig Corpora Collection, {L['corpus']}{''.join(', ' + EXTRA_DESC.get(x, x) for x in (L.get('extra') or []))}{'; ' if L.get('extra') else ', '}{L['tokens'] / 1e6:.1f} million words{' in all' if L.get('extra') else ''})"
+                      "text": (f"{rs.get('leipzig', 0):,} of the reference words come from {'written text' if L.get('extra') else 'a ' + kind_txt + ' corpus'} (Leipzig Corpora Collection, {L['corpus']}{''.join(', ' + EXTRA_DESC.get(x, 'and web text from HPLT 3.0' if x.endswith('_hplt') else x) for x in (L.get('extra') or []))}{'; ' if L.get('extra') else ', '}{L['tokens'] / 1e6:.1f} million words{' in all' if L.get('extra') else ''})"
                                + (f"; {has_films:,} come from the subtitle list." if has_films else "; no subtitle list exists for this language.")
                                + " Written sources are more formal than subtitles and contain more names and foreign words"
                                + (f" ({eng} probable English words were removed)." if eng else ".")

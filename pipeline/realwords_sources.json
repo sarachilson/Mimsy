@@ -3,15 +3,15 @@
   "hunspell": {
    "dictionary": "libreoffice/af_ZA/af_ZA",
    "licence": "see README_af_ZA.txt: MySpell Afrikaans Spellchecker ------------------------------  1. Welcome 2. Copyright 3. Installation and Setup 4. Contributing 5. Copying  Enjoy!  1. Welcome ",
-   "coverage_of_reference_words": 0.676,
-   "bank_items_accepted": 493,
+   "coverage_of_reference_words": 0.629,
+   "bank_items_accepted": 516,
    "compounding": "off"
   },
   "unimorph": {
    "repository": "https://github.com/unimorph/afr",
    "licence": "CC BY-SA 3.0",
    "forms": 297209,
-   "bank_items_accepted": 895
+   "bank_items_accepted": 985
   },
   "bible": {
    "texts": [
@@ -21,8 +21,8 @@
     }
    ],
    "word_types": 8095,
-   "new_forms_not_in_lists": 400,
-   "bank_items_accepted": 8
+   "new_forms_not_in_lists": 231,
+   "bank_items_accepted": 1
   }
  },
  "albanian-sq": {
@@ -434,8 +434,8 @@
   "hunspell": {
    "dictionary": "wooorm/eo/index",
    "licence": "GPL-2.0",
-   "coverage_of_reference_words": 0.612,
-   "bank_items_accepted": 7070,
+   "coverage_of_reference_words": 0.728,
+   "bank_items_accepted": 11598,
    "compounding": "off"
   },
   "bible": {
@@ -450,8 +450,8 @@
     }
    ],
    "word_types": 20382,
-   "new_forms_not_in_lists": 5839,
-   "bank_items_accepted": 118
+   "new_forms_not_in_lists": 2573,
+   "bank_items_accepted": 34
   }
  },
  "estonian-et": {
@@ -520,8 +520,8 @@
   "hunspell": {
    "dictionary": "wooorm/gl/index",
    "licence": "GPL-3.0",
-   "coverage_of_reference_words": 0.954,
-   "bank_items_accepted": 6428,
+   "coverage_of_reference_words": 0.851,
+   "bank_items_accepted": 8126,
    "compounding": "off"
   }
  },
@@ -837,15 +837,15 @@
   "hunspell": {
    "dictionary": "wooorm/ga/index",
    "licence": "GPL-2.0",
-   "coverage_of_reference_words": 0.779,
-   "bank_items_accepted": 2918,
+   "coverage_of_reference_words": 0.77,
+   "bank_items_accepted": 5332,
    "compounding": "off"
   },
   "unimorph": {
    "repository": "https://github.com/unimorph/gle",
    "licence": "CC BY-SA 3.0",
    "forms": 24043,
-   "bank_items_accepted": 244
+   "bank_items_accepted": 389
   }
  },
  "italian-it": {
@@ -1038,8 +1038,8 @@
   "hunspell": {
    "dictionary": "wooorm/lb/index",
    "licence": "EUPL-1.1",
-   "coverage_of_reference_words": 0.634,
-   "bank_items_accepted": 1272,
+   "coverage_of_reference_words": 0.533,
+   "bank_items_accepted": 1588,
    "compounding": "off"
   }
  },
@@ -1969,15 +1969,15 @@
   "hunspell": {
    "dictionary": "elastic/hsb/hsb",
    "licence": "see COPYING: GNU GENERAL PUBLIC LICENSE \t\t       Version 2, June 1991   Copyright (C) 1989, 1991 Free Software Foundation, Inc.,  51 Franklin Street, Fifth Floor, Boston, MA",
-   "coverage_of_reference_words": 0.794,
-   "bank_items_accepted": 4249,
+   "coverage_of_reference_words": 0.786,
+   "bank_items_accepted": 9060,
    "compounding": "off"
   },
   "unimorph": {
    "repository": "https://github.com/unimorph/hsb",
    "licence": "CC BY-SA 3.0",
    "forms": 664,
-   "bank_items_accepted": 2
+   "bank_items_accepted": 1
   }
  },
  "urdu-ur": {
@@ -2082,23 +2082,23 @@
   "hunspell": {
    "dictionary": "wooorm/cy/index",
    "licence": "LGPL-3.0",
-   "coverage_of_reference_words": 0.962,
-   "bank_items_accepted": 4170,
+   "coverage_of_reference_words": 0.753,
+   "bank_items_accepted": 8967,
    "compounding": "off"
   },
   "unimorph": {
    "repository": "https://github.com/unimorph/cym",
    "licence": "CC BY-SA 3.0",
    "forms": 6240,
-   "bank_items_accepted": 118
+   "bank_items_accepted": 191
   }
  },
  "western_frisian-fy": {
   "hunspell": {
    "dictionary": "wooorm/fy/index",
    "licence": "GPL-3.0",
-   "coverage_of_reference_words": 0.666,
-   "bank_items_accepted": 2814,
+   "coverage_of_reference_words": 0.668,
+   "bank_items_accepted": 4679,
    "compounding": "off"
   },
   "unimorph": {
