@@ -6,7 +6,7 @@
  "corpus_tokens": 637064,
  "small_corpus": true,
  "bands_enabled": false,
- "caution": "0.6 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 20,113 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. 20,113 of the reference words come from a community web corpus (Leipzig Corpora Collection, kin_community_2017_30K, 0.6 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words (163 probable English words were removed). All frequencies come from that corpus, so no frequency bands are offered.",
+ "caution": "0.6 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 20,113 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages.",
  "script": "alphabet",
  "length_unit": "letters",
  "experimental": false,
@@ -554,10 +554,12 @@
   {
    "title": "Small corpus",
    "text": "0.6 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 20,113 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages."
-  },
-  {
-   "title": "Community web vocabulary only",
-   "text": "20,113 of the reference words come from a community web corpus (Leipzig Corpora Collection, kin_community_2017_30K, 0.6 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words (163 probable English words were removed). All frequencies come from that corpus, so no frequency bands are offered."
   }
- ]
+ ],
+ "source_tokens": {
+  "films": null,
+  "lists": {
+   "kin_community_2017_30K": 637064
+  }
+ }
 }

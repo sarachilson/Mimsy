@@ -6,15 +6,11 @@
  "corpus_tokens": 1875269,
  "small_corpus": true,
  "bands_enabled": false,
- "caution": "1.9 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 62,128 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. 62,128 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, gsw_wikipedia_2021_100K, 1.9 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words (456 probable English words were removed). All frequencies come from that corpus, so no frequency bands are offered. Swiss German is a regional variety close to German. Every word form of German (821,524 forms) was added to the reject list, so no pseudoword is a real German word, and the app pre-selects German under \"Exclude real words of other languages\" (the Word-in column shows near misses). Of the 62,128 reference words, 12,616 are also German words; they stay in the lexicon because they are words of the variety too. Swiss German has no standard orthography; the Wikipedia mixes Dieth-style spellings and ad-hoc ones, so the same word occurs in several spellings. ß (Standard German quotations) was left out.",
+ "caution": "1.9 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 62,128 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. Swiss German is a regional variety close to German. Every word form of German (821,524 forms) was added to the reject list, so no pseudoword is a real German word, and the app pre-selects German under \"Exclude real words of other languages\" (the Word-in column shows near misses). Of the 62,128 reference words, 12,616 are also German words; they stay in the lexicon because they are words of the variety too. Swiss German has no standard orthography; the Wikipedia mixes Dieth-style spellings and ad-hoc ones, so the same word occurs in several spellings. ß (Standard German quotations) was left out.",
  "caution_items": [
   {
    "title": "Small corpus",
    "text": "1.9 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 62,128 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages."
-  },
-  {
-   "title": "Wikipedia vocabulary only",
-   "text": "62,128 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, gsw_wikipedia_2021_100K, 1.9 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words (456 probable English words were removed). All frequencies come from that corpus, so no frequency bands are offered."
   },
   {
    "title": "Variety of German",
@@ -2695,5 +2691,11 @@
    }
   },
   "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ },
+ "source_tokens": {
+  "films": null,
+  "lists": {
+   "gsw_wikipedia_2021_100K": 1875269
+  }
  }
 }

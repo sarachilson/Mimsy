@@ -2400,34 +2400,42 @@ function filmsFile(code, m) {
 const EXTRA_SOURCES = {
   kaz_mkd_books_news: {
     name: "Multi-Domain Kazakh Dataset (kz-transformers): books and news",
-    bullets: ["4,481 books and 333,459 news articles", "Kazakh sentences only (mostly-Russian sentences removed): 205 million words"],
+    bullets: ["4,481 books and 333,459 news articles", "Kazakh sentences only (mostly-Russian sentences removed)"],
     cite: `kz-transformers (n.d.). <i>Multi-Domain Kazakh Dataset (MKD)</i> [Data set]. Hugging Face. <a href="https://huggingface.co/datasets/kz-transformers/multidomain-kazakh-dataset" target="_blank" rel="noopener">huggingface.co/datasets/kz-transformers/multidomain-kazakh-dataset</a> (Apache-2.0)` },
   amh_news_azime: {
     name: "Amharic News Text Classification Dataset (Azime & Mohammed, 2021)",
-    bullets: ["49,862 news articles from Ethiopian and international Amharic news outlets", "13 million words"],
+    bullets: ["49,862 news articles from Ethiopian and international Amharic news outlets"],
     cite: `Azime, I. A., &amp; Mohammed, N. (2021). <i>An Amharic news text classification dataset</i>. arXiv. <a href="https://arxiv.org/abs/2103.05639" target="_blank" rel="noopener">arxiv.org/abs/2103.05639</a> (data: <a href="https://huggingface.co/datasets/rasyosef/amharic-news-category-classification" target="_blank" rel="noopener">huggingface.co/datasets/rasyosef/amharic-news-category-classification</a>, CC BY 4.0)` },
   mlt_macocu: {
     name: "MaCoCu-mt 2.0: Maltese web corpus",
-    bullets: ["Maltese websites crawled in 2021: news, blogs, church and community sites", "41 million words (machine-translated sites and EU documents left out)"],
+    bullets: ["Maltese websites crawled in 2021: news, blogs, church and community sites", "Machine-translated sites and EU documents left out"],
     cite: `Bañón, M., et al. (2023). <i>Maltese web corpus MaCoCu-mt 2.0</i> [Data set]. Slovenian language resource repository CLARIN.SI. <a href="http://hdl.handle.net/11356/1803" target="_blank" rel="noopener">hdl.handle.net/11356/1803</a> (CC0)` },
   urd_makhzan: {
     name: "Makhzan (Matnsaz): edited Urdu text",
-    bullets: ["6,315 documents of edited Urdu writing", "6.2 million words"],
+    bullets: ["6,315 documents of edited Urdu writing"],
     cite: `Ahmed, Z., et al. (n.d.). <i>Maḵẖzan</i> [Data set]. <a href="https://github.com/zeerakahmed/makhzan" target="_blank" rel="noopener">github.com/zeerakahmed/makhzan</a>` } };
 // HPLT 3.0 web text (pipeline/count_hplt.py): one generic entry; millions of words kept per language.
-const HPLT_WORDS = { cym: 56, gle: 19, ltz: 30, glg: 77, fry: 22 };
 const hpltSource = k => ({
-  name: "HPLT 3.0: web text",
-  bullets: [k === "fry_hplt" ? "Pages from Frisian websites, collected 2012–2024" : "Web pages collected 2012–2024, best-rated pages only",
-    `${HPLT_WORDS[k.slice(0, 3)] || "Several"} million words (machine-translated pages left out)`],
+  name: "HPLT 3.0: web text (Oepen et al., 2025)",
+  bullets: [k === "fry_hplt" ? "Pages from Frisian websites, collected 2012–2024" : "Web pages collected 2012–2024, best-rated pages only", "Machine-translated pages and sites left out"],
   cite: `Oepen, S., et al. (2025). <i>HPLT 3.0: Very large-scale multilingual resources for LLMs and MT</i>. arXiv. <a href="https://arxiv.org/abs/2511.01066" target="_blank" rel="noopener">arxiv.org/abs/2511.01066</a> (data: <a href="https://hplt-project.org/datasets/v3.0" target="_blank" rel="noopener">hplt-project.org/datasets/v3.0</a>, CC0)` });
 const extraSources = m => (((m.sources_detail || {}).leipzig || {}).extra || []).map(k => EXTRA_SOURCES[k] || (/_hplt$/.test(k) ? hpltSource(k) : null)).filter(Boolean);
+// Sources of a language on the About page: every source with its full name and size, largest first
+// (manifest source_tokens: words of text per source; older manifests without it are listed without sizes).
+const fmtWords = n => !n ? "" : n >= 1e9 ? `${(n / 1e9).toFixed(1)} billion words` : n >= 1e7 ? `${Math.round(n / 1e6)} million words` : n >= 1e6 ? `${(n / 1e6).toFixed(1)} million words` : `${(Math.round(n / 1000) * 1000).toLocaleString("en-US")} words`;
 function aboutSources(m) {
-  const src = m.source || "", lz = (m.sources_detail || {}).leipzig, out = [], ff = filmsFile(S.code, m);
-  if (ff || !/^Leipzig/.test(src)) out.push(`<div>FILMS (Chilson, Sineva &amp; Schmalz, 2024)</div>${ff ? `<div class="hint mono" style="margin:0 0 6px;word-break:break-all">${esc(ff)}</div>` : ""}`);
-  if (lz && lz.corpus) out.push(`<div>Leipzig Corpora Collection (Goldhahn, Eckart &amp; Quasthoff, 2012)</div><div class="hint mono" style="margin:0 0 6px">${esc([lz.corpus, ...(lz.extra || []).filter(k => !EXTRA_SOURCES[k] && !/_hplt$/.test(k))].join(", "))} · CC BY</div>`);
-  for (const x of extraSources(m)) out.push(`<div>${esc(x.name)}</div><ul class="hint" style="margin:0 0 6px;padding-left:18px">${x.bullets.map(b => `<li>${esc(b)}</li>`).join("")}</ul>`);
-  return out.join("") || esc(src);
+  const src = m.source || "", lz = (m.sources_detail || {}).leipzig, ff = filmsFile(S.code, m), st = m.source_tokens || {}, lt = st.lists || {}, out = [];
+  const isExtra = k => EXTRA_SOURCES[k] || /_hplt$/.test(k);
+  const item = (n, name, body) => out.push([n || 0, `<div>${name}${n ? ` <span class="pill">${fmtWords(n)}</span>` : ""}</div>${body}`]);
+  if (ff || !/^Leipzig/.test(src)) item(st.films, "FILMS: a multilingual word frequency corpus based on film subtitles (Chilson, Sineva &amp; Schmalz, 2024)",
+    `<ul class="hint" style="margin:0 0 6px;padding-left:18px"><li>Word counts from film and television subtitles</li>${ff ? `<li class="mono" style="word-break:break-all">${esc(ff)}</li>` : ""}</ul>`);
+  if (lz && lz.corpus) { const ls = [lz.corpus, ...(lz.extra || [])].filter(k => !isExtra(k));
+    if (ls.length) item(ls.reduce((a, k) => a + (lt[k] || 0), 0), "Leipzig Corpora Collection (Goldhahn, Eckart &amp; Quasthoff, 2012)",
+      `<ul class="hint" style="margin:0 0 6px;padding-left:18px"><li>Word lists from ${esc([...new Set(ls.map(k => ({ news: "news", newscrawl: "news", "news-typical": "news", wikipedia: "Wikipedia", web: "web", "web-public": "web", community: "community web", mixed: "mixed web and news" })[k.split("_")[1]] || k.split("_")[1]))].join(", "))} text · CC BY</li><li class="mono" style="word-break:break-all">${esc(ls.join(", "))}</li></ul>`); }
+  for (const k of (lz && lz.extra) || []) { const x = EXTRA_SOURCES[k] || (/_hplt$/.test(k) ? hpltSource(k) : null);
+    if (x) item(lt[k], esc(x.name), `<ul class="hint" style="margin:0 0 6px;padding-left:18px">${x.bullets.map(b => `<li>${esc(b)}</li>`).join("")}</ul>`); }
+  out.sort((a, b) => b[0] - a[0]);
+  return (out.map(x => x[1]).join("") + (out.length > 1 ? `<div class="hint">Word frequencies from different kinds of text are not directly comparable.</div>` : "")) || esc(src);
 }
 // Characters one by one, separated by spaces; combining marks (vowel signs, virama, nukta, fili …) on a dotted circle so they stay visible.
 const showChars = str => [...str].map(c => c === "\u200c" ? "ZWNJ" : c === "\u200d" ? "ZWJ" : /\p{M}/u.test(c) ? "\u25cc" + c : c).join(" ");

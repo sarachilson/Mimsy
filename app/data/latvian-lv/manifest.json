@@ -6,7 +6,7 @@
  "corpus_tokens": 7687426,
  "small_corpus": true,
  "bands_enabled": false,
- "caution": "7.7 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 162,292 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. 50,929 of the reference words come from a newspaper corpus (Leipzig Corpora Collection, lav_newscrawl_2016_1M, 18.5 million words); 111,363 come from the subtitle list. Written sources are more formal than subtitles and contain more names and foreign words (151 probable English words were removed). Frequencies of the corpus-only words come from that corpus and are not comparable with subtitle frequencies.",
+ "caution": "7.7 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 162,292 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages.",
  "script": "alphabet",
  "length_unit": "letters",
  "experimental": false,
@@ -1720,10 +1720,6 @@
   {
    "title": "Small corpus",
    "text": "7.7 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 162,292 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages."
-  },
-  {
-   "title": "Newspaper vocabulary added",
-   "text": "50,929 of the reference words come from a newspaper corpus (Leipzig Corpora Collection, lav_newscrawl_2016_1M, 18.5 million words); 111,363 come from the subtitle list. Written sources are more formal than subtitles and contain more names and foreign words (151 probable English words were removed). Frequencies of the corpus-only words come from that corpus and are not comparable with subtitle frequencies."
   }
  ],
  "realword_filter": {
@@ -1752,5 +1748,11 @@
    }
   },
   "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ },
+ "source_tokens": {
+  "films": 7687427,
+  "lists": {
+   "lav_newscrawl_2016_1M": 18473814
+  }
  }
 }

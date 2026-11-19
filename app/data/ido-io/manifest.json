@@ -6,15 +6,11 @@
  "corpus_tokens": 1794032,
  "small_corpus": true,
  "bands_enabled": false,
- "caution": "1.8 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 15,749 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. 15,749 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, ido_wikipedia_2016_100K, 1.8 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words (101 probable English words were removed). All frequencies come from that corpus, so no frequency bands are offered.",
+ "caution": "1.8 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 15,749 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages.",
  "caution_items": [
   {
    "title": "Small corpus",
    "text": "1.8 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 15,749 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages."
-  },
-  {
-   "title": "Wikipedia vocabulary only",
-   "text": "15,749 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, ido_wikipedia_2016_100K, 1.8 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words (101 probable English words were removed). All frequencies come from that corpus, so no frequency bands are offered."
   }
  ],
  "script": "alphabet",
@@ -563,5 +559,11 @@
    "é"
   ]
  },
- "rules": {}
+ "rules": {},
+ "source_tokens": {
+  "films": null,
+  "lists": {
+   "ido_wikipedia_2016_100K": 1794032
+  }
+ }
 }

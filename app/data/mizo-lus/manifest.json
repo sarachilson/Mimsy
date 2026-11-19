@@ -6,15 +6,11 @@
  "corpus_tokens": 857072,
  "small_corpus": true,
  "bands_enabled": false,
- "caution": "0.9 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 7,339 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. 7,339 of the reference words come from a newspaper corpus (Leipzig Corpora Collection, lus_news_2020_30K, 0.9 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words (367 probable English words were removed). All frequencies come from that corpus, so no frequency bands are offered. Tone is not marked in the source; â and á are kept as written.",
+ "caution": "0.9 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 7,339 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. Tone is not marked in the source; â and á are kept as written.",
  "caution_items": [
   {
    "title": "Small corpus",
    "text": "0.9 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 7,339 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages."
-  },
-  {
-   "title": "Newspaper vocabulary only",
-   "text": "7,339 of the reference words come from a newspaper corpus (Leipzig Corpora Collection, lus_news_2020_30K, 0.9 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words (367 probable English words were removed). All frequencies come from that corpus, so no frequency bands are offered."
   },
   {
    "title": "CV note",
@@ -1026,5 +1022,11 @@
    "âi"
   ]
  },
- "rules": {}
+ "rules": {},
+ "source_tokens": {
+  "films": null,
+  "lists": {
+   "lus_news_2020_30K": 857072
+  }
+ }
 }

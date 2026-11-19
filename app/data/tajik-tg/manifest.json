@@ -6,15 +6,11 @@
  "corpus_tokens": 2237795,
  "small_corpus": true,
  "bands_enabled": false,
- "caution": "2.2 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 36,822 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. 36,822 of the reference words come from a newspaper corpus (Leipzig Corpora Collection, tgk_newscrawl_2011_100K, 2.2 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words. All frequencies come from that corpus, so no frequency bands are offered.",
+ "caution": "2.2 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 36,822 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages.",
  "caution_items": [
   {
    "title": "Small corpus",
    "text": "2.2 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 36,822 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages."
-  },
-  {
-   "title": "Newspaper vocabulary only",
-   "text": "36,822 of the reference words come from a newspaper corpus (Leipzig Corpora Collection, tgk_newscrawl_2011_100K, 2.2 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words. All frequencies come from that corpus, so no frequency bands are offered."
   }
  ],
  "script": "alphabet",
@@ -1097,5 +1093,11 @@
    }
   },
   "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ },
+ "source_tokens": {
+  "films": null,
+  "lists": {
+   "tgk_newscrawl_2011_100K": 2237795
+  }
  }
 }

@@ -6,7 +6,7 @@
  "corpus_tokens": 665847,
  "small_corpus": true,
  "bands_enabled": false,
- "caution": "0.7 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 7,511 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. 7,511 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, hau_wikipedia_2021_30K, 0.7 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words (94 probable English words were removed). All frequencies come from that corpus, so no frequency bands are offered. Boko (Latin) orthography; hooked letters ɓ ɗ ƙ ƴ are letters, the apostrophe marks the glottal stop; tone and length marks were removed.",
+ "caution": "0.7 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 7,511 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. Boko (Latin) orthography; hooked letters ɓ ɗ ƙ ƴ are letters, the apostrophe marks the glottal stop; tone and length marks were removed.",
  "script": "alphabet",
  "length_unit": "letters",
  "experimental": false,
@@ -516,10 +516,6 @@
    "text": "0.7 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 7,511 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages."
   },
   {
-   "title": "Wikipedia vocabulary only",
-   "text": "7,511 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, hau_wikipedia_2021_30K, 0.7 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words (94 probable English words were removed). All frequencies come from that corpus, so no frequency bands are offered."
-  },
-  {
    "title": "CV note",
    "text": "Boko (Latin) orthography; hooked letters ɓ ɗ ƙ ƴ are letters, the apostrophe marks the glottal stop; tone and length marks were removed."
   }
@@ -556,5 +552,11 @@
    }
   },
   "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ },
+ "source_tokens": {
+  "films": null,
+  "lists": {
+   "hau_wikipedia_2021_30K": 665847
+  }
  }
 }

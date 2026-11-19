@@ -6,15 +6,11 @@
  "corpus_tokens": 549182,
  "small_corpus": true,
  "bands_enabled": false,
- "caution": "0.5 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 16,530 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. 16,530 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, yid_wikipedia_2021_30K, 0.5 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words. All frequencies come from that corpus, so no frequency bands are offered. Yiddish writes its vowels with א ע י ו (counted as V; י and ו are also the consonants y and v, which this rule cannot tell apart). Vowel points were removed, so pasekh/komets alef both appear as א. Ligatures (ײ ױ װ) were split into their letters. Words of Hebrew origin keep their unvowelled spelling.",
+ "caution": "0.5 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 16,530 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. Yiddish writes its vowels with א ע י ו (counted as V; י and ו are also the consonants y and v, which this rule cannot tell apart). Vowel points were removed, so pasekh/komets alef both appear as א. Ligatures (ײ ױ װ) were split into their letters. Words of Hebrew origin keep their unvowelled spelling.",
  "caution_items": [
   {
    "title": "Small corpus",
    "text": "0.5 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 16,530 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages."
-  },
-  {
-   "title": "Wikipedia vocabulary only",
-   "text": "16,530 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, yid_wikipedia_2021_30K, 0.5 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words. All frequencies come from that corpus, so no frequency bands are offered."
   },
   {
    "title": "CV note",
@@ -1019,5 +1015,11 @@
    }
   },
   "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ },
+ "source_tokens": {
+  "films": null,
+  "lists": {
+   "yid_wikipedia_2021_30K": 549182
+  }
  }
 }

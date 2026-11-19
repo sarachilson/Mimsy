@@ -6,15 +6,11 @@
  "corpus_tokens": 509134,
  "small_corpus": true,
  "bands_enabled": false,
- "caution": "0.5 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 15,478 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. 15,478 of the reference words come from a newspaper corpus (Leipzig Corpora Collection, gom_newscrawl_2011_30K, 0.5 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words (245 probable English words were removed). All frequencies come from that corpus, so no frequency bands are offered. The Leipzig Goan Konkani corpus is in the Roman (Romi) orthography, not Devanagari.",
+ "caution": "0.5 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 15,478 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. The Leipzig Goan Konkani corpus is in the Roman (Romi) orthography, not Devanagari.",
  "caution_items": [
   {
    "title": "Small corpus",
    "text": "0.5 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 15,478 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages."
-  },
-  {
-   "title": "Newspaper vocabulary only",
-   "text": "15,478 of the reference words come from a newspaper corpus (Leipzig Corpora Collection, gom_newscrawl_2011_30K, 0.5 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words (245 probable English words were removed). All frequencies come from that corpus, so no frequency bands are offered."
   },
   {
    "title": "CV note",
@@ -967,5 +963,11 @@
    "ui"
   ]
  },
- "rules": {}
+ "rules": {},
+ "source_tokens": {
+  "films": null,
+  "lists": {
+   "gom_newscrawl_2011_30K": 509134
+  }
+ }
 }

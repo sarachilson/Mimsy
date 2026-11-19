@@ -6,7 +6,7 @@
  "corpus_tokens": 377125,
  "small_corpus": true,
  "bands_enabled": false,
- "caution": "0.4 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 34,021 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. 28,202 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, snd_wikipedia_2021_100K, 1.9 million words); 5,819 come from the subtitle list. Written sources are more formal than subtitles and contain more names and foreign words. Frequencies of the corpus-only words come from that corpus and are not comparable with subtitle frequencies. Sindhi is written without short vowels. CV here is orthographic: alif, waw and ye count as V; the aspiration marker (ھ) is a modifier. Diacritics were removed.",
+ "caution": "0.4 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 34,021 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. Sindhi is written without short vowels. CV here is orthographic: alif, waw and ye count as V; the aspiration marker (ھ) is a modifier. Diacritics were removed.",
  "script": "alphabet",
  "length_unit": "letters",
  "experimental": false,
@@ -2756,10 +2756,6 @@
    "text": "0.4 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 34,021 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages."
   },
   {
-   "title": "Wikipedia vocabulary added",
-   "text": "28,202 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, snd_wikipedia_2021_100K, 1.9 million words); 5,819 come from the subtitle list. Written sources are more formal than subtitles and contain more names and foreign words. Frequencies of the corpus-only words come from that corpus and are not comparable with subtitle frequencies."
-  },
-  {
    "title": "Abjad: CV is orthographic",
    "text": "Sindhi is written without short vowels. CV here is orthographic: alif, waw and ye count as V; the aspiration marker (ھ) is a modifier. Diacritics were removed."
   }
@@ -2772,5 +2768,11 @@
     "ھ": "M>X"
    }
   }
- ]
+ ],
+ "source_tokens": {
+  "films": 377126,
+  "lists": {
+   "snd_wikipedia_2021_100K": 1866942
+  }
+ }
 }

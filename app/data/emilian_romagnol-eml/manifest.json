@@ -6,15 +6,11 @@
  "corpus_tokens": 722696,
  "small_corpus": true,
  "bands_enabled": false,
- "caution": "0.7 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 13,470 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. 13,470 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, eml_wikipedia_2021_30K, 0.7 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words (80 probable English words were removed). All frequencies come from that corpus, so no frequency bands are offered. Emilian-Romagnol is a regional variety close to Italian. Every word form of Italian (299,684 forms) was added to the reject list, so no pseudoword is a real Italian word, and the app pre-selects Italian under \"Exclude real words of other languages\" (the Word-in column shows near misses). Of the 13,470 reference words, 1,257 are also Italian words; they stay in the lexicon because they are words of the variety too. Emilian and Romagnol varieties use several orthographies (macrons for long vowels, ṅ for the velar nasal, ś ṣ for sibilants); the Wikipedia mixes them.",
+ "caution": "0.7 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 13,470 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. Emilian-Romagnol is a regional variety close to Italian. Every word form of Italian (299,684 forms) was added to the reject list, so no pseudoword is a real Italian word, and the app pre-selects Italian under \"Exclude real words of other languages\" (the Word-in column shows near misses). Of the 13,470 reference words, 1,257 are also Italian words; they stay in the lexicon because they are words of the variety too. Emilian and Romagnol varieties use several orthographies (macrons for long vowels, ṅ for the velar nasal, ś ṣ for sibilants); the Wikipedia mixes them.",
  "caution_items": [
   {
    "title": "Small corpus",
    "text": "0.7 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 13,470 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages."
-  },
-  {
-   "title": "Wikipedia vocabulary only",
-   "text": "13,470 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, eml_wikipedia_2021_30K, 0.7 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words (80 probable English words were removed). All frequencies come from that corpus, so no frequency bands are offered."
   },
   {
    "title": "Variety of Italian",
@@ -777,5 +773,11 @@
    }
   },
   "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ },
+ "source_tokens": {
+  "films": null,
+  "lists": {
+   "eml_wikipedia_2021_30K": 722696
+  }
  }
 }

@@ -6,15 +6,11 @@
  "corpus_tokens": 204448,
  "small_corpus": true,
  "bands_enabled": false,
- "caution": "0.2 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 5,610 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. 5,610 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, bcl_wikipedia_2014_10K, 0.2 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words (128 probable English words were removed). All frequencies come from that corpus, so no frequency bands are offered.",
+ "caution": "0.2 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 5,610 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages.",
  "caution_items": [
   {
    "title": "Small corpus",
    "text": "0.2 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 5,610 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages."
-  },
-  {
-   "title": "Wikipedia vocabulary only",
-   "text": "5,610 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, bcl_wikipedia_2014_10K, 0.2 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words (128 probable English words were removed). All frequencies come from that corpus, so no frequency bands are offered."
   }
  ],
  "script": "alphabet",
@@ -565,5 +561,11 @@
    "ó"
   ]
  },
- "rules": {}
+ "rules": {},
+ "source_tokens": {
+  "films": null,
+  "lists": {
+   "bcl_wikipedia_2014_10K": 204448
+  }
+ }
 }

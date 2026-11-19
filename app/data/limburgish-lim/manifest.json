@@ -6,15 +6,11 @@
  "corpus_tokens": 1827765,
  "small_corpus": true,
  "bands_enabled": false,
- "caution": "1.8 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 39,106 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. 39,106 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, lim_wikipedia_2021_100K, 1.8 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words (235 probable English words were removed). All frequencies come from that corpus, so no frequency bands are offered. Limburgish is a regional variety close to Dutch and German. Every word form of Dutch and German (1,465,535 forms) was added to the reject list, so no pseudoword is a real Dutch or German word, and the app pre-selects Dutch and German under \"Exclude real words of other languages\" (the Word-in column shows near misses). Of the 39,106 reference words, 10,693 are also Dutch words, 2,718 are also German words; they stay in the lexicon because they are words of the variety too. Limburgish spelling follows the Veldeke conventions loosely; tone and vowel length marks vary between authors.",
+ "caution": "1.8 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 39,106 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. Limburgish is a regional variety close to Dutch and German. Every word form of Dutch and German (1,465,535 forms) was added to the reject list, so no pseudoword is a real Dutch or German word, and the app pre-selects Dutch and German under \"Exclude real words of other languages\" (the Word-in column shows near misses). Of the 39,106 reference words, 10,693 are also Dutch words, 2,718 are also German words; they stay in the lexicon because they are words of the variety too. Limburgish spelling follows the Veldeke conventions loosely; tone and vowel length marks vary between authors.",
  "caution_items": [
   {
    "title": "Small corpus",
    "text": "1.8 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 39,106 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages."
-  },
-  {
-   "title": "Wikipedia vocabulary only",
-   "text": "39,106 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, lim_wikipedia_2021_100K, 1.8 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words (235 probable English words were removed). All frequencies come from that corpus, so no frequency bands are offered."
   },
   {
    "title": "Variety of Dutch and German",
@@ -1667,5 +1663,11 @@
    }
   },
   "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ },
+ "source_tokens": {
+  "films": null,
+  "lists": {
+   "lim_wikipedia_2021_100K": 1827765
+  }
  }
 }

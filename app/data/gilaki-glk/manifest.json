@@ -6,15 +6,11 @@
  "corpus_tokens": 192535,
  "small_corpus": true,
  "bands_enabled": false,
- "caution": "0.2 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 9,296 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. 9,296 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, glk_wikipedia_2016_10K, 0.2 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words. All frequencies come from that corpus, so no frequency bands are offered. Gilaki is written in the Persian alphabet without short vowels. CV here is orthographic: alef, waw and ye count as V. Diacritics were removed.",
+ "caution": "0.2 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 9,296 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. Gilaki is written in the Persian alphabet without short vowels. CV here is orthographic: alef, waw and ye count as V. Diacritics were removed.",
  "caution_items": [
   {
    "title": "Small corpus",
    "text": "0.2 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 9,296 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages."
-  },
-  {
-   "title": "Wikipedia vocabulary only",
-   "text": "9,296 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, glk_wikipedia_2016_10K, 0.2 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words. All frequencies come from that corpus, so no frequency bands are offered."
   },
   {
    "title": "Abjad: CV is orthographic",
@@ -1050,5 +1046,11 @@
    }
   },
   "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ },
+ "source_tokens": {
+  "films": null,
+  "lists": {
+   "glk_wikipedia_2016_10K": 192535
+  }
  }
 }

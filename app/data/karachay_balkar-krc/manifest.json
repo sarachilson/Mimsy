@@ -6,15 +6,11 @@
  "corpus_tokens": 155074,
  "small_corpus": true,
  "bands_enabled": false,
- "caution": "0.2 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 7,940 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. 7,940 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, krc_wikipedia_2016_10K, 0.2 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words. All frequencies come from that corpus, so no frequency bands are offered. The digraphs дж, къ, нг and гъ are counted letter by letter (ъ as a modifier).",
+ "caution": "0.2 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 7,940 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. The digraphs дж, къ, нг and гъ are counted letter by letter (ъ as a modifier).",
  "caution_items": [
   {
    "title": "Small corpus",
    "text": "0.2 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 7,940 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages."
-  },
-  {
-   "title": "Wikipedia vocabulary only",
-   "text": "7,940 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, krc_wikipedia_2016_10K, 0.2 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words. All frequencies come from that corpus, so no frequency bands are offered."
   },
   {
    "title": "CV note",
@@ -671,6 +667,12 @@
    "reference_words": 0.852,
    "top_10000": 0.852,
    "note": "share of reference words to which the analyser gives any analysis"
+  }
+ },
+ "source_tokens": {
+  "films": null,
+  "lists": {
+   "krc_wikipedia_2016_10K": 155074
   }
  }
 }

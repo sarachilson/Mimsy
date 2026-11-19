@@ -6,15 +6,11 @@
  "corpus_tokens": 4960986,
  "small_corpus": true,
  "bands_enabled": false,
- "caution": "5.0 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 113,245 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. 42,787 of the reference words come from written text (Leipzig Corpora Collection, eus_newscrawl_2012_300K, eus_wikipedia_2021_300K, eus_news_2020_30K, eus_news_2019_30K, eus_web_2011_30K, eus_newscrawl_2011_10K; 11.0 million words in all); 70,458 come from the subtitle list. Written sources are more formal than subtitles and contain more names and foreign words (204 probable English words were removed). Frequencies of the corpus-only words come from that corpus and are not comparable with subtitle frequencies.",
+ "caution": "5.0 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 113,245 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages.",
  "caution_items": [
   {
    "title": "Small corpus",
    "text": "5.0 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 113,245 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages."
-  },
-  {
-   "title": "Written-text vocabulary added",
-   "text": "42,787 of the reference words come from written text (Leipzig Corpora Collection, eus_newscrawl_2012_300K, eus_wikipedia_2021_300K, eus_news_2020_30K, eus_news_2019_30K, eus_web_2011_30K, eus_newscrawl_2011_10K; 11.0 million words in all); 70,458 come from the subtitle list. Written sources are more formal than subtitles and contain more names and foreign words (204 probable English words were removed). Frequencies of the corpus-only words come from that corpus and are not comparable with subtitle frequencies."
   }
  ],
  "script": "alphabet",
@@ -987,5 +983,16 @@
    }
   },
   "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ },
+ "source_tokens": {
+  "films": 4960987,
+  "lists": {
+   "eus_newscrawl_2012_300K": 4662811,
+   "eus_wikipedia_2021_300K": 4718389,
+   "eus_news_2020_30K": 462877,
+   "eus_news_2019_30K": 450135,
+   "eus_web_2011_30K": 527259,
+   "eus_newscrawl_2011_10K": 173870
+  }
  }
 }

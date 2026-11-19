@@ -6,15 +6,11 @@
  "corpus_tokens": 5363855,
  "small_corpus": true,
  "bands_enabled": false,
- "caution": "5.4 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 82,464 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. 82,464 of the reference words come from written text (Leipzig Corpora Collection, div_newscrawl_2015_300K, div_news_2019_30K, div_wikipedia_2021_30K; 5.4 million words in all); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words. All frequencies come from that corpus, so no frequency bands are offered. Thaana writes every vowel as a mark (fili) on the preceding consonant; the fili count as V, the consonant letters as C and sukun (ް, no vowel) as a modifier. Length counts letters and fili together, so a two-syllable word like ދިވެ has a length of 4.",
+ "caution": "5.4 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 82,464 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. Thaana writes every vowel as a mark (fili) on the preceding consonant; the fili count as V, the consonant letters as C and sukun (ް, no vowel) as a modifier. Length counts letters and fili together, so a two-syllable word like ދިވެ has a length of 4.",
  "caution_items": [
   {
    "title": "Small corpus",
    "text": "5.4 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 82,464 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages."
-  },
-  {
-   "title": "Written-text vocabulary only",
-   "text": "82,464 of the reference words come from written text (Leipzig Corpora Collection, div_newscrawl_2015_300K, div_news_2019_30K, div_wikipedia_2021_30K; 5.4 million words in all); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words. All frequencies come from that corpus, so no frequency bands are offered."
   },
   {
    "title": "CV note",
@@ -872,5 +868,13 @@
   }
  },
  "uncased_names": null,
- "rules": {}
+ "rules": {},
+ "source_tokens": {
+  "films": null,
+  "lists": {
+   "div_newscrawl_2015_300K": 4545925,
+   "div_news_2019_30K": 461906,
+   "div_wikipedia_2021_30K": 356024
+  }
+ }
 }

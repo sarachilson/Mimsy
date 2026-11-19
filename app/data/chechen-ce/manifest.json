@@ -6,15 +6,11 @@
  "corpus_tokens": 1388012,
  "small_corpus": true,
  "bands_enabled": false,
- "caution": "1.4 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 5,825 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. 5,825 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, che_wikipedia_2016_100K, 1.4 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words. All frequencies come from that corpus, so no frequency bands are offered. The palochka (ӏ, also written as a Latin I or a digit 1 in the source) is a consonant letter.",
+ "caution": "1.4 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 5,825 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. The palochka (ӏ, also written as a Latin I or a digit 1 in the source) is a consonant letter.",
  "caution_items": [
   {
    "title": "Small corpus",
    "text": "1.4 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 5,825 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages."
-  },
-  {
-   "title": "Wikipedia vocabulary only",
-   "text": "5,825 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, che_wikipedia_2016_100K, 1.4 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words. All frequencies come from that corpus, so no frequency bands are offered."
   },
   {
    "title": "CV note",
@@ -623,5 +619,11 @@
    "ё"
   ]
  },
- "rules": {}
+ "rules": {},
+ "source_tokens": {
+  "films": null,
+  "lists": {
+   "che_wikipedia_2016_100K": 1388012
+  }
+ }
 }

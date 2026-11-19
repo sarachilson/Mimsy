@@ -6,15 +6,11 @@
  "corpus_tokens": 1758132,
  "small_corpus": true,
  "bands_enabled": false,
- "caution": "1.8 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 59,061 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. 59,061 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, bar_wikipedia_2021_100K, 1.8 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words (457 probable English words were removed). All frequencies come from that corpus, so no frequency bands are offered. Bavarian is a regional variety close to German. Every word form of German (821,524 forms) was added to the reject list, so no pseudoword is a real German word, and the app pre-selects German under \"Exclude real words of other languages\" (the Word-in column shows near misses). Of the 59,061 reference words, 10,843 are also German words; they stay in the lexicon because they are words of the variety too. Bavarian spelling is not standardised (the Wikipedia follows several conventions); å marks the dark a.",
+ "caution": "1.8 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 59,061 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. Bavarian is a regional variety close to German. Every word form of German (821,524 forms) was added to the reject list, so no pseudoword is a real German word, and the app pre-selects German under \"Exclude real words of other languages\" (the Word-in column shows near misses). Of the 59,061 reference words, 10,843 are also German words; they stay in the lexicon because they are words of the variety too. Bavarian spelling is not standardised (the Wikipedia follows several conventions); å marks the dark a.",
  "caution_items": [
   {
    "title": "Small corpus",
    "text": "1.8 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 59,061 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages."
-  },
-  {
-   "title": "Wikipedia vocabulary only",
-   "text": "59,061 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, bar_wikipedia_2021_100K, 1.8 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words (457 probable English words were removed). All frequencies come from that corpus, so no frequency bands are offered."
   },
   {
    "title": "Variety of German",
@@ -2973,5 +2969,11 @@
    }
   },
   "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ },
+ "source_tokens": {
+  "films": null,
+  "lists": {
+   "bar_wikipedia_2021_100K": 1758132
+  }
  }
 }

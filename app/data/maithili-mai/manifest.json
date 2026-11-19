@@ -6,15 +6,11 @@
  "corpus_tokens": 141985,
  "small_corpus": true,
  "bands_enabled": false,
- "caution": "0.1 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 7,945 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. 7,945 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, mai_wikipedia_2021_10K, 0.1 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words. All frequencies come from that corpus, so no frequency bands are offered. Maithili (Devanagari) is an abugida: CV (orthographic) counts every consonant letter as C plus an inherent vowel V unless a vowel sign or virama follows. CV (phonological) applies the Hindi-type schwa-deletion rule (not checked against pronunciations). Length is counted in aksharas.",
+ "caution": "0.1 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 7,945 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. Maithili (Devanagari) is an abugida: CV (orthographic) counts every consonant letter as C plus an inherent vowel V unless a vowel sign or virama follows. CV (phonological) applies the Hindi-type schwa-deletion rule (not checked against pronunciations). Length is counted in aksharas.",
  "caution_items": [
   {
    "title": "Small corpus",
    "text": "0.1 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 7,945 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages."
-  },
-  {
-   "title": "Wikipedia vocabulary only",
-   "text": "7,945 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, mai_wikipedia_2021_10K, 0.1 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words. All frequencies come from that corpus, so no frequency bands are offered."
   },
   {
    "title": "Abugida: CV and length",
@@ -577,5 +573,11 @@
   "exact_cv_match": null,
   "vowel_count_match": null,
   "note": "too few IPA words to evaluate; rule-based defaults dominate"
+ },
+ "source_tokens": {
+  "films": null,
+  "lists": {
+   "mai_wikipedia_2021_10K": 141985
+  }
  }
 }

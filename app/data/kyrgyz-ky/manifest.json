@@ -6,15 +6,11 @@
  "corpus_tokens": 16315111,
  "small_corpus": true,
  "bands_enabled": false,
- "caution": "16.3 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 99,859 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. 99,859 of the reference words come from a newspaper corpus (Leipzig Corpora Collection, kir_newscrawl_2016_1M, 16.3 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words. All frequencies come from that corpus, so no frequency bands are offered.",
+ "caution": "16.3 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 99,859 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages.",
  "caution_items": [
   {
    "title": "Small corpus",
    "text": "16.3 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 99,859 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages."
-  },
-  {
-   "title": "Newspaper vocabulary only",
-   "text": "99,859 of the reference words come from a newspaper corpus (Leipzig Corpora Collection, kir_newscrawl_2016_1M, 16.3 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words. All frequencies come from that corpus, so no frequency bands are offered."
   }
  ],
  "script": "alphabet",
@@ -994,6 +990,12 @@
    "reference_words": 0.681,
    "top_10000": 0.902,
    "note": "share of reference words to which the analyser gives any analysis"
+  }
+ },
+ "source_tokens": {
+  "films": null,
+  "lists": {
+   "kir_newscrawl_2016_1M": 16315111
   }
  }
 }

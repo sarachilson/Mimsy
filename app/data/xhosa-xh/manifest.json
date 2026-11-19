@@ -6,7 +6,7 @@
  "corpus_tokens": 486724,
  "small_corpus": true,
  "bands_enabled": false,
- "caution": "0.5 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 27,702 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. 27,702 of the reference words come from a mixed web/news corpus (Leipzig Corpora Collection, xho_mixed_2016_30K, 0.5 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words (165 probable English words were removed). All frequencies come from that corpus, so no frequency bands are offered.",
+ "caution": "0.5 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 27,702 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages.",
  "script": "alphabet",
  "length_unit": "letters",
  "experimental": false,
@@ -677,10 +677,6 @@
   {
    "title": "Small corpus",
    "text": "0.5 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 27,702 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages."
-  },
-  {
-   "title": "Mixed web/news vocabulary only",
-   "text": "27,702 of the reference words come from a mixed web/news corpus (Leipzig Corpora Collection, xho_mixed_2016_30K, 0.5 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words (165 probable English words were removed). All frequencies come from that corpus, so no frequency bands are offered."
   }
  ],
  "realword_filter": {
@@ -706,5 +702,11 @@
    }
   },
   "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ },
+ "source_tokens": {
+  "films": null,
+  "lists": {
+   "xho_mixed_2016_30K": 486724
+  }
  }
 }

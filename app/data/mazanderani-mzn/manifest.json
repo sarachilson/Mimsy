@@ -6,15 +6,11 @@
  "corpus_tokens": 465909,
  "small_corpus": true,
  "bands_enabled": false,
- "caution": "0.5 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 13,398 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. 13,398 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, mzn_wikipedia_2021_30K, 0.5 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words. All frequencies come from that corpus, so no frequency bands are offered. Mazanderani is written in the Persian alphabet without short vowels. CV here is orthographic: alef, waw and ye count as V. Diacritics were removed.",
+ "caution": "0.5 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 13,398 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. Mazanderani is written in the Persian alphabet without short vowels. CV here is orthographic: alef, waw and ye count as V. Diacritics were removed.",
  "caution_items": [
   {
    "title": "Small corpus",
    "text": "0.5 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 13,398 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages."
-  },
-  {
-   "title": "Wikipedia vocabulary only",
-   "text": "13,398 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, mzn_wikipedia_2021_30K, 0.5 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words. All frequencies come from that corpus, so no frequency bands are offered."
   },
   {
    "title": "Abjad: CV is orthographic",
@@ -1395,5 +1391,11 @@
   "exact_cv_match": null,
   "vowel_count_match": null,
   "note": "too few IPA words to evaluate; rule-based defaults dominate"
+ },
+ "source_tokens": {
+  "films": null,
+  "lists": {
+   "mzn_wikipedia_2021_30K": 465909
+  }
  }
 }

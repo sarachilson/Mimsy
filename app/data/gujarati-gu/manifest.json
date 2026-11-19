@@ -6,7 +6,7 @@
  "corpus_tokens": 5067687,
  "small_corpus": true,
  "bands_enabled": false,
- "caution": "5.1 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 80,865 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. 80,865 of the reference words come from a newspaper corpus (Leipzig Corpora Collection, guj_newscrawl_2016_300K, 5.1 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words. All frequencies come from that corpus, so no frequency bands are offered. Gujarati is an abugida: CV (orthographic) counts every consonant letter as C plus an inherent vowel V unless a vowel sign or virama follows; anusvara is C before a consonant. CV (phonological) applies the schwa-deletion rule (Hindi-type; not checked against pronunciations). Length is counted in aksharas.",
+ "caution": "5.1 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 80,865 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. Gujarati is an abugida: CV (orthographic) counts every consonant letter as C plus an inherent vowel V unless a vowel sign or virama follows; anusvara is C before a consonant. CV (phonological) applies the schwa-deletion rule (Hindi-type; not checked against pronunciations). Length is counted in aksharas.",
  "script": "gujarati",
  "length_unit": "aksharas",
  "experimental": false,
@@ -952,10 +952,6 @@
    "text": "5.1 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 80,865 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages."
   },
   {
-   "title": "Newspaper vocabulary only",
-   "text": "80,865 of the reference words come from a newspaper corpus (Leipzig Corpora Collection, guj_newscrawl_2016_300K, 5.1 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words. All frequencies come from that corpus, so no frequency bands are offered."
-  },
-  {
    "title": "Abugida: CV and length",
    "text": "Gujarati is an abugida: CV (orthographic) counts every consonant letter as C plus an inherent vowel V unless a vowel sign or virama follows; anusvara is C before a consonant. CV (phonological) applies the schwa-deletion rule (Hindi-type; not checked against pronunciations). Length is counted in aksharas."
   }
@@ -999,5 +995,11 @@
    }
   },
   "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ },
+ "source_tokens": {
+  "films": null,
+  "lists": {
+   "guj_newscrawl_2016_300K": 5067687
+  }
  }
 }

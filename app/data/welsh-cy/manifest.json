@@ -7,13 +7,8 @@
  "small_corpus": false,
  "bands_enabled": false,
  "text_tokens": 64582196.10996894,
- "caution": "39,975 of the reference words come from written text (Leipzig Corpora Collection, cym_wikipedia_2021_100K, and web text from HPLT 3.0; 58.0 million words in all); 22,441 come from the subtitle list. Written sources are more formal than subtitles and contain more names and foreign words (840 probable English words were removed). Frequencies of the corpus-only words come from that corpus and are not comparable with subtitle frequencies.",
- "caution_items": [
-  {
-   "title": "Written-text vocabulary added",
-   "text": "39,975 of the reference words come from written text (Leipzig Corpora Collection, cym_wikipedia_2021_100K, and web text from HPLT 3.0; 58.0 million words in all); 22,441 come from the subtitle list. Written sources are more formal than subtitles and contain more names and foreign words (840 probable English words were removed). Frequencies of the corpus-only words come from that corpus and are not comparable with subtitle frequencies."
-  }
- ],
+ "caution": null,
+ "caution_items": [],
  "script": "alphabet",
  "length_unit": "letters",
  "experimental": false,
@@ -2001,5 +1996,12 @@
    }
   },
   "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ },
+ "source_tokens": {
+  "films": 6587573,
+  "lists": {
+   "cym_wikipedia_2021_100K": 1859839,
+   "cym_hplt": 56134784
+  }
  }
 }

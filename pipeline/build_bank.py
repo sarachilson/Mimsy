@@ -736,6 +736,12 @@ def step_prepare(lang, cfg, args, outdir, work):
             return False
         return True
     ref = sorted(((w, v) for w, v in plain.items() if keep(w, v)), key=lambda x: -x[1][1])
+    # languages.py ref_cap: at most this many reference words, the most frequent ones; the others stay in the rare list
+    # (still rejected as pseudowords). Languages with many word forms and a large corpus (Malayalam: 565,000) would
+    # otherwise make the lexicon slow to load and the neighbourhood measures slow to compute (18 Nov 2026).
+    capped = set()
+    if cfg.get("ref_cap") and len(ref) > cfg["ref_cap"]:
+        capped = {w for w, _ in ref[cfg["ref_cap"]:]}; ref = ref[:cfg["ref_cap"]]
     small = corpus_tokens is not None and corpus_tokens < SMALL_CORPUS_TOKENS
     bands_enabled = not small and not cfg.get("no_bands")
     def band_of(z):
@@ -893,7 +899,7 @@ def step_prepare(lang, cfg, args, outdir, work):
     src_counts = {"films": 0, "leipzig": 0, "both": 0, "leipzig_name": 0, "leipzig_eng": 0}
     for w, v in ref:
         src_counts[v[3]] += 1
-    rare = sorted(w for w, v in plain.items() if not keep(w, v) and v[3] not in ("leipzig_name", "leipzig_eng"))
+    rare = sorted(w for w, v in plain.items() if (w in capped or not keep(w, v)) and v[3] not in ("leipzig_name", "leipzig_eng"))
     os.makedirs(outdir, exist_ok=True)
     with gzip.open(os.path.join(outdir, "lexicon.tsv.gz"), "wt", encoding="utf-8") as f:
         f.write("word\tzipf\tband\tcv\tipa\n")
@@ -1152,19 +1158,8 @@ def caution_items(cfg, st):
             items.append({"title": "Experimental", "text": f"Very small lexicon ({nref:,} reference words). The generators mostly recombine fragments of existing words, the attested-cluster filter is very restrictive, and neighbourhood measures are coarse; treat results as illustrative."})
         items.append({"title": "Small corpus", "text": f"{mt:.1f} million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators."
                       + ("" if nref < EXPERIMENTAL_WORDS else f" The reference lexicon has {nref:,} words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages.")})
-    if st.get("leipzig"):
-        L = st["leipzig"]; rs = st.get("reference_sources") or {}
-        src_kind = L["corpus"].split("_")[1]
-        kind_txt = {"news": "newspaper", "newscrawl": "newspaper", "news-typical": "newspaper", "wikipedia": "Wikipedia", "web": "web", "web-public": "web", "community": "community web", "mixed": "mixed web/news"}.get(src_kind, src_kind)
-        has_films = rs.get("films", 0) + rs.get("both", 0)
-        eng = (st.get("english_contamination_removed") or {}).get("count")
-        kt = "Book and news" if "kaz_mkd_books_news" in (L.get("extra") or []) else "Written-text" if L.get("extra") else kind_txt[0].upper() + kind_txt[1:]
-        items.append({"title": f"{kt} vocabulary {'added' if has_films else 'only'}",
-                      "text": (f"{rs.get('leipzig', 0):,} of the reference words come from {'written text' if L.get('extra') else 'a ' + kind_txt + ' corpus'} (Leipzig Corpora Collection, {L['corpus']}{''.join(', ' + EXTRA_DESC.get(x, 'and web text from HPLT 3.0' if x.endswith('_hplt') else x) for x in (L.get('extra') or []))}{'; ' if L.get('extra') else ', '}{L['tokens'] / 1e6:.1f} million words{' in all' if L.get('extra') else ''})"
-                               + (f"; {has_films:,} come from the subtitle list." if has_films else "; no subtitle list exists for this language.")
-                               + " Written sources are more formal than subtitles and contain more names and foreign words"
-                               + (f" ({eng} probable English words were removed)." if eng else ".")
-                               + (" Frequencies of the corpus-only words come from that corpus and are not comparable with subtitle frequencies." if has_films else " All frequencies come from that corpus, so no frequency bands are offered."))})
+    # The item "Written-text / Wikipedia vocabulary added / only" was dropped on 18 Nov 2026 (user: it reads as a warning
+    # although more written text is a strength); the About page lists every source with its size instead (source_tokens).
     if st.get("parents"):
         P = st["parents"]; names = " and ".join(v["name"] for v in P.values()); nor = " or ".join(v["name"] for v in P.values())
         shared = ", ".join(f"{v['shared_reference_words']:,} are also {v['name']} words" for v in P.values())
@@ -1174,6 +1169,37 @@ def caution_items(cfg, st):
         cv_title = ("Syllabary: CV and length" if cfg.get("script") == "ethiopic" else "Abugida: CV and length") if cfg.get("script") in indic.SCRIPTS else ("Abjad: CV is orthographic" if cfg.get("allow_no_vowel") else "CV note")
         items.append({"title": cv_title, "text": cfg["cv_note"]})
     return items
+
+
+def source_tokens(lang, cfg, slim_dir=None, leipzig_dir=None, only=None):
+    """Words of text behind each source, for the About page: {"films": n or None, "lists": {list name: n}}.
+    FILMS: recovered from the first row of the slim list (count and Zipf value give the corpus size).
+    Lists: sum of the counts in each <name>-words.txt (the language's main list and its leipzig_extra)."""
+    slim_dir = slim_dir or os.path.join(HERE, "..", "_slim"); leipzig_dir = leipzig_dir or os.path.join(HERE, "..", "_leipzig")
+    out = {"films": None, "lists": {}}
+    sp = os.path.join(slim_dir, lang + ".tsv.gz")
+    if not cfg.get("no_films") and os.path.exists(sp):
+        with gzip.open(sp, "rt", encoding="utf-8") as f:
+            next(f)
+            for line in f:
+                p = line.rstrip("\n").split("\t")
+                try:
+                    out["films"] = int(round(float(p[1]) * 1e9 / 10 ** float(p[2]))); break
+                except (ValueError, IndexError, ZeroDivisionError):
+                    continue
+    for nm in ([cfg["leipzig"]] if cfg.get("leipzig") else []) + list(cfg.get("leipzig_extra") or []):
+        if only is not None and nm not in only:   # rewrite_cautions: only the lists the existing manifest was built from
+            continue
+        fp = os.path.join(leipzig_dir, nm + "-words.txt")
+        if not os.path.exists(fp):
+            continue
+        t = 0
+        with open(fp, encoding="utf-8", errors="replace") as f:
+            for line in f:
+                p = line.rstrip("\n").split("\t")
+                if len(p) >= 3 and p[2].isdigit(): t += int(p[2])
+        out["lists"][nm] = t
+    return out
 
 
 def rewrite_cautions(out):
@@ -1191,6 +1217,11 @@ def rewrite_cautions(out):
         items = caution_items(cfg, st)
         m["caution_items"] = items
         m["caution"] = " ".join(" ".join(it["text"].split()) for it in items) or None
+        lzm = sd.get("leipzig") or {}
+        stok = source_tokens(lang, cfg, only=([lzm.get("corpus")] + list(lzm.get("extra") or [])) if lzm else [])
+        if not sd.get("films", True) and not (m.get("source") or "").startswith("FILMS"): stok["films"] = None
+        if stok["films"] or stok["lists"] or "source_tokens" not in m:
+            m["source_tokens"] = stok
         json.dump(m, open(mp, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
         n += 1
     return n
@@ -1254,7 +1285,7 @@ def step_write(lang, cfg, args, outdir, work):
         "generation": {"target_rule": (f"per generator and training set: {LANGS[lang]['bank_scale'][0]} x the number of training words, between {PER_MODEL_MIN} and {LANGS[lang]['bank_scale'][1]}; a generator stops early when fewer than 1 in 20 recent samples is new and legal" if LANGS[lang].get("bank_scale") else f"per generator and training set: number of training words, between {PER_MODEL_MIN} and {PER_MODEL_MAX}"), "seed": SEED, "results": gstats},
         "counts": st["counts"],
         "inventory_sizes": {k: len(v) for k, v in st["inventory"].items()},
-        "inventory": st["inventory"], "training": st.get("training"), "uncased_names": st.get("uncased_names"), "run_together": st.get("run_together"), "diacritic_twins": st.get("diacritic_twins"), "text_tokens": st.get("text_tokens"),
+        "inventory": st["inventory"], "source_tokens": source_tokens(lang, cfg, args.slim, args.leipzig), "training": st.get("training"), "uncased_names": st.get("uncased_names"), "run_together": st.get("run_together"), "diacritic_twins": st.get("diacritic_twins"), "text_tokens": st.get("text_tokens"),
         "rules": cfg.get("rules", {}),
     }
     mp = os.path.join(outdir, "manifest.json")

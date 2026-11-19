@@ -6,15 +6,11 @@
  "corpus_tokens": 551901,
  "small_corpus": true,
  "bands_enabled": false,
- "caution": "0.6 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 13,233 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. 13,233 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, wln_wikipedia_2021_30K, 0.6 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words (80 probable English words were removed). All frequencies come from that corpus, so no frequency bands are offered. Words with an apostrophe (elision, e.g. l'ome) were left out.",
+ "caution": "0.6 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 13,233 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. Words with an apostrophe (elision, e.g. l'ome) were left out.",
  "caution_items": [
   {
    "title": "Small corpus",
    "text": "0.6 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 13,233 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages."
-  },
-  {
-   "title": "Wikipedia vocabulary only",
-   "text": "13,233 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, wln_wikipedia_2021_30K, 0.6 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words (80 probable English words were removed). All frequencies come from that corpus, so no frequency bands are offered."
   },
   {
    "title": "CV note",
@@ -785,5 +781,11 @@
    "û"
   ]
  },
- "rules": {}
+ "rules": {},
+ "source_tokens": {
+  "films": null,
+  "lists": {
+   "wln_wikipedia_2021_30K": 551901
+  }
+ }
 }

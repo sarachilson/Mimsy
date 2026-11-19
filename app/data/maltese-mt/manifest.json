@@ -7,13 +7,8 @@
  "small_corpus": false,
  "bands_enabled": false,
  "text_tokens": 50324998,
- "caution": "78,697 of the reference words come from written text (Leipzig Corpora Collection, mlt_web_2012_300K, and the Maltese web corpus MaCoCu-mt 2.0, mlt_newscrawl_2012_100K, mlt_news_2020_30K, mlt_wikipedia_2021_30K; 50.3 million words in all); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words (1080 probable English words were removed). All frequencies come from that corpus, so no frequency bands are offered.",
- "caution_items": [
-  {
-   "title": "Written-text vocabulary only",
-   "text": "78,697 of the reference words come from written text (Leipzig Corpora Collection, mlt_web_2012_300K, and the Maltese web corpus MaCoCu-mt 2.0, mlt_newscrawl_2012_100K, mlt_news_2020_30K, mlt_wikipedia_2021_30K; 50.3 million words in all); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words (1080 probable English words were removed). All frequencies come from that corpus, so no frequency bands are offered."
-  }
- ],
+ "caution": null,
+ "caution_items": [],
  "script": "alphabet",
  "length_unit": "letters",
  "experimental": false,
@@ -2922,5 +2917,15 @@
    }
   },
   "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ },
+ "source_tokens": {
+  "films": null,
+  "lists": {
+   "mlt_web_2012_300K": 5902617,
+   "mlt_macocu": 41399972,
+   "mlt_newscrawl_2012_100K": 1862710,
+   "mlt_news_2020_30K": 602486,
+   "mlt_wikipedia_2021_30K": 557213
+  }
  }
 }

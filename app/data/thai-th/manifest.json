@@ -6,12 +6,8 @@
  "corpus_tokens": 288808700,
  "small_corpus": false,
  "bands_enabled": true,
- "caution": "40,378 of the reference words come from a newspaper corpus (Leipzig Corpora Collection, tha_newscrawl_2011_100K, 1.6 million words); 28,879 come from the subtitle list. Written sources are more formal than subtitles and contain more names and foreign words. Frequencies of the corpus-only words come from that corpus and are not comparable with subtitle frequencies. Thai writes no spaces between words, so the word lists come from automatic segmentation (subtitles and a news corpus) and contain some phrases. Letters are counted as written (consonants, vowel signs and tone marks). CV (orthographic): consonant letters C (including อ ว ย, which also serve as vowels), vowel signs V — the pre-posed vowels เ แ โ ใ ไ are written before their consonant and placed after it in the CV string; tone marks, maitaikhu and thanthakhat are skipped; the implied vowels of consonant-only syllables (กด) are not shown, so CV (phonological), learned from the IPA transcriptions, is the better guide. Generated strings follow the writing rules: marks sit on a consonant, at most one vowel sign and one tone mark per consonant, pre-posed vowels followed by a consonant, ั by a final consonant.",
+ "caution": "Thai writes no spaces between words, so the word lists come from automatic segmentation (subtitles and a news corpus) and contain some phrases. Letters are counted as written (consonants, vowel signs and tone marks). CV (orthographic): consonant letters C (including อ ว ย, which also serve as vowels), vowel signs V — the pre-posed vowels เ แ โ ใ ไ are written before their consonant and placed after it in the CV string; tone marks, maitaikhu and thanthakhat are skipped; the implied vowels of consonant-only syllables (กด) are not shown, so CV (phonological), learned from the IPA transcriptions, is the better guide. Generated strings follow the writing rules: marks sit on a consonant, at most one vowel sign and one tone mark per consonant, pre-posed vowels followed by a consonant, ั by a final consonant.",
  "caution_items": [
-  {
-   "title": "Newspaper vocabulary added",
-   "text": "40,378 of the reference words come from a newspaper corpus (Leipzig Corpora Collection, tha_newscrawl_2011_100K, 1.6 million words); 28,879 come from the subtitle list. Written sources are more formal than subtitles and contain more names and foreign words. Frequencies of the corpus-only words come from that corpus and are not comparable with subtitle frequencies."
-  },
   {
    "title": "Abjad: CV is orthographic",
    "text": "Thai writes no spaces between words, so the word lists come from automatic segmentation (subtitles and a news corpus) and contain some phrases. Letters are counted as written (consonants, vowel signs and tone marks). CV (orthographic): consonant letters C (including อ ว ย, which also serve as vowels), vowel signs V — the pre-posed vowels เ แ โ ใ ไ are written before their consonant and placed after it in the CV string; tone marks, maitaikhu and thanthakhat are skipped; the implied vowels of consonant-only syllables (กด) are not shown, so CV (phonological), learned from the IPA transcriptions, is the better guide. Generated strings follow the writing rules: marks sit on a consonant, at most one vowel sign and one tone mark per consonant, pre-posed vowels followed by a consonant, ั by a final consonant."
@@ -7783,5 +7779,11 @@
   "rule_based": false,
   "exact_cv_match": 0.534,
   "vowel_count_match": 0.684
+ },
+ "source_tokens": {
+  "films": 288808700,
+  "lists": {
+   "tha_newscrawl_2011_100K": 1637599
+  }
  }
 }

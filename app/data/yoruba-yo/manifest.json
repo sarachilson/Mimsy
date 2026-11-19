@@ -6,7 +6,7 @@
  "corpus_tokens": 204942,
  "small_corpus": true,
  "bands_enabled": false,
- "caution": "Very small lexicon (3,935 reference words). The generators mostly recombine fragments of existing words, the attested-cluster filter is very restrictive, and neighbourhood measures are coarse; treat results as illustrative. 0.2 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. 3,935 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, yor_wikipedia_2021_10K, 0.2 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words (52 probable English words were removed). All frequencies come from that corpus, so no frequency bands are offered. Tone marks (grave, acute, macron) were removed, so tone is not represented; ẹ, ọ and ṣ are kept as letters.",
+ "caution": "Very small lexicon (3,935 reference words). The generators mostly recombine fragments of existing words, the attested-cluster filter is very restrictive, and neighbourhood measures are coarse; treat results as illustrative. 0.2 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. Tone marks (grave, acute, macron) were removed, so tone is not represented; ẹ, ọ and ṣ are kept as letters.",
  "script": "alphabet",
  "length_unit": "letters",
  "experimental": true,
@@ -358,10 +358,6 @@
    "text": "0.2 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators."
   },
   {
-   "title": "Wikipedia vocabulary only",
-   "text": "3,935 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, yor_wikipedia_2021_10K, 0.2 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words (52 probable English words were removed). All frequencies come from that corpus, so no frequency bands are offered."
-  },
-  {
    "title": "CV note",
    "text": "Tone marks (grave, acute, macron) were removed, so tone is not represented; ẹ, ọ and ṣ are kept as letters."
   }
@@ -389,5 +385,11 @@
    }
   },
   "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ },
+ "source_tokens": {
+  "films": null,
+  "lists": {
+   "yor_wikipedia_2021_10K": 204942
+  }
  }
 }

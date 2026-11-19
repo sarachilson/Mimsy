@@ -6,15 +6,11 @@
  "corpus_tokens": 110035,
  "small_corpus": true,
  "bands_enabled": false,
- "caution": "0.1 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 9,570 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. 9,570 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, tcy_wikipedia_2018_10K, 0.1 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words. All frequencies come from that corpus, so no frequency bands are offered. Tulu is written in the Kannada script: CV (orthographic) counts every consonant letter as C plus an inherent vowel V unless a vowel sign or virama follows; anusvara is C. Length is counted in aksharas.",
+ "caution": "0.1 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 9,570 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. Tulu is written in the Kannada script: CV (orthographic) counts every consonant letter as C plus an inherent vowel V unless a vowel sign or virama follows; anusvara is C. Length is counted in aksharas.",
  "caution_items": [
   {
    "title": "Small corpus",
    "text": "0.1 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 9,570 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages."
-  },
-  {
-   "title": "Wikipedia vocabulary only",
-   "text": "9,570 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, tcy_wikipedia_2018_10K, 0.1 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words. All frequencies come from that corpus, so no frequency bands are offered."
   },
   {
    "title": "Abugida: CV and length",
@@ -596,5 +592,11 @@
   "max_chars": 16,
   "schwa_rule": false,
   "final_virama": true
+ },
+ "source_tokens": {
+  "films": null,
+  "lists": {
+   "tcy_wikipedia_2018_10K": 110035
+  }
  }
 }

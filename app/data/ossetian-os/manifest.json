@@ -6,15 +6,11 @@
  "corpus_tokens": 134492,
  "small_corpus": true,
  "bands_enabled": false,
- "caution": "0.1 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 6,509 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. 6,509 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, oss_wikipedia_2021_10K, 0.1 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words. All frequencies come from that corpus, so no frequency bands are offered. The Latin æ used for ӕ in most of the source was converted to the Cyrillic letter.",
+ "caution": "0.1 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 6,509 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. The Latin æ used for ӕ in most of the source was converted to the Cyrillic letter.",
  "caution_items": [
   {
    "title": "Small corpus",
    "text": "0.1 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 6,509 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages."
-  },
-  {
-   "title": "Wikipedia vocabulary only",
-   "text": "6,509 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, oss_wikipedia_2021_10K, 0.1 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words. All frequencies come from that corpus, so no frequency bands are offered."
   },
   {
    "title": "CV note",
@@ -613,5 +609,11 @@
    "ӕуӕ"
   ]
  },
- "rules": {}
+ "rules": {},
+ "source_tokens": {
+  "films": null,
+  "lists": {
+   "oss_wikipedia_2021_10K": 134492
+  }
+ }
 }

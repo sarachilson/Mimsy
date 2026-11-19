@@ -6,15 +6,11 @@
  "corpus_tokens": 467857,
  "small_corpus": true,
  "bands_enabled": false,
- "caution": "0.5 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 26,269 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. 26,269 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, uig_wikipedia_2021_30K, 0.5 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words. All frequencies come from that corpus, so no frequency bands are offered. Uyghur Arabic script writes all vowels: ا ە ې ى و ۇ ۆ ۈ count as V; the hamza carrier (ئ) before an initial vowel is a modifier.",
+ "caution": "0.5 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 26,269 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. Uyghur Arabic script writes all vowels: ا ە ې ى و ۇ ۆ ۈ count as V; the hamza carrier (ئ) before an initial vowel is a modifier.",
  "caution_items": [
   {
    "title": "Small corpus",
    "text": "0.5 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 26,269 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages."
-  },
-  {
-   "title": "Wikipedia vocabulary only",
-   "text": "26,269 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, uig_wikipedia_2021_30K, 0.5 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words. All frequencies come from that corpus, so no frequency bands are offered."
   },
   {
    "title": "CV note",
@@ -854,6 +850,12 @@
    "reference_words": 0.796,
    "top_10000": 0.924,
    "note": "share of reference words to which the analyser gives any analysis"
+  }
+ },
+ "source_tokens": {
+  "films": null,
+  "lists": {
+   "uig_wikipedia_2021_30K": 467857
   }
  }
 }

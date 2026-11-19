@@ -6,15 +6,11 @@
  "corpus_tokens": 1438240,
  "small_corpus": true,
  "bands_enabled": false,
- "caution": "1.4 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 39,665 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. 39,665 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, sah_wikipedia_2021_100K, 1.4 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words. All frequencies come from that corpus, so no frequency bands are offered.",
+ "caution": "1.4 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 39,665 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages.",
  "caution_items": [
   {
    "title": "Small corpus",
    "text": "1.4 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 39,665 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages."
-  },
-  {
-   "title": "Wikipedia vocabulary only",
-   "text": "39,665 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, sah_wikipedia_2021_100K, 1.4 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words. All frequencies come from that corpus, so no frequency bands are offered."
   }
  ],
  "script": "alphabet",
@@ -810,6 +806,12 @@
    "reference_words": 0.765,
    "top_10000": 0.929,
    "note": "share of reference words to which the analyser gives any analysis"
+  }
+ },
+ "source_tokens": {
+  "films": null,
+  "lists": {
+   "sah_wikipedia_2021_100K": 1438240
   }
  }
 }

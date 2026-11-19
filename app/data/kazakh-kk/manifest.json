@@ -6,13 +6,8 @@
  "corpus_tokens": 220189736,
  "small_corpus": false,
  "bands_enabled": false,
- "caution": "238,039 of the reference words come from written text (Leipzig Corpora Collection, kaz_newscrawl_2016_1M, and the books and news of the Multi-Domain Kazakh Dataset; 220.2 million words in all); 19,425 come from the subtitle list. Written sources are more formal than subtitles and contain more names and foreign words. Frequencies of the corpus-only words come from that corpus and are not comparable with subtitle frequencies.",
- "caution_items": [
-  {
-   "title": "Book and news vocabulary added",
-   "text": "238,039 of the reference words come from written text (Leipzig Corpora Collection, kaz_newscrawl_2016_1M, and the books and news of the Multi-Domain Kazakh Dataset; 220.2 million words in all); 19,425 come from the subtitle list. Written sources are more formal than subtitles and contain more names and foreign words. Frequencies of the corpus-only words come from that corpus and are not comparable with subtitle frequencies."
-  }
- ],
+ "caution": null,
+ "caution_items": [],
  "script": "alphabet",
  "length_unit": "letters",
  "experimental": false,
@@ -1413,5 +1408,12 @@
    "v",
    "vaux"
   ]
+ },
+ "source_tokens": {
+  "films": 430095,
+  "lists": {
+   "kaz_newscrawl_2016_1M": 15185892,
+   "kaz_mkd_books_news": 205003844
+  }
  }
 }

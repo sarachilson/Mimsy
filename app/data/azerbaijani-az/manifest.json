@@ -6,7 +6,7 @@
  "corpus_tokens": 764426,
  "small_corpus": true,
  "bands_enabled": false,
- "caution": "0.8 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 124,876 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. 110,840 of the reference words come from a newspaper corpus (Leipzig Corpora Collection, aze_newscrawl_2013_1M, 15.9 million words); 14,036 come from the subtitle list. Written sources are more formal than subtitles and contain more names and foreign words (90 probable English words were removed). Frequencies of the corpus-only words come from that corpus and are not comparable with subtitle frequencies.",
+ "caution": "0.8 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 124,876 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages.",
  "script": "alphabet",
  "length_unit": "letters",
  "experimental": false,
@@ -1198,10 +1198,6 @@
   {
    "title": "Small corpus",
    "text": "0.8 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 124,876 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages."
-  },
-  {
-   "title": "Newspaper vocabulary added",
-   "text": "110,840 of the reference words come from a newspaper corpus (Leipzig Corpora Collection, aze_newscrawl_2013_1M, 15.9 million words); 14,036 come from the subtitle list. Written sources are more formal than subtitles and contain more names and foreign words (90 probable English words were removed). Frequencies of the corpus-only words come from that corpus and are not comparable with subtitle frequencies."
   }
  ],
  "realword_filter": {
@@ -1284,5 +1280,11 @@
     "evijnını"
    ]
   }
- ]
+ ],
+ "source_tokens": {
+  "films": 764427,
+  "lists": {
+   "aze_newscrawl_2013_1M": 15948589
+  }
+ }
 }

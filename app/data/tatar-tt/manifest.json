@@ -6,7 +6,7 @@
  "corpus_tokens": 470597,
  "small_corpus": true,
  "bands_enabled": false,
- "caution": "0.5 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 88,218 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. 79,970 of the reference words come from a newspaper corpus (Leipzig Corpora Collection, tat_news_2015_1M, 17.0 million words); 8,248 come from the subtitle list. Written sources are more formal than subtitles and contain more names and foreign words. Frequencies of the corpus-only words come from that corpus and are not comparable with subtitle frequencies.",
+ "caution": "0.5 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 88,218 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages.",
  "script": "alphabet",
  "length_unit": "letters",
  "experimental": false,
@@ -1127,10 +1127,6 @@
   {
    "title": "Small corpus",
    "text": "0.5 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 88,218 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages."
-  },
-  {
-   "title": "Newspaper vocabulary added",
-   "text": "79,970 of the reference words come from a newspaper corpus (Leipzig Corpora Collection, tat_news_2015_1M, 17.0 million words); 8,248 come from the subtitle list. Written sources are more formal than subtitles and contain more names and foreign words. Frequencies of the corpus-only words come from that corpus and are not comparable with subtitle frequencies."
   }
  ],
  "realword_filter": {
@@ -1309,6 +1305,12 @@
    "reference_words": 0.878,
    "top_10000": 0.921,
    "note": "share of reference words to which the analyser gives any analysis"
+  }
+ },
+ "source_tokens": {
+  "films": 470597,
+  "lists": {
+   "tat_news_2015_1M": 16950145
   }
  }
 }

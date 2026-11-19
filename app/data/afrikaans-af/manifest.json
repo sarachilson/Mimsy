@@ -7,13 +7,8 @@
  "small_corpus": false,
  "bands_enabled": false,
  "text_tokens": 65093278.98075758,
- "caution": "71,947 of the reference words come from written text (Leipzig Corpora Collection, afr_mixed_2019_1M, afr_news_2017_300K, afr_news_2016_300K, afr_newscrawl_2012_300K, afr_newscrawl_2011_300K, afr_web_2013_300K, afr_wikipedia_2021_300K, afr_newscrawl_2013_100K, afr_web_2012_100K, afr_web_2011_100K, afr_news_2020_30K, afr_news_2019_10K; 64.3 million words in all); 18,544 come from the subtitle list. Written sources are more formal than subtitles and contain more names and foreign words (1037 probable English words were removed). Frequencies of the corpus-only words come from that corpus and are not comparable with subtitle frequencies.",
- "caution_items": [
-  {
-   "title": "Written-text vocabulary added",
-   "text": "71,947 of the reference words come from written text (Leipzig Corpora Collection, afr_mixed_2019_1M, afr_news_2017_300K, afr_news_2016_300K, afr_newscrawl_2012_300K, afr_newscrawl_2011_300K, afr_web_2013_300K, afr_wikipedia_2021_300K, afr_newscrawl_2013_100K, afr_web_2012_100K, afr_web_2011_100K, afr_news_2020_30K, afr_news_2019_10K; 64.3 million words in all); 18,544 come from the subtitle list. Written sources are more formal than subtitles and contain more names and foreign words (1037 probable English words were removed). Frequencies of the corpus-only words come from that corpus and are not comparable with subtitle frequencies."
-  }
- ],
+ "caution": null,
+ "caution_items": [],
  "script": "alphabet",
  "length_unit": "letters",
  "experimental": false,
@@ -2822,5 +2817,22 @@
    }
   },
   "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ },
+ "source_tokens": {
+  "films": 817780,
+  "lists": {
+   "afr_mixed_2019_1M": 20282957,
+   "afr_news_2017_300K": 6441576,
+   "afr_news_2016_300K": 6495395,
+   "afr_newscrawl_2012_300K": 6038175,
+   "afr_newscrawl_2011_300K": 6285585,
+   "afr_web_2013_300K": 5789848,
+   "afr_wikipedia_2021_300K": 6392536,
+   "afr_newscrawl_2013_100K": 2033836,
+   "afr_web_2012_100K": 1875425,
+   "afr_web_2011_100K": 1831224,
+   "afr_news_2020_30K": 603325,
+   "afr_news_2019_10K": 205617
+  }
  }
 }

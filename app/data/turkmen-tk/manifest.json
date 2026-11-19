@@ -6,15 +6,11 @@
  "corpus_tokens": 425810,
  "small_corpus": true,
  "bands_enabled": false,
- "caution": "0.4 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 19,924 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. 19,924 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, tuk_wikipedia_2021_30K, 0.4 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words (24 probable English words were removed). All frequencies come from that corpus, so no frequency bands are offered. In Turkmen y is a vowel (/ɨ/) and ý a consonant (/j/).",
+ "caution": "0.4 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 19,924 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. In Turkmen y is a vowel (/ɨ/) and ý a consonant (/j/).",
  "caution_items": [
   {
    "title": "Small corpus",
    "text": "0.4 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 19,924 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages."
-  },
-  {
-   "title": "Wikipedia vocabulary only",
-   "text": "19,924 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, tuk_wikipedia_2021_30K, 0.4 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words (24 probable English words were removed). All frequencies come from that corpus, so no frequency bands are offered."
   },
   {
    "title": "CV note",
@@ -717,5 +713,11 @@
    }
   },
   "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ },
+ "source_tokens": {
+  "films": null,
+  "lists": {
+   "tuk_wikipedia_2021_30K": 425810
+  }
  }
 }

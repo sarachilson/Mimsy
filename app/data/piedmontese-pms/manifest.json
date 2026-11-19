@@ -6,15 +6,11 @@
  "corpus_tokens": 548822,
  "small_corpus": true,
  "bands_enabled": false,
- "caution": "0.5 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 9,947 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. 9,947 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, pms_wikipedia_2021_30K, 0.5 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words (102 probable English words were removed). All frequencies come from that corpus, so no frequency bands are offered.",
+ "caution": "0.5 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 9,947 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages.",
  "caution_items": [
   {
    "title": "Small corpus",
    "text": "0.5 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 9,947 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages."
-  },
-  {
-   "title": "Wikipedia vocabulary only",
-   "text": "9,947 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, pms_wikipedia_2021_30K, 0.5 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words (102 probable English words were removed). All frequencies come from that corpus, so no frequency bands are offered."
   }
  ],
  "script": "alphabet",
@@ -616,5 +612,11 @@
    "ùi"
   ]
  },
- "rules": {}
+ "rules": {},
+ "source_tokens": {
+  "films": null,
+  "lists": {
+   "pms_wikipedia_2021_30K": 548822
+  }
+ }
 }

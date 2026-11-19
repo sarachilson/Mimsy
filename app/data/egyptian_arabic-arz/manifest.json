@@ -6,15 +6,11 @@
  "corpus_tokens": 1333943,
  "small_corpus": true,
  "bands_enabled": false,
- "caution": "1.3 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 30,361 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. 30,361 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, arz_wikipedia_2021_100K, 1.3 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words. All frequencies come from that corpus, so no frequency bands are offered. Egyptian Arabic is a regional variety close to Arabic. Every word form of Arabic (1,154,441 forms) was added to the reject list, so no pseudoword is a real Arabic word, and the app pre-selects Arabic under \"Exclude real words of other languages\" (the Word-in column shows near misses). Of the 30,361 reference words, 16,262 are also Arabic words; they stay in the lexicon because they are words of the variety too. Egyptian Arabic is written without short vowels, like Standard Arabic; CV here is orthographic (alif, ta marbuta, waw and ya count as V). ڤ پ چ occur in loanwords. Spelling of dialect words is not standardised.",
+ "caution": "1.3 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 30,361 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. Egyptian Arabic is a regional variety close to Arabic. Every word form of Arabic (1,154,441 forms) was added to the reject list, so no pseudoword is a real Arabic word, and the app pre-selects Arabic under \"Exclude real words of other languages\" (the Word-in column shows near misses). Of the 30,361 reference words, 16,262 are also Arabic words; they stay in the lexicon because they are words of the variety too. Egyptian Arabic is written without short vowels, like Standard Arabic; CV here is orthographic (alif, ta marbuta, waw and ya count as V). ڤ پ چ occur in loanwords. Spelling of dialect words is not standardised.",
  "caution_items": [
   {
    "title": "Small corpus",
    "text": "1.3 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 30,361 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages."
-  },
-  {
-   "title": "Wikipedia vocabulary only",
-   "text": "30,361 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, arz_wikipedia_2021_100K, 1.3 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words. All frequencies come from that corpus, so no frequency bands are offered."
   },
   {
    "title": "Variety of Arabic",
@@ -2300,5 +2296,11 @@
    }
   },
   "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
+ },
+ "source_tokens": {
+  "films": null,
+  "lists": {
+   "arz_wikipedia_2021_100K": 1333943
+  }
  }
 }

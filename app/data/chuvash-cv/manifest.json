@@ -6,15 +6,11 @@
  "corpus_tokens": 346398,
  "small_corpus": true,
  "bands_enabled": false,
- "caution": "0.3 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 12,509 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. 12,509 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, chv_wikipedia_2021_30K, 0.3 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words. All frequencies come from that corpus, so no frequency bands are offered. Latin look-alike spellings of ӑ ӗ ҫ ӳ (ă ĕ ç ÿ), common in the source, were converted to the Cyrillic letters.",
+ "caution": "0.3 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 12,509 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. Latin look-alike spellings of ӑ ӗ ҫ ӳ (ă ĕ ç ÿ), common in the source, were converted to the Cyrillic letters.",
  "caution_items": [
   {
    "title": "Small corpus",
    "text": "0.3 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 12,509 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages."
-  },
-  {
-   "title": "Wikipedia vocabulary only",
-   "text": "12,509 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, chv_wikipedia_2021_30K, 0.3 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words. All frequencies come from that corpus, so no frequency bands are offered."
   },
   {
    "title": "CV note",
@@ -623,5 +619,11 @@
    "ӳ"
   ]
  },
- "rules": {}
+ "rules": {},
+ "source_tokens": {
+  "films": null,
+  "lists": {
+   "chv_wikipedia_2021_30K": 346398
+  }
+ }
 }

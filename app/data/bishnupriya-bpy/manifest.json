@@ -6,15 +6,11 @@
  "corpus_tokens": 390502,
  "small_corpus": true,
  "bands_enabled": false,
- "caution": "0.4 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 5,745 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. 5,745 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, bpy_wikipedia_2021_30K, 0.4 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words. All frequencies come from that corpus, so no frequency bands are offered. Bishnupriya is written in the Bengali–Assamese script: CV (orthographic) counts every consonant letter as C plus an inherent vowel V unless a vowel sign or virama follows; anusvara is C. Inherent-vowel deletion is not modelled. Length is counted in aksharas.",
+ "caution": "0.4 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 5,745 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages. Bishnupriya is written in the Bengali–Assamese script: CV (orthographic) counts every consonant letter as C plus an inherent vowel V unless a vowel sign or virama follows; anusvara is C. Inherent-vowel deletion is not modelled. Length is counted in aksharas.",
  "caution_items": [
   {
    "title": "Small corpus",
    "text": "0.4 million words, versus hundreds of millions for the main languages. Frequency values are unreliable, so there are no frequency bands, only the all-words generators. The reference lexicon has 5,745 words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages."
-  },
-  {
-   "title": "Wikipedia vocabulary only",
-   "text": "5,745 of the reference words come from a Wikipedia corpus (Leipzig Corpora Collection, bpy_wikipedia_2021_30K, 0.4 million words); no subtitle list exists for this language. Written sources are more formal than subtitles and contain more names and foreign words. All frequencies come from that corpus, so no frequency bands are offered."
   },
   {
    "title": "Abugida: CV and length",
@@ -501,5 +497,11 @@
   "max_chars": 16,
   "schwa_rule": false,
   "final_virama": false
+ },
+ "source_tokens": {
+  "films": null,
+  "lists": {
+   "bpy_wikipedia_2021_30K": 390502
+  }
  }
 }
