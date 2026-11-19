@@ -234,13 +234,14 @@ body.noprov .prov{display:none!important}
      <div class="hint" data-more="Affects only the wordlikeness score (Wordlikeness % and its raw value, Trigram freq.), in every tab, including matching and cross-language sets; OLD20, Coltheart&#x27;s N and the other measures are unchanged. Types count each real word once. Tokens weight each word by its frequency, so a few very frequent words dominate the counts.">Wordlikeness only, in all tabs.</div></div>
 
    <div class="sec">Results</div>
-   <div class="field"><div class="row"><div><label for="sSort">Order</label><select id="sSort"><option value="random">Random</option><option value="like">Most wordlike first</option><option value="old">OLD20, low to high</option><option value="oldd">OLD20, high to low</option><option value="alpha">Alphabetical</option></select></div><div><label for="sLimit">Show</label><select id="sLimit"><option>25</option><option selected>100</option><option>500</option><option value="0">All</option></select></div></div></div>
+   <div class="field"><div class="row"><div><label for="sSort">Order</label><select id="sSort"><option value="random">Random</option><option value="like">Most wordlike first</option><option value="old">OLD20, low to high</option><option value="oldd">OLD20, high to low</option><option value="alpha">Alphabetical</option></select></div><div><label for="sLimit">Show at a time</label><select id="sLimit"><option selected>100</option><option>500</option></select></div></div></div>
    <div class="row"><button class="btn primary" id="sGo">Search</button><button class="btn" id="sReset">Reset</button></div>
   </div>
   <div>
    <div class="toolbar"><span class="count" id="sCount"></span><span class="spacer"></span>
-     <button class="btn xlbtn" id="sXlBtn" hidden></button><button class="btn" data-copy="sTable">Copy words</button><button class="btn" data-csv="sTable">Download CSV</button></div>
+     <button class="btn xlbtn" id="sXlBtn" hidden></button><button class="btn" data-copy="sTable" title="Copies the pseudowords shown below">Copy words</button><button class="btn" data-csv="sTable" id="sDlShown" title="Only the rows shown below">Download these</button><button class="btn primary" id="sDlAll" disabled title="Every pseudoword that matches the current settings, with all columns">Download all matches</button></div>
    <div class="tablewrap" id="sTable"><div class="empty">Choose a language to begin.</div></div>
+   <div class="toolbar" id="sPager" style="display:none"><button class="btn" id="sPrev">← Previous</button><span class="count" id="sPageInfo"></span><button class="btn" id="sNext">Next →</button></div>
   </div>
  </div>
 </section>
@@ -1816,12 +1817,44 @@ function runSearch() {
   else if (sort === "old") rows.sort((a, b) => a.old - b.old);
   else if (sort === "oldd") rows.sort((a, b) => b.old - a.old);
   else rows.sort((a, b) => a.w.localeCompare(b.w));
-  S.sAll = rows;
-  const lim = +$("#sLimit").value; if (lim) rows = rows.slice(0, lim);
-  $("#sCount").textContent = `${total.toLocaleString()} of ${L.bank.length.toLocaleString()} pseudowords in the bank match` + (rows.length < total ? ` · showing ${rows.length}` : "")
+  S.sAll = rows; S.sPage = 0;
+  $("#sCount").textContent = `${total.toLocaleString()} of ${L.bank.length.toLocaleString()} pseudowords in the bank match`
     + (nFlag ? ` · ${nFlag.toLocaleString()} ${S.xlRemove ? "removed as real words" : "are real words"} in ${S.xlActive.map(langName).join(", ")}` : "");
-  renderTable("sTable", rows, bankCols(L));
+  showSearchPage();
 }
+// The bank table shows one page of the matches (100 or 500 rows); "Download all matches" exports every match.
+function showSearchPage() {
+  const L = S.L[S.code], all = S.sAll || [], lim = +$("#sLimit").value || 100, pages = Math.max(1, Math.ceil(all.length / lim));
+  S.sPage = Math.min(Math.max(S.sPage || 0, 0), pages - 1);
+  const from = S.sPage * lim, rows = all.slice(from, from + lim);
+  renderTable("sTable", rows, bankCols(L));
+  $("#sPager").style.display = all.length <= lim ? "none" : "";
+  $("#sPageInfo").textContent = all.length ? `Showing ${(from + 1).toLocaleString()}–${(from + rows.length).toLocaleString()} of ${all.length.toLocaleString()}` : "";
+  $("#sPrev").disabled = S.sPage === 0; $("#sNext").disabled = S.sPage >= pages - 1;
+  $("#sDlShown").textContent = rows.length < all.length ? `Download these ${rows.length.toLocaleString()}` : "Download these";
+  const b = $("#sDlAll"); b.disabled = !all.length; b.textContent = all.length ? `Download all ${all.length.toLocaleString()} matches` : "Download all matches";
+}
+$("#sPrev").addEventListener("click", () => { S.sPage--; showSearchPage(); $("#sTable").scrollIntoView({ block: "start" }); });
+$("#sNext").addEventListener("click", () => { S.sPage++; showSearchPage(); $("#sTable").scrollIntoView({ block: "start" }); });
+$("#sLimit").addEventListener("change", () => { if (S.sAll) { S.sPage = 0; showSearchPage(); } });
+// Every match as a CSV file, written in slices so that a large result does not freeze the page.
+$("#sDlAll").addEventListener("click", async () => {
+  const L = S.L[S.code], all = S.sAll || [], b = $("#sDlAll"); if (!L || !all.length || b.dataset.busy) return;
+  b.dataset.busy = "1"; const label = b.textContent;
+  try {
+    const keys = bankCols(L), q = v => /[",\n]/.test(v) ? `"${String(v).replace(/"/g, '""')}"` : v;
+    const parts = [keys.map(k => q(typeof COLS[k][0] === "function" ? COLS[k][0]() : COLS[k][0])).join(",") + "\n"];
+    for (let i = 0; i < all.length; i += 2000) {
+      let chunk = "";
+      for (let j = i; j < Math.min(i + 2000, all.length); j++) chunk += keys.map(k => q(disp(COLS[k][1](all[j])))).join(",") + "\n";
+      parts.push(chunk);
+      if (all.length > 4000) { b.textContent = `Preparing… ${Math.round(100 * Math.min(i + 2000, all.length) / all.length)}%`; await sleep(); }
+    }
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob(["\ufeff", ...parts], { type: "text/csv;charset=utf-8" }));
+    a.download = `pseudowords_${S.code}_all_matches.csv`; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 60000);
+  } finally { delete b.dataset.busy; b.textContent = label; }
+});
 const altLine = r => `<span class="mono" style="font-weight:600;min-width:8em">${esc(r.w)}</span><span><span style="white-space:nowrap">OLD20 ${fmt(r.old)} · wordlike ${fmt(r.like, 0)}% · N ${r.n1} · nearest ${esc(r.near || "")}${isNaN(r.nd) ? "" : ` (${r.nd})`}</span>${r.emb ? ` <span style="white-space:nowrap">· embedded ${esc(r.emb.w)}</span>` : ""}${S.xlSig && xlOf(r).length ? ` <span class="tag warn">word in ${esc(xlLabel(xlOf(r), r.w))}</span>` : ""}</span>`;
 // Click a pseudoword in the bank table to swap it for another item with the same length and CV pattern that matches the current filters.
 $("#sTable").addEventListener("click", async ev => {
