@@ -32,6 +32,10 @@ FARMS = {l.split("\t")[0].strip() for l in open(sys.argv[5], encoding="utf-8")} 
 # under Limburgish (lim_Latn) together with Limburgish, Low Saxon and Dutch pages; see LEIPZIG_NOTES.md section 12.
 import os
 ONLY = re.compile(os.environ["HPLT_ONLY"]) if os.environ.get("HPLT_ONLY") else None
+# Environment variable HPLT_APOS: a letter that replaces an apostrophe standing between two letters, for languages
+# whose apostrophe is part of the spelling (Uzbek oʻ gʻ maʼno: HPLT_APOS=ʻ). Otherwise apostrophes separate words.
+APOS = os.environ.get("HPLT_APOS") or None
+APOS_RE = re.compile(r"(?<=[^\W\d_])['\u2019\u2018\u02bc\u02bb`\u00b4](?=[^\W\d_])")
 NORM = re.compile(r"^(?:www\d?|m|mobile|amp)\.")
 MIN_LINE = 5
 MIN_SITES = 3
@@ -47,6 +51,7 @@ def _marks():
 
 
 WORD = re.compile(r"[^\W\d_](?:[^\W\d_]|[%s])*" % _marks())
+if APOS: WORD = re.compile(r"[^\W\d_](?:[^\W\d_]|[%s%s])*" % (_marks(), re.escape(APOS)))
 WIKI = ("wikipedia.org", "wikisource.org", "wiktionary.org", "wikibooks.org", "wikiquote.org", "wikimedia.org")
 farm = re.compile(r"^(?:www\.)?(?:%s)\." % "|".join(map(re.escape, CODES)))
 
@@ -78,6 +83,7 @@ for line in itertools.chain(head, sys.stdin.buffer):
     u = d.get("u") or ""; host = u.split("/")[2].lower() if u.count("/") >= 2 else ""
     reg = lit(d.get("web-register")) or {}
     mt = reg.get("MT", 0) if isinstance(reg, dict) else 0
+    if APOS: text = APOS_RE.sub(APOS, text)
     segs = text.split("\n"); sl = lit(d.get("seg_langs"))
     if not isinstance(sl, list) or len(sl) != len(segs): sl = None; st["pages_without_line_languages"] += 1
     words = []; other = short = 0
@@ -85,7 +91,7 @@ for line in itertools.chain(head, sys.stdin.buffer):
         ws = WORD.findall(s)
         if sl and sl[i] not in OK_LANGS: other += len(ws); continue
         if len(ws) < MIN_LINE: short += len(ws); continue
-        words.extend(w.rstrip("\u200c\u200d") for w in ws)
+        words.extend(w.rstrip("\u200c\u200d'") for w in ws)
     n = len(words); st["words_in_wanted_language"] += n; st["words_other_language_lines"] += other; st["words_short_lines"] += short
     mt_hist[int(mt * 10)] += n
     if ONLY and not ONLY.search(host):

@@ -293,3 +293,42 @@ Persian keeps its subtitle list (704 M words; 28,666 reference words) and its fr
   each; realwords.py rerun. Open: Irish items with "y" or two accented vowels in a row.
 - App: any `*_hplt` list is shown on the About page as "HPLT 3.0: web text" (index.html `hpltSource`, words per
   language in `HPLT_WORDS`); the caution text says "and web text from HPLT 3.0".
+
+## 13. HPLT 3.0: groups 2-4, 17 new languages, 33 further languages (19 Nov 2026)
+- Counter changes: `HPLT_APOS` (an apostrophe between two letters stays in the word, written as the given character:
+  ʻ for Uzbek and Samoan, ' for Swahili, Somali, Ganda, Chichewa, Kinyarwanda, Kirundi, Hausa, Oromo, Malagasy,
+  Shona; words with an apostrophe are then kept or dropped by the language's alphabet instead of leaving fragments
+  such as "ombe" from ng'ombe); `HPLT_ONLY` (pattern the site address must match, or a negative look-ahead to leave
+  sites out).
+- Site selections: Western Frisian from lim_Latn (section 12); Crimean Tatar from crh_Latn (krymr.com, avdet.org,
+  qmdi, Ukrainian government and Suspilne Crimea pages: 9.1 M words; the rest is Tatar, Kazakh, Karakalpak in Latin
+  script); Kirundi from run_Latn (.bi addresses, radiyoyacuvoa, indundi, ubmnews ...: 11.5 M; the rest is
+  Kinyarwanda); Bhojpuri from bho_Deva (anjoria, khabarbhojpuri, bh.wikipedia, ruralindiaonline and about 100 other
+  Bhojpuri sites: 9.7 M; the rest is Hindi news). Left out by pattern: Tagalog dream-interpretation and video-chat
+  farms (a quarter of the text), Igbo electrikagid / wrldrels, Shona websetnet and others, Maori bibliaonline and two
+  farms, Cebuano cleverplus, Scottish Gaelic three farms, Lithuanian aktualzar, Punjabi hatnote (lists of Wikipedia
+  titles), Turkmen and Uyghur .kz sites (Kazakh), Sanskrit tipitaka (Pali), Sardinian ditzionariu (dictionary
+  entries), Silesian hsb/dsb Wikipedia and mdr.de (Sorbian).
+- `ref_cap` (languages.py): at most this many reference words, the most frequent; the others go to the rare list
+  (still rejected). User's decision for Malayalam (565,000 forms without it): 300,000. Set for Malayalam, Kannada,
+  every HPLT-only language and the 33 further languages; reached by Malayalam, Kannada, Sanskrit. Tamil (392,174) and
+  Telugu (311,767) were built without it.
+- Training rules for mixed web text: `train_eng_zipf=3.0` (Tagalog, Chichewa, Sesotho, Samoan, Yoruba, Igbo,
+  Cebuano, Ilocano, Shona, Xhosa, Scottish Gaelic; 3.5 for Cape Verdean Creole) and the new
+  `train_other_lang={"french-fr": 3.0}` (Lingala, Wolof, Kabyle, Bambara, Kirundi): words of 4+ letters that are
+  reference words of English / French with that Zipf value do not train the generators; they stay reference words.
+  Lingala still shows French-style spellings (ou for u).
+- New languages, HPLT only (`HPLT_ONLY` template: no subtitles, no bands, bank 2 x training words up to 100,000 per
+  generator, ref_cap): kurmanji-kmr, crimean_tatar-crh, tigrinya-ti (Ethiopic, as Amharic but without the
+  same-sounding-letters rule), lingala-ln (plain Latin letters; forms with ɛ ɔ or tone marks are left out),
+  wolof-wo, chichewa-ny, sesotho-st, kabyle-kab (ɛ and ɣ are consonants), friulian-fur, latgalian-ltg, samoan-sm
+  (letters a e f g h i k l m n o p r s t u v, macron vowels and ʻ), rundi-rn, south_azerbaijani-azb (Persian-type
+  abjad plus ۆ ۇ ێ), bambara-bm (tone marks removed), kabuverdianu-kea, dari-prs (`parents=["persian-fa"]`, Persian
+  rules for joined words, half-space and same-sounding letters; 69,250 of 93,626 reference words are shared with
+  Persian), bhojpuri-bho (`parents=["hindi-hi"]` with `parents_known=True`: caution title "Hindi words excluded";
+  25,358 of 50,230 reference words are shared with Hindi). Manifest source for these: "HPLT 3.0 web text word list".
+  201 languages in all.
+- Open for review with the user: Bhojpuri (her request); Dari items that look like two words run together; Samoan
+  spelling with and without ʻ and macrons; small lexicons of Bambara (6,709) and Cape Verdean Creole (9,653).
+- HPLT languages not used: see the status note of 19 Nov (mislabelled: lmo, scn, vec, awa, hne, mag, arz, hat, bjn,
+  min, ban; religious text above half: ewe, luo, nso, quy, ssw, tpi, tsn, tso, twi, fij, kik; war a third).

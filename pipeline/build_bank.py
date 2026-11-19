@@ -845,6 +845,23 @@ def step_prepare(lang, cfg, args, outdir, work):
         train = kept
         with open(os.path.join(work, "train.txt"), "w", encoding="utf-8") as f:
             f.write("\n".join(sorted(train)))
+    # Words of another language do not train the generators (cfg train_other_lang = {language code: z}; Lingala, Wolof,
+    # Kabyle, Bambara, Kirundi with French, 19 Nov 2026): a word of 4+ letters that is a reference word of that language
+    # with Zipf >= z. Web text in these languages quotes a lot of French; the words stay reference words.
+    if cfg.get("train_other_lang"):
+        base = train if train is not None else {w for w, _ in ref}; dropped = {}
+        for oc, z in cfg["train_other_lang"].items():
+            olex = {}
+            with gzip.open(os.path.join(args.out, oc, "lexicon.tsv.gz"), "rt", encoding="utf-8") as fl:
+                next(fl)
+                for l in fl:
+                    p_ = l.split("\t"); olex[p_[0]] = max(olex.get(p_[0], 0.0), float(p_[1]))
+            out_ = {w for w in base if len(w) >= 4 and olex.get(w, 0) >= z}
+            dropped[oc] = len(out_); base = base - out_
+        train_info = dict(train_info or {}, train_words=len(base), reference_words=len(ref), other_language_out={"zipf": dict(cfg["train_other_lang"]), "dropped": dropped})
+        train = base
+        with open(os.path.join(work, "train.txt"), "w", encoding="utf-8") as f:
+            f.write("\n".join(sorted(train)))
     # Only words from certain sources train the generators (cfg train_sources, e.g. ("films", "both"): Persian, 18 Nov 2026:
     # the news lists add reference words for the real-word check and the neighbourhood measures, but the generators
     # keep learning from the spell-checked subtitle words)
@@ -1163,8 +1180,10 @@ def caution_items(cfg, st):
     if st.get("parents"):
         P = st["parents"]; names = " and ".join(v["name"] for v in P.values()); nor = " or ".join(v["name"] for v in P.values())
         shared = ", ".join(f"{v['shared_reference_words']:,} are also {v['name']} words" for v in P.values())
-        items.append({"title": f"Variety of {names}", "text": f"{cfg['name']} is a regional variety close to {names}. Every word form of {names} ({sum(v['forms'] for v in P.values()):,} forms) was added to the reject list, so no pseudoword is a real {nor} word, and the app pre-selects {names} under \"Exclude real words of other languages\" (the Word-in column shows near misses). "
-                      f"Of the {nref:,} reference words, {shared}; they stay in the lexicon because they are words of the variety too."})
+        # languages.py parents_known=True: the other language is not a parent variety but one every speaker also knows (Bhojpuri and Hindi)
+        known = cfg.get("parents_known")
+        items.append({"title": f"{names} words excluded" if known else f"Variety of {names}", "text": (f"Speakers of {cfg['name']} also know {names}, and the two share much vocabulary." if known else f"{cfg['name']} is a regional variety close to {names}.") + f" Every word form of {names} ({sum(v['forms'] for v in P.values()):,} forms) was added to the reject list, so no pseudoword is a real {nor} word, and the app pre-selects {names} under \"Exclude real words of other languages\" (the Word-in column shows near misses). "
+                      f"Of the {nref:,} reference words, {shared}; they stay in the lexicon because they are words of {'both languages' if known else 'the variety too'}."})
     if cfg.get("cv_note"):
         cv_title = ("Syllabary: CV and length" if cfg.get("script") == "ethiopic" else "Abugida: CV and length") if cfg.get("script") in indic.SCRIPTS else ("Abjad: CV is orthographic" if cfg.get("allow_no_vowel") else "CV note")
         items.append({"title": cv_title, "text": cfg["cv_note"]})
@@ -1262,7 +1281,7 @@ def step_write(lang, cfg, args, outdir, work):
         "created": time.strftime("%Y-%m-%d"),
         "source": ("FILMS/OPUS subtitle frequency list: " + ((films_file(lang) or {}).get("path") or "*.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv") if st.get("reference_sources", {}).get("films", 0) + st.get("reference_sources", {}).get("both", 0) or not st.get("leipzig") else "")
                   + ("; " if st.get("leipzig") and (st.get("reference_sources", {}).get("films", 0) + st.get("reference_sources", {}).get("both", 0)) else "")
-                  + (f"Leipzig Corpora Collection word list {st['leipzig']['corpus']} (CC BY; Goldhahn, Eckart & Quasthoff 2012)" if st.get("leipzig") else ""),
+                  + ((f"HPLT 3.0 web text word list {st['leipzig']['corpus']} (CC0; Oepen et al. 2025)" if st['leipzig']['corpus'].endswith("_hplt") else f"Leipzig Corpora Collection word list {st['leipzig']['corpus']} (CC BY; Goldhahn, Eckart & Quasthoff 2012)") if st.get("leipzig") else ""),
         "sources_detail": {"films": bool(st.get("reference_sources", {}).get("films", 0) + st.get("reference_sources", {}).get("both", 0)), "leipzig": st.get("leipzig"), "reference_words_by_source": st.get("reference_sources"),
                            "english_contamination_removed": st.get("english_contamination_removed")},
         "alphabet": st["alphabet"], "letter_classes": st["classes"],

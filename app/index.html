@@ -4,15 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mimsy: a multilingual pseudoword generator</title>
-<meta name="description" content="Mimsy is a free pseudoword (nonword) generator for almost 200 languages. Browse a large bank of pseudowords, filter by length, CV pattern, neighbourhood (OLD20, Coltheart&#x27;s N) and wordlikeness, match pseudowords to your own words, and analyse items, all in the browser.">
+<meta name="description" content="Mimsy is a free pseudoword (nonword) generator for over 200 languages. Browse a large bank of pseudowords, filter by length, CV pattern, neighbourhood (OLD20, Coltheart&#x27;s N) and wordlikeness, match pseudowords to your own words, and analyse items, all in the browser.">
 <link rel="canonical" href="https://sarachilson.github.io/Mimsy/app/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Mimsy: a multilingual pseudoword generator">
-<meta property="og:description" content="Mimsy is a free pseudoword (nonword) generator for almost 200 languages. Browse a large bank of pseudowords, filter by length, CV pattern, neighbourhood (OLD20, Coltheart&#x27;s N) and wordlikeness, match pseudowords to your own words, and analyse items, all in the browser.">
+<meta property="og:description" content="Mimsy is a free pseudoword (nonword) generator for over 200 languages. Browse a large bank of pseudowords, filter by length, CV pattern, neighbourhood (OLD20, Coltheart&#x27;s N) and wordlikeness, match pseudowords to your own words, and analyse items, all in the browser.">
 <meta property="og:url" content="https://sarachilson.github.io/Mimsy/app/">
 <meta property="og:image" content="https://sarachilson.github.io/Mimsy/app/assets/logo.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Mimsy", "url": "https://sarachilson.github.io/Mimsy/app/", "description": "Mimsy is a free pseudoword (nonword) generator for almost 200 languages. Browse a large bank of pseudowords, filter by length, CV pattern, neighbourhood (OLD20, Coltheart's N) and wordlikeness, match pseudowords to your own words, and analyse items, all in the browser.", "applicationCategory": "EducationalApplication", "operatingSystem": "Any (web browser)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "author": {"@type": "Person", "name": "Sara Chilson"}, "codeRepository": "https://github.com/sarachilson/Mimsy"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Mimsy", "url": "https://sarachilson.github.io/Mimsy/app/", "description": "Mimsy is a free pseudoword (nonword) generator for over 200 languages. Browse a large bank of pseudowords, filter by length, CV pattern, neighbourhood (OLD20, Coltheart's N) and wordlikeness, match pseudowords to your own words, and analyse items, all in the browser.", "applicationCategory": "EducationalApplication", "operatingSystem": "Any (web browser)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "author": {"@type": "Person", "name": "Sara Chilson"}, "codeRepository": "https://github.com/sarachilson/Mimsy"}</script>
 <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/mark.png">
 <style>
@@ -147,7 +147,7 @@ body.noprov .prov{display:none!important}
 <body>
 <header>
   <div class="wrap top">
-    <div class="brand" title="All mimsy were the borogoves — Lewis Carroll, Jabberwocky"><img src="assets/mark.png" alt=""><span>Mimsy <small>beta · pseudowords in 184 languages</small></span></div>
+    <div class="brand" title="All mimsy were the borogoves — Lewis Carroll, Jabberwocky"><img src="assets/mark.png" alt=""><span>Mimsy <small>beta · pseudowords in over 200 languages</small></span></div>
     <div class="spacer"></div>
     <label class="status" for="lang" style="margin:0">Language</label>
     <select id="lang" style="width:auto;min-width:210px" disabled></select>
@@ -588,9 +588,17 @@ function showProgress(tableId, done, total, t0, label) {
 }
 
 /* ------------------------------------------------------------------ data access */
+// Language folders live either in this site's data/ folder or in a second GitHub Pages site of the same account
+// (repository Mimsy_Data, same address up to the repository name, so the browser treats it as the same site).
+// GitHub Pages limits one site to about 1 GB. A folder's place is found once, by asking for its manifest here.
+const DATA2 = "../../Mimsy_Data/", BASE = new Map();
+function baseOf(folder) {
+  if (!BASE.has(folder)) BASE.set(folder, fetch("data/" + folder + "/manifest.json", { method: "HEAD" }).then(r => r.ok ? "data/" : DATA2, () => "data/"));
+  return BASE.get(folder);
+}
 async function getBytes(path) {
   if (S.mode === "fetch") {
-    const r = await fetch("data/" + path);
+    const i = path.indexOf("/"), r = await fetch((i > 0 ? await baseOf(path.slice(0, i)) : "data/") + path);
     if (!r.ok) throw new Error(`Could not load ${path} (${r.status})`);
     return new Uint8Array(await r.arrayBuffer());
   }
@@ -2419,7 +2427,8 @@ const hpltSource = k => ({
   name: "HPLT 3.0: web text (Oepen et al., 2025)",
   bullets: [k === "fry_hplt" ? "Pages from Frisian websites, collected 2012–2024" : "Web pages collected 2012–2024, best-rated pages only", "Machine-translated pages and sites left out"],
   cite: `Oepen, S., et al. (2025). <i>HPLT 3.0: Very large-scale multilingual resources for LLMs and MT</i>. arXiv. <a href="https://arxiv.org/abs/2511.01066" target="_blank" rel="noopener">arxiv.org/abs/2511.01066</a> (data: <a href="https://hplt-project.org/datasets/v3.0" target="_blank" rel="noopener">hplt-project.org/datasets/v3.0</a>, CC0)` });
-const extraSources = m => (((m.sources_detail || {}).leipzig || {}).extra || []).map(k => EXTRA_SOURCES[k] || (/_hplt$/.test(k) ? hpltSource(k) : null)).filter(Boolean);
+const lzLists = m => { const lz = (m.sources_detail || {}).leipzig || {}; return [lz.corpus, ...(lz.extra || [])].filter(Boolean); };
+const extraSources = m => lzLists(m).map(k => EXTRA_SOURCES[k] || (/_hplt$/.test(k) ? hpltSource(k) : null)).filter(Boolean);
 // Sources of a language on the About page: every source with its full name and size, largest first
 // (manifest source_tokens: words of text per source; older manifests without it are listed without sizes).
 const fmtWords = n => !n ? "" : n >= 1e9 ? `${(n / 1e9).toFixed(1)} billion words` : n >= 1e7 ? `${Math.round(n / 1e6)} million words` : n >= 1e6 ? `${(n / 1e6).toFixed(1)} million words` : `${(Math.round(n / 1000) * 1000).toLocaleString("en-US")} words`;
@@ -2427,12 +2436,12 @@ function aboutSources(m) {
   const src = m.source || "", lz = (m.sources_detail || {}).leipzig, ff = filmsFile(S.code, m), st = m.source_tokens || {}, lt = st.lists || {}, out = [];
   const isExtra = k => EXTRA_SOURCES[k] || /_hplt$/.test(k);
   const item = (n, name, body) => out.push([n || 0, `<div>${name}${n ? ` <span class="pill">${fmtWords(n)}</span>` : ""}</div>${body}`]);
-  if (ff || !/^Leipzig/.test(src)) item(st.films, "FILMS: a multilingual word frequency corpus based on film subtitles (Chilson, Sineva &amp; Schmalz, 2024)",
+  if (ff || !/^(Leipzig|HPLT)/.test(src)) item(st.films, "FILMS: a multilingual word frequency corpus based on film subtitles (Chilson, Sineva &amp; Schmalz, 2024)",
     `<ul class="hint" style="margin:0 0 6px;padding-left:18px"><li>Word counts from film and television subtitles</li>${ff ? `<li class="mono" style="word-break:break-all">${esc(ff)}</li>` : ""}</ul>`);
   if (lz && lz.corpus) { const ls = [lz.corpus, ...(lz.extra || [])].filter(k => !isExtra(k));
     if (ls.length) item(ls.reduce((a, k) => a + (lt[k] || 0), 0), "Leipzig Corpora Collection (Goldhahn, Eckart &amp; Quasthoff, 2012)",
       `<ul class="hint" style="margin:0 0 6px;padding-left:18px"><li>Word lists from ${esc([...new Set(ls.map(k => ({ news: "news", newscrawl: "news", "news-typical": "news", wikipedia: "Wikipedia", web: "web", "web-public": "web", community: "community web", mixed: "mixed web and news" })[k.split("_")[1]] || k.split("_")[1]))].join(", "))} text · CC BY</li><li class="mono" style="word-break:break-all">${esc(ls.join(", "))}</li></ul>`); }
-  for (const k of (lz && lz.extra) || []) { const x = EXTRA_SOURCES[k] || (/_hplt$/.test(k) ? hpltSource(k) : null);
+  for (const k of lzLists(m)) { const x = EXTRA_SOURCES[k] || (/_hplt$/.test(k) ? hpltSource(k) : null);
     if (x) item(lt[k], esc(x.name), `<ul class="hint" style="margin:0 0 6px;padding-left:18px">${x.bullets.map(b => `<li>${esc(b)}</li>`).join("")}</ul>`); }
   out.sort((a, b) => b[0] - a[0]);
   return (out.map(x => x[1]).join("") + (out.length > 1 ? `<div class="hint">Word frequencies from different kinds of text are not directly comparable.</div>` : "")) || esc(src);
@@ -2564,7 +2573,7 @@ function renderAbout() {
   const L = S.L[S.code], m = L.manifest, c = m.counts, g = m.generation.results;
   const bands = m.bands_enabled === false ? `<li>No frequency bands: small corpus.</li>` : m.bands.map(b => `<li><b>${MODEL_LABEL[b.id]}</b>: ${(+c.band_sizes[b.id]).toLocaleString()} words</li>`).join("");
   $("#aboutBody").innerHTML = `
-  <div style="display:flex;align-items:center;gap:18px;margin:4px 0 18px"><img src="assets/logo.png" alt="Mimsy logo" style="width:150px;height:auto"><div><div style="font-size:20px;font-weight:600">Mimsy</div><div class="hint" style="margin:2px 0 0">Pseudowords in 184 languages. Named after the word in Lewis Carroll's <i>Jabberwocky</i> (1871): “All mimsy were the borogoves”.</div><div class="hint" style="margin:6px 0 0">Beta — feedback is welcome, especially from speakers of the smaller languages, which could not all be checked with native speakers. Questions and feedback: <a href="mailto:mimsy.pseudowords@gmail.com">mimsy.pseudowords@gmail.com</a> · code and data: <a href="https://github.com/sarachilson/Mimsy" target="_blank" rel="noopener">github.com/sarachilson/Mimsy</a></div></div></div>
+  <div style="display:flex;align-items:center;gap:18px;margin:4px 0 18px"><img src="assets/logo.png" alt="Mimsy logo" style="width:150px;height:auto"><div><div style="font-size:20px;font-weight:600">Mimsy</div><div class="hint" style="margin:2px 0 0">Pseudowords in over 200 languages. Named after the word in Lewis Carroll's <i>Jabberwocky</i> (1871): “All mimsy were the borogoves”.</div><div class="hint" style="margin:6px 0 0">Beta — feedback is welcome, especially from speakers of the smaller languages, which could not all be checked with native speakers. Questions and feedback: <a href="mailto:mimsy.pseudowords@gmail.com">mimsy.pseudowords@gmail.com</a> · code and data: <a href="https://github.com/sarachilson/Mimsy" target="_blank" rel="noopener">github.com/sarachilson/Mimsy</a></div></div></div>
   <p>Mimsy is a pseudoword generator. For each language, a model of letter sequences (letter n-grams, learned from the language's real words) produces a large bank of new letter strings, which are then filtered against the corpus and, where available, against dictionaries and inflection tables. No automatic check is perfect: some items will look unrealistic for the language, and now and then a real word or a real inflected form slips through. The bank is deliberately large so that you can filter it on your own criteria, such as length, CV pattern, neighbourhood or wordlikeness, and pick the items that suit your study, rather than rely on the generator's choice.</p>
   <h2>Using Mimsy</h2>
   <div class="kv">
@@ -2628,9 +2637,13 @@ function renderAbout() {
    ${extraSources(m).map(x => `<li>${x.cite}</li>`).join("")}
    <li><b>Leipzig Corpora Collection</b> (word-frequency lists of news, web and Wikipedia corpora; the lists are released under CC BY, as stated on the collection's website): Goldhahn, D., Eckart, T., &amp; Quasthoff, U. (2012). Building large monolingual dictionaries at the Leipzig Corpora Collection: From 100 to 200 languages. In <i>Proceedings of the Eighth International Conference on Language Resources and Evaluation (LREC 2012)</i> (pp. 759–765). European Language Resources Association.</li>
   </ul>
-  ${(() => { const sd = m.sources_detail || {}, lz = sd.leipzig && sd.leipzig.corpus, films = !/^Leipzig/.test(m.source || "FILMS");
+  ${(() => { const sd = m.sources_detail || {}, lz = sd.leipzig && sd.leipzig.corpus, films = !/^(Leipzig|HPLT)/.test(m.source || "FILMS");
      const ff = filmsFile(S.code, m), fs = `FILMS${ff ? ` (file <span class="mono" style="word-break:break-all">${esc(ff)}</span>)` : ""}`;
-     return `<p><b>${esc(m.name)}</b> uses ${films && lz ? `${extraSources(m).length ? "" : "both: "}${fs}${extraSources(m).length ? ", the" : " and the"} Leipzig corpus <span class="mono">${esc(lz)}</span>` : lz ? `the Leipzig corpus <span class="mono">${esc(lz)}</span>` : fs}${extraSources(m).map(x => `, and the ${esc(x.name)}`).join("")}.</p>`; })()}
+     const lzs = lzLists(m).filter(k => !EXTRA_SOURCES[k] && !/_hplt$/.test(k)), parts = [];
+     if (films) parts.push(fs);
+     if (lzs.length) parts.push(`the Leipzig ${lzs.length > 1 ? "corpora" : "corpus"} <span class="mono">${esc(lzs.join(", "))}</span>`);
+     for (const x of extraSources(m)) parts.push(esc(x.name));
+     return `<p><b>${esc(m.name)}</b> uses ${parts.length > 1 ? parts.slice(0, -1).join(", ") + " and " + parts[parts.length - 1] : parts[0] || fs}.</p>`; })()}
   <details><summary>Full manifest for ${esc(m.name)}</summary><pre class="mono" style="white-space:pre-wrap;font-size:12px">${esc(JSON.stringify(Object.assign({}, m, { inventory: undefined }), null, 1))}</pre></details>`;
 }
 
