@@ -38,7 +38,8 @@ APOS = os.environ.get("HPLT_APOS") or None
 APOS_RE = re.compile(r"(?<=[^\W\d_])['\u2019\u2018\u02bc\u02bb`\u00b4](?=[^\W\d_])")
 NORM = re.compile(r"^(?:www\d?|m|mobile|amp)\.")
 MIN_LINE = 5
-MIN_SITES = 3
+import os
+MIN_SITES = int(os.environ.get("HPLT_MIN_SITES", 3))   # 1 for a language with only a handful of sites (Awadhi)
 def _marks():
     """Character class of combining marks (vowel signs, viramas, harakat) and the zero-width joiners: part of a word."""
     import unicodedata

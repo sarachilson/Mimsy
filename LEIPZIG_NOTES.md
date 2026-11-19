@@ -332,3 +332,21 @@ Persian keeps its subtitle list (704 M words; 28,666 reference words) and its fr
   spelling with and without ʻ and macrons; small lexicons of Bambara (6,709) and Cape Verdean Creole (9,653).
 - HPLT languages not used: see the status note of 19 Nov (mislabelled: lmo, scn, vec, awa, hne, mag, arz, hat, bjn,
   min, ban; religious text above half: ewe, luo, nso, quy, ssw, tpi, tsn, tso, twi, fij, kik; war a third).
+
+## 14. Awadhi (19 Nov 2026, user request: "add whatever we CAN ... we can always put it in the warning label")
+- HPLT awa_Deva is mostly Hindi (news sites, Hindi Wikipedia, Unionpedia). Kept with `HPLT_ONLY`
+  ('^awa\.(m\.)?wikipedia|awadh|avadh') and `HPLT_MIN_SITES=1` (seven sites only, so the three-sites rule is off):
+  117,000 words (`awa_hplt`): Awadhi Wikipedia, awadh.org, two blogs. Khabar Lahariya (449,000 words under the
+  Awadhi label) is left out: its pages are from Banda and Chitrakoot and look Bundeli (हवै, मड़ई); not checked by a
+  speaker. The Awadhi Bible pages (biblegateway, bible.is, indianbibles: 685,000 words, `awa_hpltbible`) are used as
+  a reject-only list (`leipzig_reject`), in line with the decision not to build languages on Bible text.
+- `pipeline/count_awadhi.py`: `awa_kmi` = modern prose from the K.M. Institute, Agra (Apache-2.0): Awadhi sentences
+  of the VarDial 2018 Indo-Aryan Language Identification data (github.com/kmi-linguistics/vardial2018) plus the raw
+  corpus of github.com/kmi-linguistics/awadhi (Basit 2017); 14,164 sentences, 163,539 words. `awa_manas` = Tulsidas,
+  Ramcharitmanas, from github.com/WirelessAlien/Ramcharitmanas (Unlicense), 107,242 words, verse-form labels dropped.
+- Config awadhi-awa: Devanagari rules as Bhojpuri, `parents=["hindi-hi"]`, `parents_known=True`,
+  `caution_extra` (new: a language-specific caution item, here "Partly literary text"). Result: 388,000 words of
+  text, 21,216 reference words (8,800 shared with Hindi), bank 127,296. 202 languages.
+- The same VarDial data has Braj (309,000 words) and Magahi (294,000 words), not used so far. Not found or not
+  open: a full Awadhi Wikipedia dump (CC BY-SA, Hugging Face / Wikimedia dumps not reachable from the workspace),
+  Awadhi speech-corpus transcripts (licence unclear), Kavita Kosh poetry (mixed copyright).

@@ -1161,7 +1161,8 @@ def step_metrics(lang, cfg, args, outdir, work, deadline):
 
 EXTRA_DESC = {"kaz_mkd_books_news": "and the books and news of the Multi-Domain Kazakh Dataset",
               "amh_news_azime": "and the Amharic News Text Classification Dataset", "urd_makhzan": "and the Makhzan corpus of edited Urdu text",
-              "mlt_macocu": "and the Maltese web corpus MaCoCu-mt 2.0"}
+              "mlt_macocu": "and the Maltese web corpus MaCoCu-mt 2.0", "awa_kmi": "the K.M. Institute Awadhi corpus",
+              "awa_manas": "and the Ramcharitmanas"}
 
 
 def caution_items(cfg, st):
@@ -1177,6 +1178,8 @@ def caution_items(cfg, st):
                       + ("" if nref < EXPERIMENTAL_WORDS else f" The reference lexicon has {nref:,} words, so generators, neighbourhood measures and cluster filters are rougher than for the main languages.")})
     # The item "Written-text / Wikipedia vocabulary added / only" was dropped on 18 Nov 2026 (user: it reads as a warning
     # although more written text is a strength); the About page lists every source with its size instead (source_tokens).
+    if cfg.get("caution_extra"):   # a language-specific warning written in languages.py (Awadhi)
+        items.append({"title": cfg["caution_extra"][0], "text": cfg["caution_extra"][1]})
     if st.get("parents"):
         P = st["parents"]; names = " and ".join(v["name"] for v in P.values()); nor = " or ".join(v["name"] for v in P.values())
         shared = ", ".join(f"{v['shared_reference_words']:,} are also {v['name']} words" for v in P.values())

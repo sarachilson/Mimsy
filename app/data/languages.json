@@ -151,6 +151,24 @@
    }
   },
   {
+   "code": "awadhi-awa",
+   "name": "Awadhi",
+   "reference_words": 21216,
+   "small_corpus": true,
+   "corpus_tokens": 387752,
+   "experimental": false,
+   "cv_approximate": true,
+   "family": "Indo-Aryan",
+   "writing": "Devanagari",
+   "length_unit": "aksharas",
+   "script": "devanagari",
+   "abjad": false,
+   "parents": [
+    "hindi-hi"
+   ],
+   "films_file": null
+  },
+  {
    "code": "azerbaijani-az",
    "name": "Azerbaijani",
    "reference_words": 167394,

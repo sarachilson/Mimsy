@@ -2421,11 +2421,19 @@ const EXTRA_SOURCES = {
   urd_makhzan: {
     name: "Makhzan (Matnsaz): edited Urdu text",
     bullets: ["6,315 documents of edited Urdu writing"],
-    cite: `Ahmed, Z., et al. (n.d.). <i>Maḵẖzan</i> [Data set]. <a href="https://github.com/zeerakahmed/makhzan" target="_blank" rel="noopener">github.com/zeerakahmed/makhzan</a>` } };
+    cite: `Ahmed, Z., et al. (n.d.). <i>Maḵẖzan</i> [Data set]. <a href="https://github.com/zeerakahmed/makhzan" target="_blank" rel="noopener">github.com/zeerakahmed/makhzan</a>` },
+  awa_kmi: {
+    name: "K.M. Institute Awadhi corpus (Agra): modern prose",
+    bullets: ["About 14,000 sentences of modern Awadhi prose", "From the VarDial 2018 language-identification data and Basit's (2017) corpus"],
+    cite: `Kumar, R., Lahiri, B., &amp; Jain, M. (2018). <i>Indo-Aryan Language Identification shared task dataset</i> [Data set]. <a href="https://github.com/kmi-linguistics/vardial2018" target="_blank" rel="noopener">github.com/kmi-linguistics/vardial2018</a> (Apache-2.0); Basit, A. (2017). <i>A POS annotated corpus of Awadhi language</i> [Unpublished M.Phil. dissertation, Dr. Bhim Rao Ambedkar University, Agra]. <a href="https://github.com/kmi-linguistics/awadhi" target="_blank" rel="noopener">github.com/kmi-linguistics/awadhi</a>` },
+  awa_manas: {
+    name: "Ramcharitmanas (Tulsidas, 16th century): classical Awadhi verse",
+    bullets: ["The complete poem, seven books", "Older vocabulary and spellings than today's Awadhi"],
+    cite: `Tulsidas (c. 1574–1577). <i>Rāmcaritmānas</i>. Devanagari text from <a href="https://github.com/WirelessAlien/Ramcharitmanas" target="_blank" rel="noopener">github.com/WirelessAlien/Ramcharitmanas</a> (public domain, Unlicense)` } };
 // HPLT 3.0 web text (pipeline/count_hplt.py): one generic entry; millions of words kept per language.
 const hpltSource = k => ({
   name: "HPLT 3.0: web text (Oepen et al., 2025)",
-  bullets: [k === "fry_hplt" ? "Pages from Frisian websites, collected 2012–2024" : "Web pages collected 2012–2024, best-rated pages only", "Machine-translated pages and sites left out"],
+  bullets: [k === "fry_hplt" ? "Pages from Frisian websites, collected 2012–2024" : k === "awa_hplt" ? "The Awadhi Wikipedia and a few Awadhi websites" : "Web pages collected 2012–2024, best-rated pages only", "Machine-translated pages and sites left out"],
   cite: `Oepen, S., et al. (2025). <i>HPLT 3.0: Very large-scale multilingual resources for LLMs and MT</i>. arXiv. <a href="https://arxiv.org/abs/2511.01066" target="_blank" rel="noopener">arxiv.org/abs/2511.01066</a> (data: <a href="https://hplt-project.org/datasets/v3.0" target="_blank" rel="noopener">hplt-project.org/datasets/v3.0</a>, CC0)` });
 const lzLists = m => { const lz = (m.sources_detail || {}).leipzig || {}; return [lz.corpus, ...(lz.extra || [])].filter(Boolean); };
 const extraSources = m => lzLists(m).map(k => EXTRA_SOURCES[k] || (/_hplt$/.test(k) ? hpltSource(k) : null)).filter(Boolean);
