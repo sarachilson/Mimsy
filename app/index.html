@@ -2461,6 +2461,14 @@ const EXTRA_SOURCES = {
     name: "K.M. Institute Awadhi corpus (Agra): modern prose",
     bullets: ["About 14,000 sentences of modern Awadhi prose", "From the VarDial 2018 language-identification data and Basit's (2017) corpus"],
     cite: `Kumar, R., Lahiri, B., &amp; Jain, M. (2018). <i>Indo-Aryan Language Identification shared task dataset</i> [Data set]. <a href="https://github.com/kmi-linguistics/vardial2018" target="_blank" rel="noopener">github.com/kmi-linguistics/vardial2018</a> (Apache-2.0); Basit, A. (2017). <i>A POS annotated corpus of Awadhi language</i> [Unpublished M.Phil. dissertation, Dr. Bhim Rao Ambedkar University, Agra]. <a href="https://github.com/kmi-linguistics/awadhi" target="_blank" rel="noopener">github.com/kmi-linguistics/awadhi</a>` },
+  bra_kmi: {
+    name: "K.M. Institute Braj corpus (Agra): modern prose",
+    bullets: ["About 19,500 sentences of Braj prose", "From the VarDial 2018 language-identification data"],
+    cite: `Kumar, R., Lahiri, B., &amp; Jain, M. (2018). <i>Indo-Aryan Language Identification shared task dataset</i> [Data set]. <a href="https://github.com/kmi-linguistics/vardial2018" target="_blank" rel="noopener">github.com/kmi-linguistics/vardial2018</a> (Apache-2.0)` },
+  mag_kmi: {
+    name: "K.M. Institute Magahi corpus (Agra): blogs and stories",
+    bullets: ["Magahi literary blogs and short stories, about 288,000 sentences", "Collected in the project ALUP-M (Alok, Lahiri & Kumar)"],
+    cite: `Alok, D., Lahiri, B., &amp; Kumar, R. (n.d.). <i>Magahi: data, tools and applications</i> [Data set]. <a href="https://github.com/kmi-linguistics/magahi" target="_blank" rel="noopener">github.com/kmi-linguistics/magahi</a> (Apache-2.0); Kumar, R., Lahiri, B., &amp; Jain, M. (2018). <i>Indo-Aryan Language Identification shared task dataset</i> [Data set]. <a href="https://github.com/kmi-linguistics/vardial2018" target="_blank" rel="noopener">github.com/kmi-linguistics/vardial2018</a> (Apache-2.0)` },
   awa_manas: {
     name: "Ramcharitmanas (Tulsidas, 16th century): classical Awadhi verse",
     bullets: ["The complete poem, seven books", "Older vocabulary and spellings than today's Awadhi"],
@@ -2479,7 +2487,7 @@ function aboutSources(m) {
   const src = m.source || "", lz = (m.sources_detail || {}).leipzig, ff = filmsFile(S.code, m), st = m.source_tokens || {}, lt = st.lists || {}, out = [];
   const isExtra = k => EXTRA_SOURCES[k] || /_hplt$/.test(k);
   const item = (n, name, body) => out.push([n || 0, `<div>${name}${n ? ` <span class="pill">${fmtWords(n)}</span>` : ""}</div>${body}`]);
-  if (ff || !/^(Leipzig|HPLT)/.test(src)) item(st.films, "FILMS: a multilingual word frequency corpus based on film subtitles (Chilson, Sineva &amp; Schmalz, 2024)",
+  if (ff || !/^(Leipzig|HPLT|Text corpus)/.test(src)) item(st.films, "FILMS: a multilingual word frequency corpus based on film subtitles (Chilson, Sineva &amp; Schmalz, 2024)",
     `<ul class="hint" style="margin:0 0 6px;padding-left:18px"><li>Word counts from film and television subtitles</li></ul>`);
   if (lz && lz.corpus) { const ls = [lz.corpus, ...(lz.extra || [])].filter(k => !isExtra(k));
     if (ls.length) item(ls.reduce((a, k) => a + (lt[k] || 0), 0), "Leipzig Corpora Collection (Goldhahn, Eckart &amp; Quasthoff, 2012)",
@@ -2680,11 +2688,11 @@ function renderAbout() {
   <h2>Data resources and citation</h2>
   <p>When you use ${esc(m.name)} pseudowords or measures from Mimsy, please cite the data they are built on:</p>
   <ul>
-   ${!/^(Leipzig|HPLT)/.test(m.source || "FILMS") ? `<li><b>FILMS</b> (word frequencies from film subtitles, with IPA transcriptions): Chilson, S., Sineva, E., &amp; Schmalz, X. (2024). <i>FILMS: A multilingual word frequency corpus based on film subtitles with IPA transcriptions.</i> OSF Preprints. <a href="https://doi.org/10.31219/osf.io/zy5qf" target="_blank" rel="noopener">https://doi.org/10.31219/osf.io/zy5qf</a></li>` : ""}
+   ${!/^(Leipzig|HPLT|Text corpus)/.test(m.source || "FILMS") ? `<li><b>FILMS</b> (word frequencies from film subtitles, with IPA transcriptions): Chilson, S., Sineva, E., &amp; Schmalz, X. (2024). <i>FILMS: A multilingual word frequency corpus based on film subtitles with IPA transcriptions.</i> OSF Preprints. <a href="https://doi.org/10.31219/osf.io/zy5qf" target="_blank" rel="noopener">https://doi.org/10.31219/osf.io/zy5qf</a></li>` : ""}
    ${lzLists(m).some(k => !EXTRA_SOURCES[k] && !/_hplt$/.test(k)) ? `<li><b>Leipzig Corpora Collection</b> (word-frequency lists of news, web and Wikipedia corpora, released under CC BY): Goldhahn, D., Eckart, T., &amp; Quasthoff, U. (2012). Building large monolingual dictionaries at the Leipzig Corpora Collection: From 100 to 200 languages. In <i>Proceedings of the Eighth International Conference on Language Resources and Evaluation (LREC 2012)</i> (pp. 759–765). European Language Resources Association.</li>` : ""}
    ${extraSources(m).map(x => `<li><b>${esc(x.name.split(" (")[0].split(":")[0])}</b>: ${x.cite}</li>`).join("")}
   </ul>
-  ${(() => { const sd = m.sources_detail || {}, lz = sd.leipzig && sd.leipzig.corpus, films = !/^(Leipzig|HPLT)/.test(m.source || "FILMS");
+  ${(() => { const sd = m.sources_detail || {}, lz = sd.leipzig && sd.leipzig.corpus, films = !/^(Leipzig|HPLT|Text corpus)/.test(m.source || "FILMS");
      const ff = filmsFile(S.code, m), fs = `FILMS${ff ? ` (file <span class="mono" style="word-break:break-all">${esc(ff)}</span>)` : ""}`;
      const lzs = lzLists(m).filter(k => !EXTRA_SOURCES[k] && !/_hplt$/.test(k)), parts = [];
      if (films) parts.push(fs);

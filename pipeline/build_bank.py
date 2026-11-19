@@ -1162,7 +1162,8 @@ def step_metrics(lang, cfg, args, outdir, work, deadline):
 EXTRA_DESC = {"kaz_mkd_books_news": "and the books and news of the Multi-Domain Kazakh Dataset",
               "amh_news_azime": "and the Amharic News Text Classification Dataset", "urd_makhzan": "and the Makhzan corpus of edited Urdu text",
               "mlt_macocu": "and the Maltese web corpus MaCoCu-mt 2.0", "awa_kmi": "the K.M. Institute Awadhi corpus",
-              "awa_manas": "and the Ramcharitmanas"}
+              "awa_manas": "and the Ramcharitmanas",
+              "bra_kmi": "the K.M. Institute Braj corpus", "mag_kmi": "the K.M. Institute Magahi corpus"}
 
 
 def caution_items(cfg, st):
@@ -1284,7 +1285,7 @@ def step_write(lang, cfg, args, outdir, work):
         "created": time.strftime("%Y-%m-%d"),
         "source": ("FILMS/OPUS subtitle frequency list: " + ((films_file(lang) or {}).get("path") or "*.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv") if st.get("reference_sources", {}).get("films", 0) + st.get("reference_sources", {}).get("both", 0) or not st.get("leipzig") else "")
                   + ("; " if st.get("leipzig") and (st.get("reference_sources", {}).get("films", 0) + st.get("reference_sources", {}).get("both", 0)) else "")
-                  + ((f"HPLT 3.0 web text word list {st['leipzig']['corpus']} (CC0; Oepen et al. 2025)" if st['leipzig']['corpus'].endswith("_hplt") else f"Leipzig Corpora Collection word list {st['leipzig']['corpus']} (CC BY; Goldhahn, Eckart & Quasthoff 2012)") if st.get("leipzig") else ""),
+                  + ((f"HPLT 3.0 web text word list {st['leipzig']['corpus']} (CC0; Oepen et al. 2025)" if st['leipzig']['corpus'].endswith("_hplt") else f"Text corpus word list {st['leipzig']['corpus']} ({EXTRA_DESC[st['leipzig']['corpus']].replace('and ', '')})" if st['leipzig']['corpus'] in EXTRA_DESC else f"Leipzig Corpora Collection word list {st['leipzig']['corpus']} (CC BY; Goldhahn, Eckart & Quasthoff 2012)") if st.get("leipzig") else ""),
         "sources_detail": {"films": bool(st.get("reference_sources", {}).get("films", 0) + st.get("reference_sources", {}).get("both", 0)), "leipzig": st.get("leipzig"), "reference_words_by_source": st.get("reference_sources"),
                            "english_contamination_removed": st.get("english_contamination_removed")},
         "alphabet": st["alphabet"], "letter_classes": st["classes"],

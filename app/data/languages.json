@@ -396,6 +396,24 @@
    }
   },
   {
+   "code": "braj-bra",
+   "name": "Braj (Braj Bhasha)",
+   "reference_words": 15097,
+   "small_corpus": true,
+   "corpus_tokens": 279673,
+   "experimental": false,
+   "cv_approximate": true,
+   "family": "Indo-Aryan",
+   "writing": "Devanagari",
+   "length_unit": "aksharas",
+   "script": "devanagari",
+   "abjad": false,
+   "parents": [
+    "hindi-hi"
+   ],
+   "films_file": null
+  },
+  {
    "code": "breton-br",
    "name": "Breton",
    "reference_words": 23173,
@@ -1817,6 +1835,24 @@
     "archive": "FILMS_data.zip",
     "path": "macedonian-mk/word/macedonian.mk.word.pron-one_col-default.filtered_by_pron.spell_checked.zipf_4.tsv"
    }
+  },
+  {
+   "code": "magahi-mag",
+   "name": "Magahi",
+   "reference_words": 59170,
+   "small_corpus": true,
+   "corpus_tokens": 2414622,
+   "experimental": false,
+   "cv_approximate": true,
+   "family": "Indo-Aryan",
+   "writing": "Devanagari",
+   "length_unit": "aksharas",
+   "script": "devanagari",
+   "abjad": false,
+   "parents": [
+    "hindi-hi"
+   ],
+   "films_file": null
   },
   {
    "code": "maithili-mai",

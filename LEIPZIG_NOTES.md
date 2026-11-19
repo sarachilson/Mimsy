@@ -350,3 +350,18 @@ Persian keeps its subtitle list (704 M words; 28,666 reference words) and its fr
 - The same VarDial data has Braj (309,000 words) and Magahi (294,000 words), not used so far. Not found or not
   open: a full Awadhi Wikipedia dump (CC BY-SA, Hugging Face / Wikimedia dumps not reachable from the workspace),
   Awadhi speech-corpus transcripts (licence unclear), Kavita Kosh poetry (mixed copyright).
+
+## 15. Braj and Magahi (19 Nov 2026, user: "yes to braj and magahi with closest related language excluded")
+- `pipeline/count_kmi.py`: `bra_kmi` = Braj sentences (BRA) of the VarDial 2018 data (Apache-2.0): 19,548
+  sentences, 279,673 words. `mag_kmi` = Magahi sentences (MAG) of the same data plus the raw corpus of
+  github.com/kmi-linguistics/magahi (Apache-2.0; 933 blog files, 108 stories): 288,151 sentences, 2,414,622 words.
+  The github.com/kmi-linguistics/braj repository was not used: its README asks commercial users to contact the
+  creators, which does not fit the Apache licence file.
+- Configs braj-bra, magahi-mag: Devanagari rules as Bhojpuri; `parents=["hindi-hi"]`, `parents_known=True` (Hindi is
+  the language every speaker also knows; for Magahi, Bhojpuri or Maithili would be closer relatives and could be
+  added). A main list that is neither Leipzig nor HPLT gets the manifest source "Text corpus word list ..."
+  (build_bank EXTRA_DESC; index.html treats it like the other non-FILMS sources).
+- Results: Braj 15,097 reference words (7,363 shared with Hindi), bank 90,582. Magahi 59,170 reference words
+  (16,694 shared with Hindi), bank 300,000. 204 languages.
+- For the morphology project: kmi-linguistics/magahi contains a rule-based Magahi morphological analyser
+  (tools/magahi-morph, Java/Tomcat), not examined.
