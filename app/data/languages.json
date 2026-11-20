@@ -1273,7 +1273,7 @@
   {
    "code": "irish-ga",
    "name": "Irish",
-   "reference_words": 59960,
+   "reference_words": 58955,
    "small_corpus": false,
    "corpus_tokens": 26597576,
    "experimental": false,

@@ -970,6 +970,11 @@ def rule_violation(w, rules):
             return "vowel harmony"
     if rules.get("final_only") and any(c in rules["final_only"] for c in w[:-1]):
         return "word-final letter inside word"
+    if rules.get("adjacent_marks"):   # two accented vowels in a row only in the listed pairs (Irish: tríú, spraíúil, but not áí)
+        am = rules["adjacent_marks"]
+        for i in range(len(w) - 1):
+            if w[i] in am["marks"] and w[i + 1] in am["marks"] and w[i:i + 2] not in am["allow"]:
+                return "two accented vowels in a row"
     if rules.get("not_final") and w[-1] in rules["not_final"]:
         return "non-final letter at end"
     if rules.get("max_tones") is not None:

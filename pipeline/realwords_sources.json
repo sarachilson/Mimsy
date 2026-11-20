@@ -797,15 +797,15 @@
   "hunspell": {
    "dictionary": "wooorm/ga/index",
    "licence": "GPL-2.0",
-   "coverage_of_reference_words": 0.77,
-   "bank_items_accepted": 5332,
+   "coverage_of_reference_words": 0.778,
+   "bank_items_accepted": 5430,
    "compounding": "off"
   },
   "unimorph": {
    "repository": "https://github.com/unimorph/gle",
    "licence": "CC BY-SA 3.0",
    "forms": 24043,
-   "bank_items_accepted": 389
+   "bank_items_accepted": 385
   }
  },
  "italian-it": {

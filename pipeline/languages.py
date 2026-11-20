@@ -86,7 +86,10 @@ LANGS = {
     "breton-br":     dict(leipzig="bre_wikipedia_2021_100K", name="Breton", alphabets=[latin("ñùéâêàèîôûü'")], y="auto"),
     "esperanto-eo":  dict(no_bands=True, leipzig_extra=['epo_web_2012_1M', 'epo_wikipedia_2021_300K'], leipzig_reject=['epo_web_2011_100K'], bank_scale=(2, 100000), multi_source_train=True, zipf_source="leipzig", leipzig="epo_newscrawl_2017_1M", name="Esperanto", alphabets=[latin("ĉĝĥĵŝŭ", "qwxy")], y="V"),
     "igbo-ig":       dict(train_eng_zipf=3.0, leipzig_extra=['ibo_hplt'], bank_scale=(2, 100000), multi_source_train=True, no_bands=True, ref_cap=300000, leipzig="ibo_wikipedia_2021_10K", name="Igbo", alphabets=[latin("ịọụṅ")], vowels="ịọụ", y="C"),
-    "irish-ga":      dict(no_bands=True, leipzig_extra=['gle_hplt', 'gle_wikipedia_2021_30K'], bank_scale=(2, 100000), multi_source_train=True, zipf_source="leipzig", leipzig="gle_newscrawl_2014_300K", name="Irish", alphabets=[latin("áéíóú")], y="V"),
+    "irish-ga":      dict(no_bands=True, leipzig_extra=['gle_hplt', 'gle_wikipedia_2021_30K'], bank_scale=(2, 100000), multi_source_train=True, zipf_source="leipzig", leipzig="gle_newscrawl_2014_300K", name="Irish", alphabets=[latin("áéíóú", "kqwxyz")],
+                          # 19 Nov 2026 (user): no k q w x y z (English names from the subtitle list: daleks, squidward, gary); j and v stay
+                          # (jab, vóta). Two accented vowels in a row only as í/á/é/ó + ú (tríú, spraíúil, báúil); áí, éí ... are typos.
+                          rules={"adjacent_marks": {"marks": "áéíóú", "allow": ["íú", "áú", "éú", "óú"]}}),
     "kazakh-kk":     dict(leipzig="kaz_newscrawl_2016_1M", leipzig_extra=["kaz_mkd_books_news"], zipf_source="leipzig", no_bands=True, films_only_need_ipa=True,
                      train_filter=dict(analysed=os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "_work", "kazakh-kk", "analysed.txt"), own_letters="әғқңөұүһі", foreign=["russian-ru"],
                                        stems=os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "_work", "kazakh-kk", "stems.tsv"), loan_letters="вфцчщъьёэ", no_initial_cluster=True),
@@ -172,6 +175,7 @@ LANGS = {
                           strip="\u200c\u200d\u200e\u200f\u202a\u202b\u202c",
                           rules={"min_len": 2, "max_len": 6, "max_chars": 16,  **indic.options("telugu")},
                           cv_note="Telugu is an abugida: CV (orthographic) counts every consonant letter as C plus an inherent vowel V unless a vowel sign or virama follows; vowel signs and vowel letters are V; anusvara is C. Length is counted in aksharas."),
+    # Tamil: no ref_cap on purpose (user, 19 Nov 2026: "dont cap it since it is agglutinative"); 392,174 reference words.
     "tamil-ta":      dict(leipzig_extra=['tam_wikipedia_2021_1M', 'tam_news_2020_100K', 'tam_news_2019_100K'], bank_scale=(2, 100000), multi_source_train=True, uncased_names=True, name="Tamil", script="tamil", alphabets=[indic.alphabet("tamil")], ipa_only=True, no_bands=True, leipzig="tam_newscrawl_2011_1M",
                           strip="\u200c\u200d\u200e\u200f\u202a\u202b\u202c",
                           rules={"min_len": 2, "max_len": 6, "max_chars": 16,  **indic.options("tamil")},

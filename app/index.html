@@ -1334,6 +1334,7 @@ function ruleViolation(L, w) {          // language-specific spelling rules (man
   if (r.max_stress !== undefined && ch.filter(c => r.stress_marks.includes(c)).length > r.max_stress) return "more than one stress accent";
   if (r.harmony && ch.some(c => r.harmony.front.includes(c)) && ch.some(c => r.harmony.back.includes(c))) return "mixes front and back vowels";
   if (r.final_only && ch.slice(0, -1).some(c => r.final_only.includes(c))) return `“${r.final_only}” inside the word`;
+  if (r.adjacent_marks) for (let i = 0; i < ch.length - 1; i++) if (r.adjacent_marks.marks.includes(ch[i]) && r.adjacent_marks.marks.includes(ch[i + 1]) && !r.adjacent_marks.allow.includes(ch[i] + ch[i + 1])) return "two accented vowels in a row";
   if (r.not_final && r.not_final.includes(ch[ch.length - 1])) return `ends in “${ch[ch.length - 1]}”`;
   if (r.max_tones !== undefined && [...w.normalize("NFD")].filter(c => TONES.has(c)).length > r.max_tones) return "more than one tone mark";
   if (r.hangul && /[\u1100-\u11ff]/.test(w.normalize("NFC"))) return "jamo do not form syllable blocks";
@@ -2654,6 +2655,7 @@ function renderAbout() {
      if (r.max_stress !== undefined) out.push(`at most ${r.max_stress} stress accent (${esc(r.stress_marks)})`);
      if (r.harmony) out.push(`vowel harmony: front ${esc(r.harmony.front)} and back ${esc(r.harmony.back)} vowels never mix`);
      if (r.final_only) out.push(`“${esc(r.final_only)}” only at the end of a word`);
+     if (r.adjacent_marks) out.push(`two accented vowels in a row only as ${esc(r.adjacent_marks.allow.join(", "))}`);
      if (r.not_final) out.push(`no word ends in “${esc(r.not_final)}”`);
      if (r.single_vowel_run) out.push("one syllable (a single vowel group) per item");
      if (r.max_tones !== undefined) out.push(`at most ${r.max_tones} tone mark`);
