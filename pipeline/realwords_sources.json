@@ -123,14 +123,14 @@
  "assamese-as": {
   "hunspell_skipped": {
    "dictionary": "libreoffice/as_IN/as_IN",
-   "coverage_of_reference_words": 0.451,
+   "coverage_of_reference_words": 0.257,
    "reason": "accepts fewer than 50% of the language's reference words"
   },
   "unimorph": {
    "repository": "https://github.com/unimorph/asm",
    "licence": "CC BY-SA 3.0",
    "forms": 75102,
-   "bank_items_accepted": 880
+   "bank_items_accepted": 716
   },
   "bible": {
    "texts": [
@@ -140,8 +140,8 @@
     }
    ],
    "word_types": 17519,
-   "new_forms_not_in_lists": 9483,
-   "bank_items_accepted": 477
+   "new_forms_not_in_lists": 4593,
+   "bank_items_accepted": 141
   }
  },
  "asturian-ast": {
@@ -205,6 +205,21 @@
    "licence": "CC BY-SA 3.0",
    "forms": 10895,
    "bank_items_accepted": 3
+  },
+  "bible": {
+   "texts": [
+    {
+     "file": "ebible/corpus/bel-bel.txt",
+     "licence": "by-nc 4.0 John the Forerunner Church of Christians of Evangelical Faith of Minsk City"
+    },
+    {
+     "file": "ebible/corpus/bel-beln.txt",
+     "licence": "by-nc 4.0 John the Forerunner Church of Christians of Evangelical Faith of Minsk City"
+    }
+   ],
+   "word_types": 23139,
+   "new_forms_not_in_lists": 3236,
+   "bank_items_accepted": 90
   }
  },
  "bengali-bn": {
@@ -309,16 +324,26 @@
   }
  },
  "cebuano-ceb": {
+  "unimorph": {
+   "repository": "https://github.com/unimorph/ceb",
+   "licence": "CC BY-SA 3.0",
+   "forms": 430,
+   "bank_items_accepted": 3
+  },
   "bible": {
    "texts": [
+    {
+     "file": "ebible/corpus/ceb-cebulb.txt",
+     "licence": "by-sa 4.0 Door43 World Missions Community"
+    },
     {
      "file": "bible-corpus/bibles/Cebuano.xml",
      "licence": "CC0 (corpus); translation public domain or freely distributable, see metadata.csv"
     }
    ],
-   "word_types": 11298,
-   "new_forms_not_in_lists": 2315,
-   "bank_items_accepted": 77
+   "word_types": 16608,
+   "new_forms_not_in_lists": 3310,
+   "bank_items_accepted": 139
   }
  },
  "croatian-hr": {
@@ -506,6 +531,17 @@
    "licence": "CC BY-SA 3.0",
    "forms": 4692,
    "bank_items_accepted": 91
+  },
+  "bible": {
+   "texts": [
+    {
+     "file": "ebible/corpus/lug-lug.txt",
+     "licence": "by-sa 4.0 Biblica, Inc."
+    }
+   ],
+   "word_types": 16768,
+   "new_forms_not_in_lists": 1722,
+   "bank_items_accepted": 52
   }
  },
  "georgian-ka": {
@@ -595,13 +631,17 @@
   "bible": {
    "texts": [
     {
+     "file": "ebible/corpus/guj-guj2017.txt",
+     "licence": "by-sa 4.0 Bridge Connectivity Solutions"
+    },
+    {
      "file": "bible-corpus/bibles/Gujarati-NT.xml",
      "licence": "CC0 (corpus); translation public domain or freely distributable, see metadata.csv"
     }
    ],
-   "word_types": 7460,
-   "new_forms_not_in_lists": 779,
-   "bank_items_accepted": 14
+   "word_types": 22498,
+   "new_forms_not_in_lists": 5267,
+   "bank_items_accepted": 143
   }
  },
  "haitian-ht": {
@@ -624,7 +664,7 @@
  "hausa-ha": {
   "hunspell_skipped": {
    "dictionary": "elastic/ha_GH/ha-GH",
-   "coverage_of_reference_words": 0.201,
+   "coverage_of_reference_words": 0.076,
    "reason": "accepts fewer than 50% of the language's reference words"
   },
   "bible": {
@@ -639,8 +679,8 @@
     }
    ],
    "word_types": 8759,
-   "new_forms_not_in_lists": 4091,
-   "bank_items_accepted": 228
+   "new_forms_not_in_lists": 1121,
+   "bank_items_accepted": 83
   }
  },
  "hebrew-he": {
@@ -740,8 +780,8 @@
     }
    ],
    "word_types": 6115,
-   "new_forms_not_in_lists": 3712,
-   "bank_items_accepted": 233
+   "new_forms_not_in_lists": 1663,
+   "bank_items_accepted": 226
   }
  },
  "ilocano-ilo": {
@@ -753,8 +793,8 @@
     }
    ],
    "word_types": 15724,
-   "new_forms_not_in_lists": 12956,
-   "bank_items_accepted": 108
+   "new_forms_not_in_lists": 3806,
+   "bank_items_accepted": 75
   }
  },
  "indonesian-id": {
@@ -841,13 +881,21 @@
   "bible": {
    "texts": [
     {
+     "file": "ebible/corpus/kan-kan2017.txt",
+     "licence": "by-sa 4.0 Bridge Connectivity Solutions"
+    },
+    {
+     "file": "ebible/corpus/kan-kanokcv.txt",
+     "licence": "by-sa 4.0 Biblica, Inc."
+    },
+    {
      "file": "bible-corpus/bibles/Kannada.xml",
      "licence": "CC0 (corpus); translation public domain or freely distributable, see metadata.csv"
     }
    ],
-   "word_types": 31510,
-   "new_forms_not_in_lists": 12284,
-   "bank_items_accepted": 252
+   "word_types": 76331,
+   "new_forms_not_in_lists": 36205,
+   "bank_items_accepted": 394
   }
  },
  "kashubian-csb": {
@@ -947,6 +995,23 @@
    "coverage_of_reference_words": 0.913,
    "bank_items_accepted": 14347,
    "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/lit",
+   "licence": "CC BY-SA 3.0",
+   "forms": 28889,
+   "bank_items_accepted": 165
+  },
+  "bible": {
+   "texts": [
+    {
+     "file": "ebible/corpus/lit-lit.txt",
+     "licence": "by-sa 4.0"
+    }
+   ],
+   "word_types": 7347,
+   "new_forms_not_in_lists": 431,
+   "bank_items_accepted": 6
   }
  },
  "low_german-nds": {
@@ -1010,6 +1075,12 @@
    "coverage_of_reference_words": 0.199,
    "reason": "accepts fewer than 50% of the language's reference words"
   },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/mlg",
+   "licence": "CC BY-SA 3.0",
+   "forms": 636,
+   "bank_items_accepted": 44
+  },
   "bible": {
    "texts": [
     {
@@ -1038,13 +1109,25 @@
   "bible": {
    "texts": [
     {
+     "file": "ebible/corpus/mal-mal.txt",
+     "licence": "by-sa 4.0 Bridge Communication Systems"
+    },
+    {
+     "file": "ebible/corpus/mal-mal2015.txt",
+     "licence": "by-sa 4.0 The Free Bible Foundation"
+    },
+    {
+     "file": "ebible/corpus/mal-malc.txt",
+     "licence": "by-sa 4.0 Biblica, Inc."
+    },
+    {
      "file": "bible-corpus/bibles/Malayalam.xml",
      "licence": "CC0 (corpus); translation public domain or freely distributable, see metadata.csv"
     }
    ],
-   "word_types": 21446,
-   "new_forms_not_in_lists": 10850,
-   "bank_items_accepted": 89
+   "word_types": 98306,
+   "new_forms_not_in_lists": 54309,
+   "bank_items_accepted": 247
   }
  },
  "maltese-mt": {
@@ -1101,13 +1184,17 @@
   "bible": {
    "texts": [
     {
+     "file": "ebible/corpus/mar-mar.txt",
+     "licence": "by-sa 4.0 Bridge Connectivity Solutions"
+    },
+    {
      "file": "bible-corpus/bibles/Marathi.xml",
      "licence": "CC0 (corpus); translation public domain or freely distributable, see metadata.csv"
     }
    ],
-   "word_types": 23689,
-   "new_forms_not_in_lists": 5501,
-   "bank_items_accepted": 136
+   "word_types": 39379,
+   "new_forms_not_in_lists": 12556,
+   "bank_items_accepted": 283
   }
  },
  "mongolian-mn": {
@@ -1117,6 +1204,12 @@
    "coverage_of_reference_words": 0.807,
    "bank_items_accepted": 19988,
    "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/khk",
+   "licence": "CC BY-SA 3.0",
+   "forms": 17231,
+   "bank_items_accepted": 167
   }
  },
  "navajo-nv": {
@@ -1186,6 +1279,12 @@
    "coverage_of_reference_words": 0.696,
    "bank_items_accepted": 5608,
    "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/nno",
+   "licence": "CC BY-SA 3.0",
+   "forms": 16928,
+   "bank_items_accepted": 98
   }
  },
  "occitan-oc": {
@@ -1195,6 +1294,12 @@
    "coverage_of_reference_words": 0.514,
    "bank_items_accepted": 7049,
    "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/oci",
+   "licence": "CC BY-SA 3.0",
+   "forms": 7465,
+   "bank_items_accepted": 105
   }
  },
  "oromo-om": {
@@ -1202,7 +1307,7 @@
    "repository": "https://github.com/unimorph/orm",
    "licence": "CC BY-SA 3.0",
    "forms": 704,
-   "bank_items_accepted": 20
+   "bank_items_accepted": 22
   }
  },
  "papiamento-pap": {
@@ -1339,7 +1444,7 @@
  "punjabi-pa": {
   "hunspell_skipped": {
    "dictionary": "libreoffice/pa_IN/pa_IN",
-   "coverage_of_reference_words": 0.026,
+   "coverage_of_reference_words": 0.015,
    "reason": "accepts fewer than 50% of the language's reference words"
   },
   "bible": {
@@ -1350,8 +1455,8 @@
     }
    ],
    "word_types": 7658,
-   "new_forms_not_in_lists": 2385,
-   "bank_items_accepted": 265
+   "new_forms_not_in_lists": 998,
+   "bank_items_accepted": 125
   }
  },
  "quechua-qu": {
@@ -1405,6 +1510,99 @@
    "coverage_of_reference_words": 0.791,
    "bank_items_accepted": 5841,
    "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/san",
+   "licence": "CC BY-SA 3.0",
+   "forms": 17566,
+   "bank_items_accepted": 358
+  },
+  "bible": {
+   "texts": [
+    {
+     "file": "ebible/corpus/san-sanasm.txt",
+     "licence": "by-sa 4.0 SanskritBible.in"
+    },
+    {
+     "file": "ebible/corpus/san-sanben.txt",
+     "licence": "by-sa 4.0 SanskritBible.in"
+    },
+    {
+     "file": "ebible/corpus/san-sanbur.txt",
+     "licence": "by-sa 4.0 SanskritBible.in"
+    },
+    {
+     "file": "ebible/corpus/san-sandev.txt",
+     "licence": "by-sa 4.0 SanskritBible.in"
+    },
+    {
+     "file": "ebible/corpus/san-sanguj.txt",
+     "licence": "by-sa 4.0 SanskritBible.in"
+    },
+    {
+     "file": "ebible/corpus/san-sanhk.txt",
+     "licence": "by-sa 4.0 SanskritBible.in"
+    },
+    {
+     "file": "ebible/corpus/san-sanias.txt",
+     "licence": "by-sa 4.0 SanskritBible.in"
+    },
+    {
+     "file": "ebible/corpus/san-saniso.txt",
+     "licence": "by-sa 4.0 SanskritBible.in"
+    },
+    {
+     "file": "ebible/corpus/san-sanitr.txt",
+     "licence": "by-sa 4.0 SanskritBible.in"
+    },
+    {
+     "file": "ebible/corpus/san-sankhm.txt",
+     "licence": "by-sa 4.0 SanskritBible.in"
+    },
+    {
+     "file": "ebible/corpus/san-sanmal.txt",
+     "licence": "by-sa 4.0 SanskritBible.in"
+    },
+    {
+     "file": "ebible/corpus/san-sanori.txt",
+     "licence": "by-sa 4.0 SanskritBible.in"
+    },
+    {
+     "file": "ebible/corpus/san-sanpun.txt",
+     "licence": "by-sa 4.0 SanskritBible.in"
+    },
+    {
+     "file": "ebible/corpus/san-sansin.txt",
+     "licence": "by-sa 4.0 SanskritBible.in"
+    },
+    {
+     "file": "ebible/corpus/san-santam.txt",
+     "licence": "by-sa 4.0 SanskritBible.in"
+    },
+    {
+     "file": "ebible/corpus/san-santel.txt",
+     "licence": "by-sa 4.0 SanskritBible.in"
+    },
+    {
+     "file": "ebible/corpus/san-santha.txt",
+     "licence": "by-sa 4.0 SanskritBible.in"
+    },
+    {
+     "file": "ebible/corpus/san-santib.txt",
+     "licence": "by-sa 4.0 SanskritBible.in"
+    },
+    {
+     "file": "ebible/corpus/san-sanurd.txt",
+     "licence": "by-sa 4.0 SanskritBible.in"
+    },
+    {
+     "file": "ebible/corpus/san-sanvel.txt",
+     "licence": "by-sa 4.0 SanskritBible.in"
+    }
+   ],
+   "word_types": 8410,
+   "new_forms_not_in_lists": 2690,
+   "bank_items_accepted": 31
   }
  },
  "scottish_gaelic-gd": {
@@ -1414,6 +1612,12 @@
    "coverage_of_reference_words": 0.545,
    "bank_items_accepted": 4155,
    "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/gla",
+   "licence": "CC BY-SA 3.0",
+   "forms": 278,
+   "bank_items_accepted": 12
   },
   "bible": {
    "texts": [
@@ -1440,16 +1644,26 @@
   }
  },
  "shona-sn": {
+  "unimorph": {
+   "repository": "https://github.com/unimorph/sna",
+   "licence": "CC BY-SA 3.0",
+   "forms": 2640,
+   "bank_items_accepted": 56
+  },
   "bible": {
    "texts": [
+    {
+     "file": "ebible/corpus/sna-sna.txt",
+     "licence": "by-sa 4.0 Biblica, Inc."
+    },
     {
      "file": "bible-corpus/bibles/Shona.xml",
      "licence": "CC0 (corpus); translation public domain or freely distributable, see metadata.csv"
     }
    ],
-   "word_types": 21797,
-   "new_forms_not_in_lists": 6273,
-   "bank_items_accepted": 224
+   "word_types": 37793,
+   "new_forms_not_in_lists": 13471,
+   "bank_items_accepted": 441
   }
  },
  "sinhala-si": {
@@ -1498,13 +1712,17 @@
   "bible": {
    "texts": [
     {
+     "file": "ebible/corpus/som-som.txt",
+     "licence": "by-nc-nd 4.0 Society for International Ministries -- Kenya"
+    },
+    {
      "file": "bible-corpus/bibles/Somali.xml",
      "licence": "CC0 (corpus); translation public domain or freely distributable, see metadata.csv"
     }
    ],
-   "word_types": 18447,
-   "new_forms_not_in_lists": 3857,
-   "bank_items_accepted": 45
+   "word_types": 32632,
+   "new_forms_not_in_lists": 11258,
+   "bank_items_accepted": 141
   }
  },
  "spanish-es": {
@@ -1589,13 +1807,17 @@
   "bible": {
    "texts": [
     {
+     "file": "ebible/corpus/tgl-tglulb.txt",
+     "licence": "by-sa 4.0 Door43 World Missions Community"
+    },
+    {
      "file": "bible-corpus/bibles/Tagalog.xml",
      "licence": "CC0 (corpus); translation public domain or freely distributable, see metadata.csv"
     }
    ],
-   "word_types": 11390,
-   "new_forms_not_in_lists": 2900,
-   "bank_items_accepted": 123
+   "word_types": 17102,
+   "new_forms_not_in_lists": 3391,
+   "bank_items_accepted": 144
   }
  },
  "tajik-tg": {
@@ -1609,12 +1831,23 @@
    "licence": "CC BY-SA 3.0",
    "forms": 78,
    "bank_items_accepted": 0
+  },
+  "bible": {
+   "texts": [
+    {
+     "file": "ebible/corpus/tgk-tgk.txt",
+     "licence": "by-nc-nd 4.0"
+    }
+   ],
+   "word_types": 4532,
+   "new_forms_not_in_lists": 178,
+   "bank_items_accepted": 4
   }
  },
  "tamil-ta": {
   "hunspell_skipped": {
    "dictionary": "libreoffice/ta_IN/ta_IN",
-   "coverage_of_reference_words": 0.236,
+   "coverage_of_reference_words": 0.163,
    "reason": "accepts fewer than 50% of the language's reference words"
   },
   "bible": {
@@ -1629,8 +1862,8 @@
     }
    ],
    "word_types": 60261,
-   "new_forms_not_in_lists": 30934,
-   "bank_items_accepted": 118
+   "new_forms_not_in_lists": 22713,
+   "bank_items_accepted": 85
   }
  },
  "tatar-tt": {
@@ -1656,13 +1889,17 @@
   "bible": {
    "texts": [
     {
+     "file": "ebible/corpus/tel-tel2017.txt",
+     "licence": "by-sa 4.0 Bridge Connectivity Solutions"
+    },
+    {
      "file": "bible-corpus/bibles/Telugu.xml",
      "licence": "CC0 (corpus); translation public domain or freely distributable, see metadata.csv"
     }
    ],
-   "word_types": 32542,
-   "new_forms_not_in_lists": 17680,
-   "bank_items_accepted": 210
+   "word_types": 55670,
+   "new_forms_not_in_lists": 23689,
+   "bank_items_accepted": 267
   }
  },
  "turkish-tr": {
@@ -1690,6 +1927,12 @@
    "coverage_of_reference_words": 0.792,
    "bank_items_accepted": 22667,
    "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/tuk",
+   "licence": "CC BY-SA 3.0",
+   "forms": 804,
+   "bank_items_accepted": 25
   }
  },
  "tuvan-tyv": {
@@ -1791,8 +2034,8 @@
     }
    ],
    "word_types": 26779,
-   "new_forms_not_in_lists": 15048,
-   "bank_items_accepted": 460
+   "new_forms_not_in_lists": 6732,
+   "bank_items_accepted": 179
   }
  },
  "uzbek-uz": {
@@ -1887,7 +2130,7 @@
    "repository": "https://github.com/unimorph/yid",
    "licence": "CC BY-SA 3.0",
    "forms": 3533,
-   "bank_items_accepted": 75
+   "bank_items_accepted": 61
   }
  },
  "yoruba-yo": {
@@ -1899,8 +2142,8 @@
     }
    ],
    "word_types": 452,
-   "new_forms_not_in_lists": 122,
-   "bank_items_accepted": 19
+   "new_forms_not_in_lists": 52,
+   "bank_items_accepted": 11
   }
  },
  "zulu-zu": {
