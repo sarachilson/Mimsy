@@ -40,6 +40,8 @@ Zipf = log10(frequency per billion words). Used for: the continuous `zipf` colum
 ## Generators
 
 **HPLT 3.0 monolingual web data.** Oepen, S., Arefev, N., Aulamo, M., Bañón, M., Buljan, M., Burchell, L., Charpentier, L., Chen, P., Fedorova, M., de Gibert, O., Haddow, B., Hajič, J., Helcl, J., Kutuzov, A., Laippala, V., Li, Z., Luukkonen, R., Malik, B., Mikhailov, V., … Zaragoza, J. (2025). HPLT 3.0: Very large-scale multilingual resources for LLMs and MT. Mono- and bi-lingual data, multilingual evaluation, and pre-trained models. arXiv:2511.01066. Data: https://hplt-project.org/datasets/v3.0 (the packaging is released under CC0; the text comes from web crawls).
+
+**mlmorph (Malayalam real-word check).** Thottingal, S. (2019). Finite state transducer based morphology analysis for Malayalam language. Proceedings of the 2nd Workshop on Technologies for MT of Low Resource Languages, 1–5. Software: https://github.com/smc/mlmorph (MIT), version 1.4.3. Compiled with SFST (Schmid, 2005).
 Used from November 2026: word lists counted from the best-scored web pages of a language (`pipeline/count_hplt.py`), as a further written source next to the Leipzig lists and, for 17 languages, as the only source. Author list and title checked against the arXiv record on 19 Nov 2026.
 
 **Kneser-Ney smoothing.** Kneser, R. & Ney, H. (1995). Improved backing-off for m-gram language modeling. *ICASSP 1995*, 181–184.

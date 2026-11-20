@@ -382,3 +382,10 @@ Persian keeps its subtitle list (704 M words; 28,666 reference words) and its fr
   /home/claude/hold/ for reference; configs removed from languages.py. 202 languages.
 - If they are tried again: restore ZWNJ against a clean Persian list / known endings and train only on words
   attested in a clean source; for South Azerbaijani look for a Leipzig azb Wikipedia list (keeps ZWNJ; not verified).
+
+## 17. Malayalam: morphological analyser as a real-word check (19 Nov 2026, user: "let's add malayalam one as a real word checker. 1% for tamil is ok for now")
+
+- Tried on the two Dravidian languages with open analysers. Tamil, ThamizhiMorph (Apache-2.0, foma): recognises 34% of the 10,000 commonest reference words, flags 1.1% of the bank. Not added.
+- Malayalam, mlmorph (MIT, SFST): recognises 66% of the commonest 10,000 and 62% of a random sample. 51,814 of 300,000 bank items get some reading, most of them only as a compound of two stems, which the analyser builds freely. Counting only readings with one lexical stem plus endings and clitics: 15,783 items (5.3%). These are now in `realwords.tsv.gz` with source `analyser` and are not shown.
+- Script: `pipeline/morphcheck.py`. It must run after `realwords.py`. A rebuild of Malayalam needs both again.
+- Both coverages are far below the 85% the full morphology layer (`morph.py`) asks for, so no morphology columns for these languages.
