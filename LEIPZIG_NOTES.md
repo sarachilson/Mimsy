@@ -385,7 +385,7 @@ Persian keeps its subtitle list (704 M words; 28,666 reference words) and its fr
 
 ## 17. Malayalam: morphological analyser as a real-word check (19 Nov 2026, user: "let's add malayalam one as a real word checker. 1% for tamil is ok for now")
 
-- Tried on the two Dravidian languages with open analysers. Tamil, ThamizhiMorph (Apache-2.0, foma): recognises 34% of the 10,000 commonest reference words, flags 1.1% of the bank. Not added.
+- Tried on the two Dravidian languages with open analysers. Tamil, ThamizhiMorph (Apache-2.0, foma): recognises 34% of the 10,000 commonest reference words, flags 1.1% of the bank. Not added at first; added the same evening (user: "lets add the tamil one as well if it is easy and light weight just to rule out real words"): 3,437 of 300,000 items removed. The lexicon models only, not the guessers. Tamil's leftover `realwords.tsv.gz` from before the HPLT rebuild (Bible hits against the old bank; the Bible is no longer used for Tamil because the corpus is not small) was dropped.
 - Malayalam, mlmorph (MIT, SFST): recognises 66% of the commonest 10,000 and 62% of a random sample. 51,814 of 300,000 bank items get some reading, most of them only as a compound of two stems, which the analyser builds freely. Counting only readings with one lexical stem plus endings and clitics: 15,783 items (5.3%). These are now in `realwords.tsv.gz` with source `analyser` and are not shown.
 - Script: `pipeline/morphcheck.py`. It must run after `realwords.py`. A rebuild of Malayalam needs both again.
 - Both coverages are far below the 85% the full morphology layer (`morph.py`) asks for, so no morphology columns for these languages.
