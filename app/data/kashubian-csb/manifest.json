@@ -679,7 +679,7 @@
  },
  "rules": {},
  "realword_filter": {
-  "date": "2026-10-29",
+  "date": "2026-11-19",
   "bank_items": 21678,
   "removed": 1558,
   "removed_pct": 7.19,
@@ -693,6 +693,7 @@
     "dictionary": "elastic/csb_PL/Kaszebsczi",
     "licence": "see Copyright: ﻿All terms included in this dictionary were compiled by Yurek Hinz (aka Jurk) for the purpose of the Kashubian Spell Checker. Michał Ostrowski and Marek Kwidziń",
     "coverage_of_reference_words": 0.798,
+    "coverage_of_frequent_words": 0.833,
     "bank_items_accepted": 1556,
     "compounding": "off"
    },

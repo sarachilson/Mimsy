@@ -571,7 +571,7 @@
  },
  "rules": {},
  "realword_filter": {
-  "date": "2026-10-29",
+  "date": "2026-11-19",
   "bank_items": 15000,
   "removed": 843,
   "removed_pct": 5.62,
@@ -584,6 +584,7 @@
     "dictionary": "wooorm/ie/index",
     "licence": "Apache-2.0",
     "coverage_of_reference_words": 0.918,
+    "coverage_of_frequent_words": 0.918,
     "bank_items_accepted": 843,
     "compounding": "off"
    }

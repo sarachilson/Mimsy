@@ -855,15 +855,24 @@
  "caution_items": [],
  "caution": null,
  "realword_filter": {
-  "date": "2026-10-29",
+  "date": "2026-11-19",
   "bank_items": 380964,
-  "removed": 8909,
-  "removed_pct": 2.34,
+  "removed": 9983,
+  "removed_pct": 2.62,
   "by_source": {
+   "hunspell": 1633,
    "unimorph": 8909
   },
   "extra_bible_forms": 0,
   "sources": {
+   "hunspell": {
+    "dictionary": "fastspell/fi_FI",
+    "licence": "see fi_FI.license: The dictionary and affix files are from myspell-fi 0.7-18 Debian package. The upstream authors of this package are Martin Vermeer <mv@liisa.pp.fi> and Pauli Vir",
+    "coverage_of_reference_words": 0.426,
+    "coverage_of_frequent_words": 0.911,
+    "bank_items_accepted": 1633,
+    "compounding": "off"
+   },
    "unimorph": {
     "repository": "https://github.com/unimorph/fin",
     "licence": "CC BY-SA 3.0",

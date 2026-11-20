@@ -1384,7 +1384,7 @@
  "caution_items": [],
  "caution": null,
  "realword_filter": {
-  "date": "2026-10-29",
+  "date": "2026-11-19",
   "bank_items": 349002,
   "removed": 2764,
   "removed_pct": 0.79,
@@ -1397,6 +1397,7 @@
     "dictionary": "wooorm/hr/index",
     "licence": "(LGPL-2.1 OR SISSL)",
     "coverage_of_reference_words": 0.984,
+    "coverage_of_frequent_words": 0.948,
     "bank_items_accepted": 2764,
     "compounding": "off"
    },

@@ -698,7 +698,7 @@
   }
  ],
  "realword_filter": {
-  "date": "2026-10-29",
+  "date": "2026-11-19",
   "bank_items": 242223,
   "removed": 1149,
   "removed_pct": 0.47,
@@ -711,6 +711,7 @@
     "dictionary": "libreoffice/si_LK/si_LK",
     "licence": "see LICENSES-en.txt: LICENSE : GPLv3  This software is a syntax checker for Sinhala(si) language. Copyright (C) <2010>  Laknath Semage <blaknath [at] gmail [dot] com>  This program ",
     "coverage_of_reference_words": 0.913,
+    "coverage_of_frequent_words": 0.865,
     "bank_items_accepted": 1149,
     "compounding": "off"
    },

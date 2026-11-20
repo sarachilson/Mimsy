@@ -1870,7 +1870,7 @@
  "caution_items": [],
  "caution": null,
  "realword_filter": {
-  "date": "2026-10-29",
+  "date": "2026-11-19",
   "bank_items": 306747,
   "removed": 2094,
   "removed_pct": 0.68,
@@ -1884,6 +1884,7 @@
     "dictionary": "wooorm/nl/index",
     "licence": "(BSD-3-Clause OR CC-BY-3.0)",
     "coverage_of_reference_words": 0.882,
+    "coverage_of_frequent_words": 0.98,
     "bank_items_accepted": 1909,
     "compounding": "off"
    },

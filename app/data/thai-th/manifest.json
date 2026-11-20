@@ -7785,5 +7785,29 @@
   "lists": {
    "tha_newscrawl_2011_100K": 1637599
   }
+ },
+ "realword_filter": {
+  "date": "2026-11-19",
+  "bank_items": 327771,
+  "removed": 606,
+  "removed_pct": 0.18,
+  "by_source": {
+   "hunspell": 606
+  },
+  "extra_bible_forms": 0,
+  "sources": {
+   "hunspell": {
+    "dictionary": "libreoffice/th_TH/th_TH",
+    "licence": "see README_th_TH.txt: name   :  th_TH version of the thai dictionary date   :  2019.05.30 License:  LGPL  This dictionary, Thai wordlist are compound from   - LEXiTRON dictionary (ht",
+    "coverage_of_reference_words": 0.216,
+    "coverage_of_frequent_words": 0.716,
+    "bank_items_accepted": 606,
+    "compounding": "off"
+   },
+   "bible_skipped": {
+    "reason": "large corpus; Bible texts are used for small-corpus languages only"
+   }
+  },
+  "rule": "a bank item is dropped if a Hunspell dictionary (affixes on, compounding off, lower-case or capitalised) accepts it, if it is a UniMorph lemma or form, or if it occurs (in lower case, in cased scripts) in a Bible translation"
  }
 }

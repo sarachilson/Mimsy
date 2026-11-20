@@ -1300,15 +1300,24 @@
   }
  ],
  "realword_filter": {
-  "date": "2026-11-12",
+  "date": "2026-11-19",
   "bank_items": 120000,
-  "removed": 45,
-  "removed_pct": 0.04,
+  "removed": 3370,
+  "removed_pct": 2.81,
   "by_source": {
+   "hunspell": 3359,
    "unimorph": 45
   },
   "extra_bible_forms": 0,
   "sources": {
+   "hunspell": {
+    "dictionary": "elastic/kk/kk",
+    "licence": "see README.txt: ﻿\t\tKazakh Language Dictionary for Hunspell  This dictionary has been developed under the OpenOffice:Lingucomponent:Spell Checking/Dictionaries subproject.  The ",
+    "coverage_of_reference_words": 0.262,
+    "coverage_of_frequent_words": 0.846,
+    "bank_items_accepted": 3359,
+    "compounding": "off"
+   },
    "unimorph": {
     "repository": "https://github.com/unimorph/kaz",
     "licence": "CC BY-SA 3.0",

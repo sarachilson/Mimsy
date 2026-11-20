@@ -4,6 +4,7 @@
    "dictionary": "libreoffice/af_ZA/af_ZA",
    "licence": "see README_af_ZA.txt: MySpell Afrikaans Spellchecker ------------------------------  1. Welcome 2. Copyright 3. Installation and Setup 4. Contributing 5. Copying  Enjoy!  1. Welcome ",
    "coverage_of_reference_words": 0.629,
+   "coverage_of_frequent_words": 0.895,
    "bank_items_accepted": 516,
    "compounding": "off"
   },
@@ -30,6 +31,7 @@
    "dictionary": "libreoffice/sq_AL/sq_AL",
    "licence": "see README.txt: Myspell dictionary for Albanian Version 1.6.4 (15.07.2011)  This dictionary is released under GPL license version 2.0 or later. You can find the text of the lic",
    "coverage_of_reference_words": 0.983,
+   "coverage_of_frequent_words": 0.892,
    "bank_items_accepted": 7924,
    "compounding": "off"
   },
@@ -48,6 +50,7 @@
    "dictionary": "elastic/am_ET/am_ET",
    "licence": "see Copyright: The contents of this package are provided \"as is\" into the public domain by the Ge'ez Frontier Foundation (GFF).  The GFF makes no representations or warranties",
    "coverage_of_reference_words": 0.542,
+   "coverage_of_frequent_words": 0.976,
    "bank_items_accepted": 2865,
    "compounding": "off"
   },
@@ -74,6 +77,7 @@
    "dictionary": "libreoffice/ar/ar",
    "licence": "see COPYING.txt: GPL 2.0/LGPL 2.1/MPL 1.1 tri-license  The contents of this software may be used under the terms of the GNU General Public License Version 2 or later (the \"GPL\")",
    "coverage_of_reference_words": 0.98,
+   "coverage_of_frequent_words": 0.95,
    "bank_items_accepted": 39935,
    "compounding": "off"
   },
@@ -90,17 +94,21 @@
  "aragonese-an": {
   "hunspell": {
    "dictionary": "libreoffice/an_ES/an_ES",
-   "licence": "see LICENSES-en.txt: (en) Aragonese spelling dictionary. Version 0.2. (beta) Copyright (c) 2011 Santiago Paricio (sparicio<at>gmail<dot>com) Copyright (c) 2011 Juan Pablo Mart�nez (",
-   "coverage_of_reference_words": 0.615,
-   "bank_items_accepted": 1376,
+   "licence": "see LICENSES-en.txt: Aragonese spelling dictionary — version 1.0.0  Copyright (C) 2011 Santiago Paricio. Copyright (C) 2011–2026 Juan Pablo Martínez.  The dictionary and affix files",
+   "coverage_of_reference_words": 0.73,
+   "coverage_of_frequent_words": 0.87,
+   "bank_items_accepted": 2177,
    "compounding": "off"
   }
  },
  "armenian-hy": {
-  "hunspell_skipped": {
+  "hunspell": {
    "dictionary": "wooorm/hy/index",
+   "licence": "(GPL-2.0 OR LGPL-2.1 OR MPL-1.1)",
    "coverage_of_reference_words": 0.256,
-   "reason": "accepts fewer than 50% of the language's reference words"
+   "coverage_of_frequent_words": 0.531,
+   "bank_items_accepted": 1962,
+   "compounding": "off"
   },
   "unimorph": {
    "repository": "https://github.com/unimorph/hye",
@@ -121,10 +129,13 @@
   }
  },
  "assamese-as": {
-  "hunspell_skipped": {
+  "hunspell": {
    "dictionary": "libreoffice/as_IN/as_IN",
+   "licence": "see README_as_IN.txt: Lachit - an Assamese Spell Checker by Bitopan Das, Mridul Kumar Sharmah  It is released under the banner of Bhaxa Xahitya Xonmiloni, Axom and under the GNU Gene",
    "coverage_of_reference_words": 0.257,
-   "reason": "accepts fewer than 50% of the language's reference words"
+   "coverage_of_frequent_words": 0.848,
+   "bank_items_accepted": 735,
+   "compounding": "off"
   },
   "unimorph": {
    "repository": "https://github.com/unimorph/asm",
@@ -145,6 +156,14 @@
   }
  },
  "asturian-ast": {
+  "hunspell": {
+   "dictionary": "fastspell/ast_ES",
+   "licence": "see ast.license: LLICENCIA: \"Correutor ortográficu d'asturianu\" Versión beta 0.02 Diccionariu pa OpenOffice basáu nel Diccionariu Normativu de l'Academia de la Llingua Asturiana",
+   "coverage_of_reference_words": 0.554,
+   "coverage_of_frequent_words": 0.815,
+   "bank_items_accepted": 3229,
+   "compounding": "off"
+  },
   "unimorph": {
    "repository": "https://github.com/unimorph/ast",
    "licence": "CC BY-SA 3.0",
@@ -153,10 +172,13 @@
   }
  },
  "azerbaijani-az": {
-  "hunspell_skipped": {
+  "hunspell": {
    "dictionary": "elastic/az_AZ-latin/az-Latn-AZ",
+   "licence": "see Copyright: Aspell dictionary for Azerbaijani Copyright 2004 Metin Amiroff <metin@karegen.com>                Kevin P. Scannell <scannell@slu.edu> \t       Orkhan Jafarov <o",
    "coverage_of_reference_words": 0.108,
-   "reason": "accepts fewer than 50% of the language's reference words"
+   "coverage_of_frequent_words": 0.906,
+   "bank_items_accepted": 28,
+   "compounding": "off"
   },
   "unimorph": {
    "repository": "https://github.com/unimorph/aze",
@@ -178,6 +200,7 @@
    "dictionary": "wooorm/eu/index",
    "licence": "GPL-2.0",
    "coverage_of_reference_words": 0.928,
+   "coverage_of_frequent_words": 0.951,
    "bank_items_accepted": 20170,
    "compounding": "off"
   },
@@ -200,6 +223,14 @@
   }
  },
  "belarusian-be": {
+  "hunspell": {
+   "dictionary": "libreoffice/be_BY/be-official",
+   "licence": "see README_be_BY.txt: Belarusian Spellchecker Dictionary for official orthography 2008  Dictionary based on Belarusian Grammar Database (https://bnkorpus.info/grammar.html) by Aleś B",
+   "coverage_of_reference_words": 0.755,
+   "coverage_of_frequent_words": 0.829,
+   "bank_items_accepted": 6364,
+   "compounding": "off"
+  },
   "unimorph": {
    "repository": "https://github.com/unimorph/bel",
    "licence": "CC BY-SA 3.0",
@@ -227,6 +258,7 @@
    "dictionary": "libreoffice/bn_BD/bn_BD",
    "licence": "see COPYING: GNU GENERAL PUBLIC LICENSE \t\t       Version 2, June 1991   Copyright (C) 1989, 1991 Free Software Foundation, Inc.                        59 Temple Place, Suite",
    "coverage_of_reference_words": 0.629,
+   "coverage_of_frequent_words": 0.907,
    "bank_items_accepted": 7515,
    "compounding": "off"
   },
@@ -257,6 +289,7 @@
    "dictionary": "libreoffice/bs_BA/bs_BA",
    "licence": "see README.txt: The contents of this software may be used under the terms of the GNU General Public License Version 2 or later or the GNU Lesser General Public License Version ",
    "coverage_of_reference_words": 0.937,
+   "coverage_of_frequent_words": 0.875,
    "bank_items_accepted": 1541,
    "compounding": "off"
   },
@@ -269,6 +302,7 @@
    "dictionary": "wooorm/br/index",
    "licence": "(GPL-2.0 OR LGPL-2.1 OR MPL-1.1)",
    "coverage_of_reference_words": 0.766,
+   "coverage_of_frequent_words": 0.86,
    "bank_items_accepted": 5554,
    "compounding": "off"
   },
@@ -295,6 +329,7 @@
    "dictionary": "wooorm/bg/index",
    "licence": "(GPL-2.0 OR LGPL-2.1 OR MPL-1.1)",
    "coverage_of_reference_words": 0.99,
+   "coverage_of_frequent_words": 0.934,
    "bank_items_accepted": 4101,
    "compounding": "off"
   },
@@ -313,6 +348,7 @@
    "dictionary": "wooorm/ca/index",
    "licence": "(GPL-2.0 OR LGPL-2.1)",
    "coverage_of_reference_words": 0.948,
+   "coverage_of_frequent_words": 0.937,
    "bank_items_accepted": 4315,
    "compounding": "off"
   },
@@ -351,6 +387,7 @@
    "dictionary": "wooorm/hr/index",
    "licence": "(LGPL-2.1 OR SISSL)",
    "coverage_of_reference_words": 0.984,
+   "coverage_of_frequent_words": 0.948,
    "bank_items_accepted": 2764,
    "compounding": "off"
   },
@@ -363,6 +400,7 @@
    "dictionary": "wooorm/cs/index",
    "licence": "GPL-2.0",
    "coverage_of_reference_words": 0.992,
+   "coverage_of_frequent_words": 0.971,
    "bank_items_accepted": 8082,
    "compounding": "off"
   },
@@ -381,6 +419,7 @@
    "dictionary": "wooorm/da/index",
    "licence": "(GPL-2.0 OR LGPL-2.1 OR MPL-1.1)",
    "coverage_of_reference_words": 0.918,
+   "coverage_of_frequent_words": 0.99,
    "bank_items_accepted": 3347,
    "compounding": "off"
   },
@@ -399,6 +438,7 @@
    "dictionary": "wooorm/nl/index",
    "licence": "(BSD-3-Clause OR CC-BY-3.0)",
    "coverage_of_reference_words": 0.882,
+   "coverage_of_frequent_words": 0.98,
    "bank_items_accepted": 1909,
    "compounding": "off"
   },
@@ -417,6 +457,7 @@
    "dictionary": "wooorm/en/index",
    "licence": "(MIT AND BSD)",
    "coverage_of_reference_words": 0.815,
+   "coverage_of_frequent_words": 0.985,
    "bank_items_accepted": 36,
    "compounding": "off"
   },
@@ -435,6 +476,7 @@
    "dictionary": "wooorm/eo/index",
    "licence": "GPL-2.0",
    "coverage_of_reference_words": 0.728,
+   "coverage_of_frequent_words": 0.915,
    "bank_items_accepted": 11598,
    "compounding": "off"
   },
@@ -459,6 +501,7 @@
    "dictionary": "wooorm/et/index",
    "licence": "LGPL-2.1",
    "coverage_of_reference_words": 0.783,
+   "coverage_of_frequent_words": 0.891,
    "bank_items_accepted": 13757,
    "compounding": "off"
   },
@@ -477,6 +520,7 @@
    "dictionary": "wooorm/fo/index",
    "licence": "(GPL-2.0 OR LGPL-2.1 OR MPL-1.1)",
    "coverage_of_reference_words": 0.785,
+   "coverage_of_frequent_words": 0.974,
    "bank_items_accepted": 7862,
    "compounding": "off"
   },
@@ -488,6 +532,14 @@
   }
  },
  "finnish-fi": {
+  "hunspell": {
+   "dictionary": "fastspell/fi_FI",
+   "licence": "see fi_FI.license: The dictionary and affix files are from myspell-fi 0.7-18 Debian package. The upstream authors of this package are Martin Vermeer <mv@liisa.pp.fi> and Pauli Vir",
+   "coverage_of_reference_words": 0.426,
+   "coverage_of_frequent_words": 0.911,
+   "bank_items_accepted": 1633,
+   "compounding": "off"
+  },
   "unimorph": {
    "repository": "https://github.com/unimorph/fin",
    "licence": "CC BY-SA 3.0",
@@ -503,6 +555,7 @@
    "dictionary": "wooorm/fr/index",
    "licence": "MPL-2.0",
    "coverage_of_reference_words": 0.978,
+   "coverage_of_frequent_words": 0.969,
    "bank_items_accepted": 2440,
    "compounding": "off"
   },
@@ -521,6 +574,7 @@
    "dictionary": "wooorm/gl/index",
    "licence": "GPL-3.0",
    "coverage_of_reference_words": 0.851,
+   "coverage_of_frequent_words": 0.977,
    "bank_items_accepted": 8126,
    "compounding": "off"
   }
@@ -549,6 +603,7 @@
    "dictionary": "wooorm/ka/index",
    "licence": "MIT",
    "coverage_of_reference_words": 0.555,
+   "coverage_of_frequent_words": 0.727,
    "bank_items_accepted": 3611,
    "compounding": "off"
   },
@@ -564,6 +619,7 @@
    "dictionary": "wooorm/de/index",
    "licence": "(GPL-2.0 OR GPL-3.0)",
    "coverage_of_reference_words": 0.702,
+   "coverage_of_frequent_words": 0.894,
    "bank_items_accepted": 519,
    "compounding": "off"
   },
@@ -595,6 +651,7 @@
    "dictionary": "wooorm/el/index",
    "licence": "(GPL-2.0 OR LGPL-2.1 OR MPL-1.1)",
    "coverage_of_reference_words": 0.988,
+   "coverage_of_frequent_words": 0.941,
    "bank_items_accepted": 1628,
    "compounding": "off"
   },
@@ -617,10 +674,13 @@
   }
  },
  "gujarati-gu": {
-  "hunspell_skipped": {
+  "hunspell": {
    "dictionary": "libreoffice/gu_IN/gu_IN",
+   "licence": "see README_gu_IN.txt: Gujarati Dictionary for OpenOffice.org  Maintained By: Kartik Mistry <kartik dot mistry at gmail dot com>  Original Word List By: Utkarsh Project volunteers <su",
    "coverage_of_reference_words": 0.232,
-   "reason": "accepts fewer than 50% of the language's reference words"
+   "coverage_of_frequent_words": 0.777,
+   "bank_items_accepted": 2381,
+   "compounding": "off"
   },
   "unimorph": {
    "repository": "https://github.com/unimorph/guj",
@@ -645,6 +705,14 @@
   }
  },
  "haitian-ht": {
+  "hunspell": {
+   "dictionary": "fastspell/ht_HT",
+   "licence": "see ht_HT.license: 1. Version This is version 0.05 of hunspell-ht. 2. Copyright Haitian Creole spell checker Copyright 2009 Jean Came Poulard and Kevin P. Scannell This program is",
+   "coverage_of_reference_words": 0.636,
+   "coverage_of_frequent_words": 0.728,
+   "bank_items_accepted": 315,
+   "compounding": "off"
+  },
   "bible": {
    "texts": [
     {
@@ -662,10 +730,13 @@
   }
  },
  "hausa-ha": {
-  "hunspell_skipped": {
+  "hunspell": {
    "dictionary": "elastic/ha_GH/ha-GH",
+   "licence": "see the collection's licence file",
    "coverage_of_reference_words": 0.076,
-   "reason": "accepts fewer than 50% of the language's reference words"
+   "coverage_of_frequent_words": 0.242,
+   "bank_items_accepted": 1342,
+   "compounding": "off"
   },
   "bible": {
    "texts": [
@@ -688,6 +759,7 @@
    "dictionary": "wooorm/he/index",
    "licence": "AGPL-3.0",
    "coverage_of_reference_words": 0.994,
+   "coverage_of_frequent_words": 0.949,
    "bank_items_accepted": 23190,
    "compounding": "off"
   },
@@ -706,6 +778,7 @@
    "dictionary": "libreoffice/hi_IN/hi_IN",
    "licence": "see Copyright: GNU Aspell Hindi Word List Package     Copyright � 2005 Swapnil {Hajare, Sant} <janabhaaratii@ncst.ernet.in>      This program is free software; you can redistr",
    "coverage_of_reference_words": 0.596,
+   "coverage_of_frequent_words": 0.877,
    "bank_items_accepted": 5574,
    "compounding": "off"
   },
@@ -740,6 +813,7 @@
    "dictionary": "wooorm/hu/index",
    "licence": "(GPL-2.0 OR LGPL-2.1 OR MPL-1.1)",
    "coverage_of_reference_words": 0.974,
+   "coverage_of_frequent_words": 0.937,
    "bank_items_accepted": 24220,
    "compounding": "off"
   },
@@ -758,6 +832,7 @@
    "dictionary": "wooorm/is/index",
    "licence": "CC-BY-SA-3.0",
    "coverage_of_reference_words": 0.764,
+   "coverage_of_frequent_words": 0.929,
    "bank_items_accepted": 3843,
    "compounding": "off"
   },
@@ -802,6 +877,7 @@
    "dictionary": "libreoffice/id/id_ID",
    "licence": "see the collection's licence file",
    "coverage_of_reference_words": 0.927,
+   "coverage_of_frequent_words": 0.856,
    "bank_items_accepted": 1600,
    "compounding": "off"
   },
@@ -820,6 +896,7 @@
    "dictionary": "wooorm/ia/index",
    "licence": "GPL-3.0",
    "coverage_of_reference_words": 0.901,
+   "coverage_of_frequent_words": 0.981,
    "bank_items_accepted": 1614,
    "compounding": "off"
   }
@@ -829,6 +906,7 @@
    "dictionary": "wooorm/ie/index",
    "licence": "Apache-2.0",
    "coverage_of_reference_words": 0.918,
+   "coverage_of_frequent_words": 0.918,
    "bank_items_accepted": 843,
    "compounding": "off"
   }
@@ -838,6 +916,7 @@
    "dictionary": "wooorm/ga/index",
    "licence": "GPL-2.0",
    "coverage_of_reference_words": 0.778,
+   "coverage_of_frequent_words": 0.928,
    "bank_items_accepted": 5430,
    "compounding": "off"
   },
@@ -853,6 +932,7 @@
    "dictionary": "wooorm/it/index",
    "licence": "GPL-3.0",
    "coverage_of_reference_words": 0.973,
+   "coverage_of_frequent_words": 0.914,
    "bank_items_accepted": 3623,
    "compounding": "off"
   },
@@ -867,10 +947,13 @@
   }
  },
  "kannada-kn": {
-  "hunspell_skipped": {
+  "hunspell": {
    "dictionary": "libreoffice/kn_IN/kn_IN",
+   "licence": "see the collection's licence file",
    "coverage_of_reference_words": 0.173,
-   "reason": "accepts fewer than 50% of the language's reference words"
+   "coverage_of_frequent_words": 0.657,
+   "bank_items_accepted": 1594,
+   "compounding": "off"
   },
   "unimorph": {
    "repository": "https://github.com/unimorph/kan",
@@ -903,6 +986,7 @@
    "dictionary": "elastic/csb_PL/Kaszebsczi",
    "licence": "see Copyright: ﻿All terms included in this dictionary were compiled by Yurek Hinz (aka Jurk) for the purpose of the Kashubian Spell Checker. Michał Ostrowski and Marek Kwidziń",
    "coverage_of_reference_words": 0.798,
+   "coverage_of_frequent_words": 0.833,
    "bank_items_accepted": 1556,
    "compounding": "off"
   },
@@ -914,6 +998,14 @@
   }
  },
  "kazakh-kk": {
+  "hunspell": {
+   "dictionary": "elastic/kk/kk",
+   "licence": "see README.txt: ﻿\t\tKazakh Language Dictionary for Hunspell  This dictionary has been developed under the OpenOffice:Lingucomponent:Spell Checking/Dictionaries subproject.  The ",
+   "coverage_of_reference_words": 0.262,
+   "coverage_of_frequent_words": 0.846,
+   "bank_items_accepted": 3359,
+   "compounding": "off"
+  },
   "unimorph": {
    "repository": "https://github.com/unimorph/kaz",
    "licence": "CC BY-SA 3.0",
@@ -922,10 +1014,13 @@
   }
  },
  "kurdish-ku": {
-  "hunspell_skipped": {
+  "hunspell": {
    "dictionary": "libreoffice/ckb/dictionaries/ckb",
+   "licence": "see the collection's licence file",
    "coverage_of_reference_words": 0.403,
-   "reason": "accepts fewer than 50% of the language's reference words"
+   "coverage_of_frequent_words": 0.672,
+   "bank_items_accepted": 10205,
+   "compounding": "off"
   },
   "bible": {
    "texts": [
@@ -940,6 +1035,14 @@
   }
  },
  "kyrgyz-ky": {
+  "hunspell": {
+   "dictionary": "fastspell/ky_KG",
+   "licence": "see the collection's licence file",
+   "coverage_of_reference_words": 0.066,
+   "coverage_of_frequent_words": 0.87,
+   "bank_items_accepted": 22,
+   "compounding": "off"
+  },
   "unimorph": {
    "repository": "https://github.com/unimorph/kir",
    "licence": "CC BY-SA 3.0",
@@ -952,6 +1055,7 @@
    "dictionary": "wooorm/la/index",
    "licence": "GPL-2.0",
    "coverage_of_reference_words": 0.892,
+   "coverage_of_frequent_words": 0.971,
    "bank_items_accepted": 11477,
    "compounding": "off"
   },
@@ -978,6 +1082,7 @@
    "dictionary": "wooorm/lv/index",
    "licence": "LGPL-2.1",
    "coverage_of_reference_words": 0.933,
+   "coverage_of_frequent_words": 0.943,
    "bank_items_accepted": 4691,
    "compounding": "off"
   },
@@ -993,6 +1098,7 @@
    "dictionary": "wooorm/lt/index",
    "licence": "BSD-3-Clause",
    "coverage_of_reference_words": 0.913,
+   "coverage_of_frequent_words": 0.947,
    "bank_items_accepted": 14347,
    "compounding": "off"
   },
@@ -1015,10 +1121,13 @@
   }
  },
  "low_german-nds": {
-  "hunspell_skipped": {
+  "hunspell": {
    "dictionary": "wooorm/nds/index",
+   "licence": "GPL-3.0",
    "coverage_of_reference_words": 0.183,
-   "reason": "accepts fewer than 50% of the language's reference words"
+   "coverage_of_frequent_words": 0.518,
+   "bank_items_accepted": 539,
+   "compounding": "off"
   },
   "unimorph": {
    "repository": "https://github.com/unimorph/nds",
@@ -1032,6 +1141,7 @@
    "dictionary": "elastic/dsb/dsb",
    "licence": "see COPYING.txt: GNU GENERAL PUBLIC LICENSE \t\t       Version 2, June 1991   Copyright (C) 1989, 1991 Free Software Foundation, Inc.,  51 Franklin Street, Fifth Floor, Boston, MA",
    "coverage_of_reference_words": 0.905,
+   "coverage_of_frequent_words": 0.932,
    "bank_items_accepted": 1731,
    "compounding": "off"
   },
@@ -1047,6 +1157,7 @@
    "dictionary": "wooorm/lb/index",
    "licence": "EUPL-1.1",
    "coverage_of_reference_words": 0.533,
+   "coverage_of_frequent_words": 0.916,
    "bank_items_accepted": 1588,
    "compounding": "off"
   }
@@ -1056,6 +1167,7 @@
    "dictionary": "wooorm/mk/index",
    "licence": "GPL-3.0",
    "coverage_of_reference_words": 0.985,
+   "coverage_of_frequent_words": 0.99,
    "bank_items_accepted": 9643,
    "compounding": "off"
   },
@@ -1070,10 +1182,13 @@
   }
  },
  "malagasy-mg": {
-  "hunspell_skipped": {
+  "hunspell": {
    "dictionary": "elastic/mg_MG/mg_MG",
+   "licence": "see README_mg_MG.txt: 1. Version  This is version 0.03 of myspell-mg.  2. Copyright  Myspell dictionary for Malagasy Copyright 2004 Rado Ramarotafika <rado@linuxmg.org>              ",
    "coverage_of_reference_words": 0.199,
-   "reason": "accepts fewer than 50% of the language's reference words"
+   "coverage_of_frequent_words": 0.754,
+   "bank_items_accepted": 75,
+   "compounding": "off"
   },
   "unimorph": {
    "repository": "https://github.com/unimorph/mlg",
@@ -1098,6 +1213,7 @@
    "dictionary": "elastic/ms_MY/ms_MY",
    "licence": "see README_ms_MY.txt: Copyright   Malay Spellchecker v0.1 - 07/10/04 ----------------------------------------- This is an initial version, please check: http://lingucomponent.openoff",
    "coverage_of_reference_words": 0.851,
+   "coverage_of_frequent_words": 0.843,
    "bank_items_accepted": 3016,
    "compounding": "off"
   },
@@ -1106,6 +1222,14 @@
   }
  },
  "malayalam-ml": {
+  "hunspell": {
+   "dictionary": "fastspell/ml_IN",
+   "licence": "see ml_IN.license: This is a collection of Malayalam words from various sources, prepared for the Hunspell Malayalam spelling checker. Copyright 2007-2011 Santhosh Thottingal <san",
+   "coverage_of_reference_words": 0.146,
+   "coverage_of_frequent_words": 0.507,
+   "bank_items_accepted": 228,
+   "compounding": "off"
+  },
   "bible": {
    "texts": [
     {
@@ -1158,10 +1282,13 @@
   }
  },
  "maori-mi": {
-  "hunspell_skipped": {
+  "hunspell": {
    "dictionary": "elastic/mi_NZ/mi",
+   "licence": "see the collection's licence file",
    "coverage_of_reference_words": 0.376,
-   "reason": "accepts fewer than 50% of the language's reference words"
+   "coverage_of_frequent_words": 0.651,
+   "bank_items_accepted": 1280,
+   "compounding": "off"
   },
   "bible": {
    "texts": [
@@ -1176,10 +1303,13 @@
   }
  },
  "marathi-mr": {
-  "hunspell_skipped": {
+  "hunspell": {
    "dictionary": "libreoffice/mr_IN/mr_IN",
+   "licence": "see COPYING: GNU GENERAL PUBLIC LICENSE \t\t       Version 2, June 1991   Copyright (C) 1989, 1991 Free Software Foundation, Inc.                        59 Temple Place, Suite",
    "coverage_of_reference_words": 0.492,
-   "reason": "accepts fewer than 50% of the language's reference words"
+   "coverage_of_frequent_words": 0.949,
+   "bank_items_accepted": 9457,
+   "compounding": "off"
   },
   "bible": {
    "texts": [
@@ -1202,6 +1332,7 @@
    "dictionary": "wooorm/mn/index",
    "licence": "LPPL-1.3c",
    "coverage_of_reference_words": 0.807,
+   "coverage_of_frequent_words": 0.516,
    "bank_items_accepted": 19988,
    "compounding": "off"
   },
@@ -1221,10 +1352,13 @@
   }
  },
  "nepali-ne": {
-  "hunspell_skipped": {
+  "hunspell": {
    "dictionary": "wooorm/ne/index",
+   "licence": "LGPL-2.1",
    "coverage_of_reference_words": 0.43,
-   "reason": "accepts fewer than 50% of the language's reference words"
+   "coverage_of_frequent_words": 0.75,
+   "bank_items_accepted": 5815,
+   "compounding": "off"
   },
   "bible": {
    "texts": [
@@ -1259,6 +1393,7 @@
    "dictionary": "wooorm/nb/index",
    "licence": "GPL-2.0",
    "coverage_of_reference_words": 0.934,
+   "coverage_of_frequent_words": 0.928,
    "bank_items_accepted": 4152,
    "compounding": "off"
   },
@@ -1277,6 +1412,7 @@
    "dictionary": "wooorm/nn/index",
    "licence": "GPL-2.0",
    "coverage_of_reference_words": 0.696,
+   "coverage_of_frequent_words": 0.86,
    "bank_items_accepted": 5608,
    "compounding": "off"
   },
@@ -1292,6 +1428,7 @@
    "dictionary": "wooorm/oc/index",
    "licence": "GPL-2.0",
    "coverage_of_reference_words": 0.514,
+   "coverage_of_frequent_words": 0.787,
    "bank_items_accepted": 7049,
    "compounding": "off"
   },
@@ -1314,8 +1451,9 @@
   "hunspell": {
    "dictionary": "elastic/pap_AW/Papiamento",
    "licence": "see the collection's licence file",
-   "coverage_of_reference_words": 0.556,
-   "bank_items_accepted": 214,
+   "coverage_of_reference_words": 0.255,
+   "coverage_of_frequent_words": 0.636,
+   "bank_items_accepted": 162,
    "compounding": "off"
   }
  },
@@ -1332,6 +1470,7 @@
    "dictionary": "wooorm/fa/index",
    "licence": "Apache-2.0",
    "coverage_of_reference_words": 0.591,
+   "coverage_of_frequent_words": 0.766,
    "bank_items_accepted": 4547,
    "compounding": "off"
   },
@@ -1350,6 +1489,7 @@
    "dictionary": "wooorm/pl/index",
    "licence": "(GPL-3.0 OR LGPL-3.0 OR MPL-2.0)",
    "coverage_of_reference_words": 0.987,
+   "coverage_of_frequent_words": 0.988,
    "bank_items_accepted": 5900,
    "compounding": "off"
   },
@@ -1368,6 +1508,7 @@
    "dictionary": "wooorm/pt-PT/index",
    "licence": "(GPL-2.0 OR LGPL-2.1 OR MPL-1.1)",
    "coverage_of_reference_words": 0.863,
+   "coverage_of_frequent_words": 0.934,
    "bank_items_accepted": 2541,
    "compounding": "off"
   },
@@ -1386,6 +1527,7 @@
    "dictionary": "wooorm/pt/index",
    "licence": "(LGPL-3.0 OR MPL-2.0)",
    "coverage_of_reference_words": 0.961,
+   "coverage_of_frequent_words": 0.937,
    "bank_items_accepted": 15843,
    "compounding": "off"
   },
@@ -1404,6 +1546,7 @@
    "dictionary": "wooorm/pt-PT/index",
    "licence": "(GPL-2.0 OR LGPL-2.1 OR MPL-1.1)",
    "coverage_of_reference_words": 0.896,
+   "coverage_of_frequent_words": 0.896,
    "bank_items_accepted": 1235,
    "compounding": "off"
   },
@@ -1445,7 +1588,8 @@
   "hunspell_skipped": {
    "dictionary": "libreoffice/pa_IN/pa_IN",
    "coverage_of_reference_words": 0.015,
-   "reason": "accepts fewer than 50% of the language's reference words"
+   "coverage_of_frequent_words": 0.112,
+   "reason": "accepts fewer than 50% of a sample of the language's reference words and fewer than 20% of the 5,000 most frequent"
   },
   "bible": {
    "texts": [
@@ -1460,6 +1604,14 @@
   }
  },
  "quechua-qu": {
+  "hunspell": {
+   "dictionary": "fastspell/qu_BO",
+   "licence": "see qu_BO.license: Quechua dictionary for aspell. Copyright (C) 2004, 2007 Amos Batto This program is free software; you can redistribute it and/or modify it under the terms of th",
+   "coverage_of_reference_words": 0.362,
+   "coverage_of_frequent_words": 0.362,
+   "bank_items_accepted": 1199,
+   "compounding": "off"
+  },
   "unimorph": {
    "repository": "https://github.com/unimorph/que",
    "licence": "CC BY-SA 3.0",
@@ -1472,6 +1624,7 @@
    "dictionary": "wooorm/ro/index",
    "licence": "(GPL-2.0 OR LGPL-2.1 OR MPL-1.1)",
    "coverage_of_reference_words": 0.984,
+   "coverage_of_frequent_words": 0.934,
    "bank_items_accepted": 3755,
    "compounding": "off"
   },
@@ -1490,6 +1643,7 @@
    "dictionary": "wooorm/ru/index",
    "licence": "BSD-3-Clause",
    "coverage_of_reference_words": 0.976,
+   "coverage_of_frequent_words": 0.961,
    "bank_items_accepted": 2214,
    "compounding": "off"
   },
@@ -1508,6 +1662,7 @@
    "dictionary": "libreoffice/sa_IN/sa_IN",
    "licence": "see the collection's licence file",
    "coverage_of_reference_words": 0.791,
+   "coverage_of_frequent_words": 0.998,
    "bank_items_accepted": 5841,
    "compounding": "off"
   },
@@ -1610,6 +1765,7 @@
    "dictionary": "wooorm/gd/index",
    "licence": "GPL-3.0",
    "coverage_of_reference_words": 0.545,
+   "coverage_of_frequent_words": 0.826,
    "bank_items_accepted": 4155,
    "compounding": "off"
   },
@@ -1636,6 +1792,7 @@
    "dictionary": "wooorm/sr-Latn/index",
    "licence": "(GPL-2.0 OR LGPL-2.1 OR MPL-1.1 OR CC-BY-SA-3.0)",
    "coverage_of_reference_words": 0.847,
+   "coverage_of_frequent_words": 0.962,
    "bank_items_accepted": 2412,
    "compounding": "off"
   },
@@ -1671,6 +1828,7 @@
    "dictionary": "libreoffice/si_LK/si_LK",
    "licence": "see LICENSES-en.txt: LICENSE : GPLv3  This software is a syntax checker for Sinhala(si) language. Copyright (C) <2010>  Laknath Semage <blaknath [at] gmail [dot] com>  This program ",
    "coverage_of_reference_words": 0.913,
+   "coverage_of_frequent_words": 0.865,
    "bank_items_accepted": 1149,
    "compounding": "off"
   },
@@ -1683,6 +1841,7 @@
    "dictionary": "wooorm/sk/index",
    "licence": "(GPL-2.0 OR LGPL-2.1 OR MPL-1.1)",
    "coverage_of_reference_words": 0.985,
+   "coverage_of_frequent_words": 0.946,
    "bank_items_accepted": 6613,
    "compounding": "off"
   },
@@ -1695,6 +1854,7 @@
    "dictionary": "wooorm/sl/index",
    "licence": "(GPL-3.0 OR LGPL-2.1)",
    "coverage_of_reference_words": 0.996,
+   "coverage_of_frequent_words": 0.963,
    "bank_items_accepted": 5374,
    "compounding": "off"
   },
@@ -1709,6 +1869,14 @@
   }
  },
  "somali-so": {
+  "hunspell": {
+   "dictionary": "fastspell/so_SO",
+   "licence": "see so_SO.license: 1. Version This is version 0.1 of myspell-so. 2. Copyright Copyright 2009 Mohamed I. Mursal and Kevin P. Scannell This program is free software; you can redistr",
+   "coverage_of_reference_words": 0.113,
+   "coverage_of_frequent_words": 0.738,
+   "bank_items_accepted": 671,
+   "compounding": "off"
+  },
   "bible": {
    "texts": [
     {
@@ -1730,6 +1898,7 @@
    "dictionary": "wooorm/es/index",
    "licence": "(GPL-3.0 OR LGPL-3.0 OR MPL-1.1)",
    "coverage_of_reference_words": 0.919,
+   "coverage_of_frequent_words": 0.925,
    "bank_items_accepted": 3356,
    "compounding": "off"
   },
@@ -1748,6 +1917,7 @@
    "dictionary": "wooorm/es-MX/index",
    "licence": "(GPL-3.0 OR LGPL-3.0 OR MPL-1.1)",
    "coverage_of_reference_words": 0.913,
+   "coverage_of_frequent_words": 0.928,
    "bank_items_accepted": 7304,
    "compounding": "off"
   },
@@ -1762,10 +1932,13 @@
   }
  },
  "swahili-sw": {
-  "hunspell_skipped": {
+  "hunspell": {
    "dictionary": "libreoffice/sw_TZ/sw_TZ",
+   "licence": "see README_sw_TZ.txt: README Swahili Myspell Dictionary Release 1.1 2005-08-17  1. Intro   Myspell Swahili Dictionary - Compiled by Alberto Escudero-Pascual aep@it46.se http://www.it",
    "coverage_of_reference_words": 0.236,
-   "reason": "accepts fewer than 50% of the language's reference words"
+   "coverage_of_frequent_words": 0.768,
+   "bank_items_accepted": 2404,
+   "compounding": "off"
   },
   "bible": {
    "texts": [
@@ -1784,6 +1957,7 @@
    "dictionary": "wooorm/sv/index",
    "licence": "LGPL-3.0",
    "coverage_of_reference_words": 0.938,
+   "coverage_of_frequent_words": 0.973,
    "bank_items_accepted": 1467,
    "compounding": "off"
   },
@@ -1798,6 +1972,14 @@
   }
  },
  "tagalog-tl": {
+  "hunspell": {
+   "dictionary": "fastspell/tl_PH",
+   "licence": "see tl_PH.license: 1. Version This is version 0.02 of myspell-tl. 2. Copyright Myspell dictionary for Tagalog Copyright 2004 Ramil Sagum <ramil@astra.ph> Kevin P. Scannell <scanne",
+   "coverage_of_reference_words": 0.153,
+   "coverage_of_frequent_words": 0.593,
+   "bank_items_accepted": 35,
+   "compounding": "off"
+  },
   "unimorph": {
    "repository": "https://github.com/unimorph/tgl",
    "licence": "CC BY-SA 3.0",
@@ -1821,10 +2003,13 @@
   }
  },
  "tajik-tg": {
-  "hunspell_skipped": {
+  "hunspell": {
    "dictionary": "elastic/tg/tg",
+   "licence": "see README.txt: Tajik Hunspell Dictionary.  Tajik Hunspell Dictionary is organized on the basis of Apache License Version 2.0, January 2004 http://www.apache.org/licenses/  Taj",
    "coverage_of_reference_words": 0.445,
-   "reason": "accepts fewer than 50% of the language's reference words"
+   "coverage_of_frequent_words": 0.776,
+   "bank_items_accepted": 4284,
+   "compounding": "off"
   },
   "unimorph": {
    "repository": "https://github.com/unimorph/tgk",
@@ -1845,10 +2030,13 @@
   }
  },
  "tamil-ta": {
-  "hunspell_skipped": {
+  "hunspell": {
    "dictionary": "libreoffice/ta_IN/ta_IN",
+   "licence": "see COPYING: MOZILLA PUBLIC LICENSE                                 Version 1.1                                ---------------  1. Definitions.       1.0.1. \"Commercial Use\"",
    "coverage_of_reference_words": 0.163,
-   "reason": "accepts fewer than 50% of the language's reference words"
+   "coverage_of_frequent_words": 0.598,
+   "bank_items_accepted": 280,
+   "compounding": "off"
   },
   "bible": {
    "texts": [
@@ -1867,6 +2055,14 @@
   }
  },
  "tatar-tt": {
+  "hunspell": {
+   "dictionary": "fastspell/tt_RU",
+   "licence": "see the collection's licence file",
+   "coverage_of_reference_words": 0.351,
+   "coverage_of_frequent_words": 0.798,
+   "bank_items_accepted": 2881,
+   "compounding": "off"
+  },
   "unimorph": {
    "repository": "https://github.com/unimorph/tat",
    "licence": "CC BY-SA 3.0",
@@ -1875,10 +2071,13 @@
   }
  },
  "telugu-te": {
-  "hunspell_skipped": {
+  "hunspell": {
    "dictionary": "libreoffice/te_IN/te_IN",
+   "licence": "see README_te_IN.txt: GNU Hunspell Telugu  Word List Package adaptation      Copyright � 2010 adaptation to Hunspell, Arjuna Rao Chavala  (arjunaraoc at googlemail dot com)     Copyr",
    "coverage_of_reference_words": 0.13,
-   "reason": "accepts fewer than 50% of the language's reference words"
+   "coverage_of_frequent_words": 0.488,
+   "bank_items_accepted": 878,
+   "compounding": "off"
   },
   "unimorph": {
    "repository": "https://github.com/unimorph/tel",
@@ -1907,6 +2106,7 @@
    "dictionary": "wooorm/tr/index",
    "licence": "MIT",
    "coverage_of_reference_words": 0.98,
+   "coverage_of_frequent_words": 0.947,
    "bank_items_accepted": 5683,
    "compounding": "off"
   },
@@ -1925,6 +2125,7 @@
    "dictionary": "wooorm/tk/index",
    "licence": "Apache-2.0",
    "coverage_of_reference_words": 0.792,
+   "coverage_of_frequent_words": 0.965,
    "bank_items_accepted": 22667,
    "compounding": "off"
   },
@@ -1948,6 +2149,7 @@
    "dictionary": "wooorm/uk/index",
    "licence": "GPL-3.0",
    "coverage_of_reference_words": 0.991,
+   "coverage_of_frequent_words": 0.966,
    "bank_items_accepted": 11556,
    "compounding": "off"
   },
@@ -1966,6 +2168,7 @@
    "dictionary": "elastic/hsb/hsb",
    "licence": "see COPYING: GNU GENERAL PUBLIC LICENSE \t\t       Version 2, June 1991   Copyright (C) 1989, 1991 Free Software Foundation, Inc.,  51 Franklin Street, Fifth Floor, Boston, MA",
    "coverage_of_reference_words": 0.786,
+   "coverage_of_frequent_words": 0.922,
    "bank_items_accepted": 9060,
    "compounding": "off"
   },
@@ -1977,6 +2180,14 @@
   }
  },
  "urdu-ur": {
+  "hunspell": {
+   "dictionary": "fastspell/ur_PK",
+   "licence": "see the collection's licence file",
+   "coverage_of_reference_words": 0.526,
+   "coverage_of_frequent_words": 0.92,
+   "bank_items_accepted": 5153,
+   "compounding": "off"
+  },
   "unimorph": {
    "repository": "https://github.com/unimorph/urd",
    "licence": "CC BY-SA 3.0",
@@ -2039,6 +2250,12 @@
   }
  },
  "uzbek-uz": {
+  "hunspell_skipped": {
+   "dictionary": "fastspell/uz_UZ",
+   "coverage_of_reference_words": 0.0,
+   "coverage_of_frequent_words": 0.0,
+   "reason": "accepts fewer than 50% of a sample of the language's reference words and fewer than 20% of the 5,000 most frequent"
+  },
   "unimorph": {
    "repository": "https://github.com/unimorph/uzb",
    "licence": "CC BY-SA 3.0",
@@ -2047,6 +2264,14 @@
   }
  },
  "venetian-vec": {
+  "hunspell": {
+   "dictionary": "fastspell/vec",
+   "licence": "see vec.license: GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 Copyright (C) 2007 Free Software Foundation, Inc. <http://fsf.org/> Everyone is permitted to copy and distrib",
+   "coverage_of_reference_words": 0.28,
+   "coverage_of_frequent_words": 0.395,
+   "bank_items_accepted": 4529,
+   "compounding": "off"
+  },
   "unimorph": {
    "repository": "https://github.com/unimorph/vec",
    "licence": "CC BY-SA 3.0",
@@ -2059,6 +2284,7 @@
    "dictionary": "wooorm/vi/index",
    "licence": "GPL-2.0",
    "coverage_of_reference_words": 0.887,
+   "coverage_of_frequent_words": 0.89,
    "bank_items_accepted": 108,
    "compounding": "off"
   },
@@ -2079,6 +2305,7 @@
    "dictionary": "wooorm/cy/index",
    "licence": "LGPL-3.0",
    "coverage_of_reference_words": 0.753,
+   "coverage_of_frequent_words": 0.908,
    "bank_items_accepted": 8967,
    "compounding": "off"
   },
@@ -2094,6 +2321,7 @@
    "dictionary": "wooorm/fy/index",
    "licence": "GPL-3.0",
    "coverage_of_reference_words": 0.668,
+   "coverage_of_frequent_words": 0.924,
    "bank_items_accepted": 4679,
    "compounding": "off"
   },
@@ -2126,6 +2354,14 @@
   }
  },
  "yiddish-yi": {
+  "hunspell": {
+   "dictionary": "fastspell/yi",
+   "licence": "see yi.license: GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 Copyright (C) 2007 Free Software Foundation, Inc. <http://fsf.org/> Everyone is permitted to copy and distrib",
+   "coverage_of_reference_words": 0.126,
+   "coverage_of_frequent_words": 0.501,
+   "bank_items_accepted": 806,
+   "compounding": "off"
+  },
   "unimorph": {
    "repository": "https://github.com/unimorph/yid",
    "licence": "CC BY-SA 3.0",
@@ -2151,6 +2387,7 @@
    "dictionary": "elastic/zu_ZA/zu-ZA",
    "licence": "see the collection's licence file",
    "coverage_of_reference_words": 0.598,
+   "coverage_of_frequent_words": 0.898,
    "bank_items_accepted": 27294,
    "compounding": "off"
   },
@@ -2177,6 +2414,7 @@
    "dictionary": "wooorm/de/index",
    "licence": "(GPL-2.0 OR GPL-3.0)",
    "coverage_of_reference_words": 0.149,
+   "coverage_of_frequent_words": 0.259,
    "bank_items_accepted": 45,
    "compounding": "off"
   }
@@ -2186,6 +2424,7 @@
    "dictionary": "libreoffice/ar/ar",
    "licence": "see COPYING.txt: GPL 2.0/LGPL 2.1/MPL 1.1 tri-license  The contents of this software may be used under the terms of the GNU General Public License Version 2 or later (the \"GPL\")",
    "coverage_of_reference_words": 0.529,
+   "coverage_of_frequent_words": 0.595,
    "bank_items_accepted": 4585,
    "compounding": "off"
   }
@@ -2195,6 +2434,7 @@
    "dictionary": "wooorm/it/index",
    "licence": "GPL-3.0",
    "coverage_of_reference_words": 0.082,
+   "coverage_of_frequent_words": 0.097,
    "bank_items_accepted": 45,
    "compounding": "off"
   }
@@ -2204,6 +2444,7 @@
    "dictionary": "wooorm/nl/index",
    "licence": "(BSD-3-Clause OR CC-BY-3.0)",
    "coverage_of_reference_words": 0.262,
+   "coverage_of_frequent_words": 0.365,
    "bank_items_accepted": 418,
    "compounding": "off"
   },
@@ -2211,6 +2452,7 @@
    "dictionary": "wooorm/de/index",
    "licence": "(GPL-2.0 OR GPL-3.0)",
    "coverage_of_reference_words": 0.066,
+   "coverage_of_frequent_words": 0.113,
    "bank_items_accepted": 22,
    "compounding": "off"
   }
@@ -2220,6 +2462,7 @@
    "dictionary": "wooorm/de/index",
    "licence": "(GPL-2.0 OR GPL-3.0)",
    "coverage_of_reference_words": 0.16,
+   "coverage_of_frequent_words": 0.315,
    "bank_items_accepted": 70,
    "compounding": "off"
   }
@@ -2229,6 +2472,7 @@
    "dictionary": "wooorm/nl/index",
    "licence": "(BSD-3-Clause OR CC-BY-3.0)",
    "coverage_of_reference_words": 0.325,
+   "coverage_of_frequent_words": 0.383,
    "bank_items_accepted": 198,
    "compounding": "off"
   }
@@ -2238,11 +2482,151 @@
    "dictionary": "libreoffice/ko_KR/ko_KR",
    "licence": "see README_ko_KR.txt: name   :  Korean(ko_KR) spellcheck dictionary date   :  2024. 08. 21. License:  GPL-3.0  - The dictionary files (ko_KR.aff and ko_KR.dic) were built from the Ko",
    "coverage_of_reference_words": 0.682,
+   "coverage_of_frequent_words": 0.917,
    "bank_items_accepted": 10303,
+   "compounding": "off"
+  },
+  "unimorph": {
+   "repository": "https://github.com/unimorph/kor",
+   "licence": "CC BY-SA 3.0",
+   "forms": 199094,
+   "bank_items_accepted": 0
+  },
+  "bible_skipped": {
+   "reason": "large corpus; Bible texts are used for small-corpus languages only"
+  }
+ },
+ "awadhi-awa": {
+  "hunspell": {
+   "dictionary": "fastspell/awa",
+   "licence": "see awa.license: # Files for Awadhi in Hunspell format # Affix file generated by ShreeDevi Kumar # see http://sanskritdocuments.org/hindi/hunspell for details # v 1.0 on Novembe",
+   "coverage_of_reference_words": 0.558,
+   "coverage_of_frequent_words": 0.811,
+   "bank_items_accepted": 758,
+   "compounding": "off"
+  }
+ },
+ "bhojpuri-bho": {
+  "hunspell": {
+   "dictionary": "fastspell/bho",
+   "licence": "see bho.license: # Files for Bhojpuri in Hunspell format # Affix file generated by ShreeDevi Kumar # see http://sanskritdocuments.org/hindi/hunspell for details # v 1.0 on Novem",
+   "coverage_of_reference_words": 0.216,
+   "coverage_of_frequent_words": 0.789,
+   "bank_items_accepted": 451,
+   "compounding": "off"
+  }
+ },
+ "chichewa-ny": {
+  "hunspell": {
+   "dictionary": "elastic/my_MW/ny_MW",
+   "licence": "see the collection's licence file",
+   "coverage_of_reference_words": 0.066,
+   "coverage_of_frequent_words": 0.469,
+   "bank_items_accepted": 70,
+   "compounding": "off"
+  }
+ },
+ "friulian-fur": {
+  "hunspell": {
+   "dictionary": "wooorm/fur/index",
+   "licence": "GPL-2.0",
+   "coverage_of_reference_words": 0.647,
+   "coverage_of_frequent_words": 0.938,
+   "bank_items_accepted": 6422,
+   "compounding": "off"
+  }
+ },
+ "kurmanji-kmr": {
+  "hunspell": {
+   "dictionary": "libreoffice/kmr_Latn/kmr_Latn",
+   "licence": "see README_kmr_Latn.txt: 0. Malpera MySpell a kurd�:       http://ferheng.org    Ji bo z�detir agah�:        http://ku.wikipedia.org/wiki/MySpell       http://ku.wikipedia.org/wiki/DicO",
+   "coverage_of_reference_words": 0.085,
+   "coverage_of_frequent_words": 0.631,
+   "bank_items_accepted": 111,
+   "compounding": "off"
+  }
+ },
+ "latgalian-ltg": {
+  "hunspell": {
+   "dictionary": "wooorm/ltg/index",
+   "licence": "LGPL-2.1",
+   "coverage_of_reference_words": 0.332,
+   "coverage_of_frequent_words": 0.507,
+   "bank_items_accepted": 4801,
+   "compounding": "off"
+  }
+ },
+ "ligurian-lij": {
+  "hunspell": {
+   "dictionary": "libreoffice/lij_IT/lij_IT",
+   "licence": "see README_lij_IT.txt: Ligurian spelling dictionary and hyphenation rules  Release: 26.0921 Source: https://github.com/ConseggioLigure/data  The resources follow modern Genoese spelli",
+   "coverage_of_reference_words": 0.324,
+   "coverage_of_frequent_words": 0.443,
+   "bank_items_accepted": 2336,
+   "compounding": "off"
+  }
+ },
+ "magahi-mag": {
+  "hunspell": {
+   "dictionary": "fastspell/mag",
+   "licence": "see mag.license: # Affix File and Dictionary in Hunspell format for Magahi language in Devanagari script # Affix file generated by ShreeDevi Kumar # see http://sanskritdocuments",
+   "coverage_of_reference_words": 0.197,
+   "coverage_of_frequent_words": 0.576,
+   "bank_items_accepted": 48,
+   "compounding": "off"
+  }
+ },
+ "maithili-mai": {
+  "hunspell": {
+   "dictionary": "fastspell/mai_IN",
+   "licence": "see mai_IN.license: Changelog: ------------------------------------------ 1.0.1: 2010-01-04 Initial dictionary release. Maithili Spell checker Dictionary Package 2010-01-04 Origina",
+   "coverage_of_reference_words": 0.141,
+   "coverage_of_frequent_words": 0.673,
+   "bank_items_accepted": 1451,
+   "compounding": "off"
+  }
+ },
+ "sardinian-sc": {
+  "hunspell": {
+   "dictionary": "fastspell/sc_IT",
+   "licence": "see sc_IT.license: ﻿Ainas po sa lìngua sarda: * Curretori ortogràfciu Copyright (C) 2000-2002 Mario Puddu <mapud@tiscali.it> Copyright (C) 2000-2002 Francesco Cheratzu <f.cheratzu",
+   "coverage_of_reference_words": 0.388,
+   "coverage_of_frequent_words": 0.632,
+   "bank_items_accepted": 12479,
+   "compounding": "off"
+  }
+ },
+ "silesian-szl": {
+  "hunspell": {
+   "dictionary": "fastspell/szl",
+   "licence": "see the collection's licence file",
+   "coverage_of_reference_words": 0.416,
+   "coverage_of_frequent_words": 0.676,
+   "bank_items_accepted": 5765,
+   "compounding": "off"
+  }
+ },
+ "thai-th": {
+  "hunspell": {
+   "dictionary": "libreoffice/th_TH/th_TH",
+   "licence": "see README_th_TH.txt: name   :  th_TH version of the thai dictionary date   :  2019.05.30 License:  LGPL  This dictionary, Thai wordlist are compound from   - LEXiTRON dictionary (ht",
+   "coverage_of_reference_words": 0.216,
+   "coverage_of_frequent_words": 0.716,
+   "bank_items_accepted": 606,
    "compounding": "off"
   },
   "bible_skipped": {
    "reason": "large corpus; Bible texts are used for small-corpus languages only"
+  }
+ },
+ "tigrinya-ti": {
+  "hunspell": {
+   "dictionary": "fastspell/ti_ER",
+   "licence": "see ti_ER.license: This is tigrigna dictionary for open office. It is produced by newGXP crawler distributed under GNU GPL license. Author: B. Gebremchael - http://www.cs.ru.nl/~b",
+   "coverage_of_reference_words": 0.279,
+   "coverage_of_frequent_words": 0.959,
+   "bank_items_accepted": 1503,
+   "compounding": "off"
   }
  }
 }

@@ -1555,6 +1555,7 @@
     "dictionary": "wooorm/ga/index",
     "licence": "GPL-2.0",
     "coverage_of_reference_words": 0.778,
+    "coverage_of_frequent_words": 0.928,
     "bank_items_accepted": 5430,
     "compounding": "off"
    },

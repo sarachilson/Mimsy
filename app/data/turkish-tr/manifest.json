@@ -820,7 +820,7 @@
  "caution_items": [],
  "caution": null,
  "realword_filter": {
-  "date": "2026-10-29",
+  "date": "2026-11-19",
   "bank_items": 385173,
   "removed": 6894,
   "removed_pct": 1.79,
@@ -834,6 +834,7 @@
     "dictionary": "wooorm/tr/index",
     "licence": "MIT",
     "coverage_of_reference_words": 0.98,
+    "coverage_of_frequent_words": 0.947,
     "bank_items_accepted": 5683,
     "compounding": "off"
    },

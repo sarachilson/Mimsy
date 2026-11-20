@@ -3033,16 +3033,25 @@
   }
  ],
  "realword_filter": {
-  "date": "2026-11-18",
+  "date": "2026-11-19",
   "bank_items": 216420,
-  "removed": 131,
-  "removed_pct": 0.06,
+  "removed": 5239,
+  "removed_pct": 2.42,
   "by_source": {
-   "unimorph": 20,
-   "bible": 111
+   "hunspell": 5153,
+   "bible": 111,
+   "unimorph": 20
   },
   "extra_bible_forms": 1082,
   "sources": {
+   "hunspell": {
+    "dictionary": "fastspell/ur_PK",
+    "licence": "see the collection's licence file",
+    "coverage_of_reference_words": 0.526,
+    "coverage_of_frequent_words": 0.92,
+    "bank_items_accepted": 5153,
+    "compounding": "off"
+   },
    "unimorph": {
     "repository": "https://github.com/unimorph/urd",
     "licence": "CC BY-SA 3.0",

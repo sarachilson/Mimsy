@@ -2780,7 +2780,7 @@
  "diacritic_twins": null,
  "rules": {},
  "realword_filter": {
-  "date": "2026-11-18",
+  "date": "2026-11-19",
   "bank_items": 300000,
   "removed": 1169,
   "removed_pct": 0.39,
@@ -2795,6 +2795,7 @@
     "dictionary": "libreoffice/af_ZA/af_ZA",
     "licence": "see README_af_ZA.txt: MySpell Afrikaans Spellchecker ------------------------------  1. Welcome 2. Copyright 3. Installation and Setup 4. Contributing 5. Copying  Enjoy!  1. Welcome ",
     "coverage_of_reference_words": 0.629,
+    "coverage_of_frequent_words": 0.895,
     "bank_items_accepted": 516,
     "compounding": "off"
    },

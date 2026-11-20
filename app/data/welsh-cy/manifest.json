@@ -1971,7 +1971,7 @@
  "diacritic_twins": null,
  "rules": {},
  "realword_filter": {
-  "date": "2026-11-18",
+  "date": "2026-11-19",
   "bank_items": 300000,
   "removed": 8987,
   "removed_pct": 3.0,
@@ -1985,6 +1985,7 @@
     "dictionary": "wooorm/cy/index",
     "licence": "LGPL-3.0",
     "coverage_of_reference_words": 0.753,
+    "coverage_of_frequent_words": 0.908,
     "bank_items_accepted": 8967,
     "compounding": "off"
    },

@@ -1812,7 +1812,7 @@
  "caution_items": [],
  "caution": null,
  "realword_filter": {
-  "date": "2026-10-29",
+  "date": "2026-11-19",
   "bank_items": 310788,
   "removed": 3365,
   "removed_pct": 1.08,
@@ -1826,6 +1826,7 @@
     "dictionary": "wooorm/da/index",
     "licence": "(GPL-2.0 OR LGPL-2.1 OR MPL-1.1)",
     "coverage_of_reference_words": 0.918,
+    "coverage_of_frequent_words": 0.99,
     "bank_items_accepted": 3347,
     "compounding": "off"
    },

@@ -596,15 +596,24 @@
  },
  "rules": {},
  "realword_filter": {
-  "date": "2026-10-29",
+  "date": "2026-11-19",
   "bank_items": 21186,
-  "removed": 132,
-  "removed_pct": 0.62,
+  "removed": 369,
+  "removed_pct": 1.74,
   "by_source": {
+   "hunspell": 315,
    "bible": 132
   },
   "extra_bible_forms": 1738,
   "sources": {
+   "hunspell": {
+    "dictionary": "fastspell/ht_HT",
+    "licence": "see ht_HT.license: 1. Version This is version 0.05 of hunspell-ht. 2. Copyright Haitian Creole spell checker Copyright 2009 Jean Came Poulard and Kevin P. Scannell This program is",
+    "coverage_of_reference_words": 0.636,
+    "coverage_of_frequent_words": 0.728,
+    "bank_items_accepted": 315,
+    "compounding": "off"
+   },
    "bible": {
     "texts": [
      {

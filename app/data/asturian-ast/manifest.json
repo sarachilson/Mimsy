@@ -1327,15 +1327,24 @@
   }
  ],
  "realword_filter": {
-  "date": "2026-10-29",
+  "date": "2026-11-19",
   "bank_items": 120000,
-  "removed": 220,
-  "removed_pct": 0.18,
+  "removed": 3236,
+  "removed_pct": 2.7,
   "by_source": {
+   "hunspell": 3229,
    "unimorph": 220
   },
   "extra_bible_forms": 0,
   "sources": {
+   "hunspell": {
+    "dictionary": "fastspell/ast_ES",
+    "licence": "see ast.license: LLICENCIA: \"Correutor ortográficu d'asturianu\" Versión beta 0.02 Diccionariu pa OpenOffice basáu nel Diccionariu Normativu de l'Academia de la Llingua Asturiana",
+    "coverage_of_reference_words": 0.554,
+    "coverage_of_frequent_words": 0.815,
+    "bank_items_accepted": 3229,
+    "compounding": "off"
+   },
    "unimorph": {
     "repository": "https://github.com/unimorph/ast",
     "licence": "CC BY-SA 3.0",

@@ -1723,7 +1723,7 @@
   }
  ],
  "realword_filter": {
-  "date": "2026-10-29",
+  "date": "2026-11-19",
   "bank_items": 120000,
   "removed": 4775,
   "removed_pct": 3.98,
@@ -1737,6 +1737,7 @@
     "dictionary": "wooorm/lv/index",
     "licence": "LGPL-2.1",
     "coverage_of_reference_words": 0.933,
+    "coverage_of_frequent_words": 0.943,
     "bank_items_accepted": 4691,
     "compounding": "off"
    },

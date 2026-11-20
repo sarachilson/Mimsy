@@ -12,8 +12,9 @@ Sources (all used offline; none is shipped with the app):
             elastic/hunspell collections. Affix rules are used; COMPOUND rules are stripped from a copy of the
             .aff file, because with compounding on the dictionaries accept any two glued words (Estonian 28%,
             Danish 11% of bank items; without: 4% and 1%). Both the lower-case and the capitalised spelling are
-            tried (German nouns). A dictionary is used only if it accepts at least MIN_COVERAGE of a sample of the
-            language's own reference words (otherwise it is too small or in another orthography).
+            tried (German nouns). A dictionary is used if it accepts at least MIN_COVERAGE of a sample of the
+            language's own reference words, or at least MIN_TOP of the TOP_N most frequent ones (below that it is
+            probably in another orthography, or the data is not what it claims).
   unimorph  inflection tables from github.com/unimorph/<iso3> (lemma, form, tags): every lemma and form counts
             as a real word.
   bible     (only for small-corpus languages, corpus < BIBLE_MAX_TOKENS words, and only translations dated BIBLE_MIN_YEAR or
@@ -32,6 +33,11 @@ import argparse, collections, ctypes, csv, glob, gzip, json, os, random, re, shu
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 MIN_COVERAGE = 0.5
+MIN_TOP = 0.2               # ... or at least this share of the 5,000 most frequent reference words (19 Nov 2026). The web word
+                            # lists are large and full of rare forms, so a sound but modest dictionary fails the random-sample test;
+                            # the user's rule: "it's better to see if an incomplete dictionary can still remove something rather than
+                            # nothing". Below 20% of the commonest words the dictionary or the data is probably not what it claims.
+TOP_N = 5000
 BIBLE_MAX_TOKENS = 20e6     # Bible texts are used only for small-corpus languages (corpus under 20 million words, the same threshold
                             # as the app's "small corpus" caution); in the big languages the older translations only add archaic
                             # spellings ("heape", "frendes")
@@ -43,8 +49,17 @@ RANDOM_SEED = 1
 # ---------------------------------------------------------------- language -> dictionary (relative to --hunspell dir)
 # collection subfolders: wooorm (wooorm/dictionaries), libreoffice (LibreOffice/dictionaries), elastic (elastic/hunspell)
 HS = {
+ # added 19 Nov 2026 (user: "download any opensource dicts that are needed when current resources are lacking"):
+ # dictionaries already in the three collections but not mapped before, and the FastSpell collection
+ # (github.com/mbanon/fastspell-dictionaries, folder "fastspell" = its src/fastspell_dictionaries; each dictionary has its own
+ # <name>.license file; several come from hlt.sztaki.hu and are plain word lists without affix rules)
+ "fur": "wooorm/fur/index", "ltg": "wooorm/ltg/index", "kmr": "libreoffice/kmr_Latn/kmr_Latn", "ln": "elastic/ln_CD/ln-CD", "ny": "elastic/my_MW/ny_MW",
+ "ast": "fastspell/ast_ES", "awa": "fastspell/awa", "bho": "fastspell/bho", "mag": "fastspell/mag", "mai": "fastspell/mai_IN", "fi": "fastspell/fi_FI",
+ "ht": "fastspell/ht_HT", "ky": "fastspell/ky_KG", "ml": "fastspell/ml_IN", "qu": "fastspell/qu_BO", "sc": "fastspell/sc_IT", "so": "fastspell/so_SO",
+ "szl": "fastspell/szl", "ti": "fastspell/ti_ER", "tl": "fastspell/tl_PH", "tt": "fastspell/tt_RU", "ur": "fastspell/ur_PK", "uz": "fastspell/uz_UZ",
+ "vec": "fastspell/vec", "yi": "fastspell/yi",
  "af": "libreoffice/af_ZA/af_ZA", "an": "libreoffice/an_ES/an_ES", "ar": "libreoffice/ar/ar", "as": "libreoffice/as_IN/as_IN",
- "be": "libreoffice/be_BY/be_BY", "bg": "wooorm/bg/index", "bn": "libreoffice/bn_BD/bn_BD", "br": "wooorm/br/index",
+ "be": "libreoffice/be_BY/be-official", "bg": "wooorm/bg/index", "bn": "libreoffice/bn_BD/bn_BD", "br": "wooorm/br/index",
  "bs": "libreoffice/bs_BA/bs_BA", "ca": "wooorm/ca/index", "ku": "libreoffice/ckb/dictionaries/ckb", "cs": "wooorm/cs/index",
  "cy": "wooorm/cy/index", "da": "wooorm/da/index", "de": "wooorm/de/index", "el": "wooorm/el/index", "en": "wooorm/en/index",
  "eo": "wooorm/eo/index", "es": "wooorm/es/index", "es_419": "wooorm/es-MX/index", "et": "wooorm/et/index", "eu": "wooorm/eu/index",
@@ -129,6 +144,10 @@ def hunspell_licence(path_stem):
     if os.path.exists(pj):
         try: return json.load(open(pj, encoding="utf-8")).get("license", "")
         except Exception: pass
+    for lic in (path_stem + ".license", os.path.join(d, os.path.basename(path_stem).split("_")[0] + ".license")):
+        if os.path.exists(lic):
+            txt = " ".join(open(lic, encoding="utf-8", errors="replace").read(600).split())
+            return ("see " + os.path.basename(lic) + ": " + txt[:160]) if txt else "see the FastSpell collection (github.com/mbanon/fastspell-dictionaries); source hlt.sztaki.hu"
     for name in ("Copyright", "COPYING", "COPYING.txt", "LICENSE", "LICENSES-en.txt", "README.txt", "README_" + os.path.basename(d) + ".txt"):
         p = os.path.join(d, name)
         if os.path.exists(p):
@@ -225,13 +244,14 @@ def run(args):
             random.seed(RANDOM_SEED); sample = random.sample(lex, min(SAMPLE, len(lex)))
             nf = (lambda w: unicodedata.normalize("NFC", w)) if any(0x1100 <= ord(c) <= 0x11FF for c in "".join(sample[:50])) else (lambda w: w)   # Korean data holds jamo; dictionaries hold syllable blocks
             cov = sum(h.accepts(nf(w)) for w in sample) / len(sample)
-            if cov >= MIN_COVERAGE or tag != "hunspell":
+            top = lex[:TOP_N]; covtop = sum(h.accepts(nf(w)) for w in top) / max(1, len(top))    # the lexicon is in frequency order
+            if cov >= MIN_COVERAGE or covtop >= MIN_TOP or tag != "hunspell":
                 n = 0
                 for w in bank:
                     if h.accepts(nf(w)): hits.setdefault(w, []).append(tag); n += 1
-                srcinfo[tag] = {"dictionary": HS[hs_key], "licence": hunspell_licence(stem), "coverage_of_reference_words": round(cov, 3), "bank_items_accepted": n, "compounding": "off"}
+                srcinfo[tag] = {"dictionary": HS[hs_key], "licence": hunspell_licence(stem), "coverage_of_reference_words": round(cov, 3), "coverage_of_frequent_words": round(covtop, 3), "bank_items_accepted": n, "compounding": "off"}
             else:
-                srcinfo["hunspell_skipped"] = {"dictionary": HS[hs_key], "coverage_of_reference_words": round(cov, 3), "reason": f"accepts fewer than {int(MIN_COVERAGE*100)}% of the language's reference words"}
+                srcinfo["hunspell_skipped"] = {"dictionary": HS[hs_key], "coverage_of_reference_words": round(cov, 3), "coverage_of_frequent_words": round(covtop, 3), "reason": f"accepts fewer than {int(MIN_COVERAGE*100)}% of a sample of the language's reference words and fewer than {int(MIN_TOP*100)}% of the {TOP_N:,} most frequent"}
             del h
         # unimorph
         if args.unimorph and iso3 and os.path.isdir(os.path.join(args.unimorph, iso3)):

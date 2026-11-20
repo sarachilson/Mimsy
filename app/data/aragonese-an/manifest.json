@@ -614,20 +614,21 @@
   }
  ],
  "realword_filter": {
-  "date": "2026-10-29",
+  "date": "2026-11-19",
   "bank_items": 49746,
-  "removed": 1376,
-  "removed_pct": 2.77,
+  "removed": 2177,
+  "removed_pct": 4.38,
   "by_source": {
-   "hunspell": 1376
+   "hunspell": 2177
   },
   "extra_bible_forms": 0,
   "sources": {
    "hunspell": {
     "dictionary": "libreoffice/an_ES/an_ES",
-    "licence": "see LICENSES-en.txt: (en) Aragonese spelling dictionary. Version 0.2. (beta) Copyright (c) 2011 Santiago Paricio (sparicio<at>gmail<dot>com) Copyright (c) 2011 Juan Pablo Mart�nez (",
-    "coverage_of_reference_words": 0.615,
-    "bank_items_accepted": 1376,
+    "licence": "see LICENSES-en.txt: Aragonese spelling dictionary — version 1.0.0  Copyright (C) 2011 Santiago Paricio. Copyright (C) 2011–2026 Juan Pablo Martínez.  The dictionary and affix files",
+    "coverage_of_reference_words": 0.73,
+    "coverage_of_frequent_words": 0.87,
+    "bank_items_accepted": 2177,
     "compounding": "off"
    }
   },

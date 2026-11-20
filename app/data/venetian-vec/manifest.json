@@ -677,15 +677,24 @@
  },
  "rules": {},
  "realword_filter": {
-  "date": "2026-10-29",
+  "date": "2026-11-19",
   "bank_items": 63627,
-  "removed": 223,
-  "removed_pct": 0.35,
+  "removed": 4624,
+  "removed_pct": 7.27,
   "by_source": {
+   "hunspell": 4529,
    "unimorph": 223
   },
   "extra_bible_forms": 0,
   "sources": {
+   "hunspell": {
+    "dictionary": "fastspell/vec",
+    "licence": "see vec.license: GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 Copyright (C) 2007 Free Software Foundation, Inc. <http://fsf.org/> Everyone is permitted to copy and distrib",
+    "coverage_of_reference_words": 0.28,
+    "coverage_of_frequent_words": 0.395,
+    "bank_items_accepted": 4529,
+    "compounding": "off"
+   },
    "unimorph": {
     "repository": "https://github.com/unimorph/vec",
     "licence": "CC BY-SA 3.0",

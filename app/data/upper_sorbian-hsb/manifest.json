@@ -1555,7 +1555,7 @@
  "diacritic_twins": null,
  "rules": {},
  "realword_filter": {
-  "date": "2026-11-18",
+  "date": "2026-11-19",
   "bank_items": 300000,
   "removed": 9060,
   "removed_pct": 3.02,
@@ -1569,6 +1569,7 @@
     "dictionary": "elastic/hsb/hsb",
     "licence": "see COPYING: GNU GENERAL PUBLIC LICENSE \t\t       Version 2, June 1991   Copyright (C) 1989, 1991 Free Software Foundation, Inc.,  51 Franklin Street, Fifth Floor, Boston, MA",
     "coverage_of_reference_words": 0.786,
+    "coverage_of_frequent_words": 0.922,
     "bank_items_accepted": 9060,
     "compounding": "off"
    },

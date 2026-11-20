@@ -1490,7 +1490,7 @@
  "caution_items": [],
  "caution": null,
  "realword_filter": {
-  "date": "2026-10-29",
+  "date": "2026-11-19",
   "bank_items": 372030,
   "removed": 11619,
   "removed_pct": 3.12,
@@ -1504,6 +1504,7 @@
     "dictionary": "wooorm/uk/index",
     "licence": "GPL-3.0",
     "coverage_of_reference_words": 0.991,
+    "coverage_of_frequent_words": 0.966,
     "bank_items_accepted": 11556,
     "compounding": "off"
    },

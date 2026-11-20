@@ -1978,7 +1978,7 @@
  "caution_items": [],
  "caution": null,
  "realword_filter": {
-  "date": "2026-10-29",
+  "date": "2026-11-19",
   "bank_items": 319113,
   "removed": 4792,
   "removed_pct": 1.5,
@@ -1992,6 +1992,7 @@
     "dictionary": "wooorm/is/index",
     "licence": "CC-BY-SA-3.0",
     "coverage_of_reference_words": 0.764,
+    "coverage_of_frequent_words": 0.929,
     "bank_items_accepted": 3843,
     "compounding": "off"
    },

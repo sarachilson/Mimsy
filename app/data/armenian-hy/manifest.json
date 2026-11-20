@@ -2788,20 +2788,24 @@
  "uncased_names": null,
  "rules": {},
  "realword_filter": {
-  "date": "2026-11-18",
+  "date": "2026-11-19",
   "bank_items": 300000,
-  "removed": 2158,
-  "removed_pct": 0.72,
+  "removed": 3763,
+  "removed_pct": 1.25,
   "by_source": {
+   "hunspell": 1962,
    "unimorph": 2146,
    "bible": 18
   },
   "extra_bible_forms": 1733,
   "sources": {
-   "hunspell_skipped": {
+   "hunspell": {
     "dictionary": "wooorm/hy/index",
+    "licence": "(GPL-2.0 OR LGPL-2.1 OR MPL-1.1)",
     "coverage_of_reference_words": 0.256,
-    "reason": "accepts fewer than 50% of the language's reference words"
+    "coverage_of_frequent_words": 0.531,
+    "bank_items_accepted": 1962,
+    "compounding": "off"
    },
    "unimorph": {
     "repository": "https://github.com/unimorph/hye",

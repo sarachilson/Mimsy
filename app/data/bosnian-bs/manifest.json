@@ -1236,7 +1236,7 @@
  "caution_items": [],
  "caution": null,
  "realword_filter": {
-  "date": "2026-10-29",
+  "date": "2026-11-19",
   "bank_items": 340359,
   "removed": 1541,
   "removed_pct": 0.45,
@@ -1249,6 +1249,7 @@
     "dictionary": "libreoffice/bs_BA/bs_BA",
     "licence": "see README.txt: The contents of this software may be used under the terms of the GNU General Public License Version 2 or later or the GNU Lesser General Public License Version ",
     "coverage_of_reference_words": 0.937,
+    "coverage_of_frequent_words": 0.875,
     "bank_items_accepted": 1541,
     "compounding": "off"
    },

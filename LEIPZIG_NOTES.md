@@ -390,4 +390,15 @@ Persian keeps its subtitle list (704 M words; 28,666 reference words) and its fr
 - Script: `pipeline/morphcheck.py`. It must run after `realwords.py`. A rebuild of Malayalam needs both again.
 - Both coverages are far below the 85% the full morphology layer (`morph.py`) asks for, so no morphology columns for these languages.
 - Found while adding Tamil: the real-word reruns after the HPLT rebuilds had been made with an incomplete copy of the sources in the workspace (29 of 97 UniMorph repositories, Bible texts for 7 languages only). 31 rebuilt languages had lost a UniMorph or Bible check, 11 of them every check (Assamese, Hausa, Igbo, Ilocano, Kyrgyz, Oromo, Papiamento, Punjabi, Uyghur, Yiddish, Yoruba). All sources fetched again (eBible sparse checkout for every language code, all UniMorph repositories) and `realwords.py` rerun for the 71 languages in Mimsy_Data, then `morphcheck.py` for Tamil and Malayalam (which now also have their Bible check back: 85 and 247 items).
-- Still open: seven languages lost their Hunspell dictionary because the coverage test (50% of a random sample of the reference words) fails on the larger HPLT word lists: Malagasy, Maori, Marathi, Nepali, Papiamento, Swahili, Tajik. On the 5,000 most frequent words the same dictionaries accept 64-95%.
+- Seven languages had lost their Hunspell dictionary because the coverage test (50% of a random sample of the reference words) fails on the larger HPLT word lists: Malagasy, Maori, Marathi, Nepali, Papiamento, Swahili, Tajik.
+
+## 18. Liberal dictionary rule and more dictionaries (19 Nov 2026)
+
+User: "the more the dictionaries catch the better. pseudowords being removed by a bad dictionary is not as bad as real words not being removed ... if a dictionary has 11% accuracy, it raises concerns ... it's better to see if an incomplete dictionary can still remove something rather than nothing ... download any opensource dicts that are needed".
+
+- `realwords.py`: a dictionary passes on 50% of a random sample OR 20% of the 5,000 most frequent reference words (`MIN_TOP`, `TOP_N`); both figures are stored (`coverage_of_frequent_words`).
+- New mappings: Friulian, Latgalian (wooorm), Kurmanji (LibreOffice kmr_Latn), Lingala, Chichewa (elastic) were on disk but unused; FastSpell collection for 20 more languages (list in SOURCES.md). Belarusian's path was wrong (`be-official`), so its dictionary had never been used.
+- Rerun over all 202 languages, then `morphcheck.py` for Tamil and Malayalam. 45 languages change; total removed 559,327 -> 668,353. Largest: Sardinian 12,479, Sorani 10,359 (was 412), Marathi 9,614, Friulian 6,422, Belarusian 6,407, Nepali 5,927, Silesian 5,765, Urdu 5,239, Latgalian 4,801, Venetian 4,624, Tajik 4,286.
+- Still skipped under 20%: Punjabi (11%), Odia, Guarani, Kinyarwanda, Lingala.
+- 59 languages have no check of any kind. Fedora/CentOS package dictionaries exist for some (Xhosa, Sesotho, Northern Sotho, Maltese) but are not on GitHub, so they cannot be fetched from the workspace.
+- Not judged by a speaker: the high rates for Sorani (8.6%), Quechua (9.1%) and Venetian (7.3%) may include over-acceptance by the affix rules.

@@ -1339,7 +1339,7 @@
  "caution_items": [],
  "caution": null,
  "realword_filter": {
-  "date": "2026-10-29",
+  "date": "2026-11-19",
   "bank_items": 340755,
   "removed": 2412,
   "removed_pct": 0.71,
@@ -1352,6 +1352,7 @@
     "dictionary": "wooorm/sr-Latn/index",
     "licence": "(GPL-2.0 OR LGPL-2.1 OR MPL-1.1 OR CC-BY-SA-3.0)",
     "coverage_of_reference_words": 0.847,
+    "coverage_of_frequent_words": 0.962,
     "bank_items_accepted": 2412,
     "compounding": "off"
    },

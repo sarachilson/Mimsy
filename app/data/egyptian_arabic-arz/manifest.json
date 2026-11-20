@@ -2278,7 +2278,7 @@
   "allow_no_vowel": true
  },
  "realword_filter": {
-  "date": "2026-10-30",
+  "date": "2026-11-19",
   "bank_items": 91083,
   "removed": 4585,
   "removed_pct": 5.03,
@@ -2291,6 +2291,7 @@
     "dictionary": "libreoffice/ar/ar",
     "licence": "see COPYING.txt: GPL 2.0/LGPL 2.1/MPL 1.1 tri-license  The contents of this software may be used under the terms of the GNU General Public License Version 2 or later (the \"GPL\")",
     "coverage_of_reference_words": 0.529,
+    "coverage_of_frequent_words": 0.595,
     "bank_items_accepted": 4585,
     "compounding": "off"
    }

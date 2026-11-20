@@ -1771,7 +1771,7 @@
  "diacritic_twins": null,
  "rules": {},
  "realword_filter": {
-  "date": "2026-11-18",
+  "date": "2026-11-19",
   "bank_items": 300000,
   "removed": 11606,
   "removed_pct": 3.87,
@@ -1785,6 +1785,7 @@
     "dictionary": "wooorm/eo/index",
     "licence": "GPL-2.0",
     "coverage_of_reference_words": 0.728,
+    "coverage_of_frequent_words": 0.915,
     "bank_items_accepted": 11598,
     "compounding": "off"
    },

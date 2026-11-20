@@ -2304,19 +2304,23 @@
  "training": null,
  "rules": {},
  "realword_filter": {
-  "date": "2026-11-18",
+  "date": "2026-11-19",
   "bank_items": 120000,
-  "removed": 98,
-  "removed_pct": 0.08,
+  "removed": 611,
+  "removed_pct": 0.51,
   "by_source": {
+   "hunspell": 539,
    "unimorph": 98
   },
   "extra_bible_forms": 0,
   "sources": {
-   "hunspell_skipped": {
+   "hunspell": {
     "dictionary": "wooorm/nds/index",
+    "licence": "GPL-3.0",
     "coverage_of_reference_words": 0.183,
-    "reason": "accepts fewer than 50% of the language's reference words"
+    "coverage_of_frequent_words": 0.518,
+    "bank_items_accepted": 539,
+    "compounding": "off"
    },
    "unimorph": {
     "repository": "https://github.com/unimorph/nds",

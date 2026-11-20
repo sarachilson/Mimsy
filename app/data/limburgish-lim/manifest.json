@@ -1637,7 +1637,7 @@
  },
  "rules": {},
  "realword_filter": {
-  "date": "2026-10-30",
+  "date": "2026-11-19",
   "bank_items": 117318,
   "removed": 440,
   "removed_pct": 0.38,
@@ -1651,6 +1651,7 @@
     "dictionary": "wooorm/nl/index",
     "licence": "(BSD-3-Clause OR CC-BY-3.0)",
     "coverage_of_reference_words": 0.262,
+    "coverage_of_frequent_words": 0.365,
     "bank_items_accepted": 418,
     "compounding": "off"
    },
@@ -1658,6 +1659,7 @@
     "dictionary": "wooorm/de/index",
     "licence": "(GPL-2.0 OR GPL-3.0)",
     "coverage_of_reference_words": 0.066,
+    "coverage_of_frequent_words": 0.113,
     "bank_items_accepted": 22,
     "compounding": "off"
    }

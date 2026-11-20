@@ -537,7 +537,7 @@
  "caution_items": [],
  "caution": null,
  "realword_filter": {
-  "date": "2026-10-29",
+  "date": "2026-11-19",
   "bank_items": 111336,
   "removed": 3016,
   "removed_pct": 2.71,
@@ -550,6 +550,7 @@
     "dictionary": "elastic/ms_MY/ms_MY",
     "licence": "see README_ms_MY.txt: Copyright   Malay Spellchecker v0.1 - 07/10/04 ----------------------------------------- This is an initial version, please check: http://lingucomponent.openoff",
     "coverage_of_reference_words": 0.851,
+    "coverage_of_frequent_words": 0.843,
     "bank_items_accepted": 3016,
     "compounding": "off"
    },
