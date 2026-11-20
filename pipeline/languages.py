@@ -137,7 +137,9 @@ LANGS = {
                           strip_marks=True, strip="ـ\u200c\u200e\u200f\u202a\u202b\u202c", normalize={"ك": "ک", "ي": "ی", "ه": "ہ"},
                           rules={"allow_no_vowel": True}, allow_no_vowel=True,
                           cv_note="Urdu is written without short vowels. CV here is orthographic: alif, waw, ye and bari ye (ا آ و ی ے) count as V; the aspiration letter (ھ) and nun ghunna (ں) count as consonant letters (at the grapheme level ھ joins the consonant before it). Diacritics were removed."),
-    "kurdish-ku":    dict(leipzig_extra=['ckb_hplt'], bank_scale=(2, 100000), multi_source_train=True, no_bands=True, ref_cap=300000, leipzig="ckb_wikipedia_2021_100K", name="Kurdish (Sorani)", alphabets=["ئابپتجچحخدرڕزژسشعغفڤقکگلڵمنهەوۆویێ\u200c"], vowels="اەۆێوی", mods="\u200c",
+    # ckb_hplt is NOT used (19 Nov 2026): HPLT strips the zero-width non-joiner, and older Sorani typing writes the vowel
+    # ە as ه + ZWNJ, so a quarter of the HPLT forms had the wrong letter (ئهوهی for ئەوەی). LEIPZIG_NOTES section 16.
+    "kurdish-ku":    dict(bank_scale=(2, 100000), multi_source_train=True, no_bands=True, ref_cap=300000, leipzig="ckb_wikipedia_2021_100K", name="Kurdish (Sorani)", alphabets=["ئابپتجچحخدرڕزژسشعغفڤقکگلڵمنهەوۆویێ\u200c"], vowels="اەۆێوی", mods="\u200c",
                           strip_marks=True, strip="ـ\u200e\u200f\u202a\u202b\u202c", normalize={"ك": "ک", "ي": "ی", "ى": "ی"},
                           rules={"allow_no_vowel": True}, allow_no_vowel=True,
                           cv_note="Sorani Kurdish writes most vowels. CV here is orthographic: ا ە ۆ ێ و ی count as V; و and ی are also consonants (w, y), which this rule cannot tell apart. Latin-script (Kurmanji) entries in the source were dropped."),
