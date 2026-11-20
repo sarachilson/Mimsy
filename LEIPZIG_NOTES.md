@@ -365,3 +365,20 @@ Persian keeps its subtitle list (704 M words; 28,666 reference words) and its fr
   (16,694 shared with Hindi), bank 300,000. 204 languages.
 - For the morphology project: kmi-linguistics/magahi contains a rule-based Magahi morphological analyser
   (tools/magahi-morph, Java/Tomcat), not examined.
+
+## 16. HPLT removes the zero-width non-joiner: Sorani restored, Dari and South Azerbaijani withdrawn (19 Nov 2026)
+- HPLT 3.0 text (both the "text" and the "xml" field) contains no U+200C at all. Effects on Arabic-script languages:
+  Persian/Dari half-space compounds are glued (می‌شود -> میشود, برنامه‌های -> برنامههای): 25% of the Dari reference
+  words split into two frequent words, 7% are a word ending in ه glued to more letters. Older Sorani typing and
+  Azerbaijani in Arabic script write a vowel as ه + ZWNJ, so the forms get a joining ه (ئەوەی -> ئهوهی): a quarter
+  of the Sorani reference words (0.3% before HPLT), half of its bank items; South Azerbaijani 7% / 10%. Pashto 1.6%
+  (mostly glued names), Sindhi and Uyghur unaffected. Indic lists also lack ZWJ/ZWNJ (not examined further).
+- Sorani (kurdish-ku): the build of ffedb28 (FILMS + ckb_wikipedia_2021_100K, 57,763 reference words, bank 120,000)
+  was restored; `ckb_hplt` removed from its config. Repair idea: 26,376 damaged forms have their ە spelling in the
+  list too.
+- Dari: no clean open source found. Leipzig prs_community_2017 (1.8 M tokens) is mostly Pashto (Pashto function
+  words 254,000 against Persian 104,000). Dari Literature Corpus (Mozilla Data Collective): CC BY-NC. User decision:
+  remove Dari and South Azerbaijani from the site and from her PC. Their last builds are kept in the workspace under
+  /home/claude/hold/ for reference; configs removed from languages.py. 202 languages.
+- If they are tried again: restore ZWNJ against a clean Persian list / known endings and train only on words
+  attested in a clean source; for South Azerbaijani look for a Leipzig azb Wikipedia list (keeps ZWNJ; not verified).

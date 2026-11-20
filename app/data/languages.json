@@ -675,24 +675,6 @@
    }
   },
   {
-   "code": "dari-prs",
-   "name": "Dari (Afghan Persian)",
-   "reference_words": 93626,
-   "small_corpus": false,
-   "corpus_tokens": 77560937,
-   "experimental": false,
-   "cv_approximate": true,
-   "family": "Iranian",
-   "writing": "Arabic",
-   "length_unit": "letters",
-   "script": "alphabet",
-   "abjad": true,
-   "parents": [
-    "persian-fa"
-   ],
-   "films_file": null
-  },
-  {
    "code": "dhivehi-dv",
    "name": "Dhivehi (Thaana)",
    "reference_words": 82464,
@@ -2824,22 +2806,6 @@
     "archive": "FILMS_sm.zip",
     "path": "somali-so/word/somali.so.word.pron-one_col-default.filtered_by_pron.zipf_4.tsv"
    }
-  },
-  {
-   "code": "south_azerbaijani-azb",
-   "name": "South Azerbaijani",
-   "reference_words": 168274,
-   "small_corpus": true,
-   "corpus_tokens": 12283830,
-   "experimental": false,
-   "cv_approximate": true,
-   "family": "Turkic",
-   "writing": "Arabic",
-   "length_unit": "letters",
-   "script": "alphabet",
-   "abjad": true,
-   "parents": null,
-   "films_file": null
   },
   {
    "code": "spanish-es",

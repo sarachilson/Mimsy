@@ -409,13 +409,9 @@ LANGS = {
                           cv_note="The glottal stop letter ʻ (koma liliu) is a consonant. Much Samoan web text leaves out ʻ and the vowel macrons, so the same word can occur with and without them."),
     "rundi-rn":      dict(train_other_lang={"french-fr": 3.0}, name="Kirundi (Rundi)", alphabets=[LATIN], y="C", **HPLT_ONLY, leipzig="run_hplt",
                           cv_note="HPLT files Kirundi together with Kinyarwanda pages; only pages from Burundian sites were used."),
-    "south_azerbaijani-azb": dict(name="South Azerbaijani", **{**PERSIAN_ABJAD, "alphabets": [PERSIAN_ABJAD["alphabets"][0] + "ۆۇێ"], "vowels": PERSIAN_ABJAD["vowels"] + "ۆۇێ"}, **HPLT_ONLY, leipzig="azb_hplt",
-                          cv_note="South Azerbaijani is written in the Persian alphabet, mostly without short vowels. CV here is orthographic: alef, waw and ye count as V. Diacritics were removed."),
     "bambara-bm":    dict(train_other_lang={"french-fr": 3.0}, name="Bambara", alphabets=[latin("ɛɔɲŋ")], vowels="ɛɔ", y="C", **HPLT_ONLY, leipzig="bam_hplt", strip_nfd="̀́̌",
                           cv_note="Tone marks were removed."),
     "kabuverdianu-kea": dict(train_eng_zipf=3.5, name="Cape Verdean Creole (Kabuverdianu)", alphabets=[latin("áâãçéêíóôõú")], y="C", **HPLT_ONLY, leipzig="kea_hplt"),
-    "dari-prs":      dict(name="Dari (Afghan Persian)", sound_alike="persian", joined_items="*", train_exclude_chars="\u200c", **PERSIAN_ABJAD, **HPLT_ONLY, leipzig="prs_hplt", parents=["persian-fa"],
-                          cv_note="Dari is written like Persian, without short vowels. CV here is orthographic: alef (ا آ أ إ), waw (و) and ye (ی) count as V; he (ه) and all other letters as C. The half-space (ZWNJ) is kept as a modifier. Diacritics were removed. The text comes from Afghan websites."),
     # Awadhi (19 Nov 2026, user request): little modern text exists. Web text (Awadhi Wikipedia, a few sites) from HPLT,
     # the KMI prose corpus, and the Ramcharitmanas; the Awadhi Bible pages in HPLT only reject real words. LEIPZIG_NOTES 14.
     "awadhi-awa":    dict(name="Awadhi", script="devanagari", alphabets=[indic.alphabet("devanagari")], uncased_names=True, **HPLT_ONLY, leipzig="awa_hplt",
@@ -431,6 +427,9 @@ LANGS = {
                           parents=["hindi-hi"], parents_known=True, strip=BIDI, rules={**INDIC_RULES, **indic.options("devanagari")},
                           caution_extra=("Mostly one kind of text", "Almost all of the Magahi text comes from literary blogs and short stories collected by the K.M. Institute, so the vocabulary leans towards written, literary Magahi. Spelling is not standardised; have a speaker check your items."),
                           cv_note="Magahi (Devanagari) is an abugida: CV (orthographic) counts every consonant letter as C plus an inherent vowel V unless a vowel sign or virama follows. CV (phonological) applies the Hindi-type schwa-deletion rule (not checked against pronunciations). Length is counted in aksharas."),
+    # Dari (dari-prs) and South Azerbaijani (south_azerbaijani-azb) were built from HPLT on 19 Nov 2026 and removed the same
+    # day at the user's request: HPLT strips the zero-width non-joiner, which glues Persian half-space compounds together
+    # and turns the Azerbaijani vowel ه + ZWNJ into a joining ه; no clean, open source was found. LEIPZIG_NOTES section 16.
     "bhojpuri-bho":  dict(name="Bhojpuri", script="devanagari", alphabets=[indic.alphabet("devanagari")], uncased_names=True, **HPLT_ONLY, leipzig="bho_hplt", parents=["hindi-hi"], parents_known=True,
                           strip=BIDI, rules={**INDIC_RULES, **indic.options("devanagari")},
                           cv_note="Bhojpuri (Devanagari) is an abugida: CV (orthographic) counts every consonant letter as C plus an inherent vowel V unless a vowel sign or virama follows. CV (phonological) applies the Hindi-type schwa-deletion rule (not checked against pronunciations). Length is counted in aksharas. Bhojpuri has no standard spelling and shares much vocabulary with Hindi; only pages from Bhojpuri websites were used."),
@@ -446,9 +445,9 @@ _FAM = {
     "Celtic": "welsh-cy irish-ga scottish_gaelic-gd breton-br manx-gv",
     "Greek, Albanian, Armenian": "greek-el albanian-sq armenian-hy",
     "Indo-Aryan": "hindi-hi urdu-ur nepali-ne bengali-bn assamese-as marathi-mr gujarati-gu punjabi-pa western_punjabi-pnb odia-or sinhala-si sindhi-sd maithili-mai sanskrit-sa bishnupriya-bpy konkani-gom dhivehi-dv bhojpuri-bho awadhi-awa braj-bra magahi-mag",
-    "Iranian": "persian-fa kurdish-ku pashto-ps tajik-tg ossetian-os zazaki-diq gilaki-glk mazanderani-mzn kurmanji-kmr dari-prs",
+    "Iranian": "persian-fa kurdish-ku pashto-ps tajik-tg ossetian-os zazaki-diq gilaki-glk mazanderani-mzn kurmanji-kmr",
     "Dravidian": "tamil-ta telugu-te kannada-kn malayalam-ml tulu-tcy",
-    "Turkic": "turkish-tr azerbaijani-az kazakh-kk kyrgyz-ky uzbek-uz tatar-tt bashkir-ba turkmen-tk uyghur-ug chuvash-cv yakut-sah tuvan-tyv karachay_balkar-krc crimean_tatar-crh south_azerbaijani-azb",
+    "Turkic": "turkish-tr azerbaijani-az kazakh-kk kyrgyz-ky uzbek-uz tatar-tt bashkir-ba turkmen-tk uyghur-ug chuvash-cv yakut-sah tuvan-tyv karachay_balkar-krc crimean_tatar-crh",
     "Uralic": "finnish-fi estonian-et hungarian-hu northern_sami-se voro-vro komi-kv komi_permyak-koi udmurt-udm eastern_mari-mhr western_mari-mrj erzya-myv",
     "Semitic": "arabic-ar hebrew-he maltese-mt amharic-am egyptian_arabic-arz tigrinya-ti",
     "Other Afroasiatic": "hausa-ha somali-so oromo-om kabyle-kab",
